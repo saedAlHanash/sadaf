@@ -1,12 +1,9 @@
 import 'dart:convert';
 
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sadaf/core/api_manager/api_service.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/auth/data/response/login_response.dart';
-import '../../features/auth/data/response/user_model.dart';
-import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
-import '../injection/injection_container.dart';
 import '../strings/enum_manager.dart';
 
 class AppSharedPreference {
@@ -22,6 +19,7 @@ class AppSharedPreference {
   static const _activeNoti = '11';
   static const _myId = '12';
   static const _cart = '13';
+  static const _lang = '14';
 
   static late SharedPreferences _prefs;
 
@@ -150,4 +148,10 @@ class AppSharedPreference {
   static List<String> getJsonListCart() => _prefs.getStringList(_cart) ?? <String>[];
 
   static int get getMyId => _prefs.getInt(_myId) ?? 0;
+
+  static void cashLocal(String langCode) {
+    _prefs.setString(_lang, langCode);
+  }
+
+  static String get getLocal => _prefs.getString(_lang) ?? 'en';
 }

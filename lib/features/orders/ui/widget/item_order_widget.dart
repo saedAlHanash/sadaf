@@ -1,12 +1,9 @@
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_multi_type/round_image_widget.dart';
 import 'package:sadaf/core/util/snack_bar_message.dart';
-import 'package:sadaf/core/widgets/images/image_multi_type.dart';
-import 'package:sadaf/core/widgets/images/round_image_widget.dart';
-import 'package:sadaf/core/widgets/list_product_widget.dart';
 import 'package:sadaf/core/widgets/my_card_widget.dart';
-import 'package:sadaf/features/product/data/models/product.dart';
 import 'package:sadaf/features/product/ui/widget/item_product.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
@@ -25,7 +22,7 @@ class ItemOrderWidget extends StatelessWidget {
         MyCardWidget(
           cardColor: AppColorManager.f6,
           elevation: 0.0,
-          padding: EdgeInsets.all(7.0).r,
+          padding: const EdgeInsets.all(7.0).r,
           margin: const EdgeInsets.symmetric(horizontal: 15.0).r,
           child: SizedBox(
             height: 150.0.h,

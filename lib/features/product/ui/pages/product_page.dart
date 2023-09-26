@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,9 +9,7 @@ import 'package:sadaf/features/product/ui/widget/add_to_cart_widget.dart';
 import 'package:sadaf/features/product/ui/widget/amount_widget.dart';
 
 import '../../../../core/util/my_style.dart';
-import '../../../../core/widgets/image_with_fav.dart';
 import '../../../cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
-import '../../../home/ui/widget/screens/home_screen.dart';
 import '../../bloc/product_by_id_cubit/product_by_id_cubit.dart';
 import '../widget/item_product.dart';
 
@@ -32,7 +29,7 @@ class ProductPage extends StatelessWidget {
                 Navigator.pop(context);
               }
             },
-            icon: Icon(
+            icon: const Icon(
               Icons.shopping_cart,
             ),
           ),

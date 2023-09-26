@@ -3,20 +3,18 @@ import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:persistent_bottom_nav_bar/persistent_tab_view.dart';
-import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
-import 'package:sadaf/features/home/ui/widget/new_nav.dart';
 
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
 import '../../features/favorite/bloc/add_favorite/add_favorite_cubit.dart';
 import '../../features/favorite/bloc/get_favorite/get_favorite_cubit.dart';
 import '../../features/notifications/bloc/notification_count_cubit/notification_count_cubit.dart';
+import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../router/app_router.dart';
-
 import '../app_theme.dart';
 import '../injection/injection_container.dart' as di;
 import '../util/shared_preferences.dart';
@@ -27,12 +25,17 @@ class MyApp extends StatefulWidget {
 
   @override
   State<MyApp> createState() => _MyAppState();
+
+  static Future<void> setLocale(BuildContext context, Locale newLocale) async {
+    final state = context.findAncestorStateOfType<_MyAppState>();
+    await state?.setLocale(newLocale);
+  }
 }
 
 class _MyAppState extends State<MyApp> {
   @override
   void initState() {
-
+    S.load(Locale(AppSharedPreference.getLocal));
     FirebaseMessaging.onMessage.listen((message) {
       final notification = message.notification;
       String title = '';
@@ -54,6 +57,12 @@ class _MyAppState extends State<MyApp> {
       context.read<NotificationCountCubit>().changeCount();
     });
     super.initState();
+  }
+
+  Future<void> setLocale(Locale locale) async {
+    AppSharedPreference.cashLocal(locale.languageCode);
+    await S.load(locale);
+    setState(() {});
   }
 
   @override
@@ -93,6 +102,15 @@ class _MyAppState extends State<MyApp> {
         );
 
         return MaterialApp(
+          locale: Locale(AppSharedPreference.getLocal),
+          localizationsDelegates: const [
+            S.delegate,
+            GlobalMaterialLocalizations.delegate,
+            GlobalWidgetsLocalizations.delegate,
+            GlobalCupertinoLocalizations.delegate,
+          ],
+          supportedLocales: S.delegate.supportedLocales,
+
           builder: (_, child) {
             return MultiBlocProvider(
               providers: [
@@ -102,11 +120,8 @@ class _MyAppState extends State<MyApp> {
                 BlocProvider(create: (_) => di.sl<AddToCartCubit>()),
                 BlocProvider(create: (_) => di.sl<FavoriteCubit>()..getFavorite(_)),
               ],
-              child: Directionality(
-                textDirection: TextDirection.rtl,
-                child: Stack(
-                  children: [child!, loading],
-                ),
+              child: Stack(
+                children: [child!, loading],
               ),
             );
           },

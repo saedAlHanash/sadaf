@@ -1,15 +1,16 @@
-import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/main.dart';
 
 class LoginRequest {
   String phone;
   String password;
+  bool rememberMe;
 
   String? fcm;
 
   LoginRequest({
     this.phone = '',
     this.password = '',
+    this.rememberMe = true,
   }) {
     getFireToken().then((value) => fcm = value);
   }
@@ -17,10 +18,12 @@ class LoginRequest {
   LoginRequest copyWith({
     String? phone,
     String? password,
+    bool? rememberMe,
   }) {
     return LoginRequest(
       phone: phone ?? this.phone,
       password: password ?? this.password,
+      rememberMe: rememberMe ?? this.rememberMe,
     );
   }
 
@@ -29,6 +32,7 @@ class LoginRequest {
       'phone': phone,
       'password': password,
       'fcm_token': fcm,
+      'rememberMe': rememberMe,
     };
   }
 }

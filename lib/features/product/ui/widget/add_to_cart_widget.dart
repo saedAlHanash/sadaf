@@ -2,15 +2,12 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:slide_action/slide_action.dart';
-import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/widgets/add_to_cart_btn.dart';
 import 'package:sadaf/features/product/data/models/product.dart';
+import 'package:slide_action/slide_action.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
-import '../../../../core/widgets/images/round_image_widget.dart';
-import '../../../../generated/assets.dart';
 import '../../../cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../../home/ui/widget/screens/home_screen.dart';
 

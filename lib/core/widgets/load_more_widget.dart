@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../api_manager/request_models/command.dart';
-
 import '../strings/enum_manager.dart';
 import '../util/my_style.dart';
 import 'my_button.dart';

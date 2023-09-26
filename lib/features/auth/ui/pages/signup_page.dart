@@ -1,20 +1,17 @@
+import 'package:drawable_text/drawable_text.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/core/util/my_style.dart';
-import 'package:sadaf/core/util/shared_preferences.dart';
 import 'package:sadaf/core/util/snack_bar_message.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
-import 'package:sadaf/core/widgets/my_text_form_widget.dart';
-import 'package:drawable_text/drawable_text.dart';
-import 'package:sadaf/features/auth/data/request/signup_request.dart';
-import 'package:flutter/material.dart';
-import 'package:sadaf/core/strings/app_string_manager.dart';
 import 'package:sadaf/core/widgets/my_button.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:sadaf/core/widgets/my_text_form_widget.dart';
+import 'package:sadaf/features/auth/data/request/signup_request.dart';
 
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../../../generated/assets.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../bloc/signup_cubit/signup_cubit.dart';
 import '../widget/ask_auth_widget.dart';
@@ -52,7 +49,7 @@ class _SignupPageState extends State<SignupPage> {
                 //الاسم
                 MyTextFormOutLineWidget(
                   initialValue: request.name,
-                  label: AppStringManager.userName,
+                  label: S.of(context).userName,
                   onChanged: (val) => request.name = val,
                 ),
                 // رقم الهاتف
@@ -61,19 +58,19 @@ class _SignupPageState extends State<SignupPage> {
                   keyBordType: TextInputType.phone,
                   initialValue: request.phoneNumber,
                   maxLength: 11,
-                  label: AppStringManager.phoneNumber,
+                  label: S.of(context).phoneNumber,
                   onChanged: (val) => request.phoneNumber = val,
                 ),
                 // كلمة السر
                 MyTextFormOutLineWidget(
-                  label: AppStringManager.password,
+                  label: S.of(context).password,
                   obscureText: true,
                   onChanged: (val) => request.password = val,
                   textDirection: TextDirection.ltr,
                 ),
                 // كلمة السر
                 MyTextFormOutLineWidget(
-                  label: AppStringManager.rePassword,
+                  label: S.of(context).rePassword,
                   obscureText: true,
                   onChanged: (val) => request.rePassword = val,
                   textDirection: TextDirection.ltr,
@@ -105,10 +102,10 @@ class _SignupPageState extends State<SignupPage> {
                   // ),
                 ),
                 MyButton(
-                  text: AppStringManager.continueSignUp,
+                  text: S.of(context).continueSignUp,
                   onTap: () {
-                    if (request.validateFirst(context)) {
-                      return Navigator.pushNamed(
+                    if (/*request.validateFirst(context)*/true) {
+                       Navigator.pushNamed(
                         context,
                         RouteName.myAddress,
                         arguments: request,
@@ -158,18 +155,18 @@ class _MyAddressState extends State<MyAddress> {
                 //عنوان المنزل
                 MyTextFormOutLineWidget(
                   initialValue: widget.request.address,
-                  label: AppStringManager.homeAddress,
+                  label: S.of(context).homeAddress,
                   onChanged: (val) => widget.request.address = val,
                 ),
                 // المنطقة
                 MyTextFormOutLineWidget(
                   initialValue: widget.request.city,
-                  label: AppStringManager.region,
+                  label: S.of(context).region,
                   onChanged: (val) => widget.request.city = val,
                 ),
                 // المحافظة
                 MyTextFormOutLineWidget(
-                  label: AppStringManager.city,
+                  label: S.of(context).city,
                   initialValue: widget.request.country,
                   onChanged: (val) => widget.request.country = val,
                 ),
@@ -180,17 +177,21 @@ class _MyAddressState extends State<MyAddress> {
                       return MyStyle.loadingWidget();
                     }
                     return MyButton(
-                      text: AppStringManager.confirm,
+                      text: S.of(context).confirm,
                       onTap: () async {
-                        final result = await widget.request.validateSecond(context);
 
-                        if (result && mounted) {
-                          context
-                              .read<SignupCubit>()
-                              .signup(context, request: widget.request);
-                        }
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, RouteName.confirmCode, (route) => false);
 
-                        // context.read<SignupCubit>().signup(context, request: request);
+                        // final result = await widget.request.validateSecond(context);
+                        //
+                        // if (result && mounted) {
+                        //   context
+                        //       .read<SignupCubit>()
+                        //       .signup(context, request: widget.request);
+                        // }
+
+
                       },
                     );
                   },

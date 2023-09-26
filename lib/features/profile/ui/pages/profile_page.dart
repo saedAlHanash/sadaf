@@ -1,20 +1,19 @@
 import 'dart:io';
 
-import 'package:sadaf/core/util/my_style.dart';
-import 'package:sadaf/core/util/shared_preferences.dart';
-import 'package:sadaf/core/widgets/images/image_multi_type.dart';
-import 'package:sadaf/core/widgets/my_button.dart';
-import 'package:sadaf/core/widgets/my_text_form_widget.dart';
-import 'package:sadaf/features/profile/data/request/update_profile_request.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sadaf/core/util/my_style.dart';
+import 'package:sadaf/core/util/shared_preferences.dart';
+import 'package:image_multi_type/image_multi_type.dart';
+import 'package:sadaf/core/widgets/my_button.dart';
+import 'package:sadaf/core/widgets/my_text_form_widget.dart';
+import 'package:sadaf/features/profile/data/request/update_profile_request.dart';
 
 import '../../../../../core/strings/app_color_manager.dart';
-import '../../../../../core/strings/app_string_manager.dart';
-import '../../../../../generated/assets.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/pick_image_helper.dart';
+import '../../../../generated/l10n.dart';
 import '../../bloc/update_profile_cubit/update_profile_cubit.dart';
 
 class ProfilePage extends StatefulWidget {
@@ -73,20 +72,20 @@ class _ProfilePageState extends State<ProfilePage> {
                         children: [
                           70.0.verticalSpace,
                           MyTextFormOutLineWidget(
-                            hint: AppStringManager.fullName,
+                            hint: S.of(context).fullName,
                             color: AppColorManager.black,
                             initialValue: user.name,
                             onChanged: (val) => request.name = val,
                           ),
                           MyTextFormOutLineWidget(
-                            hint: AppStringManager.email,
+                            hint: S.of(context).email,
                             color: AppColorManager.black,
                             initialValue: user.city,
                             keyBordType: TextInputType.emailAddress,
                             onChanged: (val) => request.email = val,
                           ),
                           MyTextFormOutLineWidget(
-                            hint: AppStringManager.phoneNumber,
+                            hint: S.of(context).phoneNumber,
                             color: AppColorManager.black,
                             keyBordType: TextInputType.phone,
                             maxLength: 11,

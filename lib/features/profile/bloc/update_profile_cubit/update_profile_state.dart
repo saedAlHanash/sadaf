@@ -14,7 +14,7 @@ class UpdateProfileInitial {
   });
 
   factory UpdateProfileInitial.initial() {
-    return UpdateProfileInitial(
+    return const UpdateProfileInitial(
       result: false,
       error: '',
       image: 'AppSharedPreference.getUserModel().photo.url',

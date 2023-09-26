@@ -1,19 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/features/home/ui/widget/search_widget.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/app_bar/app_bar_widget.dart';
-import '../../../../core/widgets/images/image_multi_type.dart';
-import '../../../../core/widgets/my_text_form_widget.dart';
 import '../../../../core/widgets/not_found_widget.dart';
 import '../../../../generated/assets.dart';
-import '../../../../router/app_router.dart';
 import '../../../product/ui/widget/item_product.dart';
 import '../../bloc/search_cubit/search_cubit.dart';
-import '../widget/screens/home_screen.dart';
 
 class SearchResultPage extends StatelessWidget {
   const SearchResultPage({super.key});

@@ -10,7 +10,7 @@ class UpdateCartInitial  {
   });
 
   factory UpdateCartInitial.initial() {
-    return UpdateCartInitial(
+    return const UpdateCartInitial(
       result: 0,
     );
   }

@@ -2,8 +2,7 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../generated/assets.dart';
-import 'images/image_multi_type.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 
 class NotFoundWidget extends StatelessWidget {
   const NotFoundWidget({

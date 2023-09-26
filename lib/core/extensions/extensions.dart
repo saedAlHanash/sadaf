@@ -1,14 +1,12 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 
-import '../../features/home/data/response/home_response.dart';
 import '../../features/product/data/models/product.dart';
-import '../strings/app_string_manager.dart';
+import '../../generated/l10n.dart';
 import '../strings/enum_manager.dart';
-import 'package:http/http.dart' as http;
-
 import '../util/snack_bar_message.dart';
 
 extension SplitByLength on String {
@@ -57,10 +55,10 @@ extension FixMobile on String {
   String? checkPhoneNumber(BuildContext context, String phone) {
     if (phone.startsWith('00964') && phone.length > 11) return phone;
     if (phone.length < 10) {
-      NoteMessage.showSnakeBar(context: context, message: AppStringManager.wrongPhone);
+      NoteMessage.showSnakeBar(context: context, message: S.of(context).wrongPhone);
       return null;
     } else if (phone.startsWith("0") && phone.length < 11) {
-      NoteMessage.showSnakeBar(context: context, message: AppStringManager.wrongPhone);
+      NoteMessage.showSnakeBar(context: context, message: S.of(context).wrongPhone);
       return null;
     }
 

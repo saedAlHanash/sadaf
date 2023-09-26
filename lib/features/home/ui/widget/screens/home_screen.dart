@@ -2,6 +2,7 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/util/my_style.dart';
@@ -10,7 +11,7 @@ import 'package:sadaf/features/home/ui/widget/item_category.dart';
 import 'package:sadaf/features/home/ui/widget/search_widget.dart';
 import 'package:sadaf/generated/assets.dart';
 
-import '../../../../../core/widgets/images/image_multi_type.dart';
+
 import '../../../../../router/app_router.dart';
 import '../../../../product/ui/widget/item_product.dart';
 import '../../../bloc/home_cubit/home_cubit.dart';

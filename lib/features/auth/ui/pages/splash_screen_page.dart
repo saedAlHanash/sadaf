@@ -3,14 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sadaf/features/favorite/bloc/get_favorite/get_favorite_cubit.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 
-import '../../../../core/injection/injection_container.dart';
 import '../../../../core/util/my_style.dart';
-import '../../../../core/util/shared_preferences.dart';
 import '../../../../generated/assets.dart';
 import '../../../../router/app_router.dart';
-import '../../../settings/services/setting_service.dart';
 
 class SplashScreenPage extends StatefulWidget {
   const SplashScreenPage({Key? key}) : super(key: key);
@@ -39,12 +36,12 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
   @override
   Widget build(BuildContext context) {
     Timer(const Duration(seconds: 2), () async {
-      if (AppSharedPreference.isLogin) {
-        await FavoriteCubit.getFavoriteApi();
-      }
-      await sl<SettingService>().getWhatsUp();
-      await sl<SettingService>().getFacebook();
-      await sl<SettingService>().getPhone();
+      // if (AppSharedPreference.isLogin) {
+      //   await FavoriteCubit.getFavoriteApi();
+      // }
+      // await sl<SettingService>().getWhatsUp();
+      // await sl<SettingService>().getFacebook();
+      // await sl<SettingService>().getPhone();
       if (!mounted) return;
       Navigator.pushReplacementNamed(context, RouteName.home);
     });
@@ -60,8 +57,8 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
           ),
         ),
         padding: MyStyle.authPagesPadding,
-        child: Center(
-          child: Image.asset(Assets.iconsLogo),
+        child: const Center(
+          child: ImageMultiType(url:Assets.iconsLogo),
         ),
       ),
     );

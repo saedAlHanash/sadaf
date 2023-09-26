@@ -4,7 +4,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/core/util/snack_bar_message.dart';
 import 'package:sadaf/core/widgets/my_button.dart';
-import 'package:sadaf/features/auth/ui/widget/ask_auth_widget.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
@@ -85,12 +84,13 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
                       return MyButton(
                         text: 'تحقق',
                         onTap: () {
-                          if (code.length < 4) return;
-                          context.read<ConfirmCodeCubit>().confirmCode(
-                                context,
-                                phone: phone,
-                                code: code,
-                              );
+                          Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
+                          // if (code.length < 4) return;
+                          // context.read<ConfirmCodeCubit>().confirmCode(
+                          //       context,
+                          //       phone: phone,
+                          //       code: code,
+                          //     );
                         },
                       );
                     },
@@ -98,7 +98,8 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
                   50.0.verticalSpace,
                   TextButton(
                     onPressed: () {
-                      context.read<ResendCodeCubit>().resendCode(context, phone: phone);
+                      NoteMessage.showDoneDialog(context, text: 'تم إعادة الإرسال');
+                      // context.read<ResendCodeCubit>().resendCode(context, phone: phone);
                     },
                     child: BlocBuilder<ResendCodeCubit, ResendCodeInitial>(
                       builder: (context, state) {

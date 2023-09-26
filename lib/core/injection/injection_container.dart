@@ -12,7 +12,6 @@ import '../../features/auth/bloc/logout/logout_cubit.dart';
 import '../../features/auth/bloc/resend_code_cubit/resend_code_cubit.dart';
 import '../../features/auth/bloc/reset_password_cubit/reset_password_cubit.dart';
 import '../../features/auth/bloc/signup_cubit/signup_cubit.dart';
-
 import '../../features/best_seller/bloc/best_seller_cubit/best_seller_cubit.dart';
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../features/cart/bloc/cart_cubut/cart_cubit.dart';
@@ -24,18 +23,15 @@ import '../../features/catigories/bloc/category_by_id_cubit/category_by_id_cubit
 import '../../features/favorite/bloc/add_favorite/add_favorite_cubit.dart';
 import '../../features/favorite/bloc/get_favorite/get_favorite_cubit.dart';
 import '../../features/firebase/bloc/insert_firebase_token_cubit/insert_firebase_token_cubit.dart';
-
 import '../../features/home/bloc/home_cubit/home_cubit.dart';
 import '../../features/home/bloc/search_cubit/search_cubit.dart';
 import '../../features/home/bloc/slider_cubit/slider_cubit.dart';
-
 import '../../features/notifications/bloc/notification_count_cubit/notification_count_cubit.dart';
 import '../../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
 import '../../features/offers/bloc/offers_cubit/offers_cubit.dart';
 import '../../features/orders/bloc/orders_cubit/orders_cubit.dart';
 import '../../features/product/bloc/product_by_id_cubit/product_by_id_cubit.dart';
 import '../../features/profile/bloc/update_profile_cubit/update_profile_cubit.dart';
-
 import '../../features/settings/bloc/update_user_cubit/update_user_cubit.dart';
 import '../../features/settings/services/setting_service.dart';
 import '../app/bloc/loading_cubit.dart';

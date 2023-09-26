@@ -1,20 +1,20 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sadaf/core/api_manager/api_url.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/features/profile/data/request/update_profile_request.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/error/error_manager.dart';
 import '../../../../core/injection/injection_container.dart';
 import '../../../../core/network/network_info.dart';
-import '../../../../core/strings/app_string_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/pair_class.dart';
 import '../../../../core/util/snack_bar_message.dart';
+import '../../../../generated/l10n.dart';
 import '../../../auth/data/response/login_response.dart';
 
 part 'update_profile_state.dart';
@@ -65,7 +65,7 @@ class UpdateProfileCubit extends Cubit<UpdateProfileInitial> {
         return Pair(null, ErrorManager.getApiError(response));
       }
     } else {
-      return Pair(null, AppStringManager.noInternet);
+      return Pair(null, S().noInternet);
     }
   }
 
@@ -84,7 +84,7 @@ class UpdateProfileCubit extends Cubit<UpdateProfileInitial> {
         return Pair(null, ErrorManager.getApiError(response));
       }
     } else {
-      return Pair(null, AppStringManager.noInternet);
+      return Pair(null, S().noInternet);
     }
   }
 

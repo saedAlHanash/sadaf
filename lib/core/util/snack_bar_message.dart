@@ -1,14 +1,10 @@
 
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:lottie/lottie.dart';
 
-import '../../generated/assets.dart';
+import '../../generated/l10n.dart';
 import '../strings/app_color_manager.dart';
-import '../strings/app_string_manager.dart';
-import '../widgets/images/image_multi_type.dart';
 import '../widgets/my_button.dart';
 import '../widgets/snake_bar_widget.dart';
 
@@ -115,7 +111,7 @@ class NoteMessage {
                     const EdgeInsets.symmetric(vertical: 20.0, horizontal: 15)
                         .r,
                 child: MyButton(
-                  text: AppStringManager.done,
+                  text: S.of(context).done,
                   onTap: () => Navigator.pop(context),
                 ),
               ),
@@ -159,12 +155,12 @@ class NoteMessage {
                 ),
                 40.0.verticalSpace,
                 MyButton(
-                  text: AppStringManager.confirm,
+                  text: S.of(context).confirm,
                   onTap: () => Navigator.pop(context, true),
                 ),
                 10.0.verticalSpace,
                 MyButton(
-                  text: AppStringManager.cancel,
+                  text: S.of(context).cancel,
                   onTap: () => Navigator.pop(context, false),
                   color: AppColorManager.black,
                 ),

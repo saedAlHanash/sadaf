@@ -3,10 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/widgets/my_card_widget.dart';
-
-import '../util/snack_bar_message.dart';
-import 'images/image_multi_type.dart';
-import 'images/round_image_widget.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 
 class CardSlider extends StatelessWidget {
   const CardSlider({

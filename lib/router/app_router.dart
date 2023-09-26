@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sadaf/core/app/bloc/loading_cubit.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/features/auth/data/request/signup_request.dart';
 import 'package:sadaf/features/best_seller/bloc/best_seller_cubit/best_seller_cubit.dart';
@@ -14,7 +13,6 @@ import 'package:sadaf/features/product/ui/pages/product_page.dart';
 import '../core/injection/injection_container.dart' as di;
 import '../features/auth/bloc/confirm_code_cubit/confirm_code_cubit.dart';
 import '../features/auth/bloc/delete_account_cubit/delete_account_cubit.dart';
-import '../features/auth/bloc/forget_password_cubit/forget_password_cubit.dart';
 import '../features/auth/bloc/login_cubit/login_cubit.dart';
 import '../features/auth/bloc/logout/logout_cubit.dart';
 import '../features/auth/bloc/resend_code_cubit/resend_code_cubit.dart';
@@ -35,17 +33,17 @@ import '../features/home/bloc/home_cubit/home_cubit.dart';
 import '../features/home/bloc/search_cubit/search_cubit.dart';
 import '../features/home/bloc/slider_cubit/slider_cubit.dart';
 import '../features/home/ui/pages/home_page.dart';
+import '../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
+import '../features/offers/bloc/offers_cubit/offers_cubit.dart';
+import '../features/offers/ui/pages/all_offers_page.dart';
 import '../features/orders/bloc/orders_cubit/orders_cubit.dart';
 import '../features/orders/ui/pages/my_orders_page.dart';
+import '../features/product/bloc/product_by_id_cubit/product_by_id_cubit.dart';
 import '../features/settings/bloc/update_user_cubit/update_user_cubit.dart';
 import '../features/settings/ui/pages/about_page.dart';
 import '../features/settings/ui/pages/privacy_page.dart';
 import '../features/settings/ui/pages/update_choice_page.dart';
 import '../features/settings/ui/pages/update_page.dart';
-import '../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
-import '../features/offers/bloc/offers_cubit/offers_cubit.dart';
-import '../features/offers/ui/pages/all_offers_page.dart';
-import '../features/product/bloc/product_by_id_cubit/product_by_id_cubit.dart';
 
 class AppRoutes {
   static Route<dynamic> routes(RouteSettings settings) {

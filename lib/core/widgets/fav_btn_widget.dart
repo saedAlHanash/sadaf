@@ -3,14 +3,14 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
-import 'package:sadaf/features/home/data/response/home_response.dart';
+
 import '../../features/favorite/bloc/add_favorite/add_favorite_cubit.dart';
 import '../../features/favorite/bloc/get_favorite/get_favorite_cubit.dart';
 import '../../features/product/data/models/product.dart';
 import '../../generated/assets.dart';
 import '../strings/enum_manager.dart';
 import '../util/my_style.dart';
-import 'images/image_multi_type.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 
 class FavBtnWidget extends StatefulWidget {
   const FavBtnWidget({

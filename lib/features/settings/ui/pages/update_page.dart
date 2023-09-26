@@ -7,7 +7,6 @@ import 'package:sadaf/core/util/snack_bar_message.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:sadaf/core/widgets/my_button.dart';
 import 'package:sadaf/core/widgets/my_text_form_widget.dart';
-
 import 'package:sadaf/features/settings/data/request/update_user_request.dart';
 
 import '../../../../core/util/my_style.dart';

@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -49,3 +47,4 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
   // TODO: implement preferredSize
   Size get preferredSize => Size(1.0.sw,(zeroHeight ?? false) ? 0 : 80.0.h);
 }
+

@@ -1,10 +1,10 @@
-import 'package:flutter/material.dart';
-import 'package:sadaf/core/strings/app_color_manager.dart';
-import 'package:sadaf/core/strings/enum_manager.dart';
-import 'package:sadaf/core/widgets/my_card_widget.dart';
 import 'package:drawable_text/drawable_text.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
+
+import 'package:image_multi_type/image_multi_type.dart';
+import 'package:sadaf/core/strings/app_color_manager.dart';
+import 'package:sadaf/core/widgets/my_card_widget.dart';
 
 class TopTitleWidget extends StatelessWidget {
   const TopTitleWidget({
@@ -25,7 +25,7 @@ class TopTitleWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     final iconSize = this.iconSize ?? 30.0.spMin;
 
-    final iconWidget = SvgPicture.asset(
+    final iconWidget = ImageMultiType(url:
       icon,
       height: iconSize,
       width: iconSize,

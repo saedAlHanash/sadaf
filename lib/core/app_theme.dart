@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 
-const primaryColor = AppColorManager.mainColor;
+const primaryColor = AppColorManager.black;
 const secondaryColor = AppColorManager.mainColorDark;
 
 final appTheme = ThemeData(
@@ -40,23 +40,20 @@ final appTheme = ThemeData(
         )),
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-          alignment: Alignment.center,
-          backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) {
-              if (states.contains(MaterialState.pressed)) {
-                return AppColorManager.mainColor.withOpacity(0.8);
-              }
-              return AppColorManager.mainColor; // Use the component's default.
-            },
-          ),
-          overlayColor: MaterialStateProperty.resolveWith<Color?>(
-            (Set<MaterialState> states) => secondaryColor,
-          ),
-          shape: MaterialStateProperty.all<RoundedRectangleBorder>(RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(
-              15.0.r,
-            ),
-          ))),
+        alignment: Alignment.center,
+        padding: MaterialStatePropertyAll(EdgeInsets.all(50.0.r)),
+        // backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+        //   (Set<MaterialState> states) {
+        //     if (states.contains(MaterialState.pressed)) {
+        //       return AppColorManager.mainColor.withOpacity(0.8);
+        //     }
+        //     return AppColorManager.mainColor; // Use the component's default.
+        //   },
+        // ),
+        overlayColor: MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) => secondaryColor,
+        ),
+      ),
     ),
     dividerTheme: DividerThemeData(
       color: AppColorManager.dividerColor,

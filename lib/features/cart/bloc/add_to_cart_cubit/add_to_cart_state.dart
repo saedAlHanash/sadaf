@@ -10,7 +10,7 @@ class AddToCartInitial  {
   });
 
   factory AddToCartInitial.initial() {
-    return AddToCartInitial(
+    return const AddToCartInitial(
       result: 0,
       goToCart: false,
     );

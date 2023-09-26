@@ -9,9 +9,9 @@ import '../../../../core/api_manager/api_url.dart';
 import '../../../../core/error/error_manager.dart';
 import '../../../../core/injection/injection_container.dart';
 import '../../../../core/network/network_info.dart';
-import '../../../../core/strings/app_string_manager.dart';
 import '../../../../core/util/pair_class.dart';
 import '../../../../core/util/snack_bar_message.dart';
+import '../../../../generated/l10n.dart';
 
 part 'logout_state.dart';
 
@@ -46,7 +46,7 @@ class LogoutCubit extends Cubit<LogoutInitial> {
         return Pair(null, ErrorManager.getApiError(response));
       }
     } else {
-      return Pair(null, AppStringManager.noInternet);
+      return Pair(null, S().noInternet);
     }
   }
 }

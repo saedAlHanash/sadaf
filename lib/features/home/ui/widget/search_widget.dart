@@ -5,7 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
-import '../../../../core/widgets/images/image_multi_type.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import '../../../../core/widgets/my_text_form_widget.dart';
 import '../../../../generated/assets.dart';
 import '../../../../router/app_router.dart';

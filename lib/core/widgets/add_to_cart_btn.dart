@@ -11,7 +11,7 @@ import '../../features/cart/service/cart_service.dart';
 import '../../features/product/data/models/product.dart';
 import '../../generated/assets.dart';
 import '../injection/injection_container.dart';
-import 'images/round_image_widget.dart';
+import 'package:image_multi_type/round_image_widget.dart';
 import 'my_button.dart';
 
 class AddToCartBtn extends StatefulWidget {

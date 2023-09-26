@@ -1,20 +1,18 @@
 import 'package:drawable_text/drawable_text.dart';
-import 'package:sadaf/core/extensions/extensions.dart';
-import 'package:sadaf/core/strings/app_string_manager.dart';
-import 'package:sadaf/core/util/shared_preferences.dart';
-import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
-import 'package:sadaf/core/widgets/images/image_multi_type.dart';
-import 'package:sadaf/core/widgets/my_button.dart';
-import 'package:sadaf/core/widgets/my_text_form_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sadaf/core/util/shared_preferences.dart';
+import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
+import 'package:image_multi_type/image_multi_type.dart';
+import 'package:sadaf/core/widgets/my_button.dart';
+import 'package:sadaf/core/widgets/my_text_form_widget.dart';
 
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../generated/assets.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
-import '../../bloc/forget_password_cubit/forget_password_cubit.dart';
 import '../../bloc/resend_code_cubit/resend_code_cubit.dart';
 import '../widget/ask_auth_widget.dart';
 
@@ -84,7 +82,7 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                   textDirection: TextDirection.ltr,
                   keyBordType: TextInputType.phone,
                   initialValue: request,
-                  label: AppStringManager.phoneNumber,
+                  label: S.of(context).phoneNumber,
                   onChanged: (val) => request = val,
                 ),
                 30.0.verticalSpace,
@@ -94,14 +92,16 @@ class _ForgetPasswordPageState extends State<ForgetPasswordPage> {
                       return MyStyle.loadingWidget();
                     }
                     return MyButton(
-                      text: AppStringManager.continueTo,
+                      text: S.of(context).continueTo,
                       onTap: () {
-                        var r = request.checkPhoneNumber(context, request);
-                        if (r == null) return;
-                        request = r;
-                        context
-                            .read<ResendCodeCubit>()
-                            .resendCode(context, phone: request);
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, RouteName.resetPasswordPage, (route) => false);
+                        // var r = request.checkPhoneNumber(context, request);
+                        // if (r == null) return;
+                        // request = r;
+                        // context
+                        //     .read<ResendCodeCubit>()
+                        //     .resendCode(context, phone: request);
                       },
                     );
                   },

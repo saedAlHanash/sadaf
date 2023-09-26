@@ -1,7 +1,6 @@
+import 'package:drawable_text/drawable_text.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-import 'package:sadaf/core/strings/enum_manager.dart';
-import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../strings/app_color_manager.dart';

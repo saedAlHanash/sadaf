@@ -3,7 +3,7 @@
 // import 'package:sadaf/core/strings/app_color_manager.dart';
 // import 'package:sadaf/generated/assets.dart';
 //
-// import 'images/image_multi_type.dart';
+// import 'package:image_multi_type/image_multi_type.dart';
 //
 // class IconStepperDemo extends StatelessWidget {
 //   const IconStepperDemo({super.key, required this.items});

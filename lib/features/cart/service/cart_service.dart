@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
 
-import '../../../core/injection/injection_container.dart';
 import '../../../core/util/pair_class.dart';
 import '../../product/data/models/product.dart';
 import '../bloc/update_cart_cubit/update_cart_cubit.dart';

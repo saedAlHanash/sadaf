@@ -3,10 +3,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:slide_action/slide_action.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:sadaf/core/widgets/not_found_widget.dart';
+import 'package:slide_action/slide_action.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../../generated/assets.dart';
@@ -71,7 +71,7 @@ class CategoriesPage extends StatelessWidget {
                       child: Builder(
                         builder: (context) {
                           if (state.result.isEmpty) {
-                            return NotFoundWidget(
+                            return const NotFoundWidget(
                                 text: 'لا يوجد منتجات', icon: Assets.iconsNotFound);
                           }
                           return GridView.builder(

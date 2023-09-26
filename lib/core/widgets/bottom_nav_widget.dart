@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
-import 'package:sadaf/core/widgets/images/image_multi_type.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 
 import '../../../../generated/assets.dart';
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
@@ -47,7 +47,7 @@ import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
 //           BottomNavyBarItem(
 //             icon: const ImageMultiType(url: Assets.iconsHome, color: Colors.white),
 //             title: DrawableText(
-//               text: AppStringManager.home,
+//               text: S.of(context).home,
 //               color: Colors.white,
 //               size: 14.0.spMin,
 //             ),
@@ -56,7 +56,7 @@ import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
 //           BottomNavyBarItem(
 //             icon: const ImageMultiType(url: Assets.iconsCart, color: Colors.white),
 //             title: DrawableText(
-//               text: AppStringManager.cart,
+//               text: S.of(context).cart,
 //               color: Colors.white,
 //               size: 14.0.spMin,
 //             ),
@@ -65,7 +65,7 @@ import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
 //           BottomNavyBarItem(
 //             icon: const ImageMultiType(url: Assets.iconsFav, color: Colors.white),
 //             title: DrawableText(
-//               text: AppStringManager.fav,
+//               text: S.of(context).fav,
 //               color: Colors.white,
 //               size: 14.0.spMin,
 //             ),
@@ -74,7 +74,7 @@ import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
 //           BottomNavyBarItem(
 //             icon: const ImageMultiType(url: Assets.iconsSetting, color: Colors.white),
 //             title: DrawableText(
-//               text: AppStringManager.settings,
+//               text: S.of(context).settings,
 //               color: Colors.white,
 //               size: 14.0.spMin,
 //             ),
@@ -136,7 +136,6 @@ class _NewNavState extends State<NewNav> {
                 ),
                   BlocBuilder<UpdateCartCubit, UpdateCartInitial>(
                     builder: (context, state) {
-                      loggerObject.w('message');
                       return Positioned(
                         top: 0.0,
                         right: 25.0.r,

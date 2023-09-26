@@ -1,99 +1,10 @@
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:sadaf/core/widgets/images/image_multi_type.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 
 import '../strings/app_color_manager.dart';
-import '../strings/app_string_manager.dart';
 import '../util/my_style.dart';
-
-class MyTextFormWidget extends StatelessWidget {
-  const MyTextFormWidget({
-    Key? key,
-    this.liable = '',
-    this.hint = '',
-    this.maxLines = 1,
-    this.obscureText = false,
-    this.textAlign = TextAlign.start,
-    this.maxLength = 1000,
-    this.onChanged,
-    this.controller,
-    this.keyBordType,
-    this.innerPadding,
-    this.icon,
-  }) : super(key: key);
-
-  final String liable;
-  final String hint;
-  final String? icon;
-  final int maxLines;
-  final int maxLength;
-  final bool obscureText;
-  final TextAlign textAlign;
-  final Function(String)? onChanged;
-  final TextEditingController? controller;
-  final TextInputType? keyBordType;
-  final EdgeInsets? innerPadding;
-
-  @override
-  Widget build(BuildContext context) {
-    final padding = innerPadding ?? EdgeInsets.symmetric(horizontal: 10.0.w);
-
-    bool obscureText = this.obscureText;
-    late Widget? suffixIcon;
-    late VoidCallback onChangeObscure;
-
-    if (icon != null) {
-      suffixIcon = Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-        child: ImageMultiType(url: icon!, height: 23.0.h, width: 40.0.w),
-      );
-    }
-
-    if (obscureText) {
-      suffixIcon = StatefulBuilder(builder: (context, state) {
-        return IconButton(
-            splashRadius: 0.01,
-            onPressed: () {
-              state(() => obscureText = !obscureText);
-              onChangeObscure();
-            },
-            icon: Icon(obscureText ? Icons.visibility : Icons.visibility_off));
-      });
-    }
-
-    final inputDecoration = InputDecoration(
-      contentPadding: padding,
-      errorBorder: InputBorder.none,
-      counter: null,
-      alignLabelWithHint: true,
-      labelText: liable,
-      suffixIcon: suffixIcon ?? const SizedBox(),
-    );
-
-    final textStyle = TextStyle(
-      fontFamily: FontManager.cairoSemiBold.name,
-      fontSize: 16.0.spMin,
-      color: AppColorManager.gray,
-    );
-
-    return StatefulBuilder(builder: (context, state) {
-      onChangeObscure = () => state(() {});
-      return TextFormField(
-        decoration: inputDecoration,
-        maxLines: maxLines,
-        obscureText: obscureText,
-        textAlign: textAlign,
-        onChanged: onChanged,
-        style: textStyle,
-        maxLength: maxLength,
-        controller: controller,
-        keyboardType: keyBordType,
-      );
-    });
-  }
-}
 
 class MyTextFormOutLineWidget extends StatelessWidget {
   const MyTextFormOutLineWidget({
@@ -110,20 +21,22 @@ class MyTextFormOutLineWidget extends StatelessWidget {
     this.innerPadding,
     this.enable,
     this.icon,
-    this.color,
+    this.color = Colors.black,
     this.initialValue,
     this.textDirection,
+    this.validator,
   }) : super(key: key);
   final bool? enable;
   final String label;
   final String hint;
   final String? icon;
-  final Color? color;
+  final Color color;
   final int maxLines;
   final int maxLength;
   final bool obscureText;
   final TextAlign textAlign;
   final Function(String)? onChanged;
+  final String? Function(String?)? validator;
   final TextEditingController? controller;
   final TextInputType? keyBordType;
   final EdgeInsets? innerPadding;
@@ -141,7 +54,7 @@ class MyTextFormOutLineWidget extends StatelessWidget {
     if (icon != null) {
       suffixIcon = Padding(
         padding: EdgeInsets.symmetric(horizontal: 10.0.w),
-        child: SvgPicture.asset(icon!, height: 23.0.h, width: 40.0.w),
+        child: ImageMultiType(url: icon!, height: 23.0.h, width: 40.0.w),
       );
     }
 
@@ -157,26 +70,33 @@ class MyTextFormOutLineWidget extends StatelessWidget {
       });
     }
     final border = OutlineInputBorder(
-        borderSide: BorderSide(
-          color: color ?? Colors.transparent,
-        ),
-        borderRadius: BorderRadius.circular(30.0.r));
+      borderSide: BorderSide(
+        color: color,
+        width: 1.0.spMin,
+      ),
+    );
 
     final focusedBorder = OutlineInputBorder(
-        borderSide: BorderSide(
-          color: color ?? AppColorManager.mainColorDark,
-          width: 2.0.spMin,
-        ),
-        borderRadius: BorderRadius.circular(30.0.r));
+      borderSide: BorderSide(
+        color: color,
+        width: 1.0.spMin,
+      ),
+    );
+
+    final errorBorder = OutlineInputBorder(
+      borderSide: BorderSide(
+        color: AppColorManager.red,
+        width: 1.0.spMin,
+      ),
+    );
 
     final inputDecoration = InputDecoration(
       contentPadding: padding,
-      errorBorder: InputBorder.none,
+      errorBorder: errorBorder,
       border: border,
       focusedBorder: focusedBorder,
       enabledBorder: border,
       fillColor: AppColorManager.lightGray,
-      filled: true,
       label: DrawableText(
         text: label,
         color: AppColorManager.gray,
@@ -197,20 +117,24 @@ class MyTextFormOutLineWidget extends StatelessWidget {
 
     return StatefulBuilder(builder: (context, state) {
       onChangeObscure = () => state(() {});
-      return Padding(
-        padding: const EdgeInsets.symmetric(vertical: 7.0).h,
-        child: TextFormField(
-          decoration: inputDecoration,
-          maxLines: maxLines,
-          initialValue: initialValue,
-          obscureText: obscureText,
-          textAlign: textAlign,
-          onChanged: onChanged,
-          style: textStyle,
-          textDirection: textDirection,
-          maxLength: maxLength,
-          controller: controller,
-          keyboardType: keyBordType,
+      return ClipRect(
+        clipper: RectCustomClipper(),
+        child: Padding(
+          padding: const EdgeInsets.symmetric(vertical: 7.0).h,
+          child: TextFormField(
+            validator: validator,
+            decoration: inputDecoration,
+            maxLines: maxLines,
+            initialValue: initialValue,
+            obscureText: obscureText,
+            textAlign: textAlign,
+            onChanged: onChanged,
+            style: textStyle,
+            textDirection: textDirection,
+            maxLength: maxLength,
+            controller: controller,
+            keyboardType: keyBordType,
+          ),
         ),
       );
     });
@@ -290,7 +214,7 @@ class MyEditTextWidget extends StatelessWidget {
     final inputDecoration = InputDecoration(
       hintText: hint,
       hintStyle: MyStyle.hintStyle,
-      contentPadding: innerPadding??const EdgeInsets.symmetric(horizontal: 10.0).w,
+      contentPadding: innerPadding ?? const EdgeInsets.symmetric(horizontal: 10.0).w,
       counter: const SizedBox(),
       enabledBorder: border,
       focusedErrorBorder: border,
@@ -324,7 +248,6 @@ class MyEditTextWidget extends StatelessWidget {
           obscureText: obscureText,
           decoration: inputDecoration,
           maxLines: maxLines,
-
           textAlign: textAlign ?? TextAlign.start,
           onChanged: onChanged,
           style: MyStyle.textFormTextStyle,
@@ -355,7 +278,7 @@ class MyTextFormNoLabelWidget extends StatelessWidget {
     this.innerPadding,
     this.enable,
     this.icon,
-    this.color,
+    this.color = Colors.black,
     this.initialValue,
     this.textDirection,
   }) : super(key: key);
@@ -363,7 +286,7 @@ class MyTextFormNoLabelWidget extends StatelessWidget {
   final String label;
   final String hint;
   final String? icon;
-  final Color? color;
+  final Color color;
   final int maxLines;
   final int maxLength;
   final bool obscureText;
@@ -408,4 +331,12 @@ class MyTextFormNoLabelWidget extends StatelessWidget {
       ],
     );
   }
+}
+
+class RectCustomClipper extends CustomClipper<Rect> {
+  @override
+  Rect getClip(Size size) => Rect.fromLTWH(10.0.w, 0, size.width - 15.w, size.height);
+
+  @override
+  bool shouldReclip(covariant CustomClipper<Rect> oldClipper) => oldClipper != this;
 }

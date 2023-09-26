@@ -1,10 +1,10 @@
 import 'dart:async';
 import 'dart:convert';
 
-import 'package:intl/intl.dart';
-import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:http/http.dart' as http;
+import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 
 import '../util/shared_preferences.dart';
 import 'api_url.dart';

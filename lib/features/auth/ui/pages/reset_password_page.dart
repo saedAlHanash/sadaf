@@ -1,16 +1,16 @@
-import 'package:sadaf/core/strings/app_string_manager.dart';
-import 'package:sadaf/core/util/shared_preferences.dart';
-import 'package:sadaf/core/widgets/my_button.dart';
-import 'package:sadaf/core/widgets/my_text_form_widget.dart';
+import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sadaf/core/util/shared_preferences.dart';
+import 'package:sadaf/core/widgets/my_button.dart';
+import 'package:sadaf/core/widgets/my_text_form_widget.dart';
 
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/my_style.dart';
-import 'package:drawable_text/drawable_text.dart';
 import '../../../../core/widgets/verification_code_widget.dart';
 import '../../../../generated/assets.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../bloc/reset_password_cubit/reset_password_cubit.dart';
 import '../../data/request/reset_password_request.dart';
@@ -48,7 +48,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
               children: [
                 DrawableText(
                   text:
-                      '${AppStringManager.codeSentToEmail} ${AppSharedPreference.getCashedEmail()}',
+                      '${S.of(context).codeSentToEmail} ${AppSharedPreference.getCashedEmail()}',
                   matchParent: true,
                   textAlign: TextAlign.center,
                 ),
@@ -60,7 +60,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                 MyTextFormOutLineWidget(
                   textDirection: TextDirection.ltr,
                   keyBordType: TextInputType.visiblePassword,
-                  hint: AppStringManager.newPassword,
+                  hint: S.of(context).newPassword,
                   onChanged: (val) => request.password = val,
                 ),
                 120.verticalSpace,
@@ -71,11 +71,13 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
                     }
                     return MyButton(
                       width: 244.0.w,
-                      text: AppStringManager.continueTo,
+                      text: S.of(context).continueTo,
                       onTap: () {
-                        context
-                            .read<ResetPasswordCubit>()
-                            .resetPassword(context, request: request);
+                        Navigator.pushNamedAndRemoveUntil(
+                            context, RouteName.login, (route) => false);
+                        // context
+                        //     .read<ResetPasswordCubit>()
+                        //     .resetPassword(context, request: request);
                       },
                     );
                   },

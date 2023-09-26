@@ -5,28 +5,24 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
-import 'package:sadaf/core/api_manager/api_service.dart';
-import 'package:sadaf/core/api_manager/api_url.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/helper/launcher_helper.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
-import 'package:sadaf/core/widgets/images/image_multi_type.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/features/settings/services/setting_service.dart';
-import 'package:sadaf/features/settings/ui/pages/privacy_page.dart';
 import 'package:sadaf/router/app_router.dart';
 
 import '../../../../core/injection/injection_container.dart';
 import '../../../../core/strings/app_color_manager.dart';
-import '../../../../core/strings/app_string_manager.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../core/util/snack_bar_message.dart';
 import '../../../../core/widgets/my_button.dart';
 import '../../../../core/widgets/not_found_widget.dart';
 import '../../../../generated/assets.dart';
+import '../../../../generated/l10n.dart';
 import '../../../auth/bloc/delete_account_cubit/delete_account_cubit.dart';
 import '../../../auth/bloc/logout/logout_cubit.dart';
-import 'about_page.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -111,28 +107,28 @@ class _SettingsScreenState extends State<SettingsScreen> {
                     text: user.phone,
                   ),
                   10.0.verticalSpace,
-                  const ItemMenu(
-                    name: AppStringManager.editProfile,
+                  ItemMenu(
+                    name: S.of(context).editProfile,
                     icon: Assets.iconsUser,
                   ),
-                  const ItemMenu(
-                    name: AppStringManager.myOrder,
+                  ItemMenu(
+                    name: S.of(context).myOrder,
                     icon: Assets.iconsOrders,
                   ),
-                  const ItemMenu(
-                    name: AppStringManager.notification,
+                  ItemMenu(
+                    name: S.of(context).notification,
                     icon: Assets.iconsNotifications,
                   ),
-                  const ItemMenu(
-                    name: AppStringManager.about,
+                  ItemMenu(
+                    name: S.of(context).about,
                     icon: Assets.iconsInfo,
                   ),
-                  const ItemMenu(
-                    name: AppStringManager.policy,
+                  ItemMenu(
+                    name: S.of(context).policy,
                     icon: Assets.iconsPolicy,
                   ),
                   DrawableText(
-                    text: AppStringManager.contact,
+                    text: S.of(context).contact,
                     matchParent: true,
                     textAlign: TextAlign.center,
                     color: AppColorManager.black,
@@ -189,7 +185,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                   ),
                   20.0.verticalSpace,
                   MyButton(
-                    text: AppStringManager.logout,
+                    text: S.of(context).logout,
                     onTap: logout,
                   ),
                   5.0.verticalSpace,
@@ -280,7 +276,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             10.0.verticalSpace,
             DrawableText(
-                text: 'تأكيد حذف الحساب', fontFamily: FontManager.cairoBold, size: 19.0.sp),
+                text: 'تأكيد حذف الحساب',
+                fontFamily: FontManager.cairoBold,
+                size: 19.0.sp),
             const Divider(endIndent: 10.0, indent: 10.0),
             DrawableText(
               text: 'هل أنت متأكد من حذف الحساب؟ ',
@@ -309,7 +307,8 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       return MyButton(
                         width: 1.0.sw,
                         text: 'نعم',
-                        onTap: () => context.read<DeleteAccountCubit>().deleteAccount(context),
+                        onTap: () =>
+                            context.read<DeleteAccountCubit>().deleteAccount(context),
                       );
                     },
                   ),
@@ -343,7 +342,7 @@ class ItemMenu extends StatelessWidget {
   Widget build(BuildContext context) {
     var switchState = AppSharedPreference.getActiveNotification();
     return InkWell(
-      onTap: name == AppStringManager.notification ? null : () => onTapItem(context),
+      onTap: name == S.of(context).notification ? null : () => onTapItem(context),
       child: Container(
         width: 1.0.sw,
         height: 51.0.h,
@@ -367,7 +366,7 @@ class ItemMenu extends StatelessWidget {
                 ),
               ),
             ),
-            name == AppStringManager.notification
+            name == S.of(context).notification
                 ? StatefulBuilder(builder: (context, state) {
                     return FlutterSwitch(
                       height: 30.0.h,
@@ -392,38 +391,44 @@ class ItemMenu extends StatelessWidget {
   }
 
   onTapItem(BuildContext context) {
-    switch (name) {
-      case AppStringManager.editProfile:
-        Navigator.pushNamed(context, RouteName.updateChoice);
-        break;
-      case AppStringManager.myOrder:
-        Navigator.pushNamed(context, RouteName.myOrders);
-        break;
 
-      case AppStringManager.notification:
-        break;
+    if (name == S.of(context).editProfile) {
+      Navigator.pushNamed(context, RouteName.updateChoice);
+      return;
+    }
+    if (name == S.of(context).myOrder) {
+      Navigator.pushNamed(context, RouteName.myOrders);
+      return;
+    }
 
-      case AppStringManager.about:
-        Navigator.pushNamed(context, RouteName.about);
+    if (name == S.of(context).notification) {
+      return;
+    }
+    if (name == S.of(context).about) {
+      Navigator.pushNamed(context, RouteName.about);
+      return;
+    }
 
-        break;
+    if (name == S.of(context).policy) {
+      Navigator.pushNamed(context, RouteName.privacy);
+      return;
+    }
 
-      case AppStringManager.policy:
-        Navigator.pushNamed(context, RouteName.privacy);
-        break;
-
-      case AppStringManager.changeName:
-        Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.name);
-        break;
-      case AppStringManager.changePhone:
-        Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.phone);
-        break;
-      case AppStringManager.changeAddress:
-        Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.address);
-        break;
-      case AppStringManager.changePass:
-        Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.pass);
-        break;
+    if (name == S.of(context).changeName) {
+      Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.name);
+      return;
+    }
+    if (name == S.of(context).changePhone) {
+      Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.phone);
+      return;
+    }
+    if (name == S.of(context).changeAddress) {
+      Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.address);
+      return;
+    }
+    if (name == S.of(context).changePass) {
+      Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.pass);
+      return;
     }
   }
 }

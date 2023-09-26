@@ -1,9 +1,8 @@
+import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../strings/enum_manager.dart';
 import 'my_button.dart';
-import 'package:drawable_text/drawable_text.dart';
 
 class SnakeBarWidget extends StatelessWidget {
   const SnakeBarWidget({Key? key, required this.text}) : super(key: key);
@@ -20,9 +19,8 @@ class SnakeBarWidget extends StatelessWidget {
       onPressed: () => ScaffoldMessenger.of(context).clearSnackBars(),
     );
 
-    return GradientContainer(
+    return Container(
       width: 0.9.sw,
-      wrapHeight: true,
       child: DrawableText(
         padding: EdgeInsets.symmetric(horizontal: 0.02.sw),
         text: text,

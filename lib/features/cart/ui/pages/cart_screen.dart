@@ -17,11 +17,10 @@ import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/my_button.dart';
 import '../../../../core/widgets/not_found_widget.dart';
 import '../../../../generated/assets.dart';
-import '../../../settings/services/setting_service.dart';
+import '../../../orders/data/request/create_order_request.dart';
 import '../../bloc/cart_cubut/cart_cubit.dart';
 import '../../bloc/coupon_cubit/coupon_cubit.dart';
 import '../../bloc/create_order_cubit/create_order_cubit.dart';
-import '../../../orders/data/request/create_order_request.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
