@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 class AppColorManager {
   static const  mainColor = Color(0xFF000000);
   static const  mainColorDark = Color(0xFF231313);
-  static const  mainColorLight = Color(0xFF707070);
+  static const  mainColorLight = Color(0xFF132332);
   static const  textColor = Color(0xFF606060);
   static const  black = Color(0xFF000000);
   static const  ampere = Color(0xFFFFC107);
@@ -23,7 +23,9 @@ class AppColorManager {
   static const f6 = Color(0xFFf6f6f6);
   static const e4 = Color(0xFF4E5053);
 
-  static var fc = const Color(0xFFFCFCFC);
+  static const fc = Color(0xFFFCFCFC);
+
+  static const f8 = Color(0xFFF8F8F8);
 
 
 

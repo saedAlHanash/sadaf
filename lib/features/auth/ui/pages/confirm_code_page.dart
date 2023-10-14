@@ -11,6 +11,7 @@ import '../../../../core/util/my_style.dart';
 import '../../../../core/util/shared_preferences.dart';
 import '../../../../core/widgets/app_bar/app_bar_widget.dart';
 import '../../../../core/widgets/verification_code_widget.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../bloc/confirm_code_cubit/confirm_code_cubit.dart';
 import '../../bloc/resend_code_cubit/resend_code_cubit.dart';
@@ -39,85 +40,75 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
         BlocListener<ResendCodeCubit, ResendCodeInitial>(
           listenWhen: (p, current) => current.statuses == CubitStatuses.done,
           listener: (context, state) {
-            NoteMessage.showDoneDialog(context, text: 'تم إعادة الإرسال');
+            NoteMessage.showDoneDialog(context, text: S.of(context).done_resend_code);
           },
         ),
       ],
-      child: SafeArea(
-        child: Scaffold(
-          appBar: const AppBarWidget(titleText: 'تحقق من هاتفك'),
-          body: SingleChildScrollView(
-            child: Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0).r,
-              child: Column(
-                children: [
-                  Container(
-                    decoration: MyStyle.outlineBorder,
-                    padding: const EdgeInsets.all(20.0).r,
-                    child: Column(
-                      children: [
-                        DrawableText(
-                          text: 'تم ارسال رمز التأكيد الخاص بك  الى رقم $phone',
-                          size: 16.0.spMin,
-                          textAlign: TextAlign.start,
-                          matchParent: true,
-                        ),
-                        DrawableText(
-                          text: 'يرجى ادخال الرمز في الاسفل',
-                          size: 16.0.spMin,
-                          textAlign: TextAlign.start,
-                          matchParent: true,
-                        ),
-                      ],
-                    ),
-                  ),
-                  40.0.verticalSpace,
-                  PinCodeWidget(
-                    onCompleted: (p0) => code = p0,
-                  ),
-                  90.0.verticalSpace,
-                  BlocBuilder<ConfirmCodeCubit, ConfirmCodeInitial>(
+      child: Scaffold(
+        appBar: const AppBarWidget(),
+        body: SingleChildScrollView(
+          padding: MyStyle.authPagesPadding,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              DrawableText.header(
+                text: S.of(context).numberPhone,
+              ),
+              DrawableText.header(
+                text: S.of(context).confirmation,
+              ),
+              40.0.verticalSpace,
+              DrawableText(text: S.of(context).enterOTP),
+              35.0.verticalSpace,
+              PinCodeWidget(onCompleted: (p0) => code = p0),
+              35.0.verticalSpace,
+              DrawableText(
+                text: S.of(context).didNotReceiveOTP,
+                drawablePadding: 10.0.w,
+                drawableEnd: TextButton(
+                  onPressed: () {
+                    NoteMessage.showDoneDialog(
+                      context,
+                      text: S.of(context).done_resend_code,
+                    );
+                    // context.read<ResendCodeCubit>().resendCode(context, phone: phone);
+                  },
+                  child: BlocBuilder<ResendCodeCubit, ResendCodeInitial>(
                     builder: (context, state) {
                       if (state.statuses == CubitStatuses.loading) {
                         return MyStyle.loadingWidget();
                       }
-                      return MyButton(
-                        text: 'تحقق',
-                        onTap: () {
-                          Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
-                          // if (code.length < 4) return;
-                          // context.read<ConfirmCodeCubit>().confirmCode(
-                          //       context,
-                          //       phone: phone,
-                          //       code: code,
-                          //     );
-                        },
+                      return DrawableText(
+                        text: S.of(context).resend,
+                        underLine: true,
+                        fontFamily: FontManager.cairoBold,
                       );
                     },
                   ),
-                  50.0.verticalSpace,
-                  TextButton(
-                    onPressed: () {
-                      NoteMessage.showDoneDialog(context, text: 'تم إعادة الإرسال');
-                      // context.read<ResendCodeCubit>().resendCode(context, phone: phone);
-                    },
-                    child: BlocBuilder<ResendCodeCubit, ResendCodeInitial>(
-                      builder: (context, state) {
-                        if (state.statuses == CubitStatuses.loading) {
-                          return MyStyle.loadingWidget();
-                        }
-                        return DrawableText(
-                          text: 'أعد إرسال الرمز',
-                          textAlign: TextAlign.center,
-                          size: 20.0.spMin,
-                          color: AppColorManager.mainColorDark,
-                        );
-                      },
-                    ),
-                  ),
-                ],
+                ),
               ),
-            ),
+              90.0.verticalSpace,
+              BlocBuilder<ConfirmCodeCubit, ConfirmCodeInitial>(
+                builder: (context, state) {
+                  if (state.statuses == CubitStatuses.loading) {
+                    return MyStyle.loadingWidget();
+                  }
+                  return MyButton(
+                    text: S.of(context).verify,
+                    onTap: () {
+                      Navigator.pushNamedAndRemoveUntil(
+                          context, RouteName.home, (route) => false);
+                      // if (code.length < 4) return;
+                      // context.read<ConfirmCodeCubit>().confirmCode(
+                      //       context,
+                      //       phone: phone,
+                      //       code: code,
+                      //     );
+                    },
+                  );
+                },
+              ),
+            ],
           ),
         ),
       ),

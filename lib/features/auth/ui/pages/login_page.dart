@@ -2,8 +2,10 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:sadaf/core/widgets/my_button.dart';
+import 'package:sadaf/core/widgets/my_card_widget.dart';
 import 'package:sadaf/core/widgets/my_checkbox_widget.dart';
 import 'package:sadaf/core/widgets/my_text_form_widget.dart';
 import 'package:sadaf/features/auth/ui/widget/ask_auth_widget.dart';
@@ -93,9 +95,10 @@ class _LoginPageState extends State<LoginPage> {
                       return MyButton(
                         text: S.of(context).login,
                         onTap: () {
-                          _formKey.currentState!.validate();
-                          // Navigator.pushNamedAndRemoveUntil(
-                          //     context, RouteName.home, (route) => false);
+                          if (!_formKey.currentState!.validate()) return;
+
+                          Navigator.pushNamedAndRemoveUntil(
+                              context, RouteName.confirmCode, (route) => false);
                           // var r = request.phone.checkPhoneNumber(context, request.phone);
                           // if (r == null) return;
                           // request.phone = r;
@@ -104,11 +107,17 @@ class _LoginPageState extends State<LoginPage> {
                       );
                     },
                   ),
+                  18.0.verticalSpace,
                   DrawableText(
                     text: S.of(context).doNotHaveAnAccount,
+                    drawableAlin: DrawableAlin.between,
+                    matchParent: true,
                     drawableEnd: TextButton(
                       onPressed: () => Navigator.pushNamed(context, RouteName.signup),
-                      child: DrawableText(text: S.of(context).signUp),
+                      child: DrawableText(
+                        fontFamily: FontManager.cairoBold,
+                        text: '${S.of(context).signUp}.',
+                      ),
                     ),
                   ),
                 ],

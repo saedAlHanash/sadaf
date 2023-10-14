@@ -108,32 +108,43 @@ class _NewNavState extends State<NewNav> {
     return BlocListener<AddToCartCubit, AddToCartInitial>(
       listenWhen: (p, c) => c.goToCart,
       listener: (context, state) => setState(() => selectedIndex = 1),
-      child: BottomNavigationBar(
-        backgroundColor: AppColorManager.mainColor,
-        items: <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: ImageMultiType(
-              url: Assets.iconsHome,
-              color: Colors.white,
-              height: 25.0.spMin,
-            ),
-            activeIcon: ImageMultiType(
-              url: Assets.iconsHome,
-              color: Colors.white,
-              height: 35.0.spMin,
-            ),
-            label: '',
+      child: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: [
+              AppColorManager.mainColorLight,
+              AppColorManager.mainColor,
+            ],
+            begin: Alignment.centerLeft,
+            end: Alignment.centerRight,
           ),
-          BottomNavigationBarItem(
-            icon: Stack(
-              children: [
-                Center(
-                  child: ImageMultiType(
-                    url: Assets.iconsCart,
-                    color: Colors.white,
-                    height: 25.0.spMin,
+        ),
+        child: BottomNavigationBar(
+          backgroundColor: Colors.transparent,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: ImageMultiType(
+                url: Assets.iconsHome,
+                color: Colors.white,
+                height: 25.0.spMin,
+              ),
+              activeIcon: ImageMultiType(
+                url: Assets.iconsHome,
+                color: Colors.white,
+                height: 35.0.spMin,
+              ),
+              label: '',
+            ),
+            BottomNavigationBarItem(
+              icon: Stack(
+                children: [
+                  Center(
+                    child: ImageMultiType(
+                      url: Assets.iconsCart,
+                      color: Colors.white,
+                      height: 25.0.spMin,
+                    ),
                   ),
-                ),
                   BlocBuilder<UpdateCartCubit, UpdateCartInitial>(
                     builder: (context, state) {
                       return Positioned(
@@ -160,48 +171,49 @@ class _NewNavState extends State<NewNav> {
                       );
                     },
                   ),
-              ],
+                ],
+              ),
+              activeIcon: ImageMultiType(
+                url: Assets.iconsCart,
+                color: Colors.white,
+                height: 35.0.spMin,
+              ),
+              label: '',
             ),
-            activeIcon: ImageMultiType(
-              url: Assets.iconsCart,
-              color: Colors.white,
-              height: 35.0.spMin,
+            BottomNavigationBarItem(
+              icon: ImageMultiType(
+                url: Assets.iconsFav,
+                color: Colors.white,
+                height: 25.0.spMin,
+              ),
+              activeIcon: ImageMultiType(
+                url: Assets.iconsFav,
+                color: Colors.white,
+                height: 35.0.spMin,
+              ),
+              label: '',
             ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageMultiType(
-              url: Assets.iconsFav,
-              color: Colors.white,
-              height: 25.0.spMin,
+            BottomNavigationBarItem(
+              icon: ImageMultiType(
+                url: Assets.iconsSetting,
+                color: Colors.white,
+                height: 25.0.spMin,
+              ),
+              activeIcon: ImageMultiType(
+                url: Assets.iconsSetting,
+                color: Colors.white,
+                height: 35.0.spMin,
+              ),
+              label: '',
             ),
-            activeIcon: ImageMultiType(
-              url: Assets.iconsFav,
-              color: Colors.white,
-              height: 35.0.spMin,
-            ),
-            label: '',
-          ),
-          BottomNavigationBarItem(
-            icon: ImageMultiType(
-              url: Assets.iconsSetting,
-              color: Colors.white,
-              height: 25.0.spMin,
-            ),
-            activeIcon: ImageMultiType(
-              url: Assets.iconsSetting,
-              color: Colors.white,
-              height: 35.0.spMin,
-            ),
-            label: '',
-          ),
-        ],
-        currentIndex: selectedIndex,
-        onTap: (value) {
-          widget.onChange.call(value);
-          setState(() => selectedIndex = value);
-        },
-        type: BottomNavigationBarType.fixed,
+          ],
+          currentIndex: selectedIndex,
+          onTap: (value) {
+            widget.onChange.call(value);
+            setState(() => selectedIndex = value);
+          },
+          type: BottomNavigationBarType.fixed,
+        ),
       ),
     );
   }

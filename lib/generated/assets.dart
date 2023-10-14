@@ -24,6 +24,7 @@ class Assets {
   static const String iconsFb = 'assets/icons/fb.svg';
   static const String iconsHome = 'assets/icons/home.svg';
   static const String iconsInfo = 'assets/icons/info.svg';
+  static const String iconsKitchen = 'assets/icons/Kitchen.svg';
   static const String iconsLocation = 'assets/icons/location.svg';
   static const String iconsLogo = 'assets/icons/logo.png';
   static const String iconsLogoForground = 'assets/icons/logo_forground.png';

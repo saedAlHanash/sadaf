@@ -7,6 +7,7 @@ import '../../../../main.dart';
 class SignupRequest {
   SignupRequest({
     this.name = '',
+    this.birthday,
     this.phoneNumber = '',
     this.address = '',
     this.password = '',
@@ -17,6 +18,7 @@ class SignupRequest {
   });
 
   String name;
+  DateTime? birthday;
   String phoneNumber;
   String address;
   String password;
@@ -30,6 +32,7 @@ class SignupRequest {
 
   Map<String, dynamic> toJson() => {
         "name": name,
+        "birthday": birthday?.toIso8601String(),
         "phone": phoneNumber.fixPhone(),
         "address": address,
         "password": password,

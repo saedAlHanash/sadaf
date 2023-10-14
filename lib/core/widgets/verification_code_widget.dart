@@ -10,14 +10,11 @@ class PinCodeWidget extends StatelessWidget {
   Widget build(BuildContext context) {
 
     return Center(
-      child: Directionality(
-        textDirection: TextDirection.ltr,
-        child: Pinput(
-          length: 4,
-          androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
-          onCompleted: onCompleted,
-          onChanged: onChange,
-        ),
+      child: Pinput(
+        length: 4,
+        androidSmsAutofillMethod: AndroidSmsAutofillMethod.smsUserConsentApi,
+        onCompleted: onCompleted,
+        onChanged: onChange,
       ),
     );
   }

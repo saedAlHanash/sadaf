@@ -86,16 +86,16 @@ class _MyAppState extends State<MyApp> {
     });
 
     return ScreenUtilInit(
-      designSize: const Size(412, 770),
+      designSize: const Size(375, 812),
       // designSize: const Size(14440, 972),
       minTextAdapt: true,
       splitScreenMode: true,
       builder: (context, child) {
         DrawableText.initial(
-          headerSizeText: 18.0.spMin,
-          initialHeightText: 1.8.spMin,
-          titleSizeText: 15.0.spMin,
-          initialSize: 16.0.spMin,
+          headerSizeText: 28.0.sp,
+          initialHeightText: 1.5.sp,
+          titleSizeText: 20.0.sp,
+          initialSize: 16.0.sp,
           renderHtml: false,
           selectable: false,
           initialColor: AppColorManager.black,

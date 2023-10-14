@@ -15,7 +15,7 @@ class MyButton extends StatelessWidget {
     this.textColor,
     this.width,
     this.enable,
-    this.wrapHeight,
+    this.toUpper = true,
     this.padding,
   }) : super(key: key);
 
@@ -28,16 +28,15 @@ class MyButton extends StatelessWidget {
   final bool? enable;
   final EdgeInsets? padding;
   final Function()? onTap;
-  final bool? wrapHeight;
+  final bool toUpper;
 
   @override
   Widget build(BuildContext context) {
     final child = this.child ??
         DrawableText(
-          text: text,
+          text:toUpper?text.toUpperCase(): text,
           color: textColor ?? AppColorManager.whit,
-          fontFamily: FontManager.cairoSemiBold,
-          size: 16.0.sp,
+          fontFamily: FontManager.cairoBold,
         );
 
     return SizedBox(

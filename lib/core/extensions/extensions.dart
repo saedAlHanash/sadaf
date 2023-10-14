@@ -69,12 +69,13 @@ extension FixMobile on String {
     return phone;
   }
 }
-final oCcy = NumberFormat("#,##", "en_US");
+
+final oCcy = NumberFormat("#,###", "en_US");
+
 extension MaxInt on num {
   int get max => 2147483647;
 
-
-  String get formatPrice => 'IQD ${oCcy.format(this)}';
+  String get formatPrice => '${oCcy.format(this)}';
 }
 
 extension UpdateTypeHelper on UpdateType {
@@ -149,7 +150,6 @@ extension DateUtcHelper on DateTime {
   String get formatTime => DateFormat('h:mm a').format(this);
 
   String get formatDateTime => '$formatTime $formatDate';
-
 
   DateTime addFromNow({int? year, int? month, int? day, int? hour}) {
     return DateTime(

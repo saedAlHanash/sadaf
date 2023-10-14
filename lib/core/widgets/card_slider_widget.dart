@@ -110,6 +110,7 @@ class CardImageSlider extends StatefulWidget {
     required this.images,
     this.height,
     this.width,
+    this.card = false,
   }) : super(key: key);
 
   final EdgeInsets? margin;
@@ -117,6 +118,7 @@ class CardImageSlider extends StatefulWidget {
   final List<String> images;
   final double? height;
   final double? width;
+  final bool card;
 
   @override
   State<CardImageSlider> createState() => _CardImageSliderState();
@@ -153,7 +155,6 @@ class _CardImageSliderState extends State<CardImageSlider> {
           },
         ).toList(),
         options: CarouselOptions(
-          enableInfiniteScroll: false,
           autoPlayInterval: const Duration(seconds: 10),
           height: widget.height,
           viewportFraction: 1,
@@ -193,53 +194,33 @@ class _CardImageSliderState extends State<CardImageSlider> {
         widgets.add(e);
       }
     }
-    widgets.add(Positioned(
-      bottom: 7.0.h,
-      child: IndicatorSliderWidget(key: key, length: widget.images.length),
-    ));
-
-    return Column(
-      mainAxisSize: MainAxisSize.min,
-      children: [
-        MyCardWidget(
-          padding: EdgeInsets.zero,
-          margin: widget.margin,
-          cardColor: Colors.white,
-          elevation: 0.0,
-          child: SizedBox(
-            width: widget.width,
-            height: widget.height,
-            child: Stack(
-              alignment: Alignment.center,
-              children: widgets,
-            ),
-          ),
-        ),
-        // SizedBox(
-        //   height: 200.0.h,
-        //   width: widget.width,
-        //   child: ListView.separated(
-        //     scrollDirection: Axis.horizontal,
-        //     padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 10.0).r,
-        //     itemBuilder: (context, index) {
-        //       return InkWell(
-        //         onTap: () {
-        //           controller.animateToPage(index);
-        //         },
-        //         splashColor: Colors.transparent,
-        //         child: RoundImageWidget(
-        //           url: widget.images[index],
-        //           height: 128.0.spMin,
-        //           width: 128.0.spMin,
-        //         ),
-        //       );
-        //     },
-        //     separatorBuilder: (context, index) => 5.0.horizontalSpace,
-        //     itemCount: widget.images.length,
-        //   ),
-        // )
-      ],
+    widgets.add(
+      Positioned(
+        bottom: 29.0.h,
+        left: 29.0.h,
+        width: 1.0.sw,
+        child: IndicatorSliderWidget(key: key, length: widget.images.length),
+      ),
     );
+
+    Widget widgetSlider = SizedBox(
+      width: widget.width,
+      height: widget.height,
+      child: Stack(
+        alignment: Alignment.center,
+        children: widgets,
+      ),
+    );
+    if (widget.card) {
+      widgetSlider = MyCardWidget(
+        padding: EdgeInsets.zero,
+        margin: widget.margin,
+        cardColor: Colors.white,
+        elevation: 0.0,
+        child: widgetSlider,
+      );
+    }
+    return widgetSlider;
   }
 }
 
@@ -282,7 +263,7 @@ class IndicatorSliderWidgetState extends State<IndicatorSliderWidget> {
             height: 7.spMin,
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(200.0),
-              color: AppColorManager.mainColor.withOpacity(selected == i ? 1 : 0.7),
+              color: AppColorManager.mainColor.withOpacity(selected == i ? 1 : 0.3),
             ),
             duration: const Duration(milliseconds: 150),
           );

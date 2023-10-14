@@ -44,7 +44,6 @@ class _AddToCartBtnState extends State<AddToCartBtn> {
         widget.product.quantity = 1;
         sl<CartService>().addToCart(widget.product,context: context);
       },
-      wrapHeight: true,
       width: 70.0.w,
       color: AppColorManager.mainColor,
       child: DrawableText(

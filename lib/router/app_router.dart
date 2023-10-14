@@ -71,22 +71,7 @@ class AppRoutes {
           );
         }
       //endregion
-      case RouteName.myAddress:
-        //region
-        {
-          final providers = [
-            BlocProvider(create: (context) => di.sl<SignupCubit>()),
-          ];
-          return MaterialPageRoute(
-            builder: (context) {
-              return MultiBlocProvider(
-                providers: providers,
-                child: MyAddress(request: settings.arguments as SignupRequest),
-              );
-            },
-          );
-        }
-      //endregion
+
       case RouteName.login:
         //region
         {
@@ -362,7 +347,7 @@ class RouteName {
   static const login = '/5';
   static const signup = '/6';
   static const confirmCode = '/7';
-  static const myAddress = '/8';
+
   static const product = '/9';
   static const profile = '/10';
   static const searchResult = '/11';

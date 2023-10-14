@@ -25,11 +25,13 @@ class MyTextFormOutLineWidget extends StatelessWidget {
     this.initialValue,
     this.textDirection,
     this.validator,
+    this.iconWidget,
   }) : super(key: key);
   final bool? enable;
   final String label;
   final String hint;
-  final String? icon;
+  final dynamic icon;
+  final Widget? iconWidget;
   final Color color;
   final int maxLines;
   final int maxLength;
@@ -51,9 +53,11 @@ class MyTextFormOutLineWidget extends StatelessWidget {
     Widget? suffixIcon;
     VoidCallback? onChangeObscure;
 
-    if (icon != null) {
+    if (iconWidget != null) {
+      suffixIcon = iconWidget!;
+    } else if (icon != null) {
       suffixIcon = Padding(
-        padding: EdgeInsets.symmetric(horizontal: 10.0.w),
+        padding: const EdgeInsets.symmetric(horizontal: 10.0).w,
         child: ImageMultiType(url: icon!, height: 23.0.h, width: 40.0.w),
       );
     }
@@ -98,7 +102,7 @@ class MyTextFormOutLineWidget extends StatelessWidget {
       enabledBorder: border,
       fillColor: AppColorManager.lightGray,
       label: DrawableText(
-        text: label,
+        text: label.toUpperCase(),
         color: AppColorManager.gray,
         size: 16.0.spMin,
       ),
@@ -106,7 +110,6 @@ class MyTextFormOutLineWidget extends StatelessWidget {
       alignLabelWithHint: true,
       labelStyle: TextStyle(color: color ?? AppColorManager.mainColor),
       suffixIcon: suffixIcon,
-      enabled: enable ?? true,
     );
 
     final textStyle = TextStyle(
@@ -120,11 +123,12 @@ class MyTextFormOutLineWidget extends StatelessWidget {
       return ClipRect(
         clipper: RectCustomClipper(),
         child: Padding(
-          padding: const EdgeInsets.symmetric(vertical: 7.0).h,
+          padding: const EdgeInsets.symmetric(vertical: 15.0).h,
           child: TextFormField(
             validator: validator,
             decoration: inputDecoration,
             maxLines: maxLines,
+            readOnly: !(enable ?? true),
             initialValue: initialValue,
             obscureText: obscureText,
             textAlign: textAlign,
@@ -220,6 +224,7 @@ class MyEditTextWidget extends StatelessWidget {
       focusedErrorBorder: border,
       disabledBorder: border,
       focusedBorder: border,
+      errorMaxLines: 0,
       constraints: BoxConstraints(maxWidth: .9.sw, minWidth: .3.sw),
       border: border,
       fillColor: backgroundColor ?? AppColorManager.offWhit.withOpacity(0.27),
@@ -233,18 +238,18 @@ class MyEditTextWidget extends StatelessWidget {
       builder: (context, state) {
         onChangeObscure = () => state(() {});
         return TextFormField(
-          onTap: () {
-            if (controller != null) {
-              if (controller!.selection ==
-                  TextSelection.fromPosition(
-                      TextPosition(offset: controller!.text.length - 1))) {
-                state(() {
-                  controller!.selection = TextSelection.fromPosition(
-                      TextPosition(offset: controller!.text.length));
-                });
-              }
-            }
-          },
+          // onTap: () {
+          //   if (controller != null) {
+          //     if (controller!.selection ==
+          //         TextSelection.fromPosition(
+          //             TextPosition(offset: controller!.text.length - 1))) {
+          //       state(() {
+          //         controller!.selection = TextSelection.fromPosition(
+          //             TextPosition(offset: controller!.text.length));
+          //       });
+          //     }
+          //   }
+          // },
           obscureText: obscureText,
           decoration: inputDecoration,
           maxLines: maxLines,
@@ -257,6 +262,7 @@ class MyEditTextWidget extends StatelessWidget {
           keyboardType: keyBordType,
           textInputAction: textInputAction,
           onFieldSubmitted: onFieldSubmitted,
+
         );
       },
     );
