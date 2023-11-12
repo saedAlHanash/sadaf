@@ -17,6 +17,7 @@ import '../../main.dart';
 import '../../router/app_router.dart';
 import '../app_theme.dart';
 import '../injection/injection_container.dart' as di;
+import '../injection/injection_container.dart';
 import '../util/shared_preferences.dart';
 import 'bloc/loading_cubit.dart';
 
@@ -89,7 +90,7 @@ class _MyAppState extends State<MyApp> {
       designSize: const Size(375, 812),
       // designSize: const Size(14440, 972),
       minTextAdapt: true,
-      splitScreenMode: true,
+      // splitScreenMode: true,
       builder: (context, child) {
         DrawableText.initial(
           headerSizeText: 28.0.sp,
@@ -102,6 +103,7 @@ class _MyAppState extends State<MyApp> {
         );
 
         return MaterialApp(
+          navigatorKey: sl<GlobalKey<NavigatorState>>(),
           locale: Locale(AppSharedPreference.getLocal),
           localizationsDelegates: const [
             S.delegate,
@@ -110,7 +112,6 @@ class _MyAppState extends State<MyApp> {
             GlobalCupertinoLocalizations.delegate,
           ],
           supportedLocales: S.delegate.supportedLocales,
-
           builder: (_, child) {
             return MultiBlocProvider(
               providers: [
@@ -143,3 +144,5 @@ class MyCustomScrollBehavior extends MaterialScrollBehavior {
         PointerDeviceKind.mouse,
       };
 }
+
+BuildContext? get ctx => sl<GlobalKey<NavigatorState>>().currentContext;

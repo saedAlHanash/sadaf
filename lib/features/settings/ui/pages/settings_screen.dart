@@ -5,12 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_switch/flutter_switch.dart';
+import 'package:image_multi_type/circle_image_widget.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/helper/launcher_helper.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/features/settings/services/setting_service.dart';
+import 'package:sadaf/features/profile/ui/widget/top_profile_widget.dart';
 import 'package:sadaf/router/app_router.dart';
 
 import '../../../../core/injection/injection_container.dart';
@@ -32,7 +34,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  var user = AppSharedPreference.getUserModel();
+  var user = AppSharedPreference.getUserModel;
 
   @override
   void initState() {
@@ -41,166 +43,80 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    if (!AppSharedPreference.isLogin) {
-      return Column(
-        mainAxisAlignment: MainAxisAlignment.center,
+    return SingleChildScrollView(
+      child: TopProfileWidget(
         children: [
-          const NotFoundWidget(
-            text: 'يجب تسجبل الدخول لرؤية الإعدادات',
-            icon: Assets.iconsNoSearch,
+          ItemMenu(
+            name: S.of(context).myInfo,
+            icon: Assets.iconsProfile,
           ),
-          MyButton(
-            text: 'تسجيل الدخول ؟',
-            onTap: () => Navigator.pushNamed(context, RouteName.login),
-          )
-        ],
-      );
-    }
-    return Column(
-      children: [
-        SizedBox(
-          height: 230.0.h,
-          width: 1.0.sw,
-          child: Stack(
+          ItemMenu(
+            name: S.of(context).myOrder,
+            icon: Assets.iconsMyOrder,
+          ),
+          ItemMenu(
+            name: S.of(context).wishList,
+            icon: Assets.iconsFav,
+          ),
+          ItemMenu(
+            name: S.of(context).faq,
+            icon: Assets.iconsFaq,
+          ),
+          ItemMenu(
+            name: S.of(context).termsAndConditions,
+            icon: Assets.iconsTermsAndConditions,
+          ),
+          ItemMenu(
+            name: S.of(context).aboutUs,
+            icon: Assets.iconsAboutUs,
+          ),
+          ItemMenu(
+            name: S.of(context).support,
+            icon: Assets.iconsSupport,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              ImageMultiType(
-                url: Assets.iconsLogo,
-                height: 180.0.h,
-                width: 1.0.sw,
-                fit: BoxFit.cover,
+              TextButton(
+                onPressed: () => logout(),
+                child: DrawableText(
+                  text: S.of(context).logout,
+                  drawablePadding: 10.0.w,
+                  drawableEnd: ImageMultiType(
+                    url: Assets.iconsLogout,
+                    width: 20.0.r,
+                    height: 20.0.r,
+                  ),
+                ),
               ),
-              Positioned(
-                right: 0.0,
-                left: 0.0,
-                bottom: 0.0,
-                child: BackdropFilter(
-                  filter: ImageFilter.blur(sigmaX: 3.0, sigmaY: 3.0),
-                  child: Container(
-                      height: 120.0.spMin,
-                      width: 120.0.spMin,
-                      clipBehavior: Clip.hardEdge,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        boxShadow: MyStyle.lightShadow,
-                        border: Border.all(color: AppColorManager.whit, width: 7.0.spMin),
-                        color: AppColorManager.offWhit,
-                      ),
-                      child: const ImageMultiType(
-                        url: Assets.iconsLogo,
-                      )),
+              DrawableText(
+                text: S.of(context).deleteAccount,
+                drawablePadding: 10.0.w,
+                color: AppColorManager.red,
+                drawableEnd: ImageMultiType(
+                  url: Icons.delete_forever,
+                  color: AppColorManager.red,
+                  width: 20.0.r,
+                  height: 20.0.r,
                 ),
               ),
             ],
           ),
-        ),
-        Expanded(
-          child: Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  DrawableText(
-                    text: user.name,
-                    fontFamily: FontManager.cairoBold,
-                  ),
-                  DrawableText(
-                    text: user.phone,
-                  ),
-                  10.0.verticalSpace,
-                  ItemMenu(
-                    name: S.of(context).editProfile,
-                    icon: Assets.iconsUser,
-                  ),
-                  ItemMenu(
-                    name: S.of(context).myOrder,
-                    icon: Assets.iconsOrders,
-                  ),
-                  ItemMenu(
-                    name: S.of(context).notification,
-                    icon: Assets.iconsNotifications,
-                  ),
-                  ItemMenu(
-                    name: S.of(context).about,
-                    icon: Assets.iconsInfo,
-                  ),
-                  ItemMenu(
-                    name: S.of(context).policy,
-                    icon: Assets.iconsPolicy,
-                  ),
-                  DrawableText(
-                    text: S.of(context).contact,
-                    matchParent: true,
-                    textAlign: TextAlign.center,
-                    color: AppColorManager.black,
-                    padding: const EdgeInsets.symmetric(vertical: 3.0).h,
-                  ),
-                  Builder(builder: (_) {
-                    return Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        0.0.verticalSpace,
-                        IconButton(
-                          onPressed: () async {
-                            final phone = await sl<SettingService>().getPhone();
-                            LauncherHelper.callPhone(phone: phone);
-                          },
-                          iconSize: 50.0.spMin,
-                          icon: const ImageMultiType(url: Assets.iconsCall),
-                        ),
-                        IconButton(
-                          onPressed: () async {
-                            final facebook = await sl<SettingService>().getFacebook();
-
-                            LauncherHelper.openPage(facebook);
-                          },
-                          iconSize: 50.0.spMin,
-                          icon: const ImageMultiType(url: Assets.iconsFb),
-                        ),
-                        IconButton(
-                          onPressed: () async {
-                            final whatsUp = await sl<SettingService>().getWhatsUp();
-                            LauncherHelper.openPage(whatsUp);
-                          },
-                          iconSize: 50.0.spMin,
-                          icon: const ImageMultiType(url: Assets.iconsWhatsApp),
-                        ),
-                        0.0.verticalSpace,
-                      ],
-                    );
-                  }),
-                  20.0.verticalSpace,
-                  DrawableText(
-                    text: 'صمم بواسطة: ',
-                    color: Colors.black,
-                    size: 20.0.sp,
-                    drawablePadding: 10.0.w,
-                    drawableEnd: GestureDetector(
-                      onTap: () => LauncherHelper.openPage('https://www.bandtech.co/'),
-                      child: ImageMultiType(
-                        url: Assets.iconsBandtechLogo,
-                        width: 100.0.spMin,
-                        height: 50.0.spMin,
-                      ),
-                    ),
-                  ),
-                  20.0.verticalSpace,
-                  MyButton(
-                    text: S.of(context).logout,
-                    onTap: logout,
-                  ),
-                  5.0.verticalSpace,
-                  MyButton(
-                    text: 'حذف الحساب',
-                    color: Colors.red,
-                    onTap: deleteAccount,
-                  ),
-                  20.0.verticalSpace,
-                ],
+          const Divider(),
+          DrawableText(
+            text: '',
+            drawablePadding: 10.0.w,
+            drawableEnd: GestureDetector(
+              onTap: () => LauncherHelper.openPage('https://www.bandtech.co/'),
+              child: ImageMultiType(
+                url: Assets.iconsBandtechLogo,
+                width: 80.0.spMin,
+                height: 40.0.spMin,
               ),
             ),
           ),
-        ),
-      ],
+        ],
+      ),
     );
   }
 
@@ -243,7 +159,15 @@ class _SettingsScreenState extends State<SettingsScreen> {
                       return MyButton(
                         width: 1.0.sw,
                         text: 'نعم',
-                        onTap: () => context.read<LogoutCubit>().logout(context),
+                        onTap: () {
+                          context.read<LogoutCubit>().logout(context);
+                          AppSharedPreference.logout();
+                          Navigator.pushNamedAndRemoveUntil(
+                            context,
+                            RouteName.splash,
+                            (route) => false,
+                          );
+                        },
                       );
                     },
                   ),
@@ -340,50 +264,38 @@ class ItemMenu extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var switchState = AppSharedPreference.getActiveNotification();
     return InkWell(
-      onTap: name == S.of(context).notification ? null : () => onTapItem(context),
+      splashColor: Colors.transparent,
+      radius: 0.01,
+      onTap: () => onTapItem(context),
       child: Container(
         width: 1.0.sw,
-        height: 51.0.h,
-        decoration: BoxDecoration(
-          color: AppColorManager.lightGray,
-          borderRadius: BorderRadius.circular(200.0),
-        ),
-        padding: const EdgeInsets.symmetric(vertical: 10.0, horizontal: 20.0).r,
-        margin: const EdgeInsets.symmetric(vertical: 10.0).h,
-        child: Row(
+        // height: 51.0.h,
+        padding: const EdgeInsets.symmetric(vertical: 10.0).r,
+        child: Column(
           children: [
-            Expanded(
-              child: DrawableText(
-                text: name,
-                drawablePadding: 15.0.w,
-                padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-                drawableStart: ImageMultiType(
-                  url: icon,
-                  width: 20.0.spMin,
-                  height: 20.0.spMin,
-                ),
+            DrawableText(
+              text: name,
+              drawablePadding: 15.0.w,
+              matchParent: true,
+              drawableStart: ImageMultiType(
+                url: icon,
+                width: 20.0.spMin,
+                height: 20.0.spMin,
+                color: AppColorManager.mainColorDark,
+              ),
+              drawableEnd: ImageMultiType(
+                url: Icons.keyboard_arrow_right_outlined,
+                color: AppColorManager.mainColorDark,
+                width: 20.0.r,
               ),
             ),
-            name == S.of(context).notification
-                ? StatefulBuilder(builder: (context, state) {
-                    return FlutterSwitch(
-                      height: 30.0.h,
-                      activeColor: AppColorManager.whit,
-                      activeToggleColor: AppColorManager.mainColor,
-                      value: switchState,
-                      onToggle: (value) {
-                        state(() => switchState = value);
-                        AppSharedPreference.cashActiveNotification(switchState);
-                      },
-                    );
-                  })
-                : Icon(
-                    Icons.arrow_back_ios_new,
-                    color: AppColorManager.e4,
-                    size: 13.0.r,
-                  )
+            Container(
+              color: Colors.grey,
+              height: 1.0.h,
+              width: 1.0.sw,
+              margin: const EdgeInsets.symmetric(vertical: 8.0).r,
+            ),
           ],
         ),
       ),
@@ -391,7 +303,6 @@ class ItemMenu extends StatelessWidget {
   }
 
   onTapItem(BuildContext context) {
-
     if (name == S.of(context).editProfile) {
       Navigator.pushNamed(context, RouteName.updateChoice);
       return;
@@ -401,9 +312,6 @@ class ItemMenu extends StatelessWidget {
       return;
     }
 
-    if (name == S.of(context).notification) {
-      return;
-    }
     if (name == S.of(context).about) {
       Navigator.pushNamed(context, RouteName.about);
       return;
@@ -428,6 +336,30 @@ class ItemMenu extends StatelessWidget {
     }
     if (name == S.of(context).changePass) {
       Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.pass);
+      return;
+    }
+
+    if (name == S.of(context).myInfo) {
+      Navigator.pushNamed(context, RouteName.profile);
+      return;
+    }
+    if (name == S.of(context).wishList) {
+      return;
+    }
+    if (name == S.of(context).faq) {
+      Navigator.pushNamed(context, RouteName.about);
+      return;
+    }
+    if (name == S.of(context).termsAndConditions) {
+      Navigator.pushNamed(context, RouteName.privacy);
+      return;
+    }
+    if (name == S.of(context).aboutUs) {
+      Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.name);
+      return;
+    }
+    if (name == S.of(context).support) {
+      Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.phone);
       return;
     }
   }

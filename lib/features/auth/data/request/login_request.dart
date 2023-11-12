@@ -1,38 +1,32 @@
-import 'package:sadaf/main.dart';
 
 class LoginRequest {
-  String phone;
-  String password;
-  bool rememberMe;
-
-  String? fcm;
+  String? phoneOrEmail;
+  String? password;
+  String? code;
 
   LoginRequest({
-    this.phone = '',
-    this.password = '',
-    this.rememberMe = true,
-  }) {
-    getFireToken().then((value) => fcm = value);
-  }
+    this.phoneOrEmail ,
+    this.password ,
+    this.code,
+  }) ;
 
   LoginRequest copyWith({
-    String? phone,
+    String? phoneOrEmail,
     String? password,
-    bool? rememberMe,
+
   }) {
     return LoginRequest(
-      phone: phone ?? this.phone,
+      phoneOrEmail: phoneOrEmail ?? this.phoneOrEmail,
       password: password ?? this.password,
-      rememberMe: rememberMe ?? this.rememberMe,
+
     );
   }
 
   Map<String, dynamic> toJson() {
     return {
-      'phone': phone,
+      'email_or_phone': phoneOrEmail,
       'password': password,
-      'fcm_token': fcm,
-      'rememberMe': rememberMe,
+      'otp_code': code,
     };
   }
 }

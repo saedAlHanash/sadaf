@@ -1,22 +1,17 @@
 part of 'reset_password_cubit.dart';
 
-class ResetPasswordInitial extends Equatable {
-  final CubitStatuses statuses;
-  final bool result;
-  final String error;
+class ResetPasswordInitial extends AbstractCubit<bool> {
+  final ResetPasswordRequest request;
 
   const ResetPasswordInitial({
-    required this.statuses,
-    required this.result,
-    required this.error,
+    required super.result,
+    super.error,
+    super.statuses,
+    required this.request,
   });
 
   factory ResetPasswordInitial.initial() {
-    return const ResetPasswordInitial(
-      result: false,
-      error: '',
-      statuses: CubitStatuses.init,
-    );
+    return ResetPasswordInitial(result: false, request: ResetPasswordRequest());
   }
 
   @override
@@ -26,11 +21,13 @@ class ResetPasswordInitial extends Equatable {
     CubitStatuses? statuses,
     bool? result,
     String? error,
+    ResetPasswordRequest? request,
   }) {
     return ResetPasswordInitial(
       statuses: statuses ?? this.statuses,
       result: result ?? this.result,
       error: error ?? this.error,
+      request: request ?? this.request,
     );
   }
 }

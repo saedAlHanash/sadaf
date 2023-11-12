@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:sadaf/core/util/shared_preferences.dart';
 
+import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../generated/assets.dart';
 import '../../../../router/app_router.dart';
@@ -22,6 +24,29 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: [SystemUiOverlay.bottom]);
 
+    Future.delayed(
+      const Duration(seconds: 2),
+      () {
+        switch (getStartPage) {
+          case StartPage.login:
+            Navigator.pushReplacementNamed(context, RouteName.login);
+            break;
+          case StartPage.home:
+            Navigator.pushReplacementNamed(context, RouteName.home);
+            break;
+          case StartPage.otp:
+            Navigator.pushReplacementNamed(context, RouteName.confirmCode);
+            break;
+          case StartPage.passwordOtp:
+            Navigator.pushReplacementNamed(context, RouteName.otpPassword);
+            break;
+          case StartPage.resetPassword:
+            Navigator.pushReplacementNamed(context, RouteName.resetPasswordPage);
+            break;
+        }
+      },
+    );
+
     super.initState();
   }
 
@@ -35,32 +60,30 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 
   @override
   Widget build(BuildContext context) {
-    Timer(const Duration(seconds: 2), () async {
-      // if (AppSharedPreference.isLogin) {
-      //   await FavoriteCubit.getFavoriteApi();
-      // }
-      // await sl<SettingService>().getWhatsUp();
-      // await sl<SettingService>().getFacebook();
-      // await sl<SettingService>().getPhone();
-      if (!mounted) return;
-      Navigator.pushReplacementNamed(context, RouteName.home);
-    });
-
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Container(
         width: 1.0.sw,
         height: 1.0.sh,
-        decoration: const BoxDecoration(
-          image: DecorationImage(
-            image: AssetImage(Assets.iconsBackCover),
-            fit: BoxFit.fill,
-          ),
-        ),
         padding: MyStyle.authPagesPadding,
         child: const Center(
-          child: ImageMultiType(url:Assets.iconsLogo),
+          child: ImageMultiType(url: Assets.iconsLogo),
         ),
       ),
     );
   }
+}
+
+StartPage get getStartPage {
+  if (AppSharedPreference.isLogin) {
+    return StartPage.home;
+  }
+  if (AppSharedPreference.getPhoneOrEmail.isNotEmpty) {
+    return StartPage.otp;
+  }
+  if (AppSharedPreference.getPhoneOrEmailPassword.isNotEmpty) {
+    return StartPage.passwordOtp;
+  }
+  if (AppSharedPreference.getOtpPassword.isNotEmpty) return StartPage.resetPassword;
+  return StartPage.login;
 }

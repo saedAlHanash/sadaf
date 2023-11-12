@@ -93,6 +93,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Email field is required"),
         "enterOTP":
             MessageLookupByLibrary.simpleMessage("Enter Your OTP Code Here."),
+        "enter_new_password_and_confirm": MessageLookupByLibrary.simpleMessage(
+            "Enter New Password And Confirm."),
         "expiration": MessageLookupByLibrary.simpleMessage("Expiration"),
         "faq": MessageLookupByLibrary.simpleMessage("F.A.q"),
         "fav": MessageLookupByLibrary.simpleMessage("Favorites"),
@@ -107,6 +109,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("Home"),
         "homeAddress": MessageLookupByLibrary.simpleMessage("Home Address"),
         "hours": MessageLookupByLibrary.simpleMessage("Hours"),
+        "is_required": MessageLookupByLibrary.simpleMessage("Required"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "lastName": MessageLookupByLibrary.simpleMessage("Last name"),
         "location": MessageLookupByLibrary.simpleMessage("Location"),
@@ -135,6 +138,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("Notifications"),
         "numberPhone": MessageLookupByLibrary.simpleMessage("Number Phone"),
         "offer": MessageLookupByLibrary.simpleMessage("Offer"),
+        "oops": MessageLookupByLibrary.simpleMessage("Oops!"),
         "order_summary": MessageLookupByLibrary.simpleMessage("Order summary"),
         "other": MessageLookupByLibrary.simpleMessage("Other"),
         "password": MessageLookupByLibrary.simpleMessage("Password"),
@@ -169,6 +173,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Related Products"),
         "rememberMe": MessageLookupByLibrary.simpleMessage("Remember Me"),
         "resend": MessageLookupByLibrary.simpleMessage("Resend"),
+        "reset_password":
+            MessageLookupByLibrary.simpleMessage("Reset Password"),
         "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
         "saveChange": MessageLookupByLibrary.simpleMessage("save change"),
         "save_for_later":

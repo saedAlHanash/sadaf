@@ -20,6 +20,8 @@ class AppSharedPreference {
   static const _myId = '12';
   static const _cart = '13';
   static const _lang = '14';
+  static const _phoneNumberPassword = '15';
+  static const _otpPassword = '16';
 
   static late SharedPreferences _prefs;
 
@@ -37,28 +39,48 @@ class AppSharedPreference {
     return _prefs.getString(_token) ?? '';
   }
 
-  static cashUser(ConfirmCodeData? model) {
+  static cashUser(LoginData? model) {
     if (model == null) return;
 
     _prefs.setString(_user, jsonEncode(model.toJson()));
   }
 
-  static ConfirmCodeData getUserModel() {
+  static LoginData get getUserModel {
     var json = _prefs.getString(_user) ?? '{}';
-    return ConfirmCodeData.fromJson(jsonDecode(json));
+    return LoginData.fromJson(jsonDecode(json));
   }
 
-  static cashPhoneNumber(String phone) async {
-    loggerObject.v(phone);
+  static cashPhoneOrEmail(String? phone) async {
+    if (phone == null) return;
     await _prefs.setString(_phoneNumber, phone);
   }
 
-  static String getPhoneNumber() {
+  static String get getPhoneOrEmail {
     return _prefs.getString(_phoneNumber) ?? '';
   }
 
-  static void removePhoneNumber() {
+  static cashPhoneOrEmailPassword(String? phone) async {
+    if (phone == null) return;
+    await _prefs.setString(_phoneNumberPassword, phone);
+  }
+
+  static String get getPhoneOrEmailPassword {
+    return _prefs.getString(_phoneNumberPassword) ?? '';
+  }
+
+  static cashOtpPassword(String? otp) async {
+    if (otp == null) return;
+    await _prefs.setString(_otpPassword, otp);
+  }
+
+  static String get getOtpPassword {
+    return _prefs.getString(_otpPassword) ?? '';
+  }
+
+  static void removePhoneOrEmail() {
     _prefs.remove(_phoneNumber);
+    _prefs.remove(_phoneNumberPassword);
+    _prefs.remove(_otpPassword);
   }
 
   static cashToScreen(ToScreen appState) {
@@ -88,21 +110,7 @@ class AppSharedPreference {
     _prefs.clear();
   }
 
-  static void cashEmail({required String email}) {
-    _prefs.setString(_forgetEmail, email);
-  }
-
-  static String getCashedEmail() {
-    return _prefs.getString(_forgetEmail) ?? '';
-  }
-
   static bool get isLogin => getToken().isNotEmpty;
-
-  // return true;
-
-  static void removeCashEmail() {
-    _prefs.remove(_forgetEmail);
-  }
 
   static void cashFireToken(String token) {
     _prefs.setString(_fireToken, token);

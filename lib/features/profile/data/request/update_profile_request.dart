@@ -1,49 +1,56 @@
-import 'package:sadaf/core/extensions/extensions.dart';
+import 'package:sadaf/core/util/shared_preferences.dart';
+
+import '../../../../core/api_manager/api_service.dart';
+import '../../../../core/strings/enum_manager.dart';
 
 class UpdateProfileRequest {
   UpdateProfileRequest({
     this.name,
-    this.mobile,
-    this.email,
-    this.photoID,
+    this.emailOrPhone,
+    this.mapAddress,
+    this.country,
+    this.city,
+    this.homeAddress,
+    this.oldPass,
+    this.newPass,
+    this.rePass,
   });
 
+  String? country;
+  String? city;
+  String? homeAddress;
   String? name;
-  String? mobile;
-  String? email;
-  int? photoID;
+  String? emailOrPhone;
+  String? mapAddress;
+  UploadFile? avatar;
 
-  String? path;
+  String? oldPass;
+  String? newPass;
+  String? rePass;
 
-  UpdateProfileRequest copyWith({
-    String? name,
-    String? mobile,
-    String? email,
-    int? photoID,
-  }) {
+  UpdateType? type;
+
+  factory UpdateProfileRequest.initial() {
+    final user = AppSharedPreference.getUserModel;
     return UpdateProfileRequest(
-      name: name ?? this.name,
-      mobile: mobile ?? this.mobile,
-      email: email ?? this.email,
-      photoID: photoID ?? this.photoID,
+      name: user.name,
+      emailOrPhone: user.emailOrPhone,
+      mapAddress: user.mapAddress,
+      country: user.country,
+      city: user.city,
+      homeAddress: user.mapAddress,
     );
   }
 
-  Map<String, dynamic> toMap() {
-    return {
-      'name': name,
-      'mobile': mobile?.fixPhone(),
-      'email': email,
-      'photoID': photoID,
-    };
-  }
-
-  factory UpdateProfileRequest.fromMap(Map<String, dynamic> map) {
-    return UpdateProfileRequest(
-      name: map['name'] as String,
-      mobile: map['mobile'] as String,
-      email: map['email'] as String,
-      photoID: map['photoID'] as int,
-    );
-  }
+  Map<String, dynamic> toJson() => {
+        "name": name,
+        "email_or_phone": emailOrPhone,
+        "map_address": mapAddress,
+        "address[country]": country,
+        "address[city]": city,
+        "address[home_address]": homeAddress,
+        "old_password": oldPass,
+        "new_password": newPass,
+        "new_password_confirmation": rePass,
+      };
 }

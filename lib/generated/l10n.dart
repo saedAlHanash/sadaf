@@ -1419,6 +1419,46 @@ class S {
       args: [],
     );
   }
+
+  /// `Required`
+  String get is_required {
+    return Intl.message(
+      'Required',
+      name: 'is_required',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Oops!`
+  String get oops {
+    return Intl.message(
+      'Oops!',
+      name: 'oops',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Reset Password`
+  String get reset_password {
+    return Intl.message(
+      'Reset Password',
+      name: 'reset_password',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Enter New Password And Confirm.`
+  String get enter_new_password_and_confirm {
+    return Intl.message(
+      'Enter New Password And Confirm.',
+      name: 'enter_new_password_and_confirm',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

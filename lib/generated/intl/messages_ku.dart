@@ -97,6 +97,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "emailEmpty": MessageLookupByLibrary.simpleMessage(
             "Qada e-nivîsê bi tevahî gerek e"),
         "enterOTP": MessageLookupByLibrary.simpleMessage("کۆدی OTP لێرە دانێ"),
+        "enter_new_password_and_confirm": MessageLookupByLibrary.simpleMessage(
+            "Enter New Password And Confirm."),
         "expiration": MessageLookupByLibrary.simpleMessage("بەسەرچوون"),
         "faq": MessageLookupByLibrary.simpleMessage("پرسیار و وەڵامەکان"),
         "fav": MessageLookupByLibrary.simpleMessage("Hezkirin"),
@@ -111,6 +113,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("Mal"),
         "homeAddress": MessageLookupByLibrary.simpleMessage("ناونیشانی خانە"),
         "hours": MessageLookupByLibrary.simpleMessage("کاتژمێر"),
+        "is_required": MessageLookupByLibrary.simpleMessage("Required"),
         "language": MessageLookupByLibrary.simpleMessage("زمان"),
         "lastName": MessageLookupByLibrary.simpleMessage("ناوی دووەم"),
         "location": MessageLookupByLibrary.simpleMessage("شوێن"),
@@ -140,6 +143,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("Agahdariyê"),
         "numberPhone": MessageLookupByLibrary.simpleMessage("ژمارەی مۆبایل"),
         "offer": MessageLookupByLibrary.simpleMessage("پێشکەش"),
+        "oops": MessageLookupByLibrary.simpleMessage("Oops!"),
         "order_summary":
             MessageLookupByLibrary.simpleMessage("کورتەی داواکردن"),
         "other": MessageLookupByLibrary.simpleMessage("تر"),
@@ -176,6 +180,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("وەرزشەکانی پەیوەندی"),
         "rememberMe": MessageLookupByLibrary.simpleMessage("Remember Me"),
         "resend": MessageLookupByLibrary.simpleMessage("دووبارە ناردن"),
+        "reset_password":
+            MessageLookupByLibrary.simpleMessage("Reset Password"),
         "reviews": MessageLookupByLibrary.simpleMessage("بەڵێوەچوونەکان"),
         "saveChange":
             MessageLookupByLibrary.simpleMessage("پاشکەوتکردنی گۆڕانکاری"),

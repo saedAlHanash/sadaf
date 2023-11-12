@@ -24,7 +24,7 @@ class GetUrl {
 
   static const getAnnouncements = 'announcements';
 
-  static const resendCode = 'send-code';
+
 
   static const slider = 'slider';
 
@@ -49,8 +49,9 @@ class PostUrl {
   static const loginUrl = 'login';
   static const signup = 'register';
 
-  static const forgetPassword = 'auth/forget-password';
-  static const resetPassword = 'auth/reset-password';
+  static const forgetPassword = 'password/email';
+
+  static const resetPassword = 'password/reset';
 
   static const closeVideo = 'lessons/close-video';
 
@@ -60,13 +61,16 @@ class PostUrl {
   static const insertCode = 'courses/insert-code';
   static const logout = 'logout';
 
-  static const confirmCode = 'verify-email';
+  static const confirmCode = 'opt-check';
+  static const otpPassword = 'password/check';
 
   static const addFavorite = 'favorites';
 
   static const restPass = 'reset-password';
 
   static var createOrder = 'orders';
+
+  static const resendCode = 'opt-resend';
 }
 
 class PutUrl {
@@ -79,6 +83,5 @@ class DeleteUrl {
   static const removeFavorite = 'favorites';
 }
 
-//https://robin-medical.com/Snail/public/api/v1
-const additionalConst = 'api/v1/';
-const baseUrl = 'snailstoreiq.com';
+const additionalConst = 'api/mobile/';
+const baseUrl = '5.bandtech.co';

@@ -74,7 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "currency": MessageLookupByLibrary.simpleMessage("العملة"),
         "currentPassword":
             MessageLookupByLibrary.simpleMessage("كلمة المرور الحالية"),
-        "cvc": MessageLookupByLibrary.simpleMessage("CVC"),
+        "cvc": MessageLookupByLibrary.simpleMessage("الرقم السري"),
         "days": MessageLookupByLibrary.simpleMessage("أيام"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
         "description": MessageLookupByLibrary.simpleMessage("الوصف"),
@@ -92,6 +92,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("حقل البريد الإلكتروني مطلوب"),
         "enterOTP":
             MessageLookupByLibrary.simpleMessage("أدخل رمز OTP الخاص بك هنا."),
+        "enter_new_password_and_confirm":
+            MessageLookupByLibrary.simpleMessage("أدخل كلمة السر مع التأكيد"),
         "expiration": MessageLookupByLibrary.simpleMessage("انتهاء الصلاحية"),
         "faq": MessageLookupByLibrary.simpleMessage("الأسئلة الشائعة"),
         "fav": MessageLookupByLibrary.simpleMessage("المفضلة"),
@@ -106,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "homeAddress": MessageLookupByLibrary.simpleMessage("عنوان المنزل"),
         "hours": MessageLookupByLibrary.simpleMessage("ساعات"),
+        "is_required": MessageLookupByLibrary.simpleMessage("مطلوب"),
         "language": MessageLookupByLibrary.simpleMessage("اللغة"),
         "lastName": MessageLookupByLibrary.simpleMessage("الاسم الأخير"),
         "location": MessageLookupByLibrary.simpleMessage("الموقع"),
@@ -134,6 +137,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "notification": MessageLookupByLibrary.simpleMessage("الإشعارات"),
         "numberPhone": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
         "offer": MessageLookupByLibrary.simpleMessage("عرض"),
+        "oops": MessageLookupByLibrary.simpleMessage("حدث خطأ ما!"),
         "order_summary": MessageLookupByLibrary.simpleMessage("ملخص الطلب"),
         "other": MessageLookupByLibrary.simpleMessage("آخر"),
         "password": MessageLookupByLibrary.simpleMessage("كلمة المرور"),
@@ -167,6 +171,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("منتجات ذات صلة"),
         "rememberMe": MessageLookupByLibrary.simpleMessage("تذكرني"),
         "resend": MessageLookupByLibrary.simpleMessage("إعادة الإرسال"),
+        "reset_password":
+            MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة المرور"),
         "reviews": MessageLookupByLibrary.simpleMessage("التقييمات"),
         "saveChange": MessageLookupByLibrary.simpleMessage("حفظ التغيير"),
         "save_for_later": MessageLookupByLibrary.simpleMessage("حفظ لاحقًا؟"),

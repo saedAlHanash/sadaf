@@ -24,13 +24,13 @@ class UpdateUserRequest {
     this.newPass = '',
     this.rePass = '',
   }) {
-    final user = AppSharedPreference.getUserModel();
+    final user = AppSharedPreference.getUserModel;
 
     name = user.name;
-    address = user.address;
+    address = user.mapAddress;
     city = user.city;
     country = user.country;
-    phone = user.phone;
+    phone = user.emailOrPhone;
   }
 
 // UpdateType? get updateType {
@@ -42,13 +42,13 @@ class UpdateUserRequest {
 //   return null;
 // }
 //
-// bool get _isUpdateName => name != AppSharedPreference.getUserModel().name;
+// bool get _isUpdateName => name != AppSharedPreference.getUserModel.name;
 //
-// bool get _isUpdatePhone => phone != AppSharedPreference.getUserModel().phone;
+// bool get _isUpdatePhone => phone != AppSharedPreference.getUserModel.phone;
 //
 // bool get _isUpdateAddress {
-//   return address != AppSharedPreference.getUserModel().address ||
-//       city != AppSharedPreference.getUserModel().city ||
-//       country != AppSharedPreference.getUserModel().country;
+//   return address != AppSharedPreference.getUserModel.address ||
+//       city != AppSharedPreference.getUserModel.city ||
+//       country != AppSharedPreference.getUserModel.country;
 // }
 }

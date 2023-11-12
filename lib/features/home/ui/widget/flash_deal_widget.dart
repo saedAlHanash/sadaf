@@ -30,7 +30,7 @@ class FlashDealWidget extends StatelessWidget {
                   drawableAlin: DrawableAlin.between,
                   drawablePadding: 10.0.w,
                   drawableStart: DrawableText(
-                    text: 'text',
+                    text: '20',
                     fontFamily: FontManager.cairoBold,
                     size: 13.0.sp,
                   ),
@@ -42,7 +42,7 @@ class FlashDealWidget extends StatelessWidget {
                   drawableAlin: DrawableAlin.between,
                   drawablePadding: 10.0.w,
                   drawableStart: DrawableText(
-                    text: 'text',
+                    text: '20',
                     fontFamily: FontManager.cairoBold,
                     size: 13.0.sp,
                   ),
@@ -54,7 +54,7 @@ class FlashDealWidget extends StatelessWidget {
                   drawableAlin: DrawableAlin.between,
                   drawablePadding: 10.0.w,
                   drawableStart: DrawableText(
-                    text: 'text',
+                    text: '20',
                     fontFamily: FontManager.cairoBold,
                     size: 13.0.sp,
                   ),

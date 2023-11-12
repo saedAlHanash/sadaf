@@ -49,7 +49,6 @@
   "signInToContinue": "Sign In To Continue",
   "rememberMe": "Remember Me",
   "doNotHaveAnAccount": "Don't Have An Account?",
-
   "signInWithSocial": "Sign In With Social Networks:",
   "signUp": "Sign Up",
   "name": "name",
@@ -136,5 +135,9 @@
   "add_to_cart": "Add To Cart",
   "next": "Next",
   "back": "Back",
-  "new_arrival": "New Arrival"
+  "new_arrival": "New Arrival",
+  "is_required": "Required",
+  "oops": "Oops!",
+  "reset_password": "Reset Password",
+  "enter_new_password_and_confirm": "Enter New Password And Confirm."
 }

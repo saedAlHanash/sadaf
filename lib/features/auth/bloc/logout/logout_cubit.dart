@@ -23,15 +23,14 @@ class LogoutCubit extends Cubit<LogoutInitial> {
     emit(state.copyWith(statuses: CubitStatuses.loading));
     final pair = await _logoutApi();
 
+
     if (pair.first == null) {
-      if (context.mounted) {
-        NoteMessage.showSnakeBar(message: pair.second ?? '', context: context);
-      }
       emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
-      AppSharedPreference.logout();
+
     } else {
       emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
     }
+
   }
 
   Future<Pair<bool?, String?>> _logoutApi() async {

@@ -1,4 +1,3 @@
-
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -7,6 +6,7 @@ import '../../generated/l10n.dart';
 import '../strings/app_color_manager.dart';
 import '../widgets/my_button.dart';
 import '../widgets/snake_bar_widget.dart';
+import 'package:awesome_dialog/awesome_dialog.dart';
 
 class NoteMessage {
   static void showSuccessSnackBar(
@@ -57,8 +57,7 @@ class NoteMessage {
     );
   }
 
-  static Future<bool> showBottomSheet1(
-      BuildContext context, Widget child) async {
+  static Future<bool> showBottomSheet1(BuildContext context, Widget child) async {
     final result = await showModalBottomSheet(
       isScrollControlled: true,
       context: context,
@@ -77,57 +76,7 @@ class NoteMessage {
 
 
 
-  static showDoneDialog(BuildContext context,
-      {required String text, Function()? onCancel}) async {
-    // show the dialog
-    await showDialog(
-      context: context,
-      barrierColor: Colors.black.withOpacity(0.3),
-      builder: (BuildContext context) {
-        return Dialog(
-          alignment: Alignment.center,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(20.0.r),
-            ),
-          ),
-          elevation: 10.0,
-          clipBehavior: Clip.hardEdge,
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              SizedBox(
-                height: 150.0.h,
-                // child: LottieBuilder.asset(Assets.lottiesMochup03Done),
-              ),
-              10.0.verticalSpace,
-              DrawableText(
-                text: text,
-                size: 16.0.spMin,
-                color: Colors.black,
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(vertical: 20.0, horizontal: 15)
-                        .r,
-                child: MyButton(
-                  text: S.of(context).done,
-                  onTap: () => Navigator.pop(context),
-                ),
-              ),
-            ],
-          ),
-        );
-      },
-    );
-
-    if (onCancel != null) {
-      onCancel();
-    }
-  }
-
-  static Future<bool> showConfirm(BuildContext context,
-      {required String text}) async {
+  static Future<bool> showConfirm(BuildContext context, {required String text}) async {
     // show the dialog
     final result = await showDialog(
       context: context,
@@ -266,8 +215,7 @@ class NoteMessage {
     );
   }
 
-  static Future<bool> showMyDialog(BuildContext context,
-      {required Widget child}) async {
+  static Future<bool> showMyDialog(BuildContext context, {required Widget child}) async {
     // show the dialog
     final result = await showDialog(
       context: context,
@@ -290,5 +238,27 @@ class NoteMessage {
       },
     );
     return (result ?? false);
+  }
+
+  static void showAwesomeError({required BuildContext context, required String message}) {
+    AwesomeDialog(
+      context: context,
+      dialogType: DialogType.error,
+      animType: AnimType.scale,
+      title: S.of(context).oops,
+      desc: message,
+    ).show();
+  }
+
+  static showAwesomeDoneDialog(BuildContext context,
+      {required String message, Function()? onCancel}) async {
+    await AwesomeDialog(
+      context: context,
+      dialogType: DialogType.success,
+      animType: AnimType.scale,
+      title: S.of(context).done,
+      desc: message,
+      onDismissCallback: (type) => onCancel?.call(),
+    ).show();
   }
 }

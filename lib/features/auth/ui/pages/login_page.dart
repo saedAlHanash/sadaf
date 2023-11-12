@@ -2,20 +2,16 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_multi_type/image_multi_type.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:sadaf/core/widgets/my_button.dart';
-import 'package:sadaf/core/widgets/my_card_widget.dart';
-import 'package:sadaf/core/widgets/my_checkbox_widget.dart';
 import 'package:sadaf/core/widgets/my_text_form_widget.dart';
-import 'package:sadaf/features/auth/ui/widget/ask_auth_widget.dart';
 
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../bloc/login_cubit/login_cubit.dart';
-import '../../data/request/login_request.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -25,8 +21,16 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final request = LoginRequest();
+  late final LoginCubit loginCubit;
+
   final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    loginCubit = context.read<LoginCubit>();
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -37,91 +41,70 @@ class _LoginPageState extends State<LoginPage> {
       },
       child: Scaffold(
         appBar: const AppBarWidget(),
-        body: Container(
-          width: 1.0.sw,
-          height: 1.0.sh,
-          padding: MyStyle.authPagesPadding,
-          child: SingleChildScrollView(
-            child: Form(
-              key: _formKey,
-              child: Column(
-                children: [
-                  19.verticalSpace,
-                  DrawableText(
-                    text: S.of(context).welcomeBack,
-                    size: 28.0.spMin,
-                    fontFamily: FontManager.cairoBold,
-                    matchParent: true,
-                  ),
-                  10.0.verticalSpace,
-                  DrawableText(
-                    text: S.of(context).signInToContinue,
-                    size: 14.0.spMin,
-                    matchParent: true,
-                  ),
-                  70.0.verticalSpace,
-                  MyTextFormOutLineWidget(
-                    validator: (p0) {
-                      if (request.phone.isEmpty) {
-                        return '';
-                      }
-                      return null;
-                    },
-                    label: S.of(context).phoneNumber,
-                    initialValue: request.phone,
-                    keyBordType: TextInputType.phone,
-                    onChanged: (val) => request.phone = val,
-                  ),
-                  20.0.verticalSpace,
-                  MyTextFormOutLineWidget(
-                    validator: (p0) {
-                      if (request.password.isEmpty) {
-                        return '';
-                      }
-                      return null;
-                    },
-                    label: S.of(context).password,
-                    obscureText: true,
-                    initialValue: request.password,
-                    onChanged: (val) => request.password = val,
-                  ),
-                  _ForgetAndRememberWidget(request: request),
-                  30.0.verticalSpace,
-                  BlocBuilder<LoginCubit, LoginInitial>(
-                    builder: (_, state) {
-                      if (state.statuses == CubitStatuses.loading) {
-                        return MyStyle.loadingWidget();
-                      }
-                      return MyButton(
-                        text: S.of(context).login,
-                        onTap: () {
-                          if (!_formKey.currentState!.validate()) return;
-
-                          Navigator.pushNamedAndRemoveUntil(
-                              context, RouteName.confirmCode, (route) => false);
-                          // var r = request.phone.checkPhoneNumber(context, request.phone);
-                          // if (r == null) return;
-                          // request.phone = r;
-                          // context.read<LoginCubit>().login(context, request: request);
-                        },
-                      );
-                    },
-                  ),
-                  18.0.verticalSpace,
-                  DrawableText(
-                    text: S.of(context).doNotHaveAnAccount,
-                    drawableAlin: DrawableAlin.between,
-                    matchParent: true,
-                    drawableEnd: TextButton(
-                      onPressed: () => Navigator.pushNamed(context, RouteName.signup),
-                      child: DrawableText(
-                        fontFamily: FontManager.cairoBold,
-                        text: '${S.of(context).signUp}.',
-                      ),
+        body: SingleChildScrollView(
+        padding: MyStyle.authPagesPadding,
+          child: Form(
+            key: _formKey,
+            child: Column(
+              children: [
+                19.verticalSpace,
+                DrawableText(
+                  text: S.of(context).welcomeBack,
+                  size: 28.0.spMin,
+                  fontFamily: FontManager.cairoBold,
+                  matchParent: true,
+                ),
+                10.0.verticalSpace,
+                DrawableText(
+                  text: S.of(context).signInToContinue,
+                  size: 14.0.spMin,
+                  matchParent: true,
+                ),
+                70.0.verticalSpace,
+                MyTextFormOutLineWidget(
+                  validator: (p0) => loginCubit.validatePhoneOrEmail,
+                  label: S.of(context).phoneNumber,
+                  initialValue: loginCubit.state.request.phoneOrEmail,
+                  keyBordType: TextInputType.emailAddress,
+                  onChanged: (val) => loginCubit.setPhoneOrEmail = val,
+                ),
+                20.0.verticalSpace,
+                MyTextFormOutLineWidget(
+                  validator: (p0) => loginCubit.validatePassword,
+                  label: S.of(context).password,
+                  initialValue: loginCubit.state.request.password,
+                  onChanged: (val) => loginCubit.setPassword = val,
+                ),
+                const _ForgetAndRememberWidget(),
+                30.0.verticalSpace,
+                BlocBuilder<LoginCubit, LoginInitial>(
+                  builder: (_, state) {
+                    if (state.statuses.loading) {
+                      return MyStyle.loadingWidget();
+                    }
+                    return MyButton(
+                      text: S.of(context).login,
+                      onTap: () {
+                        if (!_formKey.currentState!.validate()) return;
+                        loginCubit.login();
+                      },
+                    );
+                  },
+                ),
+                18.0.verticalSpace,
+                DrawableText(
+                  text: S.of(context).doNotHaveAnAccount,
+                  drawableAlin: DrawableAlin.between,
+                  matchParent: true,
+                  drawableEnd: TextButton(
+                    onPressed: () => Navigator.pushNamed(context, RouteName.signup),
+                    child: DrawableText(
+                      fontFamily: FontManager.cairoBold,
+                      text: '${S.of(context).signUp}.',
                     ),
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
           ),
         ),
@@ -131,9 +114,7 @@ class _LoginPageState extends State<LoginPage> {
 }
 
 class _ForgetAndRememberWidget extends StatefulWidget {
-  const _ForgetAndRememberWidget({required this.request});
-
-  final LoginRequest request;
+  const _ForgetAndRememberWidget();
 
   @override
   State<_ForgetAndRememberWidget> createState() => _ForgetAndRememberWidgetState();
@@ -144,7 +125,13 @@ class _ForgetAndRememberWidgetState extends State<_ForgetAndRememberWidget> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
+      children: [  DrawableText(
+        text: S.of(context).rememberMe,
+        drawableEnd: Checkbox(
+          value: true,
+          onChanged: (value) {},
+        ),
+      ),
         TextButton(
           onPressed: () {
             Navigator.pushNamed(context, RouteName.forgetPassword);
@@ -154,15 +141,7 @@ class _ForgetAndRememberWidgetState extends State<_ForgetAndRememberWidget> {
             underLine: true,
           ),
         ),
-        DrawableText(
-          text: S.of(context).rememberMe,
-          drawableEnd: Checkbox(
-            value: widget.request.rememberMe,
-            onChanged: (value) {
-              setState(() => widget.request.rememberMe = !widget.request.rememberMe);
-            },
-          ),
-        )
+
       ],
     );
   }

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
@@ -60,6 +62,42 @@ class SelectSingeDateWidget extends StatelessWidget {
         ),
       ],
       child: Icon(
+        Icons.date_range,
+        size: 30.0.r,
+      ),
+    );
+  }
+}
+
+class SelectSingeDateScrollWidget extends StatelessWidget {
+  const SelectSingeDateScrollWidget({
+    super.key,
+    this.onSelect,
+    this.initial,
+    this.maxDate,
+    this.minDate,
+  });
+
+  final DateTime? initial;
+  final DateTime? maxDate;
+  final DateTime? minDate;
+  final Function(DateTime? selected)? onSelect;
+
+  @override
+  Widget build(BuildContext context) {
+    return IconButton(
+      onPressed: () async {
+        var datePicked = await DatePicker.showSimpleDatePicker(
+          context,
+          initialDate: initial,
+          firstDate: minDate,
+          lastDate: maxDate,
+          dateFormat: "dd-MMMM-yyyy",
+          looping: true,
+        );
+        if (datePicked != null) onSelect?.call(datePicked);
+      },
+      icon: Icon(
         Icons.date_range,
         size: 30.0.r,
       ),

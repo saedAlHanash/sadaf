@@ -1,21 +1,19 @@
 part of 'signup_cubit.dart';
 
-class SignupInitial extends Equatable {
-  final CubitStatuses statuses;
-  final bool result;
-  final String error;
+class SignupInitial extends AbstractCubit<bool> {
+  final SignupRequest request;
 
   const SignupInitial({
-    required this.statuses,
-    required this.result,
-    required this.error,
+    required this.request,
+    required super.result,
+    super.error,
+    super.statuses,
   });
 
   factory SignupInitial.initial() {
-    return const SignupInitial(
+    return SignupInitial(
       result: false,
-      error: '',
-      statuses: CubitStatuses.init,
+      request: SignupRequest(),
     );
   }
 
@@ -26,11 +24,24 @@ class SignupInitial extends Equatable {
     CubitStatuses? statuses,
     bool? result,
     String? error,
+    SignupRequest? request,
   }) {
     return SignupInitial(
       statuses: statuses ?? this.statuses,
       result: result ?? this.result,
       error: error ?? this.error,
+      request: request ?? this.request,
+    );
+  }
+
+  SignupInitial errorState({
+    String? error,
+  }) {
+    return SignupInitial(
+      statuses: CubitStatuses.error,
+      result: result,
+      error: error ?? this.error,
+      request: request,
     );
   }
 }

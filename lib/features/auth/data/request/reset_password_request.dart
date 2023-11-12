@@ -1,29 +1,18 @@
+import 'package:sadaf/core/util/shared_preferences.dart';
+
 class ResetPasswordRequest {
-  String email;
-
-  String code;
-
-  String password;
-
   ResetPasswordRequest({
-    this.email = '',
-    this.code = '',
-    this.password = '',
+    this.password,
+    this.passwordConfirmation,
   });
 
-  Map<String, dynamic> toJson() {
-    return {
-      'email': email,
-      'token': code,
-      'password': password,
-    };
-  }
+  String? password;
+  String? passwordConfirmation;
 
-  factory ResetPasswordRequest.fromJson(Map<String, dynamic> map) {
-    return ResetPasswordRequest(
-      email: map['email'] ?? '',
-      code: map['token'] ?? '',
-      password: map['password'] ?? '',
-    );
-  }
+  Map<String, dynamic> toJson() => {
+        "email_or_phone": AppSharedPreference.getPhoneOrEmailPassword,
+        "otp_code": AppSharedPreference.getOtpPassword,
+        "password": password,
+        "password_confirmation": passwordConfirmation,
+      };
 }

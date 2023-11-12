@@ -1,11 +1,15 @@
 import 'dart:async';
 import 'dart:convert';
+import 'dart:math';
+import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 
+import '../injection/injection_container.dart';
+import '../network/network_info.dart';
 import '../util/shared_preferences.dart';
 import 'api_url.dart';
 
@@ -29,8 +33,16 @@ var serverDateTime = DateTime.now();
 
 typedef OnUploadProgressCallback = void Function(int sentBytes, int totalBytes);
 
+const _connectionTimeOut = Duration(seconds: 40);
+
+final _noInternet = http.Response('No Internet', 481);
+
+final _timeOut = http.Response('connectionTimeOut ', 482);
+
 class APIService {
   static APIService _singleton = APIService._internal();
+
+  final network = sl<NetworkInfo>();
 
   factory APIService.reInitial() {
     _singleton = APIService._internal();
@@ -50,55 +62,41 @@ class APIService {
   Future<http.Response> getApi({
     required String url,
     Map<String, dynamic>? query,
-    Map<String, List<dynamic>>? listQuery,
-    Map<String, String>? header,
     String? path,
   }) async {
-    url = additionalConst + url;
-    query = query ?? {};
-    query['user_id'] = AppSharedPreference.getMyId;
-    query.removeWhere((key, value) => value == null);
-    query.forEach((key, value) => query![key] = value.toString());
+    if (!await network.isConnected) _noInternet;
 
-    innerHeader.addAll(header ?? {});
+    url = additionalConst + url;
+
+    _fixQuery(query);
 
     if (path != null) url = '$url/$path';
 
     var uri = Uri.https(baseUrl, url, query);
 
-    var s = uri.query.isEmpty ? '' : '&';
-    if (listQuery != null) {
-      listQuery.forEach(
-        (key, value) {
-          for (var e in value) {
-            s += '$key=${e.toString()}&';
-          }
-        },
-      );
-      var q = '${uri.query}$s';
-      uri = uri.replace(query: q);
-    }
-    logRequest(url, query, additional: s);
-    final response = await http.get(uri, headers: innerHeader).timeout(
-          const Duration(seconds: 40),
-          onTimeout: () => http.Response('connectionTimeOut', 481),
-        );
+    logRequest(url, query);
+
+    final response = await http
+        .get(uri, headers: innerHeader)
+        .timeout(_connectionTimeOut, onTimeout: () => _timeOut);
 
     logResponse(url, response);
+
     return response;
   }
 
   Future<http.Response> getApiFromUrl({
     required String url,
   }) async {
+    if (!await network.isConnected) _noInternet;
     url = additionalConst + url;
     var uri = Uri.parse(url);
 
     logRequest(url, null);
-    final response = await http.get(uri, headers: innerHeader).timeout(
-          const Duration(seconds: 40),
-          onTimeout: () => http.Response('connectionTimeOut', 481),
-        );
+
+    final response = await http
+        .get(uri, headers: innerHeader)
+        .timeout(_connectionTimeOut, onTimeout: () => _timeOut);
 
     logResponse(url, response);
     return response;
@@ -108,31 +106,28 @@ class APIService {
     required String url,
     Map<String, dynamic>? body,
     Map<String, dynamic>? query,
-    Map<String, String>? header,
     String? path,
   }) async {
+    if (!await network.isConnected) _noInternet;
     url = additionalConst + url;
-    if (body != null) {
-      body.removeWhere(
-          (key, value) => value == null || (value is String && value.isEmpty));
-    }
-    query = query ?? {};
-    query['user_id'] = AppSharedPreference.getMyId;
-    query.removeWhere((key, value) => value == null);
-    query.forEach((key, value) => query![key] = value.toString());
 
-    innerHeader.addAll(header ?? {});
+    body?.removeWhere((key, value) => (value == null || value.toString().isEmpty));
+
+    _fixQuery(query);
+
     if (path != null) url = '$url/$path';
 
     final uri = Uri.https(baseUrl, url, query);
 
-    logRequest(url, body?..addAll(query));
+    logRequest(
+        url,
+        {}
+          ..addAll(query ?? {})
+          ..addAll(body ?? {}));
 
-    final response =
-        await http.post(uri, body: jsonEncode(body), headers: innerHeader).timeout(
-              const Duration(seconds: 40),
-              onTimeout: () => http.Response('connectionTimeOut', 481),
-            );
+    final response = await http
+        .post(uri, body: jsonEncode(body), headers: innerHeader)
+        .timeout(_connectionTimeOut, onTimeout: () => _timeOut);
 
     logResponse(url, response);
 
@@ -143,25 +138,20 @@ class APIService {
     required String url,
     Map<String, dynamic>? body,
     Map<String, dynamic>? query,
-    Map<String, String>? header,
   }) async {
+    if (!await network.isConnected) _noInternet;
     url = additionalConst + url;
-    if (body != null) body.removeWhere((key, value) => value == null);
-    query = query ?? {};
-    query['user_id'] = AppSharedPreference.getMyId;
-    query.removeWhere((key, value) => value == null);
-    query.forEach((key, value) => query![key] = value.toString());
+    body?.removeWhere((key, value) => (value == null || value.toString().isEmpty));
 
-    innerHeader.addAll(header ?? {});
+    _fixQuery(query);
+
     final uri = Uri.https(baseUrl, url, query);
 
     logRequest(url, body);
 
-    final response =
-        await http.put(uri, body: jsonEncode(body), headers: innerHeader).timeout(
-              const Duration(seconds: 40),
-              onTimeout: () => http.Response('connectionTimeOut', 481),
-            );
+    final response = await http
+        .put(uri, body: jsonEncode(body), headers: innerHeader)
+        .timeout(_connectionTimeOut, onTimeout: () => _timeOut);
 
     logResponse(url, response);
 
@@ -173,27 +163,23 @@ class APIService {
     String? path,
     Map<String, dynamic>? body,
     Map<String, dynamic>? query,
-    Map<String, String>? header,
   }) async {
+    if (!await network.isConnected) _noInternet;
     url = additionalConst + url;
-    if (body != null) body.removeWhere((key, value) => value == null);
-    query = query ?? {};
-    query['user_id'] = AppSharedPreference.getMyId;
-    query.removeWhere((key, value) => value == null);
-    query.forEach((key, value) => query![key] = value.toString());
+
+    body?.removeWhere((key, value) => (value == null || value.toString().isEmpty));
+
+    _fixQuery(query);
 
     if (path != null) url = '$url/$path';
 
-    innerHeader.addAll(header ?? {});
     final uri = Uri.https(baseUrl, url, query);
 
     logRequest(url, body);
 
-    final response =
-        await http.delete(uri, body: jsonEncode(body), headers: innerHeader).timeout(
-              const Duration(seconds: 40),
-              onTimeout: () => http.Response('connectionTimeOut', 481),
-            );
+    final response = await http
+        .delete(uri, body: jsonEncode(body), headers: innerHeader)
+        .timeout(_connectionTimeOut, onTimeout: () => _timeOut);
 
     logResponse(url, response);
 
@@ -203,32 +189,33 @@ class APIService {
   Future<http.Response> uploadMultiPart({
     required String url,
     String? path,
-    String? nameKey,
     String type = 'POST',
-    List<String>? files,
+    List<UploadFile?>? files,
     Map<String, dynamic>? fields,
     Map<String, String>? header,
   }) async {
-    url = additionalConst + url;
     Map<String, String> f = {};
     (fields ?? {}).forEach((key, value) => f[key] = value.toString());
 
-    final uri = Uri.https(baseUrl, url);
+    innerHeader.addAll(header ?? {});
+    final uri = Uri.https(baseUrl, '$url/${path ?? ''}');
 
     var request = http.MultipartRequest(type, uri);
 
     ///log
-    logRequest(url, fields, additional: files?.firstOrNull);
+    logRequest(url, fields, additional: files?.firstOrNull?.nameField);
 
-    for (String path in files ?? []) {
-      if (path.isEmpty) continue;
+    for (var uploadFile in (files ?? <UploadFile?>[])) {
+      if (uploadFile?.fileBytes == null) continue;
 
-      final multipartFile = await http.MultipartFile.fromPath(nameKey ?? "File", path);
+      final multipartFile = http.MultipartFile.fromBytes(
+        uploadFile!.nameField,
+        uploadFile.fileBytes!,
+        filename: '${getRandomString(10)}.jpg',
+      );
 
       request.files.add(multipartFile);
     }
-
-    request.headers.addAll(innerHeader);
 
     request.headers['Content-Type'] = 'multipart/form-data';
 
@@ -251,11 +238,11 @@ class APIService {
     var uri = Uri.https(baseUrl);
 
     final response = await http.get(uri, headers: innerHeader).timeout(
-          const Duration(seconds: 40),
-          onTimeout: () => http.Response('connectionTimeOut', 481),
+          _connectionTimeOut,
+          onTimeout: () => http.Response('connectionTimeOut', 482),
         );
 
-    return getDateTimeFromHeaders(response);
+    return _getDateTimeFromHeaders(response);
   }
 
   void logRequest(String url, Map<String, dynamic>? q, {String? additional}) {
@@ -282,13 +269,13 @@ class APIService {
   }
 }
 
-DateTime getDateTimeFromHeaders(http.Response response) {
+DateTime _getDateTimeFromHeaders(http.Response response) {
   final headers = response.headers;
 
   if (headers.containsKey('date')) {
     final dateString = headers['date']!;
     loggerObject.wtf(dateString);
-    final dateTime = parseGMTDate(dateString);
+    final dateTime = _parseGMTDate(dateString);
     return dateTime;
   } else {
     loggerObject.wtf('now');
@@ -296,7 +283,55 @@ DateTime getDateTimeFromHeaders(http.Response response) {
   }
 }
 
-DateTime parseGMTDate(String dateString) {
+DateTime _parseGMTDate(String dateString) {
   final formatter = DateFormat('EEE, dd MMM yyyy HH:mm:ss \'GMT\'');
   return formatter.parseUTC(dateString);
 }
+
+void _fixQuery(Map<String, dynamic>? query) {
+  query?.removeWhere((key, value) => (value == null || value.toString().isEmpty));
+  query?.forEach((key, value) => query[key] = value.toString());
+}
+
+
+class UploadFile {
+  final Uint8List? fileBytes;
+  final String nameField;
+  final String? initialImage;
+
+  UploadFile({
+     this.fileBytes,
+    this.initialImage,
+    this.nameField = 'File',
+  });
+
+  UploadFile copyWith({
+    Uint8List? fileBytes,
+    String? nameField,
+  }) {
+    return UploadFile(
+      fileBytes: fileBytes ?? this.fileBytes,
+      nameField: nameField ?? this.nameField,
+    );
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'filelBytes': fileBytes,
+      'nameField': nameField,
+    };
+  }
+
+  factory UploadFile.fromMap(Map<String, dynamic> map) {
+    return UploadFile(
+      fileBytes: map['filelBytes'] as Uint8List,
+      nameField: map['nameField'] as String,
+    );
+  }
+}
+
+const _chars = 'AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz1234567890';
+final _rnd = Random();
+
+String getRandomString(int length) => String.fromCharCodes(
+    Iterable.generate(length, (_) => _chars.codeUnitAt(_rnd.nextInt(_chars.length))));

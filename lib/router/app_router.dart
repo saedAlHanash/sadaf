@@ -13,14 +13,18 @@ import 'package:sadaf/features/product/ui/pages/product_page.dart';
 import '../core/injection/injection_container.dart' as di;
 import '../features/auth/bloc/confirm_code_cubit/confirm_code_cubit.dart';
 import '../features/auth/bloc/delete_account_cubit/delete_account_cubit.dart';
+import '../features/auth/bloc/forget_password_cubit/forget_password_cubit.dart';
 import '../features/auth/bloc/login_cubit/login_cubit.dart';
 import '../features/auth/bloc/logout/logout_cubit.dart';
+import '../features/auth/bloc/otp_password_cubit/otp_password_cubit.dart';
 import '../features/auth/bloc/resend_code_cubit/resend_code_cubit.dart';
 import '../features/auth/bloc/reset_password_cubit/reset_password_cubit.dart';
 import '../features/auth/bloc/signup_cubit/signup_cubit.dart';
 import '../features/auth/ui/pages/confirm_code_page.dart';
+import '../features/auth/ui/pages/done_page.dart';
 import '../features/auth/ui/pages/forget_passowrd_page.dart';
 import '../features/auth/ui/pages/login_page.dart';
+import '../features/auth/ui/pages/otp_password_page.dart';
 import '../features/auth/ui/pages/reset_password_page.dart';
 import '../features/auth/ui/pages/signup_page.dart';
 import '../features/auth/ui/pages/splash_screen_page.dart';
@@ -39,11 +43,13 @@ import '../features/offers/ui/pages/all_offers_page.dart';
 import '../features/orders/bloc/orders_cubit/orders_cubit.dart';
 import '../features/orders/ui/pages/my_orders_page.dart';
 import '../features/product/bloc/product_by_id_cubit/product_by_id_cubit.dart';
+import '../features/profile/bloc/update_profile_cubit/update_profile_cubit.dart';
+import '../features/profile/ui/pages/profile_page.dart';
 import '../features/settings/bloc/update_user_cubit/update_user_cubit.dart';
 import '../features/settings/ui/pages/about_page.dart';
 import '../features/settings/ui/pages/privacy_page.dart';
-import '../features/settings/ui/pages/update_choice_page.dart';
-import '../features/settings/ui/pages/update_page.dart';
+import '../features/profile/ui/pages/update_choice_page.dart';
+import '../features/profile/ui/pages/update_page.dart';
 
 class AppRoutes {
   static Route<dynamic> routes(RouteSettings settings) {
@@ -71,7 +77,6 @@ class AppRoutes {
           );
         }
       //endregion
-
       case RouteName.login:
         //region
         {
@@ -92,7 +97,7 @@ class AppRoutes {
         //region
         {
           final providers = [
-            BlocProvider(create: (context) => di.sl<ResendCodeCubit>()),
+            BlocProvider(create: (context) => di.sl<ForgetPasswordCubit>()),
           ];
           return MaterialPageRoute(
             builder: (context) {
@@ -133,6 +138,34 @@ class AppRoutes {
                 providers: providers,
                 child: const ConfirmCodePage(),
               );
+            },
+          );
+        }
+      //endregion
+      case RouteName.otpPassword:
+        //region
+        {
+          final providers = [
+            BlocProvider(create: (context) => di.sl<OtpPasswordCubit>()),
+            BlocProvider(create: (context) => di.sl<ResendCodeCubit>()),
+          ];
+          return MaterialPageRoute(
+            builder: (context) {
+              return MultiBlocProvider(
+                providers: providers,
+                child: const OtpPasswordPage(),
+              );
+            },
+          );
+        }
+      //endregion
+
+      case RouteName.donePage:
+        //region
+        {
+          return MaterialPageRoute(
+            builder: (context) {
+              return DonePage(params: settings.arguments as DonePageParams);
             },
           );
         }
@@ -236,7 +269,7 @@ class AppRoutes {
         //region
 
         final providers = [
-          BlocProvider(create: (_) => di.sl<UpdateUserCubit>()),
+          BlocProvider(create: (_) => di.sl<UpdateProfileCubit>()),
         ];
         return MaterialPageRoute(
           builder: (context) {
@@ -245,6 +278,21 @@ class AppRoutes {
               child: UpdatePage(
                 updateType: (settings.arguments ?? UpdateType.name) as UpdateType,
               ),
+            );
+          },
+        );
+      //endregion
+      case RouteName.profile:
+        //region
+
+        final providers = [
+          BlocProvider(create: (_) => di.sl<UpdateUserCubit>()),
+        ];
+        return MaterialPageRoute(
+          builder: (context) {
+            return MultiBlocProvider(
+              providers: providers,
+              child: ProfilePage(),
             );
           },
         );
@@ -360,4 +408,6 @@ class RouteName {
   static const about = '/18';
   static const privacy = '/19';
   static const category = '/20';
+  static const otpPassword = '/21';
+  static const donePage = '/22';
 }

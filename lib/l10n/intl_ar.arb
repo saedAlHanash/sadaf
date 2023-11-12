@@ -33,7 +33,6 @@
   "notification": "الإشعارات",
   "settings": "الإعدادات",
   "policy": "سياسة الاستخدام والخصوصية",
-
   "contact": "اتصل بنا",
   "changePhone": "تغيير رقم الهاتف",
   "changePass": "تغيير كلمة المرور",
@@ -121,7 +120,7 @@
   "save_for_later": "حفظ لاحقًا؟",
   "location": "الموقع",
   "confirm_address": "تأكيد العنوان",
-  "cvc": "CVC",
+  "cvc": "الرقم السري",
   "card_name": "اسم البطاقة",
   "card_number": "رقم البطاقة",
   "payment_summary": "ملخص الدفع",
@@ -135,5 +134,9 @@
   "related_products": "منتجات ذات صلة",
   "next": "التالي",
   "back": "عودة",
-  "new_arrival": "وصول جديد"
+  "new_arrival": "وصول جديد",
+  "is_required": "مطلوب",
+  "oops": "حدث خطأ ما!",
+  "reset_password": "إعادة تعيين كلمة المرور",
+  "enter_new_password_and_confirm": "أدخل كلمة السر مع التأكيد"
 }

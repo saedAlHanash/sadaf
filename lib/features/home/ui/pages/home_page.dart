@@ -35,7 +35,6 @@ class _HomepageState extends State<Homepage> {
 
   @override
   Widget build(BuildContext context) {
-
     return BlocListener<AddToCartCubit, AddToCartInitial>(
       listenWhen: (p, c) => c.goToCart,
       listener: (context, state) {
@@ -53,6 +52,7 @@ class _HomepageState extends State<Homepage> {
         },
         child: Scaffold(
           appBar: const AppBarWidget(zeroHeight: true),
+          drawer: Drawer(),
           bottomNavigationBar: NewNav(
             onChange: (index) {
               pageIndex = index;

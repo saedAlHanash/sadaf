@@ -1,8 +1,15 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:sadaf/core/api_manager/api_service.dart';
 
+import '../../generated/l10n.dart';
+import '../app/app_widget.dart';
+import '../injection/injection_container.dart';
+import '../util/abstract_cubit_state.dart';
 import '../util/shared_preferences.dart';
+import '../util/snack_bar_message.dart';
 
 class ErrorManager {
   static String getApiError(Response response) {
@@ -15,59 +22,42 @@ class ErrorManager {
         return 'حدث تغيير في المخدم رمز الخطأ 503 ' '${response.statusCode}';
       case 481:
         return 'لا يوجد اتصال بالانترنت' '${response.statusCode}';
+      case 482:
+        final ctx = sl<GlobalKey<NavigatorState>>().currentContext;
+
+        return ctx == null ? S().noInternet : S.of(ctx).noInternet;
 
       case 404:
       case 500:
       default:
         final errorBody = ErrorBody.fromJson(jsonDecode(response.body));
 
-        return errorBody.message;
+        return '${errorBody.errors.join('\n')}\n ${response.statusCode}';
     }
   }
 }
 
 class ErrorBody {
   ErrorBody({
-    required this.result,
-    required this.message,
-    required this.data,
+    required this.errors,
   });
 
-  final bool result;
-  final String message;
-  final Data? data;
+  final List<String> errors;
 
-  factory ErrorBody.fromJson(Map<String, dynamic> json){
+  factory ErrorBody.fromJson(Map<String, dynamic> json) {
     return ErrorBody(
-      result: json["result"] ?? false,
-      message: json["message"] ?? "",
-      data: json["data"] == null ? null : Data.fromJson(json["data"]),
+      errors:
+          json["errors"] == null ? [] : List<String>.from(json["errors"]!.map((x) => x)),
     );
   }
 
   Map<String, dynamic> toJson() => {
-    "result": result,
-    "message": message,
-    "data": data?.toJson(),
-  };
-
+        "errors": errors.map((x) => x).toList(),
+      };
 }
 
-class Data {
-  Data({
-    required this.phone,
-  });
+showErrorFromApi(AbstractCubit state) {
+  if (ctx == null) return;
 
-  final List<String> phone;
-
-  factory Data.fromJson(Map<String, dynamic> json){
-    return Data(
-      phone: json["phone"] == null ? [] : List<String>.from(json["phone"]!.map((x) => x)),
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-    "phone": phone.map((x) => x).toList(),
-  };
-
+  NoteMessage.showAwesomeError(context: ctx!, message: state.error);
 }

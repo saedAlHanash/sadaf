@@ -61,6 +61,7 @@ class HomeScreen extends StatelessWidget {
                   separatorBuilder: (_, i) => 12.0.horizontalSpace,
                 ),
               ),
+              20.0.verticalSpace,
               DrawableText.titleList(
                 text: S.of(context).flash_deal,
                 padding: MyStyle.pagePadding,
@@ -87,7 +88,6 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
               ),
-
               20.0.verticalSpace,
               DrawableText.titleList(
                 text: S.of(context).new_arrival,
@@ -103,19 +103,59 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               SizedBox(
-                height: 105.0.h,
+                height: 355.0.h,
                 width: 1.0.sw,
                 child: ListView.builder(
                   shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: offerProducts.length,
+                  itemCount: 3,
                   itemBuilder: (_, i) {
-                    return const FlashDealWidget();
+                    return const ItemProduct1();
                   },
                 ),
               ),
 
+              30.0.verticalSpace,
+              //سلايدر الصور
+              BlocBuilder<SliderCubit, SliderInitial>(
+                builder: (context, state) {
+                  if (state.statuses.loading) {
+                    return MyStyle.loadingWidget();
+                  }
+                  if (state.result.isEmpty) return 0.0.verticalSpace;
+                  return CardImageSlider(
+                    images: state.result.map((e) => e.cover).toList(),
+                    height: 150.0.h,
+                  );
+                },
+              ),
+              30.0.verticalSpace,
+              DrawableText.titleList(
+                text: S.of(context).offer,
+                padding: MyStyle.pagePadding,
+                drawableEnd: TextButton(
+                  onPressed: () {
+                    Navigator.pushNamed(context, RouteName.offers);
+                  },
+                  child: DrawableText(
+                    text: S.of(context).see_all,
+                    color: AppColorManager.gray,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 130.0.h,
+                width: 1.0.sw,
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: 3,
+                  itemBuilder: (_, i) {
+                    return const ItemProduct2();
+                  },
+                ),
+              ),
+              25.0.verticalSpace,
             ],
           ),
         );

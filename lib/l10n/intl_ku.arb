@@ -135,5 +135,9 @@
   "add_to_cart": "زیاد بکە بۆ سەبەتە",
   "next": "Next",
   "back": "Back",
-  "new_arrival": "پەرتووکی نوێ"
+  "new_arrival": "پەرتووکی نوێ",
+  "is_required": "Required",
+  "oops": "Oops!",
+  "reset_password": "Reset Password",
+  "enter_new_password_and_confirm": "Enter New Password And Confirm."
 }

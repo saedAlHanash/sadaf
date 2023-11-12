@@ -6,7 +6,9 @@ import 'package:intl/intl.dart';
 
 import '../../features/product/data/models/product.dart';
 import '../../generated/l10n.dart';
+import '../error/error_manager.dart';
 import '../strings/enum_manager.dart';
+import '../util/pair_class.dart';
 import '../util/snack_bar_message.dart';
 
 extension SplitByLength on String {
@@ -43,9 +45,7 @@ extension SplitByLength on String {
       return 0;
     }
   }
-}
 
-extension FixMobile on String {
   String fixPhone() {
     if (startsWith('0')) return this;
 
@@ -68,6 +68,15 @@ extension FixMobile on String {
 
     return phone;
   }
+
+  String get removeSpace => replaceAll(' ', '');
+}
+
+extension StringHelper on String? {
+  bool get isBlank {
+    if (this == null) return true;
+    return this!.replaceAll(' ', '').isEmpty;
+  }
 }
 
 final oCcy = NumberFormat("#,###", "en_US");
@@ -75,20 +84,22 @@ final oCcy = NumberFormat("#,###", "en_US");
 extension MaxInt on num {
   int get max => 2147483647;
 
-  String get formatPrice => '${oCcy.format(this)}';
+  String get formatPrice => oCcy.format(this);
 }
 
 extension UpdateTypeHelper on UpdateType {
   String get getName {
     switch (this) {
       case UpdateType.name:
-        return 'تغيير الاسم';
+        return S().changeName;
+      case UpdateType.email:
+        return S().changeEmail;
       case UpdateType.phone:
-        return 'تغير رقم الهاتف';
+        return S().changePhone;
       case UpdateType.address:
-        return 'تغير العنوان';
+        return S().changeAddress;
       case UpdateType.pass:
-        return 'تغير كلمه المرور';
+        return S().changePassword;
     }
   }
 }
@@ -121,6 +132,10 @@ extension ProductHelper on Product {
 
 extension ResponseHelper on http.Response {
   Map<String, dynamic> get jsonBody => jsonDecode(body);
+
+  Pair<T?, String?> getPairError<T>() {
+    return Pair(null, ErrorManager.getApiError(this));
+  }
 }
 
 extension CubitStatusesHelper on CubitStatuses {
@@ -136,6 +151,12 @@ extension FormatDuration on Duration {
 
 extension ApiStatusCode on int {
   bool get success => (this >= 200 && this <= 210);
+}
+
+extension TextEditingControllerHelper on TextEditingController {
+  void clear() {
+    if (text.isNotEmpty) text = '';
+  }
 }
 
 extension DateUtcHelper on DateTime {
@@ -186,19 +207,3 @@ extension GetDateTimesBetween on DateTime {
     return dateTimes;
   }
 }
-
-// /// Returns a list of [DateTime]s between (but not including) [start] and
-// /// [end], spaced by [period] intervals.
-// List<DateTime> getDateTimesBetween1({
-//   required DateTime start,
-//   required DateTime end,
-//   required Duration period,
-// }) {
-//   var dateTimes = <DateTime>[];
-//   var current = start.add(period);
-//   while (current.isBefore(end)) {
-//     dateTimes.add(current);
-//     current = current.add(period);
-//   }
-//   return dateTimes;
-// }

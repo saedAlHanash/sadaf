@@ -34,20 +34,20 @@ class GetMeCubit extends Cubit<GetMeInitial> {
        emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
     } else {
 
-      // AppSharedPreference.cashConfirmCodeData(pair.first!);
+      // AppSharedPreference.cashLoginData(pair.first!);
       APIService.reInitial();
 
       emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
     }
   }
 
-  Future<Pair<ConfirmCodeData?, String?>> _getMeApi() async {
+  Future<Pair<LoginData?, String?>> _getMeApi() async {
     if (await network.isConnected) {
       final response = await APIService()
           .getApi(url: GetUrl.getMe);
 
       if (response.statusCode.success) {
-        return Pair(ConfirmCodeResponse.fromJson(jsonDecode(response.body)).data, null);
+        return Pair(LoginResponse.fromJson(jsonDecode(response.body)).data, null);
       } else {
         return Pair(null, ErrorManager.getApiError(response));
       }

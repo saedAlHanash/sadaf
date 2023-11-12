@@ -1,39 +1,37 @@
 part of 'update_profile_cubit.dart';
 
-class UpdateProfileInitial {
-  final CubitStatuses statuses;
-  final bool result;
-  final String error;
-  final String image;
+class UpdateProfileInitial extends AbstractCubit<bool> {
+  final UpdateProfileRequest request;
 
   const UpdateProfileInitial({
-    required this.statuses,
-    required this.result,
-    required this.image,
-    required this.error,
+    required super.result,
+    required this.request,
+    super.error,
+    super.statuses,
   });
 
+  @override
+  List<Object> get props => [statuses, result, error];
+
   factory UpdateProfileInitial.initial() {
-    return const UpdateProfileInitial(
+    return UpdateProfileInitial(
+      request: UpdateProfileRequest.initial(),
       result: false,
-      error: '',
-      image: 'AppSharedPreference.getUserModel().photo.url',
-      statuses: CubitStatuses.init,
     );
   }
-
 
   UpdateProfileInitial copyWith({
     CubitStatuses? statuses,
     bool? result,
     String? image,
     String? error,
+    UpdateProfileRequest? request,
   }) {
     return UpdateProfileInitial(
       statuses: statuses ?? this.statuses,
       result: result ?? this.result,
-      image: image ?? this.image,
       error: error ?? this.error,
+      request: request ?? this.request,
     );
   }
 }

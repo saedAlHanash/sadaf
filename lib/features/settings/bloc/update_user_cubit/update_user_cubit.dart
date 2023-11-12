@@ -73,14 +73,14 @@ class UpdateUserCubit extends Cubit<UpdateUserInitial> {
       }
 
       if (response.statusCode == 200) {
-        var user = AppSharedPreference.getUserModel();
+        var user = AppSharedPreference.getUserModel;
 
         if (request.updateType == UpdateType.name) {
           user.name = request.name;
         } else if (request.updateType == UpdateType.phone) {
-          user.phone = request.phone;
+          user.emailOrPhone = request.phone;
         } else {
-          user.address = request.address;
+          user.mapAddress = request.address;
           user.city = request.city;
           user.country = request.country;
         }

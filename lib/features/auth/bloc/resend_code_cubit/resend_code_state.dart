@@ -1,14 +1,12 @@
 part of 'resend_code_cubit.dart';
 
-class ResendCodeInitial extends Equatable {
-  final CubitStatuses statuses;
-  final bool result;
-  final String error;
+class ResendCodeInitial extends AbstractCubit<bool> {
+
 
   const ResendCodeInitial({
-    required this.statuses,
-    required this.result,
-    required this.error,
+    required super.result,
+    super.error,
+    super.statuses,
   });
 
   factory ResendCodeInitial.initial() {

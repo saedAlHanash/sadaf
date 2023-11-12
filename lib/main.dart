@@ -18,7 +18,6 @@ import 'core/util/shared_preferences.dart';
 import 'features/notifications/bloc/notification_count_cubit/notification_count_cubit.dart';
 import 'firebase_options.dart';
 
-
 //adb shell setprop debug.firebase.analytics.app com.slf.sadaf
 final flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
@@ -46,9 +45,7 @@ void main() async {
 
   FirebaseMessaging.onBackgroundMessage(_firebaseMessagingBackgroundHandler);
 
-
   await di.init();
-
 
   await SharedPreferences.getInstance().then((value) {
     AppSharedPreference.init(value);
@@ -96,13 +93,11 @@ Future<String> getFireToken() async {
 
 @pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
-  // await Firebase.initializeApp();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
 
   final notification = message.notification;
-
-  // // If you're going to use other Firebase services in the background, such as Firestore,
-  // // make sure you call `initializeApp` before using other Firebase services.
-  await Firebase.initializeApp();
 
   String title = '';
   String body = '';

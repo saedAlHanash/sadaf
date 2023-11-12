@@ -1,21 +1,19 @@
 part of 'confirm_code_cubit.dart';
 
-class ConfirmCodeInitial extends Equatable {
-  final CubitStatuses statuses;
-  final ConfirmCodeData result;
-  final String error;
+class ConfirmCodeInitial extends AbstractCubit<LoginData> {
+  final LoginRequest request;
 
   const ConfirmCodeInitial({
-    required this.statuses,
-    required this.result,
-    required this.error,
+    required super.result,
+    super.error,
+    super.statuses,
+    required this.request,
   });
 
   factory ConfirmCodeInitial.initial() {
     return ConfirmCodeInitial(
-      result: ConfirmCodeData.fromJson({}),
-      error: '',
-      statuses: CubitStatuses.init,
+      result: LoginData.fromJson({}),
+      request: LoginRequest(),
     );
   }
 
@@ -24,14 +22,15 @@ class ConfirmCodeInitial extends Equatable {
 
   ConfirmCodeInitial copyWith({
     CubitStatuses? statuses,
-    ConfirmCodeData? result,
+    LoginData? result,
     String? error,
+    LoginRequest? request,
   }) {
     return ConfirmCodeInitial(
       statuses: statuses ?? this.statuses,
       result: result ?? this.result,
       error: error ?? this.error,
+      request: request ?? this.request,
     );
   }
-
 }

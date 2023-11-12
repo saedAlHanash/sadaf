@@ -2,8 +2,11 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sadaf/core/api_manager/api_service.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/util/snack_bar_message.dart';
 import 'package:sadaf/core/widgets/my_button.dart';
+import 'package:sadaf/generated/assets.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
@@ -15,6 +18,8 @@ import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../bloc/confirm_code_cubit/confirm_code_cubit.dart';
 import '../../bloc/resend_code_cubit/resend_code_cubit.dart';
+import 'done_page.dart';
+import 'forget_passowrd_page.dart';
 
 class ConfirmCodePage extends StatefulWidget {
   const ConfirmCodePage({Key? key}) : super(key: key);
@@ -24,8 +29,17 @@ class ConfirmCodePage extends StatefulWidget {
 }
 
 class _ConfirmCodePageState extends State<ConfirmCodePage> {
-  var phone = AppSharedPreference.getPhoneNumber();
-  var code = '';
+  late final ConfirmCodeCubit confirmCodeCubit;
+  late final ResendCodeCubit resendCodeCubit;
+  final _formKey = GlobalKey<FormState>();
+
+  @override
+  void initState() {
+    confirmCodeCubit = context.read<ConfirmCodeCubit>();
+    resendCodeCubit = context.read<ResendCodeCubit>();
+    confirmCodeCubit.setPhoneOrEmail = AppSharedPreference.getPhoneOrEmail;
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,23 +48,47 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
         BlocListener<ConfirmCodeCubit, ConfirmCodeInitial>(
           listenWhen: (p, current) => current.statuses == CubitStatuses.done,
           listener: (context, state) {
-            Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
+            Navigator.pushNamedAndRemoveUntil(
+              context,
+              RouteName.donePage,
+              (route) => false,
+              arguments: DonePageParams(
+                type: DoneType.signup,
+                header: S.of(context).accountCreated,
+                desc: S.of(context).haveBeenCreated,
+                image: Assets.iconsAccount,
+              ),
+            );
           },
         ),
         BlocListener<ResendCodeCubit, ResendCodeInitial>(
           listenWhen: (p, current) => current.statuses == CubitStatuses.done,
           listener: (context, state) {
-            NoteMessage.showDoneDialog(context, text: S.of(context).done_resend_code);
+            NoteMessage.showAwesomeDoneDialog(context,
+                message: S.of(context).done_resend_code);
           },
         ),
       ],
       child: Scaffold(
         appBar: const AppBarWidget(),
+        bottomNavigationBar: TextButton(
+          onPressed: () {
+            AppSharedPreference.removePhoneOrEmail();
+            Navigator.pushNamed(context, RouteName.login);
+          },
+          child: DrawableText(
+            size: 18.0.sp,
+            underLine: true,
+            fontFamily: FontManager.cairoBold,
+            text: '${S.of(context).login}.',
+          ),
+        ),
         body: SingleChildScrollView(
           padding: MyStyle.authPagesPadding,
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              DrawableText.header(text: otp),
               DrawableText.header(
                 text: S.of(context).numberPhone,
               ),
@@ -60,18 +98,24 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
               40.0.verticalSpace,
               DrawableText(text: S.of(context).enterOTP),
               35.0.verticalSpace,
-              PinCodeWidget(onCompleted: (p0) => code = p0),
+              Form(
+                key: _formKey,
+                child: PinCodeWidget(
+                  onChange: (p0) => confirmCodeCubit.setCode = p0,
+                  validator: (p0) => confirmCodeCubit.validateCode,
+                ),
+              ),
               35.0.verticalSpace,
               DrawableText(
                 text: S.of(context).didNotReceiveOTP,
                 drawablePadding: 10.0.w,
                 drawableEnd: TextButton(
                   onPressed: () {
-                    NoteMessage.showDoneDialog(
-                      context,
-                      text: S.of(context).done_resend_code,
-                    );
-                    // context.read<ResendCodeCubit>().resendCode(context, phone: phone);
+                    if (AppSharedPreference.getPhoneOrEmail.isEmpty) {
+                      Navigator.pushReplacementNamed(context, RouteName.login);
+                      return;
+                    }
+                    resendCodeCubit.resendCode();
                   },
                   child: BlocBuilder<ResendCodeCubit, ResendCodeInitial>(
                     builder: (context, state) {
@@ -90,20 +134,19 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
               90.0.verticalSpace,
               BlocBuilder<ConfirmCodeCubit, ConfirmCodeInitial>(
                 builder: (context, state) {
-                  if (state.statuses == CubitStatuses.loading) {
+                  if (state.statuses.loading) {
                     return MyStyle.loadingWidget();
                   }
                   return MyButton(
                     text: S.of(context).verify,
                     onTap: () {
-                      Navigator.pushNamedAndRemoveUntil(
-                          context, RouteName.home, (route) => false);
-                      // if (code.length < 4) return;
-                      // context.read<ConfirmCodeCubit>().confirmCode(
-                      //       context,
-                      //       phone: phone,
-                      //       code: code,
-                      //     );
+                      loggerObject.w(AppSharedPreference.getPhoneOrEmail);
+                      if (AppSharedPreference.getPhoneOrEmail.isEmpty) {
+                        Navigator.pushReplacementNamed(context, RouteName.login);
+                        return;
+                      }
+                      if (!_formKey.currentState!.validate()) return;
+                      confirmCodeCubit.confirmCode();
                     },
                   );
                 },

@@ -1,7 +1,3 @@
-import 'dart:convert';
-
-import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sadaf/core/api_manager/api_url.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
@@ -10,11 +6,9 @@ import 'package:sadaf/features/auth/data/request/login_request.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/error/error_manager.dart';
-import '../../../../core/injection/injection_container.dart';
-import '../../../../core/network/network_info.dart';
 import '../../../../core/strings/enum_manager.dart';
+import '../../../../core/util/abstract_cubit_state.dart';
 import '../../../../core/util/pair_class.dart';
-import '../../../../core/util/snack_bar_message.dart';
 import '../../../../generated/l10n.dart';
 import '../../data/response/login_response.dart';
 
@@ -22,43 +16,55 @@ part 'login_state.dart';
 
 class LoginCubit extends Cubit<LoginInitial> {
   LoginCubit() : super(LoginInitial.initial());
-  final network = sl<NetworkInfo>();
 
-  Future<void> login(BuildContext context, {required LoginRequest request}) async {
+  Future<void> login() async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
-    final pair = await _loginApi(request: request);
+    final pair = await _loginApi();
 
     if (pair.first == null) {
-      if (context.mounted) {
-        NoteMessage.showSnakeBar(message: pair.second ?? '', context: context);
-        emit(state.copyWith(statuses: CubitStatuses.error));
-      }
       emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
+      showErrorFromApi(state);
     } else {
-      AppSharedPreference.cashToken(pair.first!.token);
-      AppSharedPreference.cashUser(pair.first!);
-      AppSharedPreference.cashMyId(pair.first!.id);
-      APIService.reInitial();
-
-      // sl<InsertFirebaseTokenCubit>().insertFirebaseToken();
-
       emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
+    }
+
+  }
+
+  Future<Pair<LoginData?, String?>> _loginApi() async {
+    final response = await APIService().postApi(
+      url: PostUrl.loginUrl,
+      body: state.request.toJson(),
+    );
+
+    if (response.statusCode.success) {
+      final pair = Pair(LoginResponse.fromJson(response.jsonBody).data, null);
+      AppSharedPreference.cashToken(pair.first.token);
+      AppSharedPreference.cashMyId(pair.first.id);
+      AppSharedPreference.cashUser(pair.first);
+      AppSharedPreference.removePhoneOrEmail();
+      APIService.reInitial();
+      return pair;
+    } else {
+      return response.getPairError<LoginData>();
     }
   }
 
-  Future<Pair<ConfirmCodeData?, String?>> _loginApi(
-      {required LoginRequest request}) async {
-    if (await network.isConnected) {
-      final response =
-          await APIService().postApi(url: PostUrl.loginUrl, body: request.toJson());
+  set setPhoneOrEmail(String? phoneOrEmail) => state.request.phoneOrEmail = phoneOrEmail;
 
-      if (response.statusCode.success) {
-        return Pair(ConfirmCodeResponse.fromJson(jsonDecode(response.body)).data, null);
-      } else {
-        return Pair(null, ErrorManager.getApiError(response));
-      }
-    } else {
-      return Pair(null, S().noInternet);
+  set setPassword(String? password) => state.request.password = password;
+
+  String? get validatePhoneOrEmail {
+    if (state.request.phoneOrEmail.isBlank) {
+      return '${S().email} - ${S().phoneNumber}'
+          ' ${S().is_required}';
     }
+    return null;
+  }
+
+  String? get validatePassword {
+    if (state.request.password.isBlank) {
+      return '${S().password} ${S().is_required}';
+    }
+    return null;
   }
 }

@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:typed_data';
 
 import 'package:image_picker/image_picker.dart';
 
@@ -40,6 +41,11 @@ class PickImageHelper {
       removeImageFiles(path: e);
     }
     _latestPath.clear();
+  }
+  Future<Uint8List?> pickImageBytes() async {
+    final result = await pickImage();
+
+    return result?.readAsBytes();
   }
 
 // // Pick an image

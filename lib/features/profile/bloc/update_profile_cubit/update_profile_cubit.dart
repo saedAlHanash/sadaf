@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:convert';
 
-import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sadaf/core/api_manager/api_url.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
@@ -9,90 +7,69 @@ import 'package:sadaf/features/profile/data/request/update_profile_request.dart'
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/error/error_manager.dart';
-import '../../../../core/injection/injection_container.dart';
-import '../../../../core/network/network_info.dart';
 import '../../../../core/strings/enum_manager.dart';
+import '../../../../core/util/abstract_cubit_state.dart';
 import '../../../../core/util/pair_class.dart';
-import '../../../../core/util/snack_bar_message.dart';
 import '../../../../generated/l10n.dart';
-import '../../../auth/data/response/login_response.dart';
 
 part 'update_profile_state.dart';
 
 class UpdateProfileCubit extends Cubit<UpdateProfileInitial> {
   UpdateProfileCubit() : super(UpdateProfileInitial.initial());
-  final network = sl<NetworkInfo>();
 
-  Future<void> updateProfile(
-    BuildContext context, {
-    required UpdateProfileRequest request,
-  }) async {
+  Future<void> updateProfile() async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
-    final pair = await _updateProfileApi(request: request);
+    final pair = await _updateProfileApi();
 
     if (pair.first == null) {
-      if (context.mounted) {
-        NoteMessage.showSnakeBar(message: pair.second ?? '', context: context);
-      }
-      emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
+      emit(state.copyWith(error: pair.second, statuses: CubitStatuses.error));
+      showErrorFromApi(state);
     } else {
-      // AppSharedPreference.cashConfirmCodeData(pair.first);
-      emit(state.copyWith(statuses: CubitStatuses.done, result: true));
+      emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
     }
   }
 
-  Future<Pair<ConfirmCodeData?, String?>> _updateProfileApi(
-      {required UpdateProfileRequest request}) async {
-    if (await network.isConnected) {
-      int? id;
-      if (request.path != null && request.path!.isNotEmpty) {
-        final responseFile = await _uploadFile(path: request.path);
-        if (responseFile.first == null) {
-          return Pair(null, responseFile.second);
-        }
-        id = responseFile.first;
-      }
+  Future<Pair<bool?, String?>> _updateProfileApi() async {
+    final response = await APIService().uploadMultiPart(
+      url: PostUrl.signup,
+      fields: state.request.toJson(),
+      files: state.request.avatar == null ? null : [state.request.avatar],
+    );
 
-      request.photoID = id;
-      final response = await APIService().puttApi(
-        url: GetUrl.getMe,
-        body: request.toMap(),
-      );
-
-      if (response.statusCode.success) {
-        return Pair(ConfirmCodeData.fromJson(jsonDecode(response.body)), null);
-      } else {
-        return Pair(null, ErrorManager.getApiError(response));
-      }
+    if (response.statusCode.success) {
+      return Pair(true, null);
     } else {
-      return Pair(null, S().noInternet);
+      return response.getPairError<bool>();
     }
   }
 
-  Future<Pair<int?, String?>> _uploadFile({required String? path}) async {
-    if (await network.isConnected) {
-      final response = await APIService().uploadMultiPart(
-        url: PostUrl.uploadFile,
-        nameKey: 'medium',
-        files: [path ?? ''],
+  set setName(String? val) => state.request.name = val;
 
-      );
+  set setHomeAddress(String? val) => state.request.homeAddress = val;
 
-      if (response.statusCode.success) {
-        return Pair(jsonDecode(response.body)['id'] ?? 0, null);
-      } else {
-        return Pair(null, ErrorManager.getApiError(response));
-      }
-    } else {
-      return Pair(null, S().noInternet);
+  set setCountry(String? val) => state.request.country = val;
+
+  set setCity(String? val) => state.request.city = val;
+
+
+  set setEmailOrPhone(String? val) => state.request.emailOrPhone = val;
+
+  set setMapAddress(String? val) => state.request.mapAddress = val;
+
+  set setAvatar(UploadFile? val) => state.request.avatar = val;
+
+  String? get validateName {
+    if (state.request.name.isBlank) {
+      return S().nameEmpty;
     }
+    return null;
   }
 
-  void setImage(String? path) {
-    if (path == null) return;
-
-    Timer(const Duration(seconds: 1), () {
-      emit(state.copyWith(image: 'file$path'));
-    });
+  String? get validatePhoneOrEmail {
+    if (state.request.emailOrPhone.isBlank) {
+      return '${S().email} - ${S().phoneNumber}'
+          ' ${S().is_required}';
+    }
+    return null;
   }
 }
