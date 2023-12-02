@@ -20,7 +20,7 @@ part 'get_me_state.dart';
 
 class GetMeCubit extends Cubit<GetMeInitial> {
   GetMeCubit() : super(GetMeInitial.initial());
-  final network = sl<NetworkInfo>();
+  
 
   Future<void> getMe(BuildContext context,) async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
@@ -42,17 +42,16 @@ class GetMeCubit extends Cubit<GetMeInitial> {
   }
 
   Future<Pair<LoginData?, String?>> _getMeApi() async {
-    if (await network.isConnected) {
+     
       final response = await APIService()
           .getApi(url: GetUrl.getMe);
 
       if (response.statusCode.success) {
         return Pair(LoginResponse.fromJson(jsonDecode(response.body)).data, null);
       } else {
-        return Pair(null, ErrorManager.getApiError(response));
+          return response.getPairError;
+   
       }
-    } else {
-      return Pair(null, S().noInternet);
-    }
+     
   }
 }

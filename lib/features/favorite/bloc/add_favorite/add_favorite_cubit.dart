@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
+import 'package:sadaf/core/util/abstraction.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/api_manager/api_url.dart';
@@ -11,66 +13,52 @@ import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/pair_class.dart';
 import '../../../../core/util/snack_bar_message.dart';
 import '../../../../generated/l10n.dart';
-import '../../../product/data/models/product.dart';
+import '../../../product/data/response/products_response.dart';
 
 part 'add_favorite_state.dart';
 
 class AddFavoriteCubit extends Cubit<AddFavoriteInitial> {
   AddFavoriteCubit() : super(AddFavoriteInitial.initial());
 
-  final network = sl<NetworkInfo>();
-
-  Future<void> addFavorite(BuildContext context,
-      {required Product product, required bool isFav}) async {
+  Future<void> addFavorite({required Product product}) async {
     emit(state.copyWith(
       statuses: CubitStatuses.loading,
       product: product,
-      isFav: !isFav,
+      isFav: !product.isFavorite,
     ));
 
-    final pair = isFav
-        ? await _removeFavoriteApi(product: product)
-        : await _addFavoriteApi(product: product);
+    final pair =
+        product.isFavorite ? await _removeFavoriteApi() : await _addFavoriteApi();
 
     if (pair.first == null) {
-      if (context.mounted) {
-        NoteMessage.showSnakeBar(message: pair.second ?? '', context: context);
-      }
       emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
+      showErrorFromApi(state);
     } else {
       emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
     }
   }
 
-  Future<Pair<bool?, String?>> _addFavoriteApi({required Product product}) async {
-    if (await network.isConnected) {
-      final response = await APIService()
-          .postApi(url: PostUrl.addFavorite, query: {'product_id': product.id});
+  Future<Pair<bool?, String?>> _addFavoriteApi() async {
+    final response = await APIService()
+        .postApi(url: PostUrl.addFavorite, body: {'product_id': state.product.id});
 
-      if (response.statusCode == 200) {
-        product.isFav = true;
-        return Pair(true, null);
-      } else {
-        return Pair(null, ErrorManager.getApiError(response));
-      }
+    if (response.statusCode == 200) {
+      state.product.isFavorite = true;
+      return Pair(true, null);
     } else {
-      return Pair(null, S().noInternet);
+      return response.getPairError;
     }
   }
 
-  Future<Pair<bool?, String?>> _removeFavoriteApi({required Product product}) async {
-    if (await network.isConnected) {
-      final response = await APIService()
-          .deleteApi(url: DeleteUrl.removeFavorite, path: product.id.toString());
+  Future<Pair<bool?, String?>> _removeFavoriteApi() async {
+    final response = await APIService()
+        .deleteApi(url: DeleteUrl.removeFavorite, body: {'product_id': state.product.id});
 
-      if (response.statusCode == 200) {
-        product.isFav = false;
-        return Pair(true, null);
-      } else {
-        return Pair(null, ErrorManager.getApiError(response));
-      }
+    if (response.statusCode == 200) {
+      state.product.isFavorite = false;
+      return Pair(true, null);
     } else {
-      return Pair(null, S().noInternet);
+      return response.getPairError;
     }
   }
 }

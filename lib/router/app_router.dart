@@ -1,13 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
-import 'package:sadaf/features/auth/data/request/signup_request.dart';
-import 'package:sadaf/features/best_seller/bloc/best_seller_cubit/best_seller_cubit.dart';
-import 'package:sadaf/features/best_seller/ui/pages/all_best_seller_page.dart';
-import 'package:sadaf/features/catigories/data/models/category.dart';
 import 'package:sadaf/features/home/ui/pages/search_result_page.dart';
 import 'package:sadaf/features/notifications/ui/pages/notifications_page.dart';
-import 'package:sadaf/features/product/data/models/product.dart';
+import 'package:sadaf/features/product/bloc/products_cubit/products_cubit.dart';
+import 'package:sadaf/features/product/data/response/products_response.dart';
 import 'package:sadaf/features/product/ui/pages/product_page.dart';
 
 import '../core/injection/injection_container.dart' as di;
@@ -31,8 +28,9 @@ import '../features/auth/ui/pages/splash_screen_page.dart';
 import '../features/cart/bloc/cart_cubut/cart_cubit.dart';
 import '../features/cart/bloc/coupon_cubit/coupon_cubit.dart';
 import '../features/cart/bloc/create_order_cubit/create_order_cubit.dart';
-import '../features/catigories/bloc/category_by_id_cubit/category_by_id_cubit.dart';
-import '../features/catigories/ui/pages/categories_page.dart';
+import '../features/categories/bloc/categories_cubit/categories_cubit.dart';
+import '../features/categories/ui/pages/categories_page.dart';
+import '../features/categories/ui/pages/products_page.dart';
 import '../features/home/bloc/home_cubit/home_cubit.dart';
 import '../features/home/bloc/search_cubit/search_cubit.dart';
 import '../features/home/bloc/slider_cubit/slider_cubit.dart';
@@ -43,13 +41,14 @@ import '../features/offers/ui/pages/all_offers_page.dart';
 import '../features/orders/bloc/orders_cubit/orders_cubit.dart';
 import '../features/orders/ui/pages/my_orders_page.dart';
 import '../features/product/bloc/product_by_id_cubit/product_by_id_cubit.dart';
+import '../features/product/data/request/product_filter_request.dart';
 import '../features/profile/bloc/update_profile_cubit/update_profile_cubit.dart';
 import '../features/profile/ui/pages/profile_page.dart';
+import '../features/profile/ui/pages/update_choice_page.dart';
+import '../features/profile/ui/pages/update_page.dart';
 import '../features/settings/bloc/update_user_cubit/update_user_cubit.dart';
 import '../features/settings/ui/pages/about_page.dart';
 import '../features/settings/ui/pages/privacy_page.dart';
-import '../features/profile/ui/pages/update_choice_page.dart';
-import '../features/profile/ui/pages/update_page.dart';
 
 class AppRoutes {
   static Route<dynamic> routes(RouteSettings settings) {
@@ -178,7 +177,6 @@ class AppRoutes {
 
         final providers = [
           BlocProvider(create: (_) => di.sl<HomeCubit>()..getHome(_)),
-          BlocProvider(create: (_) => di.sl<SliderCubit>()..getSlider(_)),
           BlocProvider(create: (_) => di.sl<CartCubit>()..getDeliveryPrice()),
           BlocProvider(create: (_) => di.sl<LogoutCubit>()),
           BlocProvider(create: (_) => di.sl<DeleteAccountCubit>()),
@@ -206,22 +204,6 @@ class AppRoutes {
             return MultiBlocProvider(
               providers: providers,
               child: const AllOffersPage(),
-            );
-          },
-        );
-      //endregion
-
-      case RouteName.bestSeller:
-        //region
-
-        final providers = [
-          BlocProvider(create: (_) => di.sl<BestSellersCubit>()..getBestSellers(_)),
-        ];
-        return MaterialPageRoute(
-          builder: (context) {
-            return MultiBlocProvider(
-              providers: providers,
-              child: const AllBestSellersPage(),
             );
           },
         );
@@ -348,7 +330,7 @@ class AppRoutes {
         final providers = [
           BlocProvider(
             create: (context) => di.sl<ProductByIdCubit>()
-              ..getProductById(context,
+              ..getProductById(
                   id: ((settings.arguments ?? Product.fromJson({})) as Product).id),
           ),
         ];
@@ -363,20 +345,36 @@ class AppRoutes {
 
       //endregion
 
-      //region category
-      case RouteName.category:
-        final category = (settings.arguments ?? Category.fromJson({})) as Category;
+      //region product
+
+      case RouteName.products:
+        final request = (settings.arguments ?? ProductFilterRequest.fromJson({}))
+            as ProductFilterRequest;
         final providers = [
           BlocProvider(
-            create: (context) =>
-                di.sl<CategoryByIdCubit>()..getCategory(context, category: category),
+            create: (context) => di.sl<ProductsCubit>()..getProducts(request: request),
           ),
+          if ((request.categoryId ?? 0) != 0)
+            BlocProvider(
+              create: (context) =>
+                  di.sl<CategoriesCubit>()..getCategories(subId: request.categoryId),
+            ),
         ];
+        return MaterialPageRoute(
+          builder: (context) {
+            return MultiBlocProvider(
+              providers: providers,
+              child: const ProductsPage(),
+            );
+          },
+        );
+
+      //endregion
+
+      //region category
+      case RouteName.category:
         return MaterialPageRoute(builder: (context) {
-          return MultiBlocProvider(
-            providers: providers,
-            child: CategoriesPage(category: category),
-          );
+          return CategoriesPage();
         });
 
       //endregion
@@ -410,4 +408,5 @@ class RouteName {
   static const category = '/20';
   static const otpPassword = '/21';
   static const donePage = '/22';
+  static const products = '/23';
 }

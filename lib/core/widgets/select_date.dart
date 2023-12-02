@@ -1,10 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:syncfusion_flutter_datepicker/datepicker.dart';
-
-import '../../../../core/strings/app_color_manager.dart';
 
 class SelectSingeDateWidget extends StatelessWidget {
   const SelectSingeDateWidget({

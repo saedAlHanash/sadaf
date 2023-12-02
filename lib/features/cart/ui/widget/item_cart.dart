@@ -2,6 +2,7 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/features/cart/bloc/cart_cubut/cart_cubit.dart';
 import 'package:sadaf/features/cart/service/cart_service.dart';
@@ -10,8 +11,10 @@ import '../../../../core/injection/injection_container.dart';
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/widgets/image_with_fav.dart';
 import '../../../../core/widgets/my_card_widget.dart';
+import '../../../../generated/assets.dart';
 import '../../../home/ui/widget/screens/home_screen.dart';
-import '../../../product/data/models/product.dart';
+import '../../../product/data/response/products_response.dart';
+import '../../../product/data/response/products_response.dart';
 
 class ItemProductCart extends StatelessWidget {
   const ItemProductCart({
@@ -26,63 +29,51 @@ class ItemProductCart extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MyCardWidget(
-      cardColor: AppColorManager.f6,
-      elevation: 0.0,
-      padding: const EdgeInsets.all(7.0).r,
-      margin: const EdgeInsets.symmetric(horizontal: 15.0, vertical: 10.0).r,
+    return Container(
+      color: AppColorManager.f8,
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0).r,
       child: SizedBox(
-        height: 170.0.h,
+        height: 95.0.h,
         child: Row(
           children: [
+            ImageMultiType(
+              url: Assets.iconsTemp5,
+              width: 80.0.r,
+              height: 80.0.r,
+            ),
+            8.0.horizontalSpace,
             Expanded(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                mainAxisSize: MainAxisSize.max,
+              child: Row(
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      DrawableText(
-                        fontFamily: FontManager.cairoBold,
-                        text: product.name,
-                        drawableAlin: DrawableAlin.between,
-                        matchParent: true,
-                        size: 14.0.sp,
-                        drawableStart: IconButton(
-                          onPressed: () {
-                            onRemove.call(product.id);
-                            context.read<CartCubit>().changeQuantity();
-                          },
-                          icon: Icon(
-                            size: 24.0.r,
-                            Icons.cancel_outlined,
-                            color: AppColorManager.red,
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        const DrawableText(
+                          text: 'GLASS  CHAIR',
+                          maxLines: 1,
+                          matchParent: true,
+                        ),
+                        DrawableText(
+                          text: '1.000.000',
+                          color: AppColorManager.redPrice,
+                          matchParent: true,
+                          drawablePadding: 10.0.w,
+                          drawableAlin: DrawableAlin.withText,
+                          drawableEnd: DrawableText(
+                            text: '4.000.000',
+                            color: Colors.grey,
+                            size: 12.0.sp,
                           ),
                         ),
-                        padding:
-                            const EdgeInsets.symmetric(vertical: 5.0, horizontal: 2.0).r,
-                      ),
-                      DrawableText(text: product.getOfferPrice),
-                      if (product.isOffer)
-                        StrikeThroughWidget(
-                          child: DrawableText(
-                            text: product.getPrice,
-                            size: 14.0.spMin,
-                          ),
-                        )
-                    ],
+                      ],
+                    ),
                   ),
                   AmountWidget1(
                     product: product,
                   ),
                 ],
               ),
-            ),
-            ImageWithFav(
-              product: product,
-              width: 140.0.r,
-              height: 140.0.r,
             ),
           ],
         ),
@@ -105,47 +96,54 @@ class _AmountWidget1State extends State<AmountWidget1> {
 
   @override
   void initState() {
-    amount = widget.product.quantity;
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 140.0.w,
-      height: 60.0.h,
+      width: 95.0.w,
+      height: 26.0.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          FloatingActionButton(
-            elevation: 0.0,
-            backgroundColor: Colors.black,
-            mini: true,
-            onPressed: () {
-              setState(() => amount++);
-              widget.product.quantity = amount;
-              sl<CartService>().addToCart(widget.product, addQuantity: false,context: context);
-              context.read<CartCubit>().changeQuantity();
-            },
-            child: const Icon(Icons.add, color: Colors.white),
+          Container(
+            height: 25.0.r,
+            width: 25.0.r,
+            alignment: Alignment.center,
+            color: AppColorManager.black,
+            child: InkWell(
+              onTap: () {
+                setState(() => amount++);
+
+                sl<CartService>()
+                    .addToCart(widget.product, addQuantity: false, context: context);
+                context.read<CartCubit>().changeQuantity();
+              },
+              child: Icon(Icons.add, color: Colors.white,size: 18.0.r),
+            ),
           ),
           DrawableText(
             text: amount.toString(),
             color: Colors.black,
           ),
-          FloatingActionButton(
+          Container(
+            height: 25.0.r,
+            width: 25.0.r,
+            alignment: Alignment.center,
+            color: AppColorManager.black,
+            child: InkWell(
+              onTap: () {
+                if (amount <= 1) return;
+                setState(() => amount--);
 
-            elevation: 0.0,
-            backgroundColor: Colors.black,
-            onPressed: () {
-              if (amount <= 1) return;
-              setState(() => amount--);
-              widget.product.quantity = amount;
-              sl<CartService>().addToCart(widget.product, addQuantity: false,context: context);
-              context.read<CartCubit>().changeQuantity();
-            },
-            mini: true,
-            child: const Icon(Icons.remove, color: Colors.white),
+                sl<CartService>()
+                    .addToCart(widget.product, addQuantity: false, context: context);
+                context.read<CartCubit>().changeQuantity();
+              },
+              child: Icon(Icons.remove, color: Colors.white,size: 18.0.r),
+            ),
           ),
         ],
       ),

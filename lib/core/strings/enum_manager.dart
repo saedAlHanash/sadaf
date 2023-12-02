@@ -2,7 +2,7 @@ enum CubitStatuses { init, loading, done, error }
 
 enum ToScreen { non, confirmCode, policy, main }
 
-enum UserType { family, adultOnly, kidsOnly }
+enum AttachmentType { image,youtube, video, d3}
 
 enum PricingMatrixType { day, date }
 

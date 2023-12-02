@@ -1,21 +1,19 @@
 part of 'product_by_id_cubit.dart';
 
-class ProductByIdInitial extends Equatable {
-  final CubitStatuses statuses;
-  final ProductByIdResult result;
-  final String error;
+class ProductByIdInitial extends AbstractCubit<Product> {
+  final int id;
 
   const ProductByIdInitial({
-    required this.statuses,
-    required this.result,
-    required this.error,
+    required super.result,
+    required this.id,
+    super.error,
+    super.statuses,
   });
 
   factory ProductByIdInitial.initial() {
     return ProductByIdInitial(
-      result: ProductByIdResult.fromJson({}),
-      error: '',
-      statuses: CubitStatuses.init,
+      result: Product.fromJson({}),
+      id: 0,
     );
   }
 
@@ -24,14 +22,15 @@ class ProductByIdInitial extends Equatable {
 
   ProductByIdInitial copyWith({
     CubitStatuses? statuses,
-    ProductByIdResult? result,
+    Product? result,
     String? error,
+    int? id,
   }) {
     return ProductByIdInitial(
       statuses: statuses ?? this.statuses,
       result: result ?? this.result,
       error: error ?? this.error,
+      id: id ?? this.id,
     );
   }
-
 }

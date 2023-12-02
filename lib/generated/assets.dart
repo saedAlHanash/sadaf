@@ -9,7 +9,7 @@ class Assets {
   static const String iconsAboutUs = 'assets/icons/about_us.svg';
   static const String iconsAccount = 'assets/icons/account.svg';
   static const String iconsAdd = 'assets/icons/add.svg';
-  static const String iconsBackCover = 'assets/icons/back_cover.png';
+  static const String iconsBag = 'assets/icons/bag.svg';
   static const String iconsBandtechLogo = 'assets/icons/bandtech_logo.png';
   static const String iconsBell = 'assets/icons/bell.svg';
   static const String iconsBlur = 'assets/icons/blur.png';
@@ -22,11 +22,9 @@ class Assets {
   static const String iconsDMRMq = 'assets/icons/dMRMq.png';
   static const String iconsDoneIcon = 'assets/icons/done_icon.svg';
   static const String iconsEmail = 'assets/icons/email.svg';
-  static const String iconsEmptyHart = 'assets/icons/empty_hart.svg';
   static const String iconsEmptyPoint = 'assets/icons/empty_point.svg';
   static const String iconsFaq = 'assets/icons/faq.svg';
   static const String iconsFav = 'assets/icons/fav.svg';
-  static const String iconsFavHart = 'assets/icons/fav_hart.svg';
   static const String iconsFb = 'assets/icons/fb.svg';
   static const String iconsHome = 'assets/icons/home.svg';
   static const String iconsInfo = 'assets/icons/info.svg';
@@ -50,6 +48,7 @@ class Assets {
   static const String iconsNotification = 'assets/icons/notification.svg';
   static const String iconsNotifications = 'assets/icons/notifications.svg';
   static const String iconsOrders = 'assets/icons/orders.svg';
+  static const String iconsP = 'assets/icons/p.svg';
   static const String iconsPackage = 'assets/icons/package.svg';
   static const String iconsPhone = 'assets/icons/phone.svg';
   static const String iconsPoint = 'assets/icons/point.svg';
@@ -58,6 +57,7 @@ class Assets {
   static const String iconsProfileTrangle = 'assets/icons/profile_trangle.png';
   static const String iconsSearch = 'assets/icons/search.svg';
   static const String iconsSetting = 'assets/icons/setting.svg';
+  static const String iconsSummerSell = 'assets/icons/summer_sell.png';
   static const String iconsSupport = 'assets/icons/support.svg';
   static const String iconsTemp = 'assets/icons/temp.png';
   static const String iconsTemp1 = 'assets/icons/temp1.png';
@@ -66,9 +66,8 @@ class Assets {
   static const String iconsTemp4 = 'assets/icons/temp4.png';
   static const String iconsTemp5 = 'assets/icons/temp5.png';
   static const String iconsTermsAndConditions = 'assets/icons/terms_and_conditions.svg';
-  static const String iconsTime = 'assets/icons/time.svg';
+  static const String iconsTestPng = 'assets/icons/testPng.png';
   static const String iconsTranguler = 'assets/icons/tranguler.svg';
-  static const String iconsUser = 'assets/icons/user.svg';
   static const String iconsUserName = 'assets/icons/user_name.svg';
   static const String iconsWhatsApp = 'assets/icons/whats_app.svg';
   static const String iconsYourPhone = 'assets/icons/your_phone.svg';

@@ -8,13 +8,15 @@ import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/util/my_style.dart';
 import 'package:sadaf/core/widgets/card_slider_widget.dart';
 import 'package:sadaf/features/home/ui/widget/flash_deal_widget.dart';
-import 'package:sadaf/features/home/ui/widget/item_category.dart';
+import 'package:sadaf/features/categories/ui/widget/item_category.dart';
 import 'package:sadaf/features/home/ui/widget/search_widget.dart';
 import 'package:sadaf/generated/assets.dart';
 
 import '../../../../../generated/l10n.dart';
 import '../../../../../router/app_router.dart';
+import '../../../../categories/bloc/categories_cubit/categories_cubit.dart';
 import '../../../../product/ui/widget/item_product.dart';
+import '../../../bloc/banner_cubit/banner_cubit.dart';
 import '../../../bloc/home_cubit/home_cubit.dart';
 import '../../../bloc/slider_cubit/slider_cubit.dart';
 
@@ -28,19 +30,15 @@ class HomeScreen extends StatelessWidget {
         if (state.statuses.loading) {
           return MyStyle.loadingWidget();
         }
-        final offerProducts = state.result.offers.map((e) => e.product).toList();
         return SingleChildScrollView(
           child: Column(
             children: [
               //سلايدر الصور
-              BlocBuilder<SliderCubit, SliderInitial>(
+              BlocBuilder<BannerCubit, BannerInitial>(
                 builder: (context, state) {
-                  if (state.statuses.loading) {
-                    return MyStyle.loadingWidget();
-                  }
                   if (state.result.isEmpty) return 0.0.verticalSpace;
                   return CardImageSlider(
-                    images: state.result.map((e) => e.cover).toList(),
+                    images: state.result.map((e) => e.image).toList(),
                     height: 200.0.h,
                   );
                 },
@@ -48,18 +46,25 @@ class HomeScreen extends StatelessWidget {
 
               const TopSearchBar(),
               //التصنيفات
-              SizedBox(
-                height: 120.0.h,
-                child: ListView.separated(
-                  itemCount: state.result.categories.length,
-                  padding: const EdgeInsets.symmetric(horizontal: 30.0).w,
-                  scrollDirection: Axis.horizontal,
-                  itemBuilder: (_, i) {
-                    final item = state.result.categories[i];
-                    return ItemCategory(category: item);
-                  },
-                  separatorBuilder: (_, i) => 12.0.horizontalSpace,
-                ),
+              BlocBuilder<CategoriesCubit, CategoriesInitial>(
+                builder: (context, state) {
+                  if (state.statuses.loading) {
+                    return MyStyle.loadingWidget();
+                  }
+                  return SizedBox(
+                    height: 120.0.h,
+                    child: ListView.separated(
+                      itemCount: state.result.length,
+                      padding: const EdgeInsets.symmetric(horizontal: 30.0).w,
+                      scrollDirection: Axis.horizontal,
+                      itemBuilder: (_, i) {
+                        final category = state.result[i];
+                        return ItemCategory(category: category);
+                      },
+                      separatorBuilder: (_, i) => 12.0.horizontalSpace,
+                    ),
+                  );
+                },
               ),
               20.0.verticalSpace,
               DrawableText.titleList(
@@ -79,10 +84,8 @@ class HomeScreen extends StatelessWidget {
                 height: 105.0.h,
                 width: 1.0.sw,
                 child: ListView.builder(
-                  shrinkWrap: true,
                   scrollDirection: Axis.horizontal,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: offerProducts.length,
+                  itemCount: 2,
                   itemBuilder: (_, i) {
                     return const FlashDealWidget();
                   },
@@ -124,7 +127,7 @@ class HomeScreen extends StatelessWidget {
                   }
                   if (state.result.isEmpty) return 0.0.verticalSpace;
                   return CardImageSlider(
-                    images: state.result.map((e) => e.cover).toList(),
+                    images: state.result.map((e) => e.image).toList(),
                     height: 150.0.h,
                   );
                 },

@@ -8,7 +8,6 @@ import 'package:sadaf/core/util/snack_bar_message.dart';
 import 'package:sadaf/core/widgets/my_button.dart';
 import 'package:sadaf/generated/assets.dart';
 
-import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../core/util/shared_preferences.dart';

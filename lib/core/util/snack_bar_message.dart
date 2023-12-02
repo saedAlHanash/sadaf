@@ -1,12 +1,16 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:carousel_slider/carousel_controller.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 
+import '../../generated/assets.dart';
 import '../../generated/l10n.dart';
 import '../strings/app_color_manager.dart';
 import '../widgets/my_button.dart';
 import '../widgets/snake_bar_widget.dart';
-import 'package:awesome_dialog/awesome_dialog.dart';
 
 class NoteMessage {
   static void showSuccessSnackBar(
@@ -73,8 +77,6 @@ class NoteMessage {
 
     return result ?? false;
   }
-
-
 
   static Future<bool> showConfirm(BuildContext context, {required String text}) async {
     // show the dialog
@@ -260,5 +262,53 @@ class NoteMessage {
       desc: message,
       onDismissCallback: (type) => onCancel?.call(),
     ).show();
+  }
+
+  static Future<bool> showImageDialog(
+    BuildContext context, {
+    required List<String> images,
+    required int currentPage,
+  }) async {
+    // show the dialog
+    final controller = CarouselController();
+    final result = await showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          alignment: Alignment.center,
+          backgroundColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.all(
+              Radius.circular(20.0.r),
+            ),
+          ),
+          elevation: 0.0,
+          clipBehavior: Clip.hardEdge,
+          child: SizedBox(
+            height: 1.0.sh,
+            child: CarouselSlider(
+              carouselController: controller,
+              items: images.map(
+                (e) {
+                  return ImageMultiType(
+                    url: e,
+                    height: double.infinity,
+                    width: double.infinity,
+                    fit: BoxFit.cover,
+                  );
+                },
+              ).toList(),
+              options: CarouselOptions(
+                initialPage: currentPage,
+                enableInfiniteScroll: false,
+                autoPlayInterval: const Duration(seconds: 10),
+                viewportFraction: 1,
+              ),
+            ),
+          ),
+        );
+      },
+    );
+    return (result ?? false);
   }
 }

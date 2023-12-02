@@ -90,8 +90,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
         "emailEmpty":
             MessageLookupByLibrary.simpleMessage("حقل البريد الإلكتروني مطلوب"),
-        "enterOTP":
-            MessageLookupByLibrary.simpleMessage("أدخل رمز OTP الخاص بك هنا."),
+        "enterOTP": MessageLookupByLibrary.simpleMessage(
+            "أدخل رمز التفعيل الخاص بك هنا."),
         "enter_new_password_and_confirm":
             MessageLookupByLibrary.simpleMessage("أدخل كلمة السر مع التأكيد"),
         "expiration": MessageLookupByLibrary.simpleMessage("انتهاء الصلاحية"),
@@ -177,9 +177,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "saveChange": MessageLookupByLibrary.simpleMessage("حفظ التغيير"),
         "save_for_later": MessageLookupByLibrary.simpleMessage("حفظ لاحقًا؟"),
         "search_In_All": MessageLookupByLibrary.simpleMessage("البحث في الكل"),
+        "seconds": MessageLookupByLibrary.simpleMessage("ثواني"),
         "see_all": MessageLookupByLibrary.simpleMessage("عرض الكل"),
         "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
         "sgnIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول."),
+        "share": MessageLookupByLibrary.simpleMessage("مشاركة"),
         "signInToContinue":
             MessageLookupByLibrary.simpleMessage("تسجيل الدخول للمتابعة"),
         "signInWithSocial": MessageLookupByLibrary.simpleMessage(

@@ -1,26 +1,19 @@
-import 'dart:ui';
-
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_switch/flutter_switch.dart';
-import 'package:image_multi_type/circle_image_widget.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/helper/launcher_helper.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
-import 'package:image_multi_type/image_multi_type.dart';
-import 'package:sadaf/features/settings/services/setting_service.dart';
 import 'package:sadaf/features/profile/ui/widget/top_profile_widget.dart';
 import 'package:sadaf/router/app_router.dart';
 
-import '../../../../core/injection/injection_container.dart';
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../core/util/snack_bar_message.dart';
 import '../../../../core/widgets/my_button.dart';
-import '../../../../core/widgets/not_found_widget.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../../auth/bloc/delete_account_cubit/delete_account_cubit.dart';

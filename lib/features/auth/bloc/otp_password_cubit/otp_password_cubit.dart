@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
-import 'package:sadaf/core/util/abstract_cubit_state.dart';
+import 'package:sadaf/core/util/abstraction.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/api_manager/api_url.dart';
@@ -40,7 +40,7 @@ class OtpPasswordCubit extends Cubit<OtpPasswordInitial> {
       AppSharedPreference.cashOtpPassword(state.request.code);
       return pair;
     } else {
-      return response.getPairError<bool>();
+        return response.getPairError;
     }
   }
 

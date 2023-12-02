@@ -180,9 +180,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "save_for_later":
             MessageLookupByLibrary.simpleMessage("Save For Later?"),
         "search_In_All": MessageLookupByLibrary.simpleMessage("Search In All"),
+        "seconds": MessageLookupByLibrary.simpleMessage("seconds"),
         "see_all": MessageLookupByLibrary.simpleMessage("See All"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "sgnIn": MessageLookupByLibrary.simpleMessage("Sign In."),
+        "share": MessageLookupByLibrary.simpleMessage("Share"),
         "signInToContinue":
             MessageLookupByLibrary.simpleMessage("Sign In To Continue"),
         "signInWithSocial": MessageLookupByLibrary.simpleMessage(

@@ -20,7 +20,7 @@ part 'create_order_state.dart';
 class CreateOrderCubit extends Cubit<CreateOrderInitial> {
   CreateOrderCubit() : super(CreateOrderInitial.initial());
 
-  final network = sl<NetworkInfo>();
+  
 
   Future<void> createOrder(BuildContext context,
       {required CreateOrderRequest request}) async {
@@ -42,7 +42,7 @@ class CreateOrderCubit extends Cubit<CreateOrderInitial> {
 
   Future<Pair<bool?, String?>> _createOrderApi(
       {required CreateOrderRequest request}) async {
-    if (await network.isConnected) {
+     
       final response = await APIService().postApi(
         url: PostUrl.createOrder,
         body: request.toMap(),
@@ -54,8 +54,6 @@ class CreateOrderCubit extends Cubit<CreateOrderInitial> {
       } else {
         return Pair(null, ErrorManager.getApiError(response));
       }
-    } else {
-      return Pair(null, S().noInternet);
-    }
+     
   }
 }

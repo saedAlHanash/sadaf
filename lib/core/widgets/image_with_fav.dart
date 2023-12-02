@@ -1,8 +1,9 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sadaf/features/product/data/models/product.dart';
+import 'package:sadaf/features/product/data/response/products_response.dart';
 
+import '../../features/product/data/response/products_response.dart';
 import '../../generated/assets.dart';
 import 'fav_btn_widget.dart';
 
@@ -27,7 +28,7 @@ class _ImageWithFavState extends State<ImageWithFav> {
     final f = isError
         ? const AssetImage(Assets.iconsLogo)
         : CachedNetworkImageProvider(
-            widget.product.cover.first,
+            widget.product.thumbnail,
           );
     return Container(
       height: widget.height ?? double.infinity,
@@ -42,10 +43,6 @@ class _ImageWithFavState extends State<ImageWithFav> {
           onError: (exception, stackTrace) => setState(() => isError = true),
           image: f as ImageProvider,
         ),
-      ),
-      child: Align(
-        alignment: Alignment.topLeft,
-        child: FavBtnWidget(product: widget.product),
       ),
     );
   }

@@ -1,25 +1,20 @@
 part of 'add_favorite_cubit.dart';
 
-class AddFavoriteInitial extends Equatable {
-  final CubitStatuses statuses;
-  final bool result;
-  final String error;
+class AddFavoriteInitial extends AbstractCubit<bool> {
   final bool isFav;
   final Product product;
 
   const AddFavoriteInitial({
-    required this.statuses,
-    required this.result,
-    required this.error,
+    required super.result,
+    super.statuses,
+    super.error,
     required this.isFav,
     required this.product,
   });
 
   factory AddFavoriteInitial.initial() {
-    return  AddFavoriteInitial(
+    return AddFavoriteInitial(
       result: false,
-      error: '',
-      statuses: CubitStatuses.init,
       isFav: false,
       product: Product.fromJson({}),
     );

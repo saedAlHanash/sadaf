@@ -3,6 +3,8 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
+import 'package:sadaf/core/util/abstraction.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/api_manager/api_url.dart';
@@ -13,57 +15,37 @@ import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/pair_class.dart';
 import '../../../../core/util/snack_bar_message.dart';
 import '../../../../generated/l10n.dart';
-import '../../../product/data/models/product.dart';
+import '../../../product/data/response/products_response.dart';
+import '../../data/response/fav_response.dart';
 
 part 'get_favorite_state.dart';
 
 class FavoriteCubit extends Cubit<FavoriteInitial> {
   FavoriteCubit() : super(FavoriteInitial.initial());
-  static final favIds = <int>[];
 
-  Future<void> getFavorite(BuildContext context) async {
+  Future<void> getFavorite() async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
 
-    final pair = await getFavoriteApi();
+    final pair = await _getFavoriteApi();
 
     if (pair.first == null) {
-      if (context.mounted) {
-        NoteMessage.showSnakeBar(message: pair.second ?? '', context: context);
-      }
       emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
+      showErrorFromApi(state);
     } else {
-      emit(
-        state.copyWith(statuses: CubitStatuses.done, result: pair.first, favIds: favIds),
-      );
+      emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
     }
   }
 
-  static Future<Pair<List<Product>?, String?>> getFavoriteApi() async {
-    final network = sl<NetworkInfo>();
-    if (await network.isConnected) {
-      final response = await APIService().getApi(url: GetUrl.favorite);
+  static Future<Pair<List<Fav>?, String?>> _getFavoriteApi() async {
+    final response = await APIService().getApi(url: GetUrl.favorite);
 
-      if (response.statusCode == 200) {
-        var json = jsonDecode(response.body);
-        final p = Pair(
-          json["data"] == null
-              ? <Product>[]
-              : List<Product>.from(json["data"]!.map((x) => Product.fromJson(x ?? {}))),
-          null,
-        );
-
-        favIds.clear();
-
-        for (var e in p.first) {
-          favIds.add(e.id);
-        }
-
-        return p;
-      } else {
-        return Pair(null, ErrorManager.getApiError(response));
-      }
+    if (response.statusCode == 200) {
+      return Pair(
+        FavResponse.fromJson(response.jsonBody).data,
+        null,
+      );
     } else {
-      return Pair(null, S().noInternet);
+      return Pair(null, ErrorManager.getApiError(response));
     }
   }
 }

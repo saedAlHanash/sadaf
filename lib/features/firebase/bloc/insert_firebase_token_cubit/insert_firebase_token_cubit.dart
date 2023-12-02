@@ -21,7 +21,7 @@ part 'insert_firebase_token_state.dart';
 class InsertFirebaseTokenCubit extends Cubit<InsertFirebaseTokenInitial> {
   InsertFirebaseTokenCubit() : super(InsertFirebaseTokenInitial.initial());
 
-  final network = sl<NetworkInfo>();
+  
 
   insertFirebaseToken() async {
     if (!AppSharedPreference.isLogin) {
@@ -43,7 +43,7 @@ class InsertFirebaseTokenCubit extends Cubit<InsertFirebaseTokenInitial> {
   Future<Pair<bool?, String?>> _insertFirebaseTokenApi({
     required String token,
   }) async {
-    if (await network.isConnected) {
+     
       final response = await APIService().postApi(
         url: PostUrl.insertFireBaseToken,
         body: {'token': token},
@@ -54,8 +54,6 @@ class InsertFirebaseTokenCubit extends Cubit<InsertFirebaseTokenInitial> {
       } else {
         return Pair(null, ErrorManager.getApiError(response));
       }
-    } else {
-      return Pair(null, S().noInternet);
-    }
+     
   }
 }

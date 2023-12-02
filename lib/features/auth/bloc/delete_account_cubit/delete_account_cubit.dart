@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
 
@@ -16,7 +17,7 @@ part 'delete_account_state.dart';
 
 class DeleteAccountCubit extends Cubit<DeleteAccountInitial> {
   DeleteAccountCubit() : super(DeleteAccountInitial.initial());
-  final network = sl<NetworkInfo>();
+  
 
   Future<void> deleteAccount(BuildContext context) async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
@@ -34,7 +35,7 @@ class DeleteAccountCubit extends Cubit<DeleteAccountInitial> {
   }
 
   Future<Pair<bool?, String?>> _logoutApi() async {
-    if (await network.isConnected) {
+     
       final response = await APIService().postApi(
         url: 'destroyAccount',
       );
@@ -42,10 +43,8 @@ class DeleteAccountCubit extends Cubit<DeleteAccountInitial> {
       if (response.statusCode == 200) {
         return Pair(true, null);
       } else {
-        return Pair(null, ErrorManager.getApiError(response));
+          return response.getPairError;
       }
-    } else {
-      return Pair(null, S().noInternet);
-    }
+     
   }
 }

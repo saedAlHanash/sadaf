@@ -7,7 +7,7 @@ import 'package:sadaf/features/auth/data/request/login_request.dart';
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/error/error_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
-import '../../../../core/util/abstract_cubit_state.dart';
+import '../../../../core/util/abstraction.dart';
 import '../../../../core/util/pair_class.dart';
 import '../../../../generated/l10n.dart';
 import '../../data/response/login_response.dart';
@@ -38,6 +38,7 @@ class LoginCubit extends Cubit<LoginInitial> {
 
     if (response.statusCode.success) {
       final pair = Pair(LoginResponse.fromJson(response.jsonBody).data, null);
+      loggerObject.w(pair.first.toJson());
       AppSharedPreference.cashToken(pair.first.token);
       AppSharedPreference.cashMyId(pair.first.id);
       AppSharedPreference.cashUser(pair.first);
@@ -45,7 +46,7 @@ class LoginCubit extends Cubit<LoginInitial> {
       APIService.reInitial();
       return pair;
     } else {
-      return response.getPairError<LoginData>();
+        return response.getPairError;
     }
   }
 

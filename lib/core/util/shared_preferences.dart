@@ -22,6 +22,7 @@ class AppSharedPreference {
   static const _lang = '14';
   static const _phoneNumberPassword = '15';
   static const _otpPassword = '16';
+  static const _currency = '17';
 
   static late SharedPreferences _prefs;
 
@@ -162,4 +163,8 @@ class AppSharedPreference {
   }
 
   static String get getLocal => _prefs.getString(_lang) ?? 'en';
+
+  static set setCurrency(String langCode) => _prefs.setString(_lang, langCode);
+
+  static String get currency => _prefs.getString(_lang) ?? '\$';
 }

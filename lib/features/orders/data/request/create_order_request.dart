@@ -20,7 +20,7 @@ class CreateOrderRequest {
     map['item_count'] = list.length.toString();
     list.forEachIndexed((i, e) {
       map['product_id_${i + 1}'] = list[i].id.toString();
-      map['quantity_${i + 1}'] = list[i].quantity.toString();
+      map['quantity_${i + 1}'] = list[i].price.toString();
     });
 
     return map;

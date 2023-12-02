@@ -52,7 +52,6 @@ class _HomepageState extends State<Homepage> {
         },
         child: Scaffold(
           appBar: const AppBarWidget(zeroHeight: true),
-          drawer: Drawer(),
           bottomNavigationBar: NewNav(
             onChange: (index) {
               pageIndex = index;

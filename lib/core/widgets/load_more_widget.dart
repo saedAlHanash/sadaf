@@ -39,7 +39,7 @@ class LoadMoreWidget extends StatelessWidget {
               width: 177.0.w,
               text: 'تحميل المزيد',
               onTap: () {
-                command.pag = (command.pag ?? 0) + 1;
+                // command.pag = (command.pag ?? 0) + 1;
                 onNewCommand(command);
               },
             );

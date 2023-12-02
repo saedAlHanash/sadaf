@@ -1,33 +1,26 @@
 import 'package:sadaf/core/extensions/extensions.dart';
 
+import '../../util/abstraction.dart';
+
+const commandInitial = Command(pag: 1, perPage: 20);
+
 class Command {
-  Command({
-    this.pag,
-    this.perPage,
-    this.minimal,
+  const Command({
+    required this.pag,
+    required this.perPage,
   });
 
-  int? pag;
-  int? perPage;
-  int? minimal;
-
-  factory Command.initial() {
-    return Command(pag: 1, perPage: 10);
-  }
+  final int pag;
+  final int perPage;
 
   factory Command.noPagination() {
     return Command(perPage: 1.max, pag: 1);
-  }
-
-  factory Command.minimal() {
-    return Command(perPage: 1.max, pag: 1, minimal: 1);
   }
 
   Map<String, dynamic> toJson() {
     return {
       'page': pag,
       'perPage': perPage,
-      'Minimal': minimal,
     };
   }
 
@@ -37,4 +30,60 @@ class Command {
       perPage: map['perPage'] ?? 15,
     );
   }
+
+  Command copyWith({
+    int? pag,
+    int? perPage,
+    int? minimal,
+  }) {
+    return Command(
+      pag: pag ?? this.pag,
+      perPage: perPage ?? this.perPage,
+    );
+  }
+
+  Command fromMeta({required AbstractMeta meta}) {
+    return Command(
+      pag: meta.meta.currentPage,
+      perPage: meta.meta.perPage,
+    );
+  }
+}
+
+class Meta {
+  Meta({
+    required this.currentPage,
+    required this.from,
+    required this.lastPage,
+    required this.perPage,
+    required this.to,
+    required this.total,
+  });
+
+  final int currentPage;
+  final int from;
+  final int lastPage;
+  final int perPage;
+  final int to;
+  final int total;
+
+  factory Meta.fromJson(Map<String, dynamic> json) {
+    return Meta(
+      currentPage: json["current_page"] ?? 1,
+      from: json["from"] ?? 0,
+      lastPage: json["last_page"] ?? 1,
+      perPage: json["per_page"] ?? 20,
+      to: json["to"] ?? 1,
+      total: json["total"] ?? 20,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "current_page": currentPage,
+        "from": from,
+        "last_page": lastPage,
+        "per_page": perPage,
+        "to": to,
+        "total": total,
+      };
 }

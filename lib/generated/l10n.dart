@@ -1090,6 +1090,16 @@ class S {
     );
   }
 
+  /// `seconds`
+  String get seconds {
+    return Intl.message(
+      'seconds',
+      name: 'seconds',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Min`
   String get min {
     return Intl.message(
@@ -1455,6 +1465,16 @@ class S {
     return Intl.message(
       'Enter New Password And Confirm.',
       name: 'enter_new_password_and_confirm',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Share`
+  String get share {
+    return Intl.message(
+      'Share',
+      name: 'share',
       desc: '',
       args: [],
     );

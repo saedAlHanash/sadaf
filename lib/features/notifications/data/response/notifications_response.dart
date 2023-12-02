@@ -1,4 +1,4 @@
-import '../../../product/data/models/product.dart';
+import '../../../product/data/response/products_response.dart';
 
 class NotificationsResponse {
   NotificationsResponse({

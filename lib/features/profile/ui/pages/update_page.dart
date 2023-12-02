@@ -12,7 +12,6 @@ import 'package:sadaf/features/profile/ui/widget/top_profile_widget.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../core/util/shared_preferences.dart';
 import '../../../../generated/l10n.dart';
-
 import '../../bloc/update_profile_cubit/update_profile_cubit.dart';
 import '../../data/request/update_profile_request.dart';
 

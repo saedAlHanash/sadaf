@@ -3,8 +3,10 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:sadaf/core/util/shared_preferences.dart';
 
-import '../../features/product/data/models/product.dart';
+import '../../features/product/data/response/products_response.dart';
+import '../../features/product/data/response/products_response.dart';
 import '../../generated/l10n.dart';
 import '../error/error_manager.dart';
 import '../strings/enum_manager.dart';
@@ -26,6 +28,18 @@ extension SplitByLength on String {
       pieces.add(piece);
     }
     return pieces;
+  }
+
+  AttachmentType getLinkType({AttachmentType? type}) {
+    if (type == AttachmentType.video) {
+      if (contains('youtube')) {
+        return AttachmentType.youtube;
+      } else {
+        return AttachmentType.video;
+      }
+    }
+
+    return AttachmentType.image;
   }
 
   bool get canSendToSearch {
@@ -51,6 +65,10 @@ extension SplitByLength on String {
 
     return '0$this';
   }
+
+  String get formatPrice => '$this ${AppSharedPreference.currency}';
+
+  bool get isZero => (num.tryParse(this) ?? 0) == 0;
 
   String? checkPhoneNumber(BuildContext context, String phone) {
     if (phone.startsWith('00964') && phone.length > 11) return phone;
@@ -87,6 +105,13 @@ extension MaxInt on num {
   String get formatPrice => oCcy.format(this);
 }
 
+extension HelperJson on Map<String, dynamic> {
+  num getAsNum(String key) {
+    if (this[key] == null) return -1;
+    return num.tryParse((this[key]).toString()) ?? -1;
+  }
+}
+
 extension UpdateTypeHelper on UpdateType {
   String get getName {
     switch (this) {
@@ -105,35 +130,44 @@ extension UpdateTypeHelper on UpdateType {
 }
 
 extension ProductHelper on Product {
-  bool get isOffer => offer != 0;
+  // bool get isOffer => offer != 0;
+  //
+  // String get getOfferPrice => isOffer
+  //     ? (isPercentage)
+  //         ? _getPricePercentage.formatPrice
+  //         : _getOfferPrice.formatPrice
+  //     : getPrice;
+  //
+  // num get getOfferPriceNum => isOffer
+  //     ? (isPercentage)
+  //         ? _getPricePercentage
+  //         : _getOfferPrice
+  //     : getPriceNun;
 
-  String get getOfferPrice => isOffer
-      ? (isPercentage)
-          ? _getPricePercentage.formatPrice
-          : _getOfferPrice.formatPrice
-      : getPrice;
-
-  num get getOfferPriceNum => isOffer
-      ? (isPercentage)
-          ? _getPricePercentage
-          : _getOfferPrice
-      : getPriceNun;
-
-  num get getPriceNun => price;
-
-  String get getPrice => price.formatPrice;
-
-  bool get isPercentage => offerType.contains('نسبة');
-
-  num get _getPricePercentage => (price - (price * (offer) / 100)).roundToDouble();
-
-  num get _getOfferPrice => (price - (offer)).roundToDouble();
+  // num get getPriceNun => price;
+  //
+  // String get getPrice => price.formatPrice;
+  //
+  // bool get isPercentage => offerType.contains('نسبة');
+  //
+  // num get _getPricePercentage => (price - (price * (offer) / 100)).roundToDouble();
+  //
+  // num get _getOfferPrice => (price - (offer)).roundToDouble();
 }
 
 extension ResponseHelper on http.Response {
-  Map<String, dynamic> get jsonBody => jsonDecode(body);
+  Map<String, dynamic> get jsonBody {
+    try {
+      return jsonDecode(body);
+    } catch (e) {
+      return jsonDecode('{}');
+    }
+  }
 
-  Pair<T?, String?> getPairError<T>() {
+  // Pair<T?, String?> getPairError<T>() {
+  //   return Pair(null, ErrorManager.getApiError(this));
+  // }
+  get getPairError {
     return Pair(null, ErrorManager.getApiError(this));
   }
 }
@@ -151,6 +185,14 @@ extension FormatDuration on Duration {
 
 extension ApiStatusCode on int {
   bool get success => (this >= 200 && this <= 210);
+
+  //
+  // int get countDiv2 {
+  //   final dr = this / 2; //double result
+  //   final ir = this ~/ 2; //int result
+  //   return (ir < dr) ? ir + 1 : ir;
+  // }
+  int get countDiv2 => (this ~/ 2 < this / 2) ? this ~/ 2 + 1 : this ~/ 2;
 }
 
 extension TextEditingControllerHelper on TextEditingController {
@@ -184,6 +226,54 @@ extension DateUtcHelper on DateTime {
   DateTime initialFromDateTime({required DateTime date, required TimeOfDay time}) {
     return DateTime(date.year, date.month, date.day, time.hour, time.minute);
   }
+
+  FormatDateTime getFormat({DateTime? serverDate}) {
+    final difference = this.difference(serverDate ?? DateTime.now());
+
+    final months = difference.inDays.abs() ~/ 30;
+    final days = difference.inDays.abs() % 360;
+    final hours = difference.inHours.abs() % 24;
+    final minutes = difference.inMinutes.abs() % 60;
+    final seconds = difference.inSeconds.abs() % 60;
+    return FormatDateTime(
+      months: months,
+      days: days,
+      hours: hours,
+      minutes: minutes,
+      seconds: seconds,
+    );
+  }
+
+  String formatDuration({DateTime? serverDate}) {
+    final result = getFormat(serverDate: serverDate);
+
+    final formattedDuration = StringBuffer();
+
+    formattedDuration.write('منذ: ');
+    var c = 0;
+    if (result.months > 0) {
+      c++;
+      formattedDuration.write('و ${result.months} شهر ');
+    }
+    if (result.days > 0 && c < 2) {
+      c++;
+      formattedDuration.write('و ${result.days} يوم  ');
+    }
+    if (result.hours > 0 && c < 2) {
+      c++;
+      formattedDuration.write('و ${result.hours} ساعة  ');
+    }
+    if (result.minutes > 0 && c < 2) {
+      c++;
+      formattedDuration.write('و ${result.minutes} دقيقة  ');
+    }
+    if (result.seconds > 0 && c < 2) {
+      c++;
+      formattedDuration.write('و ${result.seconds} ثانية ');
+    }
+
+    return formattedDuration.toString().trim().replaceFirst('و', '');
+  }
 }
 
 extension FirstItem<E> on Iterable<E> {
@@ -206,4 +296,20 @@ extension GetDateTimesBetween on DateTime {
     }
     return dateTimes;
   }
+}
+
+class FormatDateTime {
+  final int months;
+  final int days;
+  final int hours;
+  final int minutes;
+  final int seconds;
+
+  const FormatDateTime({
+    required this.months,
+    required this.days,
+    required this.hours,
+    required this.minutes,
+    required this.seconds,
+  });
 }

@@ -1,8 +1,4 @@
-import 'package:flutter/material.dart';
-import 'package:sadaf/core/extensions/extensions.dart';
-import 'package:sadaf/core/util/snack_bar_message.dart';
 
-import '../../../../main.dart';
 
 class SignupRequest {
   SignupRequest({

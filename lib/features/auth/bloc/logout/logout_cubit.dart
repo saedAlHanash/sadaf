@@ -1,6 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
 
@@ -17,35 +18,28 @@ part 'logout_state.dart';
 
 class LogoutCubit extends Cubit<LogoutInitial> {
   LogoutCubit() : super(LogoutInitial.initial());
-  final network = sl<NetworkInfo>();
+  
 
   Future<void> logout(BuildContext context) async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
     final pair = await _logoutApi();
 
-
     if (pair.first == null) {
       emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
-
     } else {
       emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
     }
-
   }
 
   Future<Pair<bool?, String?>> _logoutApi() async {
-    if (await network.isConnected) {
-      final response = await APIService().postApi(
-        url: PostUrl.logout,
-      );
+    final response = await APIService().postApi(
+      url: PostUrl.logout,
+    );
 
-      if (response.statusCode == 200) {
-        return Pair(true, null);
-      } else {
-        return Pair(null, ErrorManager.getApiError(response));
-      }
+    if (response.statusCode == 200) {
+      return Pair(true, null);
     } else {
-      return Pair(null, S().noInternet);
+        return response.getPairError;
     }
   }
 }

@@ -8,6 +8,7 @@ import 'package:sadaf/features/orders/ui/widget/item_order_widget.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../../generated/assets.dart';
+import '../../../../generated/l10n.dart';
 import '../../bloc/orders_cubit/orders_cubit.dart';
 
 class MyOrdersPage extends StatelessWidget {
@@ -16,7 +17,7 @@ class MyOrdersPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(titleText: 'طلباتي'),
+      appBar:  AppBarWidget(titleText: S.of(context).myOrders),
       body: BlocBuilder<OrdersCubit, OrdersInitial>(
         builder: (context, state) {
           if (state.statuses.loading) {

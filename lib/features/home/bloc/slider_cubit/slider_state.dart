@@ -1,21 +1,15 @@
 part of 'slider_cubit.dart';
 
-class SliderInitial extends Equatable {
-  final CubitStatuses statuses;
-  final List<SliderResult> result;
-  final String error;
-
+class SliderInitial extends AbstractCubit<List<BannerModel>> {
   const SliderInitial({
-    required this.statuses,
-    required this.result,
-    required this.error,
+    required super.result,
+    super.error,
+    super.statuses,
   });
 
   factory SliderInitial.initial() {
     return const SliderInitial(
-      result: <SliderResult>[],
-      error: '',
-      statuses: CubitStatuses.init,
+      result: [],
     );
   }
 
@@ -24,7 +18,7 @@ class SliderInitial extends Equatable {
 
   SliderInitial copyWith({
     CubitStatuses? statuses,
-    List<SliderResult>? result,
+    List<BannerModel>? result,
     String? error,
   }) {
     return SliderInitial(

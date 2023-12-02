@@ -19,7 +19,7 @@ part 'orders_state.dart';
 class OrdersCubit extends Cubit<OrdersInitial> {
   OrdersCubit() : super(OrdersInitial.initial());
 
-  final network = sl<NetworkInfo>();
+  
 
   Future<void> getMyOrders(BuildContext context) async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
@@ -36,7 +36,7 @@ class OrdersCubit extends Cubit<OrdersInitial> {
   }
 
   Future<Pair<List<Order>?, String?>> _getMyOrdersApi() async {
-    if (await network.isConnected) {
+     
       final response = await APIService().getApi(
         url: GetUrl.orders,
       );
@@ -46,8 +46,6 @@ class OrdersCubit extends Cubit<OrdersInitial> {
       } else {
         return Pair(null, ErrorManager.getApiError(response));
       }
-    } else {
-      return Pair(null, S().noInternet);
-    }
+     
   }
 }

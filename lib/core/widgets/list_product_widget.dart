@@ -1,27 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/features/cart/service/cart_service.dart';
 
 import '../../features/cart/ui/widget/item_cart.dart';
-import '../../features/product/data/models/product.dart';
+import '../../features/product/data/response/products_response.dart';
+import '../../features/product/data/response/products_response.dart';
 import '../../features/product/ui/widget/item_product.dart';
 import '../injection/injection_container.dart';
 
-class ListProductWidget extends StatelessWidget {
-  const ListProductWidget({super.key, required this.products});
-
-  final List<Product> products;
-
-  @override
-  Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: products.length,
-      shrinkWrap: true,
-      itemBuilder: (_, i) {
-        return ItemProductH(product: products[i]);
-      },
-    );
-  }
-}
 
 class ListProductCartWidget extends StatefulWidget {
   const ListProductCartWidget({super.key});
@@ -31,26 +17,27 @@ class ListProductCartWidget extends StatefulWidget {
 }
 
 class _ListProductCartWidgetState extends State<ListProductCartWidget> {
-  final List<Product> products = [];
+  final List<Product> products = [
+    Product.fromJson({}),
+    Product.fromJson({}),
+    Product.fromJson({}),
+  ];
 
   @override
   void initState() {
-    products
-      ..clear()
-      ..addAll(sl<CartService>().getCartProducts());
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
+    return ListView.separated(
       itemCount: products.length,
       shrinkWrap: true,
       itemBuilder: (_, i) {
         return ItemProductCart(
           product: products[i],
           onRemove: (id) {
-            sl<CartService>().removeFromCart(id,context: context);
+            sl<CartService>().removeFromCart(id, context: context);
             setState(
               () => products
                 ..clear()
@@ -59,6 +46,7 @@ class _ListProductCartWidgetState extends State<ListProductCartWidget> {
           },
         );
       },
+      separatorBuilder: (_, i) => 20.0.verticalSpace,
     );
   }
 }

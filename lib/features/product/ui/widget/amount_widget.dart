@@ -2,8 +2,7 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import '../../../../core/strings/app_color_manager.dart';
-import '../../data/models/product.dart';
+import '../../data/response/products_response.dart';
 
 class AmountWidget extends StatefulWidget {
   const AmountWidget({super.key, this.onChange, required this.product});
@@ -16,37 +15,39 @@ class AmountWidget extends StatefulWidget {
 }
 
 class _AmountWidgetState extends State<AmountWidget> {
-
   @override
   Widget build(BuildContext context) {
-    return Container(
-      width: 160.0.w,
-      height: 60.0.h,
-      decoration: BoxDecoration(
-        color: AppColorManager.mainColorDark,
-        borderRadius: BorderRadius.horizontal(
-          right: Radius.circular(30.0.r),
-        ),
-      ),
+    return SizedBox(
+      width: 111.0.w,
+      height: 32.0.h,
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          IconButton(
-            onPressed: () {
-              setState(() => widget.product.quantity++);
-            },
-            icon: const Icon(Icons.add, color: Colors.white),
+          Container(
+            height: 25.0.r,
+            width: 25.0.r,
+            color: Colors.black,
+            child: InkWell(
+              onTap: () {
+                setState(() => widget.product.quantity++);
+              },
+              child: const Icon(Icons.add, color: Colors.white),
+            ),
           ),
           DrawableText(
             text: widget.product.quantity.toString(),
-            color: Colors.white,
           ),
-          IconButton(
-            onPressed: () {
-              if (widget.product.quantity <= 1) return;
-              setState(() => widget.product.quantity--);
-            },
-            icon: const Icon(Icons.remove, color: Colors.white),
+          Container(
+            height: 25.0.r,
+            width: 25.0.r,
+            color: Colors.black,
+            child: InkWell(
+              onTap: () {
+                if (widget.product.quantity <= 1) return;
+                setState(() => widget.product.quantity--);
+              },
+              child: const Icon(Icons.remove, color: Colors.white),
+            ),
           ),
         ],
       ),

@@ -63,7 +63,7 @@ class _LoginPageState extends State<LoginPage> {
                 70.0.verticalSpace,
                 MyTextFormOutLineWidget(
                   validator: (p0) => loginCubit.validatePhoneOrEmail,
-                  label: S.of(context).phoneNumber,
+                  label: S.of(context).email,
                   initialValue: loginCubit.state.request.phoneOrEmail,
                   keyBordType: TextInputType.emailAddress,
                   onChanged: (val) => loginCubit.setPhoneOrEmail = val,

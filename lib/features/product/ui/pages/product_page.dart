@@ -1,26 +1,54 @@
-import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sadaf/core/extensions/extensions.dart';
+import 'package:image_multi_type/image_multi_type.dart';
+import 'package:pod_player/pod_player.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
-import 'package:sadaf/core/widgets/card_slider_widget.dart';
-import 'package:sadaf/features/product/ui/widget/add_to_cart_widget.dart';
-import 'package:sadaf/features/product/ui/widget/amount_widget.dart';
+import 'package:sadaf/generated/assets.dart';
 
-import '../../../../core/util/my_style.dart';
+import '../../../../core/strings/app_color_manager.dart';
+import '../../../../generated/l10n.dart';
 import '../../../cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../bloc/product_by_id_cubit/product_by_id_cubit.dart';
-import '../widget/item_product.dart';
+import '../widget/attacments_widget.dart';
+import '../widget/description_screen.dart';
+import '../widget/price_screen.dart';
+import '../widget/review_screen.dart';
 
-class ProductPage extends StatelessWidget {
+class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
+
+  @override
+  State<ProductPage> createState() => _ProductPageState();
+}
+
+class _ProductPageState extends State<ProductPage> with SingleTickerProviderStateMixin {
+  var initial = false;
+
+  late final PodPlayerController controller;
+  late TabController _tabController;
+
+  @override
+  void initState() {
+    controller = PodPlayerController(
+      playVideoFrom: PlayVideoFrom.network(
+        '',
+      ),
+    )..initialise().then((value) => setState(() => initial = true));
+    _tabController = TabController(length: 3, vsync: this);
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    _tabController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarWidget(
-        titleText: 'تفاصيل المنتج',
         actions: [
           IconButton(
             onPressed: () {
@@ -29,81 +57,63 @@ class ProductPage extends StatelessWidget {
                 Navigator.pop(context);
               }
             },
-            icon: const Icon(
-              Icons.shopping_cart,
+            icon: ImageMultiType(
+              url: Assets.iconsCart,
+              width: 25.0.r,
+              height: 25.0.r,
             ),
           ),
         ],
       ),
       body: BlocBuilder<ProductByIdCubit, ProductByIdInitial>(
-        builder: (_, state) {
-          if (state.statuses.loading) {
-            return MyStyle.loadingWidget();
-          }
-          final product = state.result.product;
-          final suggestions = state.result.suggestions;
-          return SingleChildScrollView(
-            child: Column(
-              children: [
-                CardImageSlider(
-                  images: product.cover,
-                  height: 300.0.h,
-                ),
-                20.0.verticalSpace,
-                Row(
+        builder: (context, state) {
+          return NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) {
+              return [
+                SliverToBoxAdapter(
+                    child: Column(
                   children: [
-                    Expanded(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            DrawableText(
-                              text: product.name,
-                            ),
-                            10.0.verticalSpace,
-                            DrawableText(text: 'براند - ${product.brand.name}'),
-                          ],
-                        ),
-                      ),
+                    CardAttachmentsSlider(product: state.result),
+                    PodVideoPlayer(
+                      controller: controller,
                     ),
-                    AmountWidget(
-                      product: product,
-                      onChange: (amount) => product.quantity = amount,
+                    20.0.verticalSpace,
+                    SizedBox(
+                      height: 42.h,
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            width: 1.0.sw,
+                            height: 2.0.h,
+                            bottom: 0.0,
+                            child: Container(
+                              height: 1.0.h,
+                              color: AppColorManager.lightGray,
+                            ),
+                          ),
+                          TabBar(
+                            controller: _tabController,
+                            labelColor: AppColorManager.mainColor,
+                            unselectedLabelColor: AppColorManager.ac,
+                            tabs: [
+                              Tab(text: S.of(context).price.toUpperCase()),
+                              Tab(text: S.of(context).description.toUpperCase()),
+                              Tab(text: S.of(context).reviews.toUpperCase()),
+                            ],
+                          ),
+                        ],
+                      ),
                     ),
                   ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-                  child: Column(
-                    children: [
-                      30.0.verticalSpace,
-                      DrawableText.titleList(text: 'الوصف'),
-                      DrawableText(
-                        matchParent: true,
-                        textAlign: TextAlign.start,
-                        padding: const EdgeInsets.all(7.0).r,
-                        text: product.description,
-                      ),
-                      10.0.verticalSpace,
-                      AddToCartWidget(product: product),
-                      DrawableText.titleList(
-                        text: 'اقتراحات ذات صله',
-                        padding: const EdgeInsets.symmetric(vertical: 15.0).h,
-                      ),
-                      GridView.builder(
-                        shrinkWrap: true,
-                        physics: const NeverScrollableScrollPhysics(),
-                        gridDelegate: MyStyle.productGridDelegate,
-                        itemCount: suggestions.length,
-                        itemBuilder: (_, i) {
-                          final item = suggestions[i];
-                          return ItemProduct(product: item);
-                        },
-                      ),
-                    ],
-                  ),
-                ),
+                ))
+              ];
+            },
+            body: TabBarView(
+              controller: _tabController,
+              children: [
+                PriceScreen(),
+                DescriptionProductScreen(),
+                ReviewProductScreen(),
               ],
             ),
           );

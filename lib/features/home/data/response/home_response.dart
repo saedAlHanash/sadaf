@@ -1,6 +1,5 @@
-import '../../../catigories/data/models/category.dart';
 import '../../../offers/data/models/offer.dart';
-import '../../../product/data/models/product.dart';
+import '../../../product/data/response/products_response.dart';
 
 class HomeResponse {
   HomeResponse({
@@ -22,22 +21,17 @@ class HomeResponse {
 
 class HomeResult {
   HomeResult({
-    required this.categories,
     required this.offers,
     required this.products,
     required this.bestSeller,
   });
 
-  final List<Category> categories;
   final List<Offer> offers;
   final List<Product> products;
   final List<Product> bestSeller;
 
   factory HomeResult.fromJson(Map<String, dynamic> json) {
     return HomeResult(
-      categories: json["categories"] == null
-          ? []
-          : List<Category>.from(json["categories"]!.map((x) => Category.fromJson(x))),
       offers: json["offers"] == null
           ? []
           : List<Offer>.from(json["offers"]!.map((x) => Offer.fromJson(x))),
@@ -51,14 +45,11 @@ class HomeResult {
   }
 
   Map<String, dynamic> toJson() => {
-        "categories": categories.map((x) => x.toJson()).toList(),
         "offers": offers.map((x) => x.toJson()).toList(),
         "products": products.map((x) => x.toJson()).toList(),
         "bestSeller": bestSeller.map((x) => x).toList(),
       };
 }
-
-
 
 class Brand {
   Brand({
@@ -79,5 +70,51 @@ class Brand {
   Map<String, dynamic> toJson() => {
         "id": id,
         "name": name,
+      };
+}
+
+class BannersResponse {
+  BannersResponse({
+    required this.data,
+  });
+
+  final List<BannerModel> data;
+
+  factory BannersResponse.fromJson(Map<String, dynamic> json) {
+    return BannersResponse(
+      data: json["data"] == null
+          ? []
+          : List<BannerModel>.from(json["data"]!.map((x) => BannerModel.fromJson(x))),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "data": data.map((x) => x.toJson()).toList(),
+      };
+}
+
+class BannerModel {
+  BannerModel({
+    required this.id,
+    required this.image,
+    required this.action,
+  });
+
+  final int id;
+  final String image;
+  final String action;
+
+  factory BannerModel.fromJson(Map<String, dynamic> json) {
+    return BannerModel(
+      id: json["id"] ?? 0,
+      image: json["image"] ?? "",
+      action: json["action"] ?? "",
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "image": image,
+        "action": action,
       };
 }

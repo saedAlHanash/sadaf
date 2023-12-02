@@ -54,6 +54,8 @@ class APIService {
   final innerHeader = {
     'Content-Type': 'application/json',
     'Accept': 'Application/json',
+    'lang': AppSharedPreference.getLocal,
+    'currency': 'USD',
     'Authorization': 'Bearer ${AppSharedPreference.getToken()}',
   };
 

@@ -19,7 +19,7 @@ part 'home_state.dart';
 class HomeCubit extends Cubit<HomeInitial> {
   HomeCubit() : super(HomeInitial.initial());
 
-  final network = sl<NetworkInfo>();
+  
 
   Future<void> getHome(BuildContext context) async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
@@ -36,7 +36,7 @@ class HomeCubit extends Cubit<HomeInitial> {
   }
 
   Future<Pair<HomeResult?, String?>> _getHomeApi() async {
-    if (await network.isConnected) {
+     
       final response = await APIService().getApi(
         url: GetUrl.getHome,
       );
@@ -46,8 +46,6 @@ class HomeCubit extends Cubit<HomeInitial> {
       } else {
         return Pair(null, ErrorManager.getApiError(response));
       }
-    } else {
-      return Pair(null, S().noInternet);
-    }
+     
   }
 }

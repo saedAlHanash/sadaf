@@ -1,6 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
-import 'package:sadaf/core/util/abstract_cubit_state.dart';
+import 'package:sadaf/core/util/abstraction.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/api_manager/api_url.dart';
@@ -45,7 +45,7 @@ class ConfirmCodeCubit extends Cubit<ConfirmCodeInitial> {
       APIService.reInitial();
       return pair;
     } else {
-      return response.getPairError<LoginData>();
+        return response.getPairError;
     }
   }
 

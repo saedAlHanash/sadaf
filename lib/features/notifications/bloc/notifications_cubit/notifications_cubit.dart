@@ -18,7 +18,7 @@ part 'notifications_state.dart';
 
 class NotificationsCubit extends Cubit<NotificationsInitial> {
   NotificationsCubit() : super(NotificationsInitial.initial());
-  final network = sl<NetworkInfo>();
+  
 
   Future<void> getNotifications(BuildContext context) async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
@@ -35,7 +35,7 @@ class NotificationsCubit extends Cubit<NotificationsInitial> {
   }
 
   Future<Pair<List<NotificationModel>?, String?>> _getNotificationsApi() async {
-    if (await network.isConnected) {
+     
       final response = await APIService().getApi(
         url: GetUrl.getAllNotifications,
       );
@@ -45,8 +45,6 @@ class NotificationsCubit extends Cubit<NotificationsInitial> {
       } else {
         return Pair(null, ErrorManager.getApiError(response));
       }
-    } else {
-      return Pair(null, S().noInternet);
-    }
+     
   }
 }

@@ -2,16 +2,17 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_multi_type/round_image_widget.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/util/my_style.dart';
 import 'package:sadaf/core/util/snack_bar_message.dart';
 
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../features/cart/service/cart_service.dart';
-import '../../features/product/data/models/product.dart';
+import '../../features/product/data/response/products_response.dart';
+import '../../features/product/data/response/products_response.dart';
 import '../../generated/assets.dart';
 import '../injection/injection_container.dart';
-import 'package:image_multi_type/round_image_widget.dart';
 import 'my_button.dart';
 
 class AddToCartBtn extends StatefulWidget {
@@ -41,7 +42,7 @@ class _AddToCartBtnState extends State<AddToCartBtn> {
             NoteMessage.showSnakeBar(message: 'تم الاضافة للسلة', context: context);
           },
         );
-        widget.product.quantity = 1;
+
         sl<CartService>().addToCart(widget.product,context: context);
       },
       width: 70.0.w,
@@ -86,7 +87,7 @@ class _IconAddToCartWidgetState extends State<IconAddToCartWidget> {
           },
         );
         sl<CartService>().addToCart(widget.product, addQuantity: true,context: context);
-        widget.product.quantity = 1;
+
       },
       child: InkWell(
         onTap: () {
@@ -99,7 +100,6 @@ class _IconAddToCartWidgetState extends State<IconAddToCartWidget> {
             },
           );
           sl<CartService>().addToCart(widget.product, addQuantity: true,context: context);
-          widget.product.quantity = 1;
         },
         child: Container(
           width: 70.0.w,

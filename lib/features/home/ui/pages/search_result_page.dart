@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/features/home/ui/widget/search_widget.dart';
 
@@ -19,7 +20,7 @@ class SearchResultPage extends StatelessWidget {
       appBar: const AppBarWidget(titleText: 'نتائج البحث'),
       body: Column(
         children: [
-          const SearchFieldWidget(pushReplace: true),
+          const SearchFieldWidget(),
           BlocBuilder<SearchCubit, SearchInitial>(
             builder: (context, state) {
               if (state.statuses.loading) {
@@ -39,9 +40,7 @@ class SearchResultPage extends StatelessWidget {
                   shrinkWrap: true,
                   itemCount: state.result.length,
                   itemBuilder: (_, i) {
-                    return ItemProductH(
-                      product: state.result[i],
-                    );
+                    return 0.0.verticalSpace;
                   },
                 ),
               );

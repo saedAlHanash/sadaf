@@ -10,7 +10,7 @@ import '../../../../core/error/error_manager.dart';
 import '../../../../core/injection/injection_container.dart';
 import '../../../../core/network/network_info.dart';
 import '../../../../core/strings/enum_manager.dart';
-import '../../../../core/util/abstract_cubit_state.dart';
+import '../../../../core/util/abstraction.dart';
 import '../../../../core/util/pair_class.dart';
 
 
@@ -44,7 +44,7 @@ class ResendCodeCubit extends Cubit<ResendCodeInitial> {
     if (response.statusCode.success) {
       return Pair(true, null);
     } else {
-      return response.getPairError<bool>();
+        return response.getPairError;
     }
   }
 }

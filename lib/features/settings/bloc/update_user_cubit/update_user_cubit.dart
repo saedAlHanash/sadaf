@@ -20,7 +20,7 @@ part 'update_user_state.dart';
 
 class UpdateUserCubit extends Cubit<UpdateUserInitial> {
   UpdateUserCubit() : super(UpdateUserInitial.initial());
-  final network = sl<NetworkInfo>();
+  
 
   Future<void> update(BuildContext context, {required UpdateUserRequest request}) async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
@@ -37,7 +37,7 @@ class UpdateUserCubit extends Cubit<UpdateUserInitial> {
   }
 
   Future<Pair<String?, String?>> _updateApi({required UpdateUserRequest request}) async {
-    if (await network.isConnected) {
+     
       var url = '';
       var q = <String, dynamic>{};
 
@@ -91,8 +91,6 @@ class UpdateUserCubit extends Cubit<UpdateUserInitial> {
       } else {
         return Pair(null, ErrorManager.getApiError(response));
       }
-    } else {
-      return Pair(null, S().noInternet);
-    }
+     
   }
 }

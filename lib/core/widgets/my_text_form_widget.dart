@@ -26,6 +26,7 @@ class MyTextFormOutLineWidget extends StatefulWidget {
     this.textDirection,
     this.validator,
     this.iconWidget,
+    this.iconWidgetLift,
     this.onChangedFocus,
   }) : super(key: key);
   final bool? enable;
@@ -33,6 +34,7 @@ class MyTextFormOutLineWidget extends StatefulWidget {
   final String hint;
   final dynamic icon;
   final Widget? iconWidget;
+  final Widget? iconWidgetLift;
   final Color color;
   final int maxLines;
   final int maxLength;
@@ -131,7 +133,7 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
       counter: const SizedBox(),
       alignLabelWithHint: true,
       labelStyle: TextStyle(color: widget.color ?? AppColorManager.mainColor),
-      suffixIcon: widget.obscureText ? suffixIcon : null,
+      suffixIcon: widget.obscureText ? suffixIcon : widget.iconWidgetLift,
       prefixIcon: widget.obscureText ? null : suffixIcon,
     );
 

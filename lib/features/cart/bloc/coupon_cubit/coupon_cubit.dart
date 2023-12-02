@@ -5,14 +5,13 @@ import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/api_manager/api_url.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 
-
 import '../../../../core/error/error_manager.dart';
 import '../../../../core/injection/injection_container.dart';
 import '../../../../core/network/network_info.dart';
-import '../../../../generated/l10n.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/pair_class.dart';
 import '../../../../core/util/snack_bar_message.dart';
+import '../../../../generated/l10n.dart';
 import '../../data/response/coupon_response.dart';
 
 part 'coupon_state.dart';
@@ -20,7 +19,7 @@ part 'coupon_state.dart';
 class CouponCubit extends Cubit<CouponInitial> {
   CouponCubit() : super(CouponInitial.initial());
 
-  final network = sl<NetworkInfo>();
+  
 
   Future<void> checkCoupon(BuildContext context,
       {String? couponCode, num total = 0}) async {
@@ -42,7 +41,7 @@ class CouponCubit extends Cubit<CouponInitial> {
     required String couponCode,
     required num total,
   }) async {
-    if (await network.isConnected) {
+     
       final response = await APIService().getApi(
         url: GetUrl.coupon,
         query: {
@@ -56,9 +55,7 @@ class CouponCubit extends Cubit<CouponInitial> {
       } else {
         return Pair(null, ErrorManager.getApiError(response));
       }
-    } else {
-      return Pair(null, S().noInternet);
-    }
+     
   }
 
   void reInit() => emit(CouponInitial.initial());

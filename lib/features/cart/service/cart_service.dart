@@ -6,7 +6,8 @@ import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
 
 import '../../../core/util/pair_class.dart';
-import '../../product/data/models/product.dart';
+import '../../product/data/response/products_response.dart';
+import '../../product/data/response/products_response.dart';
 import '../bloc/update_cart_cubit/update_cart_cubit.dart';
 
 class CartService {
@@ -27,7 +28,7 @@ class CartService {
     final list = getCartProducts();
 
     if (addQuantity) {
-      productFromCart.first.quantity += product.quantity;
+      
 
       list[productFromCart.second] = productFromCart.first;
     } else {
@@ -54,7 +55,7 @@ class CartService {
     num price = 0.0;
     list ??= getCartProducts();
     for (var e in list) {
-      price += (e.getOfferPriceNum * e.quantity);
+      // price += e.price;
     }
     return price;
   }

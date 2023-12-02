@@ -13,14 +13,14 @@ import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/pair_class.dart';
 import '../../../../core/util/snack_bar_message.dart';
 import '../../../../generated/l10n.dart';
-import '../../../product/data/models/product.dart';
+import '../../../product/data/response/products_response.dart';
 
 part 'search_state.dart';
 
 class SearchCubit extends Cubit<SearchInitial> {
   SearchCubit() : super(SearchInitial.initial());
 
-  final network = sl<NetworkInfo>();
+  
 
   Future<void> getSearch(BuildContext context, {required String searchKey}) async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
@@ -38,7 +38,7 @@ class SearchCubit extends Cubit<SearchInitial> {
   }
 
   Future<Pair<List<Product>?, String?>> _addSearchApi({required String searchKey}) async {
-    if (await network.isConnected) {
+     
       final response = await APIService().getApi(
         url: GetUrl.search,
         query: {'search': searchKey},
@@ -55,8 +55,6 @@ class SearchCubit extends Cubit<SearchInitial> {
       } else {
         return Pair(null, ErrorManager.getApiError(response));
       }
-    } else {
-      return Pair(null, S().noInternet);
-    }
+     
   }
 }

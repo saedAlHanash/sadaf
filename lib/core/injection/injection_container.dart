@@ -13,25 +13,30 @@ import '../../features/auth/bloc/otp_password_cubit/otp_password_cubit.dart';
 import '../../features/auth/bloc/resend_code_cubit/resend_code_cubit.dart';
 import '../../features/auth/bloc/reset_password_cubit/reset_password_cubit.dart';
 import '../../features/auth/bloc/signup_cubit/signup_cubit.dart';
-import '../../features/best_seller/bloc/best_seller_cubit/best_seller_cubit.dart';
+
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../features/cart/bloc/cart_cubut/cart_cubit.dart';
 import '../../features/cart/bloc/coupon_cubit/coupon_cubit.dart';
 import '../../features/cart/bloc/create_order_cubit/create_order_cubit.dart';
 import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
 import '../../features/cart/service/cart_service.dart';
-import '../../features/catigories/bloc/category_by_id_cubit/category_by_id_cubit.dart';
+
+import '../../features/categories/bloc/categories_cubit/categories_cubit.dart';
+import '../../features/colors/bloc/colors_cubit/colors_cubit.dart';
 import '../../features/favorite/bloc/add_favorite/add_favorite_cubit.dart';
 import '../../features/favorite/bloc/get_favorite/get_favorite_cubit.dart';
 import '../../features/firebase/bloc/insert_firebase_token_cubit/insert_firebase_token_cubit.dart';
+import '../../features/home/bloc/banner_cubit/banner_cubit.dart';
 import '../../features/home/bloc/home_cubit/home_cubit.dart';
 import '../../features/home/bloc/search_cubit/search_cubit.dart';
 import '../../features/home/bloc/slider_cubit/slider_cubit.dart';
+import '../../features/manufacturers/bloc/manufacturerss_cubit/manufacturers_cubit.dart';
 import '../../features/notifications/bloc/notification_count_cubit/notification_count_cubit.dart';
 import '../../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
 import '../../features/offers/bloc/offers_cubit/offers_cubit.dart';
 import '../../features/orders/bloc/orders_cubit/orders_cubit.dart';
 import '../../features/product/bloc/product_by_id_cubit/product_by_id_cubit.dart';
+import '../../features/product/bloc/products_cubit/products_cubit.dart';
 import '../../features/profile/bloc/update_profile_cubit/update_profile_cubit.dart';
 import '../../features/settings/bloc/update_user_cubit/update_user_cubit.dart';
 import '../../features/settings/services/setting_service.dart';
@@ -75,6 +80,7 @@ Future<void> init() async {
   //region home
   sl.registerFactory(() => HomeCubit());
   sl.registerFactory(() => SliderCubit());
+  sl.registerFactory(() => BannerCubit());
   sl.registerFactory(() => SearchCubit());
   sl.registerFactory(() => LogoutCubit());
   sl.registerFactory(() => UpdateUserCubit());
@@ -88,7 +94,7 @@ Future<void> init() async {
   //endregion
 
   //region BestSeller
-  sl.registerFactory(() => BestSellersCubit());
+
 
   //endregion
 
@@ -110,12 +116,24 @@ Future<void> init() async {
 
   //region category
 
-  sl.registerFactory(() => CategoryByIdCubit());
+  sl.registerFactory(() => CategoriesCubit());
 
   //endregion
 
   //region product
   sl.registerFactory(() => ProductByIdCubit());
+  sl.registerFactory(() => ProductsCubit());
+
+  //endregion
+
+  //region colors
+  sl.registerFactory(() => ColorsCubit());
+
+  //endregion
+
+
+  //region manufacturers
+  sl.registerFactory(() => ManufacturersCubit());
 
   //endregion
 

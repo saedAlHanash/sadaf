@@ -10,18 +10,21 @@ class AppColorManager {
   static const  black = Color(0xFF000000);
   static const  ampere = Color(0xFFFFC107);
   static const  gray = Color(0xFF848484);
-  static const  lightGray = Color(0xFFF5F5F5);
+  static const  lightGray = Color(0xFFFBFBFB);
   static const  lightGrayEd = Color(0xFFEDEDED);
   static const  offWhit = Color(0xFFD9D9D9);
   static const  whit = Color(0xFFFFFFFF);
   static const  red = Color(0xFFC60000);
+  static const  redPrice = Color(0xFF910202);
   static const  cardColor = Color(0xFFEFEFEF);
   static const  blue = Color(0xFF0D479E);
 
-  static const dividerColor = Color(0xFFC2C2C2);
+  static const dividerColor = Color(0xFFCFCFCF);
   static const f1 = Color(0xFFf1f1f1);
   static const f6 = Color(0xFFf6f6f6);
   static const e4 = Color(0xFF4E5053);
+  static const ac = Color(0xFFACACAC);
+  static const ee = Color(0xFFEEEEEE);
 
   static const fc = Color(0xFFFCFCFC);
 
@@ -29,6 +32,14 @@ class AppColorManager {
 
 
 
+}
+Color getColorFromHex(String hexColor) {
+  String formattedHexColor = hexColor.replaceAll("#", ""); // Remove the '#' character if present
+  if (formattedHexColor.length == 6) {
+    formattedHexColor = "FF$formattedHexColor"; // Add the alpha value if it's missing
+  }
+  int colorValue = int.parse(formattedHexColor, radix: 16); // Parse the hex color string
+  return Color(colorValue);
 }
 
 /*

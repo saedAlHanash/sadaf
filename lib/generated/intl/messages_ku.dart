@@ -188,9 +188,11 @@ class MessageLookup extends MessageLookupByLibrary {
         "save_for_later": MessageLookupByLibrary.simpleMessage(
             "بۆ دوایکردنەوە پاشەکەوت بکە؟"),
         "search_In_All": MessageLookupByLibrary.simpleMessage("Search In All"),
+        "seconds": MessageLookupByLibrary.simpleMessage("seconds"),
         "see_all": MessageLookupByLibrary.simpleMessage("هەموو ببینە"),
         "settings": MessageLookupByLibrary.simpleMessage("Mîhengên"),
         "sgnIn": MessageLookupByLibrary.simpleMessage("چوونە ژوورەوە"),
+        "share": MessageLookupByLibrary.simpleMessage("Share"),
         "signInToContinue":
             MessageLookupByLibrary.simpleMessage("Sign In To Continue"),
         "signInWithSocial": MessageLookupByLibrary.simpleMessage(

@@ -24,25 +24,32 @@ class GetUrl {
 
   static const getAnnouncements = 'announcements';
 
-
-
-  static const slider = 'slider';
-
   static const favorite = 'favorites';
 
-  static const productById = 'products';
+  static const productById = 'product';
+  static const products = 'products';
   static const search = 'products/search';
 
   static const offers = 'products/offers';
   static const bestSeller = 'products/best-seller';
-  static var setting = 'setting';
+  static const setting = 'setting';
 
-  static var orders = 'orders';
+  static const orders = 'orders';
 
-  static var categoryById = 'category';
-  static var subCategoryById = 'subCategory';
+  static const categoryById = 'category';
+  static const subCategoryById = 'subCategory';
 
-  static var coupon ='coupon';
+  static const coupon = 'coupon';
+
+  static const flashDeals = '';
+
+  static const categories = 'categories';
+  static const banners = 'ads/banners';
+  static const slider = 'ads/sliders';
+
+  static const colors = 'colors';
+
+  static const manufacturers ='manufacturers';
 }
 
 class PostUrl {
@@ -68,7 +75,7 @@ class PostUrl {
 
   static const restPass = 'reset-password';
 
-  static var createOrder = 'orders';
+  static const createOrder = 'orders';
 
   static const resendCode = 'opt-resend';
 }

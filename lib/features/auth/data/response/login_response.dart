@@ -8,6 +8,7 @@ class LoginResponse {
   final LoginData data;
 
   factory LoginResponse.fromJson(Map<String, dynamic> json) {
+    json["data"]['token'] = json["token"];
     return LoginResponse(
       data: LoginData.fromJson(json["data"] ?? {}),
     );

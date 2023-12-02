@@ -55,7 +55,7 @@
   "confirmMethod": "يرجى اختيار كيفية إرسال رمز التحقق",
   "phoneCall": "مكالمة هاتفية",
   "phoneSms": "رسالة نصية على الهاتف",
-  "enterOTP": "أدخل رمز OTP الخاص بك هنا.",
+  "enterOTP": "أدخل رمز التفعيل الخاص بك هنا.",
   "didNotReceiveOTP": "لم تتلقَ الرمز؟",
   "resend": "إعادة الإرسال",
   "verify": "التحقق",
@@ -105,6 +105,7 @@
   "hours": "ساعات",
   "min": "دقيقة",
   "minutes": "دقائق",
+  "seconds": "ثواني",
   "price": "السعر",
   "description": "الوصف",
   "reviews": "التقييمات",
@@ -138,5 +139,6 @@
   "is_required": "مطلوب",
   "oops": "حدث خطأ ما!",
   "reset_password": "إعادة تعيين كلمة المرور",
-  "enter_new_password_and_confirm": "أدخل كلمة السر مع التأكيد"
+  "enter_new_password_and_confirm": "أدخل كلمة السر مع التأكيد",
+  "share": "مشاركة"
 }

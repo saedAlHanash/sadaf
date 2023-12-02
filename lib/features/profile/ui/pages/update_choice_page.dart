@@ -1,13 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sadaf/core/util/shared_preferences.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
 
 import '../../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
-import '../widget/top_profile_widget.dart';
 import '../../../settings/ui/pages/settings_screen.dart';
+import '../widget/top_profile_widget.dart';
 
 class UpdateChoicePage extends StatelessWidget {
   const UpdateChoicePage({super.key});

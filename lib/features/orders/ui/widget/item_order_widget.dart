@@ -28,7 +28,6 @@ class ItemOrderWidget extends StatelessWidget {
             height: 150.0.h,
             child: Row(
               children: [
-
                 Expanded(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -40,9 +39,8 @@ class ItemOrderWidget extends StatelessWidget {
                         matchParent: true,
                         drawableStart: IconButton(
                           onPressed: () {
-                            final listProduct = order.details
-                                .map((e) => e.product..quantity = e.quantity)
-                                .toList();
+                            final listProduct =
+                                order.details.map((e) => e.product).toList();
                             NoteMessage.showBottomSheet(
                                 context,
                                 Container(
@@ -50,7 +48,7 @@ class ItemOrderWidget extends StatelessWidget {
                                   child: ListView.builder(
                                     itemCount: listProduct.length,
                                     itemBuilder: (_, i) {
-                                      return ItemOrderProduct(product: listProduct[i]);
+                                      return 0.0.verticalSpace;
                                     },
                                   ),
                                 ));
@@ -61,7 +59,6 @@ class ItemOrderWidget extends StatelessWidget {
                           ),
                         ),
                       ),
-
                       DrawableText(text: 'إجمالي المبلغ: ${order.totalPrice}'),
                       DrawableText(text: 'عدد المنتجات: ${order.details.length}'),
                       DrawableText(text: 'ملاحظات: ${order.note}'),
@@ -70,8 +67,7 @@ class ItemOrderWidget extends StatelessWidget {
                   ),
                 ),
                 RoundImageWidget(
-                  url: order.details.firstOrNull?.product.cover.firstOrNull ??
-                      Assets.iconsLogo,
+                  url: order.details.firstOrNull?.product.thumbnail ?? Assets.iconsLogo,
                   height: 140.0.r,
                   width: 140.0.r,
                 ),

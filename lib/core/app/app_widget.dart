@@ -6,11 +6,17 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
+import 'package:sadaf/generated/assets.dart';
 
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
+import '../../features/categories/bloc/categories_cubit/categories_cubit.dart';
+import '../../features/colors/bloc/colors_cubit/colors_cubit.dart';
 import '../../features/favorite/bloc/add_favorite/add_favorite_cubit.dart';
 import '../../features/favorite/bloc/get_favorite/get_favorite_cubit.dart';
+import '../../features/home/bloc/banner_cubit/banner_cubit.dart';
+import '../../features/home/bloc/slider_cubit/slider_cubit.dart';
+import '../../features/manufacturers/bloc/manufacturerss_cubit/manufacturers_cubit.dart';
 import '../../features/notifications/bloc/notification_count_cubit/notification_count_cubit.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
@@ -20,6 +26,7 @@ import '../injection/injection_container.dart' as di;
 import '../injection/injection_container.dart';
 import '../util/shared_preferences.dart';
 import 'bloc/loading_cubit.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -57,6 +64,12 @@ class _MyAppState extends State<MyApp> {
       AppSharedPreference.addNotificationCount();
       context.read<NotificationCountCubit>().changeCount();
     });
+    setImageMultiTypeErrorImage(
+      const Opacity(
+        opacity: 0.3,
+        child: ImageMultiType(url: Assets.iconsLogo),
+      ),
+    );
     super.initState();
   }
 
@@ -115,11 +128,17 @@ class _MyAppState extends State<MyApp> {
           builder: (_, child) {
             return MultiBlocProvider(
               providers: [
+                BlocProvider(create: (_) => di.sl<SliderCubit>()..getSlider()),
+                BlocProvider(create: (_) => di.sl<BannerCubit>()..getBanner()),
+                BlocProvider(create: (_) => di.sl<CategoriesCubit>()..getCategories()),
+                BlocProvider(create: (_) => di.sl<ColorsCubit>()..getColors()),
                 BlocProvider(create: (_) => di.sl<LoadingCubit>()),
                 BlocProvider(create: (_) => di.sl<AddFavoriteCubit>()),
                 BlocProvider(create: (_) => di.sl<UpdateCartCubit>()),
                 BlocProvider(create: (_) => di.sl<AddToCartCubit>()),
-                BlocProvider(create: (_) => di.sl<FavoriteCubit>()..getFavorite(_)),
+                BlocProvider(create: (_) => di.sl<FavoriteCubit>()..getFavorite()),
+                BlocProvider(
+                    create: (_) => di.sl<ManufacturersCubit>()..getManufacturers()),
               ],
               child: Stack(
                 children: [child!, loading],
