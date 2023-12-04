@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:sadaf/router/app_router.dart';
 
 import '../../generated/l10n.dart';
 import '../app/app_widget.dart';
@@ -15,6 +16,9 @@ class ErrorManager {
     switch (response.statusCode) {
       case 401:
         AppSharedPreference.logout();
+        if (ctx != null) {
+          Navigator.pushNamedAndRemoveUntil(ctx!, RouteName.login, (route) => false);
+        }
         return ' المستخدم الحالي لم يسجل الدخول ' '${response.statusCode}';
 
       case 503:
@@ -22,15 +26,12 @@ class ErrorManager {
       case 481:
         return 'لا يوجد اتصال بالانترنت' '${response.statusCode}';
       case 482:
-        final ctx = sl<GlobalKey<NavigatorState>>().currentContext;
-
-        return ctx == null ? S().noInternet : S.of(ctx).noInternet;
+        return ctx == null ? S().noInternet : S.of(ctx!).noInternet;
 
       case 404:
       case 500:
       default:
         final errorBody = ErrorBody.fromJson(jsonDecode(response.body));
-
         return '${errorBody.errors.join('\n')}\n ${response.statusCode}';
     }
   }
@@ -44,9 +45,17 @@ class ErrorBody {
   final List<String> errors;
 
   factory ErrorBody.fromJson(Map<String, dynamic> json) {
+    final item = json["errors"];
     return ErrorBody(
-      errors:
-          json["errors"] == null ? [] : List<String>.from(json["errors"]!.map((x) => x)),
+      errors: item == null
+          ? []
+          : item is Map
+              ? [
+                  item['message'] ?? item.toString(),
+                ]
+              : List<String>.from(
+                  item!.map((x) => x),
+                ),
     );
   }
 

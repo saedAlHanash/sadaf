@@ -3,9 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/features/product/data/response/products_response.dart';
 
-import '../../features/product/data/response/products_response.dart';
 import '../../generated/assets.dart';
-import 'fav_btn_widget.dart';
 
 class ImageWithFav extends StatefulWidget {
   const ImageWithFav({super.key, required this.product, this.height, this.width});

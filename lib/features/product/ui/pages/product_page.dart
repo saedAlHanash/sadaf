@@ -1,12 +1,16 @@
+import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:pod_player/pod_player.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
+import 'package:sadaf/features/product/ui/widget/add_to_cart_btn.dart';
 import 'package:sadaf/generated/assets.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
+import '../../../../core/util/my_style.dart';
 import '../../../../generated/l10n.dart';
 import '../../../cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../bloc/product_by_id_cubit/product_by_id_cubit.dart';
@@ -25,16 +29,10 @@ class ProductPage extends StatefulWidget {
 class _ProductPageState extends State<ProductPage> with SingleTickerProviderStateMixin {
   var initial = false;
 
-  late final PodPlayerController controller;
   late TabController _tabController;
 
   @override
   void initState() {
-    controller = PodPlayerController(
-      playVideoFrom: PlayVideoFrom.network(
-        '',
-      ),
-    )..initialise().then((value) => setState(() => initial = true));
     _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
@@ -65,17 +63,24 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
           ),
         ],
       ),
+      bottomNavigationBar: BlocBuilder<ProductByIdCubit, ProductByIdInitial>(
+        builder: (context, state) {
+          return AddToCartBtn(product: state.result);
+        },
+      ),
       body: BlocBuilder<ProductByIdCubit, ProductByIdInitial>(
         builder: (context, state) {
+          if (state.statuses.loading) {
+            return MyStyle.loadingWidget();
+          }
           return NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) {
               return [
                 SliverToBoxAdapter(
                     child: Column(
                   children: [
-                    CardAttachmentsSlider(product: state.result),
-                    PodVideoPlayer(
-                      controller: controller,
+                    CardAttachmentsSlider(
+                      product: state.result,
                     ),
                     20.0.verticalSpace,
                     SizedBox(
@@ -110,7 +115,7 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
             },
             body: TabBarView(
               controller: _tabController,
-              children: [
+              children: const [
                 PriceScreen(),
                 DescriptionProductScreen(),
                 ReviewProductScreen(),

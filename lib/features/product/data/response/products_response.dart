@@ -3,7 +3,6 @@ import 'package:sadaf/core/extensions/extensions.dart';
 import '../../../../core/api_manager/request_models/command.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/abstraction.dart';
-import '../../../categories/data/response/category.dart';
 
 class ProductsResponse extends AbstractMeta {
   ProductsResponse({
@@ -71,7 +70,7 @@ class Product {
   final List<Review> reviews;
   final num rating;
   bool isFavorite;
-  final List<RelatedProduct> relatedProducts;
+  final List<Product> relatedProducts;
 
   //----
   num quantity = 0;
@@ -108,8 +107,7 @@ class Product {
       isFavorite: json["is_favorite"] ?? false,
       relatedProducts: json["related_products"] == null
           ? []
-          : List<RelatedProduct>.from(
-              json["related_products"]!.map((x) => RelatedProduct.fromJson(x))),
+          : List<Product>.from(json["related_products"]!.map((x) => Product.fromJson(x))),
     );
 
     for (var e in product.images) {
@@ -266,7 +264,7 @@ class Review {
   });
 
   final int id;
-  final User? user;
+  final User user;
   final num rating;
   final String comment;
   final DateTime? createdAt;
@@ -274,7 +272,7 @@ class Review {
   factory Review.fromJson(Map<String, dynamic> json) {
     return Review(
       id: json["id"] ?? 0,
-      user: json["user"] == null ? null : User.fromJson(json["user"]),
+      user: User.fromJson(json["user"]??{}),
       rating: json["rating"] ?? 0,
       comment: json["comment"] ?? "",
       createdAt: DateTime.tryParse(json["created_at"] ?? ""),

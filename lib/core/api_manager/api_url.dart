@@ -26,7 +26,7 @@ class GetUrl {
 
   static const favorite = 'favorites';
 
-  static const productById = 'product';
+  static const productById = 'products';
   static const products = 'products';
   static const search = 'products/search';
 

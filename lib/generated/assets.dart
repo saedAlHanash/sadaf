@@ -2,7 +2,6 @@
 class Assets {
   Assets._();
 
-  static const String assetsIconsLogo = 'assets/icons/logo.png';
   static const String fontsCairo = 'assets/fonts/cairo.ttf';
   static const String fontsCairoBold = 'assets/fonts/cairo_bold.ttf';
   static const String fontsCairoSemiBold = 'assets/fonts/cairo_semi_bold.ttf';
@@ -11,13 +10,9 @@ class Assets {
   static const String iconsAdd = 'assets/icons/add.svg';
   static const String iconsBag = 'assets/icons/bag.svg';
   static const String iconsBandtechLogo = 'assets/icons/bandtech_logo.png';
-  static const String iconsBell = 'assets/icons/bell.svg';
   static const String iconsBlur = 'assets/icons/blur.png';
   static const String iconsCall = 'assets/icons/call.svg';
-  static const String iconsCancle = 'assets/icons/cancle.svg';
   static const String iconsCart = 'assets/icons/cart.svg';
-  static const String iconsChangeName = 'assets/icons/change_name.svg';
-  static const String iconsChangePass = 'assets/icons/change_pass.svg';
   static const String iconsChangePhone = 'assets/icons/change_phone.svg';
   static const String iconsDMRMq = 'assets/icons/dMRMq.png';
   static const String iconsDoneIcon = 'assets/icons/done_icon.svg';
@@ -57,6 +52,7 @@ class Assets {
   static const String iconsProfileTrangle = 'assets/icons/profile_trangle.png';
   static const String iconsSearch = 'assets/icons/search.svg';
   static const String iconsSetting = 'assets/icons/setting.svg';
+  static const String iconsShare = 'assets/icons/share.svg';
   static const String iconsSummerSell = 'assets/icons/summer_sell.png';
   static const String iconsSupport = 'assets/icons/support.svg';
   static const String iconsTemp = 'assets/icons/temp.png';

@@ -16,8 +16,6 @@ part 'product_by_id_state.dart';
 class ProductByIdCubit extends Cubit<ProductByIdInitial> {
   ProductByIdCubit() : super(ProductByIdInitial.initial());
 
-  
-
   Future<void> getProductById({required int id}) async {
     emit(state.copyWith(statuses: CubitStatuses.loading, id: id));
     final pair = await _getProductByIdApi();
@@ -29,6 +27,7 @@ class ProductByIdCubit extends Cubit<ProductByIdInitial> {
       emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
     }
   }
+
 
   Future<Pair<Product?, String?>> _getProductByIdApi() async {
     final response = await APIService().getApi(

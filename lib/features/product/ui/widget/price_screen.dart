@@ -1,15 +1,17 @@
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
-import 'package:sadaf/features/product/data/response/products_response.dart';
 import 'package:sadaf/features/product/ui/widget/related_product_widget.dart';
 import 'package:sadaf/generated/assets.dart';
 
 import '../../../../core/extensions/extensions.dart';
 import '../../../../generated/l10n.dart';
+import '../../bloc/product_by_id_cubit/product_by_id_cubit.dart';
 import 'amount_widget.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class PriceScreen extends StatelessWidget {
   const PriceScreen({super.key});
@@ -18,45 +20,58 @@ class PriceScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       padding: const EdgeInsets.symmetric(horizontal: 30.0).w,
-      child: Column(
-        children: [
-          10.0.verticalSpace,
-          DrawableText(
-            text: 'GLASS  CHAIR',
-            size: 24.0.sp,
-            matchParent: true,
-            drawableAlin: DrawableAlin.between,
-            drawableEnd: AmountWidget(
-              product: Product.fromJson({}),
-              onChange: (amount) {},
-            ),
-          ),
-          7.0.verticalSpace,
-          DrawableText(
-            text: '1.000.000',
-            size: 24.0.sp,
-            color: AppColorManager.redPrice,
-            matchParent: true,
-            drawableAlin: DrawableAlin.between,
-            drawableEnd: const ReviewWidget(),
-          ),
-          7.0.verticalSpace,
-          DrawableText(
-            text: '4.000.000',
-            size: 14.0.sp,
-            color: AppColorManager.ac,
-            matchParent: true,
-            drawableAlin: DrawableAlin.between,
-            drawableEnd: const ColorsProductWidget(),
-          ),
-          26.0.verticalSpace,
-          ProductDateWidget(
-            dateTime: DateTime.now().getFormat(serverDate: DateTime(2023, 11, 22)),
-          ),
-          26.0.verticalSpace,
-          const ProductShareWidget(),
-          const RelatedProductWidget(),
-        ],
+      child: BlocBuilder<ProductByIdCubit, ProductByIdInitial>(
+        builder: (context, state) {
+          final product = state.result;
+          return Column(
+            children: [
+              10.0.verticalSpace,
+              DrawableText(
+                text: product.name,
+                size: 24.0.sp,
+                matchParent: true,
+              ),
+              7.0.verticalSpace,
+              LargeReviewWidget(rating: product.rating),
+              Container(
+                decoration: BoxDecoration(
+                  border: Border.all(color: AppColorManager.f1),
+                ),
+                padding: const EdgeInsets.all(12.0).r,
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Column(
+                        children: [
+                          DrawableText(
+                            text: product.price,
+                            size: 24.0.sp,
+                            color: AppColorManager.black,
+                            matchParent: true,
+                          ),
+
+                          DrawableText(
+                            text: product.discountPrice,
+                            size: 14.0.sp,
+                            color: AppColorManager.redPrice,
+                            matchParent: true,
+                          ),
+                        ],
+                      ),
+                    ),
+                    AmountWidget(product: product),
+                  ],
+                ),
+              ),
+              26.0.verticalSpace,
+              ProductDateWidget(
+                dateTime: DateTime.now().getFormat(serverDate: DateTime(2023, 11, 22)),
+              ),
+              26.0.verticalSpace,
+              const RelatedProductWidget(),
+            ],
+          );
+        },
       ),
     );
   }
@@ -77,6 +92,38 @@ class ReviewWidget extends StatelessWidget {
         color: Colors.black,
         height: 15.0.r,
         width: 15.0.r,
+      ),
+    );
+  }
+}
+
+class LargeReviewWidget extends StatelessWidget {
+  const LargeReviewWidget({super.key, required this.rating});
+
+  final num rating;
+
+  @override
+  Widget build(BuildContext context) {
+    return DrawableText(
+      text: '${rating.toDouble()}',
+      size: 12.0.sp,
+      padding: const EdgeInsets.symmetric(vertical: 20.0).h,
+      matchParent: true,
+      drawableAlin: DrawableAlin.withText,
+      drawablePadding: 7.0.w,
+      drawableStart: RatingBar.builder(
+        initialRating: rating.toDouble(),
+        minRating: 0,
+        direction: Axis.horizontal,
+        allowHalfRating: true,
+        itemCount: 5,
+        itemSize: 17.0.r,
+        itemPadding: const EdgeInsets.symmetric(horizontal: 4.0).w,
+        itemBuilder: (__, _) {
+          return const Icon(Icons.star, color: Colors.black);
+        },
+        onRatingUpdate: (value) {},
+        ignoreGestures: true,
       ),
     );
   }

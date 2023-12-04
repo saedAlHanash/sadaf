@@ -23,31 +23,21 @@ class _AmountWidgetState extends State<AmountWidget> {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         children: [
-          Container(
-            height: 25.0.r,
-            width: 25.0.r,
-            color: Colors.black,
-            child: InkWell(
-              onTap: () {
-                setState(() => widget.product.quantity++);
-              },
-              child: const Icon(Icons.add, color: Colors.white),
-            ),
+          IconButton(
+            onPressed: () {
+              setState(() => widget.product.quantity++);
+            },
+            icon: const Icon(Icons.add, color: Colors.black),
           ),
           DrawableText(
             text: widget.product.quantity.toString(),
           ),
-          Container(
-            height: 25.0.r,
-            width: 25.0.r,
-            color: Colors.black,
-            child: InkWell(
-              onTap: () {
-                if (widget.product.quantity <= 1) return;
-                setState(() => widget.product.quantity--);
-              },
-              child: const Icon(Icons.remove, color: Colors.white),
-            ),
+          IconButton(
+            onPressed: () {
+              if (widget.product.quantity <= 1) return;
+              setState(() => widget.product.quantity--);
+            },
+            icon: const Icon(Icons.remove, color: Colors.black),
           ),
         ],
       ),

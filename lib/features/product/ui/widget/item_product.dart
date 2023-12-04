@@ -10,8 +10,8 @@ import '../../../../core/widgets/my_card_widget.dart';
 import '../../../../router/app_router.dart';
 import '../../data/response/products_response.dart';
 
-class ItemProduct1 extends StatelessWidget {
-  const ItemProduct1({super.key});
+class ItemLargeProduct extends StatelessWidget {
+  const ItemLargeProduct({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -93,8 +93,8 @@ class ItemProduct1 extends StatelessWidget {
   }
 }
 
-class ItemProduct2 extends StatelessWidget {
-  const ItemProduct2({super.key});
+class ItemHorizontalProduct extends StatelessWidget {
+  const ItemHorizontalProduct({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -147,8 +147,8 @@ class ItemProduct2 extends StatelessWidget {
   }
 }
 
-class ItemProduct3 extends StatelessWidget {
-  const ItemProduct3({super.key, this.width});
+class ItemRelatedProductProduct extends StatelessWidget {
+  const ItemRelatedProductProduct({super.key, this.width});
 
   final double? width;
 
@@ -278,7 +278,7 @@ class ItemProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, RouteName.product, arguments: Product.fromJson({}));
+        Navigator.pushNamed(context, RouteName.product, arguments: product);
       },
       child: Container(
         color: AppColorManager.lightGray,

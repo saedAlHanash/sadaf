@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sadaf/core/api_manager/api_url.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
@@ -5,11 +6,13 @@ import 'package:sadaf/core/util/shared_preferences.dart';
 import 'package:sadaf/features/auth/data/request/login_request.dart';
 
 import '../../../../core/api_manager/api_service.dart';
+import '../../../../core/app/app_widget.dart';
 import '../../../../core/error/error_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/abstraction.dart';
 import '../../../../core/util/pair_class.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../router/app_router.dart';
 import '../../data/response/login_response.dart';
 
 part 'login_state.dart';
@@ -27,7 +30,6 @@ class LoginCubit extends Cubit<LoginInitial> {
     } else {
       emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
     }
-
   }
 
   Future<Pair<LoginData?, String?>> _loginApi() async {
@@ -46,7 +48,15 @@ class LoginCubit extends Cubit<LoginInitial> {
       APIService.reInitial();
       return pair;
     } else {
-        return response.getPairError;
+      final error = response.getPairError as Pair<LoginData?, String?>;
+      if (error.second?.contains('not verified') ?? false) {
+        AppSharedPreference.cashPhoneOrEmail(state.request.phoneOrEmail);
+        if (ctx != null) {
+          Navigator.pushNamedAndRemoveUntil(
+              ctx!, RouteName.confirmCode, (route) => false);
+        }
+      }
+      return error;
     }
   }
 

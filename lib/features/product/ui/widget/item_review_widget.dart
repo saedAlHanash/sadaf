@@ -2,11 +2,15 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/circle_image_widget.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/features/product/ui/widget/price_screen.dart';
-import 'package:sadaf/generated/assets.dart';
+
+import '../../data/response/products_response.dart';
 
 class ItemReviewWidget extends StatelessWidget {
-  const ItemReviewWidget({super.key});
+  const ItemReviewWidget({super.key, required this.review});
+
+  final Review review;
 
   @override
   Widget build(BuildContext context) {
@@ -25,35 +29,34 @@ class ItemReviewWidget extends StatelessWidget {
                     children: [
                       CircleImageWidget(
                         size: 55.0.r,
-                        url: Assets.iconsAccount,
+                        url: review.user.avatar,
                       ),
                       16.0.horizontalSpace,
-                      const Column(
+                      Column(
                         mainAxisSize: MainAxisSize.min,
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          DrawableText(text: 'Satria Agni'),
-                          DrawableText(
-                            text: 'Househusband',
-                            color: Colors.grey,
-                          ),
+                          DrawableText(text: review.user.name),
                         ],
                       ),
                     ],
                   ),
-                  const ReviewWidget(),
+                  Column(
+                    children: [
+                      const ReviewWidget(),
+                      DrawableText(text: review.createdAt?.formatDateTime ?? ''),
+                    ],
+                  ),
                 ],
               ),
               DrawableText(
-                text: '“I love that I can spend more time with my husband,'
-                    ' children, and family, and less time stressing '
-                    'over getting my house clean.”',
+                text: review.comment,
                 padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0).r,
               ),
             ],
           ),
         ),
-        Divider(endIndent: 0, indent: 0),
+        const Divider(endIndent: 0, indent: 0),
       ],
     );
   }

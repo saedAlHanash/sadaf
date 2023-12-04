@@ -38,7 +38,6 @@ extension SplitByLength on String {
         return AttachmentType.video;
       }
     }
-
     return AttachmentType.image;
   }
 

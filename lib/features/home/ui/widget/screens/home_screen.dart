@@ -113,7 +113,7 @@ class HomeScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: 3,
                   itemBuilder: (_, i) {
-                    return const ItemProduct1();
+                    return const ItemLargeProduct();
                   },
                 ),
               ),
@@ -154,7 +154,7 @@ class HomeScreen extends StatelessWidget {
                   scrollDirection: Axis.horizontal,
                   itemCount: 3,
                   itemBuilder: (_, i) {
-                    return const ItemProduct2();
+                    return const ItemHorizontalProduct();
                   },
                 ),
               ),
