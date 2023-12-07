@@ -1,14 +1,20 @@
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 
-import '../../../../generated/assets.dart';
-import '../../../product/ui/widget/price_screen.dart';
+import '../../../../core/util/my_style.dart';
+import '../../../cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
+import '../../bloc/add_favorite/add_favorite_cubit.dart';
+import '../../data/response/fav_response.dart';
 
 class ItemFavWidget extends StatelessWidget {
-  const ItemFavWidget({super.key});
+  const ItemFavWidget({super.key, required this.fav});
+
+  final Fav fav;
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +30,7 @@ class ItemFavWidget extends StatelessWidget {
             color: AppColorManager.lightGray,
             padding: const EdgeInsets.all(8.0).r,
             child: ImageMultiType(
-              url: Assets.iconsTemp2,
+              url: fav.thumbnail,
               height: 100.0.r,
               width: 100.0.r,
             ),
@@ -47,40 +53,65 @@ class ItemFavWidget extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        const DrawableText(
-                          text: 'GLASS  CHAIR',
+                        DrawableText(
+                          text: fav.name,
                           maxLines: 1,
                           matchParent: true,
                         ),
                         DrawableText(
-                          text: '1.000.000',
-                          color: AppColorManager.redPrice,
+                          text: fav.price,
+                          color: AppColorManager.black,
                           matchParent: true,
                           drawablePadding: 10.0.w,
                           drawableAlin: DrawableAlin.withText,
                           drawableEnd: DrawableText(
-                            text: '4.000.000',
+                            text: fav.discountPrice,
                             size: 12.0.sp,
+                            color: AppColorManager.redPrice,
                           ),
                         ),
-                        const ReviewWidget(),
+                        // ReviewWidget(rate: 0),
                       ],
                     ),
                   ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      InkWell(
-                        onTap: () {},
-                        child: Icon(Icons.favorite, color: Colors.black),
+                      BlocBuilder<AddFavoriteCubit, AddFavoriteInitial>(
+                        buildWhen: (p, c) => c.product.id == fav.id,
+                        builder: (context, state) {
+                          if (state.statuses.loading) {
+                            return MyStyle.loadingWidget();
+                          }
+                          return InkWell(
+                            onTap: () {
+                              context
+                                  .read<AddFavoriteCubit>()
+                                  .removeFav(productId: fav.id);
+                            },
+                            child: const Icon(Icons.favorite, color: Colors.black),
+                          );
+                        },
                       ),
                       Container(
                         height: 25.0.r,
                         width: 25.0.r,
                         color: Colors.black,
-                        child: InkWell(
-                          onTap: () {},
-                          child: const Icon(Icons.add, color: Colors.white),
+                        child: BlocBuilder<AddToCartCubit, AddToCartInitial>(
+                          buildWhen: (p, c) => c.id == fav.id,
+                          builder: (context, state) {
+                            if (state.statuses.loading) {
+                              return MyStyle.loadingWidget();
+                            }
+                            return InkWell(
+                              onTap: () {
+                                context
+                                    .read<AddToCartCubit>()
+                                    .addToCart(productId: fav.id);
+                              },
+                              child: const Icon(Icons.add, color: Colors.white),
+                            );
+                          },
                         ),
                       ),
                     ],

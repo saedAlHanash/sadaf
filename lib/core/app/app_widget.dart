@@ -5,10 +5,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/generated/assets.dart';
 
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
+import '../../features/cart/bloc/clear_cart_cubit/clear_cart_cubit.dart';
+import '../../features/cart/bloc/get_cart_cubit/get_cart_cubit.dart';
+import '../../features/cart/bloc/remove_from_cart_cubit/remove_from_cart_cubit.dart';
 import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
 import '../../features/categories/bloc/categories_cubit/categories_cubit.dart';
 import '../../features/colors/bloc/colors_cubit/colors_cubit.dart';
@@ -18,6 +22,8 @@ import '../../features/home/bloc/banner_cubit/banner_cubit.dart';
 import '../../features/home/bloc/slider_cubit/slider_cubit.dart';
 import '../../features/manufacturers/bloc/manufacturerss_cubit/manufacturers_cubit.dart';
 import '../../features/notifications/bloc/notification_count_cubit/notification_count_cubit.dart';
+import '../../features/product/bloc/new_arrival_cubit/new_arrival_cubit.dart';
+import '../../features/profile/bloc/profile_cubit/profile_cubit.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../router/app_router.dart';
@@ -67,7 +73,11 @@ class _MyAppState extends State<MyApp> {
     setImageMultiTypeErrorImage(
       const Opacity(
         opacity: 0.3,
-        child: ImageMultiType(url: Assets.iconsLogo),
+        child: ImageMultiType(
+          url: Assets.iconsLogo,
+          height: 30.0,
+          width: 30.0,
+        ),
       ),
     );
     super.initState();
@@ -133,15 +143,30 @@ class _MyAppState extends State<MyApp> {
                 BlocProvider(create: (_) => di.sl<CategoriesCubit>()..getCategories()),
                 BlocProvider(create: (_) => di.sl<ColorsCubit>()..getColors()),
                 BlocProvider(create: (_) => di.sl<LoadingCubit>()),
+                BlocProvider(create: (_) => di.sl<AddToCartCubit>()),
+                BlocProvider(create: (_) => di.sl<RemoveFromCartCubit>()),
+                BlocProvider(create: (_) => di.sl<ClearCartCubit>()),
                 BlocProvider(create: (_) => di.sl<AddFavoriteCubit>()),
                 BlocProvider(create: (_) => di.sl<UpdateCartCubit>()),
-                BlocProvider(create: (_) => di.sl<AddToCartCubit>()),
+                BlocProvider(create: (_) => di.sl<ProfileCubit>()..getProfile()),
+                BlocProvider(create: (_) => di.sl<CartCubit>()..getCart()),
                 BlocProvider(create: (_) => di.sl<FavoriteCubit>()..getFavorite()),
                 BlocProvider(
-                    create: (_) => di.sl<ManufacturersCubit>()..getManufacturers()),
+                  create: (_) => di.sl<ManufacturersCubit>()..getManufacturers(),
+                ),
+                BlocProvider(
+                  create: (_) =>
+                      di.sl<NewArrivalProductsCubit>()..getNewArrivalProducts(),
+                ),
               ],
-              child: Stack(
-                children: [child!, loading],
+              child: BlocListener<AddToCartCubit, AddToCartInitial>(
+                listenWhen: (p, c) => c.statuses.done,
+                listener: (context, state) {
+                  context.read<CartCubit>().getCart();
+                },
+                child: Stack(
+                  children: [child!, loading],
+                ),
               ),
             );
           },

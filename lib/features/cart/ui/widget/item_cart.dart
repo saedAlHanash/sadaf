@@ -4,7 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
-import 'package:sadaf/features/cart/bloc/cart_cubut/cart_cubit.dart';
+
 import 'package:sadaf/features/cart/service/cart_service.dart';
 
 import '../../../../core/injection/injection_container.dart';
@@ -49,20 +49,20 @@ class ItemProductCart extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                        const DrawableText(
-                          text: 'GLASS  CHAIR',
+                         DrawableText(
+                          text: product.name,
                           maxLines: 1,
                           matchParent: true,
                         ),
                         DrawableText(
-                          text: '1.000.000',
-                          color: AppColorManager.redPrice,
+                          text: product.price,
+                          color: AppColorManager.black,
                           matchParent: true,
                           drawablePadding: 10.0.w,
                           drawableAlin: DrawableAlin.withText,
                           drawableEnd: DrawableText(
-                            text: '4.000.000',
-                            color: Colors.grey,
+                            text: product.discountPrice,
+                            color: AppColorManager.redPrice,
                             size: 12.0.sp,
                           ),
                         ),
@@ -116,10 +116,8 @@ class _AmountWidget1State extends State<AmountWidget1> {
             child: InkWell(
               onTap: () {
                 setState(() => amount++);
-
                 sl<CartService>()
                     .addToCart(widget.product, addQuantity: false, context: context);
-                context.read<CartCubit>().changeQuantity();
               },
               child: Icon(Icons.add, color: Colors.white,size: 18.0.r),
             ),
@@ -140,7 +138,7 @@ class _AmountWidget1State extends State<AmountWidget1> {
 
                 sl<CartService>()
                     .addToCart(widget.product, addQuantity: false, context: context);
-                context.read<CartCubit>().changeQuantity();
+
               },
               child: Icon(Icons.remove, color: Colors.white,size: 18.0.r),
             ),

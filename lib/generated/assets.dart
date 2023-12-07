@@ -30,6 +30,7 @@ class Assets {
   static const String iconsLock = 'assets/icons/lock.svg';
   static const String iconsLogo = 'assets/icons/logo.jpg';
   static const String iconsLogoForground = 'assets/icons/logo_forground.png';
+  static const String iconsLogoWhite = 'assets/icons/logo_white.png';
   static const String iconsLogout = 'assets/icons/logout.svg';
   static const String iconsMenue = 'assets/icons/menue.svg';
   static const String iconsMines = 'assets/icons/mines.svg';

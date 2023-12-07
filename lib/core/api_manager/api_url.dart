@@ -49,7 +49,15 @@ class GetUrl {
 
   static const colors = 'colors';
 
-  static const manufacturers ='manufacturers';
+  static const manufacturers = 'manufacturers';
+
+  static const newArrivalProducts = 'products/new-arrival';
+
+  static const cart = 'carts';
+
+  static const profile = 'profile';
+
+  static var orderById = 'orders';
 }
 
 class PostUrl {
@@ -75,9 +83,13 @@ class PostUrl {
 
   static const restPass = 'reset-password';
 
-  static const createOrder = 'orders';
+  static const createOrder = 'checkout/cash';
 
   static const resendCode = 'opt-resend';
+
+  static const addToCart = 'carts';
+
+  static const updateProfile = 'profile/update';
 }
 
 class PutUrl {
@@ -88,6 +100,10 @@ class PutUrl {
 
 class DeleteUrl {
   static const removeFavorite = 'favorites';
+
+  static const removeFromCart = 'carts/products';
+
+  static const clearCart = 'carts';
 }
 
 const additionalConst = 'api/mobile/';

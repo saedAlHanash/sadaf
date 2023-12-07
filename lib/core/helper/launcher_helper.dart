@@ -17,7 +17,7 @@ class LauncherHelper {
 
   static Future<void> openPage(String url) async {
     final googleUrl = Uri.parse(url);
-    loggerObject.v(url);
+
     await launchUrl(googleUrl, mode: LaunchMode.externalApplication);
   }
 

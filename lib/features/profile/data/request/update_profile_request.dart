@@ -23,7 +23,6 @@ class UpdateProfileRequest {
   String? emailOrPhone;
   String? mapAddress;
   UploadFile? avatar;
-
   String? oldPass;
   String? newPass;
   String? rePass;
@@ -31,13 +30,11 @@ class UpdateProfileRequest {
   UpdateType? type;
 
   factory UpdateProfileRequest.initial() {
-    final user = AppSharedPreference.getUserModel;
+    final user = AppSharedPreference.getProfile;
     return UpdateProfileRequest(
       name: user.name,
       emailOrPhone: user.emailOrPhone,
       mapAddress: user.mapAddress,
-      country: user.country,
-      city: user.city,
       homeAddress: user.mapAddress,
     );
   }
@@ -46,11 +43,9 @@ class UpdateProfileRequest {
         "name": name,
         "email_or_phone": emailOrPhone,
         "map_address": mapAddress,
-        "address[country]": country,
-        "address[city]": city,
-        "address[home_address]": homeAddress,
+        "address": homeAddress,
         "old_password": oldPass,
         "new_password": newPass,
         "new_password_confirmation": rePass,
-      };
+      }..removeWhere((key, value) => value == null);
 }

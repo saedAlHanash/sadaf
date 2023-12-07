@@ -24,12 +24,12 @@ class MyOrdersPage extends StatelessWidget {
             return MyStyle.loadingWidget();
           }
           final list = state.result;
-          if (list.isEmpty) {
-            return const NotFoundWidget(
-              text: 'لا توجد طلبات',
-              icon: Assets.iconsNoOrder,
-            );
-          }
+          // if (list.isEmpty) {
+          //   return const NotFoundWidget(
+          //     text: 'لا توجد طلبات',
+          //     icon: Assets.iconsNoOrder,
+          //   );
+          // }
 
           return ListView.separated(
             itemBuilder: (_, i) {

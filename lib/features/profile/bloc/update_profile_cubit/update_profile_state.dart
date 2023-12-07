@@ -1,6 +1,6 @@
 part of 'update_profile_cubit.dart';
 
-class UpdateProfileInitial extends AbstractCubit<bool> {
+class UpdateProfileInitial extends AbstractCubit<Profile> {
   final UpdateProfileRequest request;
 
   const UpdateProfileInitial({
@@ -16,13 +16,13 @@ class UpdateProfileInitial extends AbstractCubit<bool> {
   factory UpdateProfileInitial.initial() {
     return UpdateProfileInitial(
       request: UpdateProfileRequest.initial(),
-      result: false,
+      result: AppSharedPreference.getProfile,
     );
   }
 
   UpdateProfileInitial copyWith({
     CubitStatuses? statuses,
-    bool? result,
+    Profile? result,
     String? image,
     String? error,
     UpdateProfileRequest? request,

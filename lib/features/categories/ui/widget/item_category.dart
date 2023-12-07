@@ -47,7 +47,7 @@ class ItemCategory extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 ImageMultiType(
-                  url: Assets.iconsKitchen,
+                  url: category.icon,
                   height: 30.0.r,
                   width: 30.0.r,
                 ),

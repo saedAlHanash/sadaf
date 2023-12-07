@@ -110,6 +110,10 @@ class Product {
           : List<Product>.from(json["related_products"]!.map((x) => Product.fromJson(x))),
     );
 
+    product.quantity = json['quantity'] ?? 0;
+    product.attachment
+        .add(Attachment(link: product.thumbnail, type: AttachmentType.image));
+
     for (var e in product.images) {
       product.attachment.add(Attachment(link: e, type: AttachmentType.image));
     }
@@ -272,7 +276,7 @@ class Review {
   factory Review.fromJson(Map<String, dynamic> json) {
     return Review(
       id: json["id"] ?? 0,
-      user: User.fromJson(json["user"]??{}),
+      user: User.fromJson(json["user"] ?? {}),
       rating: json["rating"] ?? 0,
       comment: json["comment"] ?? "",
       createdAt: DateTime.tryParse(json["created_at"] ?? ""),

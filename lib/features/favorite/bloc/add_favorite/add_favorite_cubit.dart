@@ -38,6 +38,23 @@ class AddFavoriteCubit extends Cubit<AddFavoriteInitial> {
     }
   }
 
+  Future<void> removeFav({required int productId}) async {
+    emit(state.copyWith(
+      statuses: CubitStatuses.loading,
+      product: Product.fromJson({"id":productId,"isFavorite":false}),
+      isFav: false,
+    ));
+
+    final pair = await _removeFavoriteApi() ;
+
+    if (pair.first == null) {
+      emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
+      showErrorFromApi(state);
+    } else {
+      emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
+    }
+  }
+
   Future<Pair<bool?, String?>> _addFavoriteApi() async {
     final response = await APIService()
         .postApi(url: PostUrl.addFavorite, body: {'product_id': state.product.id});

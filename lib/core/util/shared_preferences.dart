@@ -4,6 +4,7 @@ import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/auth/data/response/login_response.dart';
+import '../../features/profile/data/response/profile_response.dart';
 import '../strings/enum_manager.dart';
 
 class AppSharedPreference {
@@ -23,6 +24,7 @@ class AppSharedPreference {
   static const _phoneNumberPassword = '15';
   static const _otpPassword = '16';
   static const _currency = '17';
+  static const _profile = '18';
 
   static late SharedPreferences _prefs;
 
@@ -164,7 +166,15 @@ class AppSharedPreference {
 
   static String get getLocal => _prefs.getString(_lang) ?? 'en';
 
-  static set setCurrency(String langCode) => _prefs.setString(_lang, langCode);
+  static set setCurrency(String langCode) => _prefs.setString(_currency, langCode);
 
-  static String get currency => _prefs.getString(_lang) ?? '\$';
+  static String get currency => _prefs.getString(_currency) ?? '\$';
+
+  static set setProfile(Profile profile) {
+    _prefs.setString(_profile, jsonEncode(profile.toJson()));
+  }
+
+  static Profile get getProfile {
+    return Profile.fromJson(jsonDecode(_prefs.getString(_profile) ?? '{}'));
+  }
 }

@@ -1,21 +1,17 @@
 part of 'orders_cubit.dart';
 
-class OrdersInitial extends Equatable {
-  final CubitStatuses statuses;
-  final List<Order> result;
-  final String error;
+
+class OrdersInitial extends AbstractCubit<List<Order>> {
 
   const OrdersInitial({
-    required this.statuses,
-    required this.result,
-    required this.error,
+    required super.result,
+    super.error,
+    super.statuses,
   });
 
   factory OrdersInitial.initial() {
-    return const OrdersInitial(
-      result: <Order>[],
-      error: '',
-      statuses: CubitStatuses.init,
+    return OrdersInitial(
+      result: const [],
     );
   }
 

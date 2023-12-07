@@ -12,12 +12,12 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     Key? key,
     this.titleText,
     this.elevation,
-    this.action,
-    this.zeroHeight, this.actions,
+       this.zeroHeight, this.actions, this.title,
   }) : super(key: key);
 
   final String? titleText;
-  final List<Widget>? action;
+  final Widget? title;
+
   final bool? zeroHeight;
   final double? elevation;
   final List<Widget>? actions;
@@ -29,7 +29,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       child: AppBar(
         backgroundColor: AppColorManager.whit,
         toolbarHeight: (zeroHeight ?? false) ? 0 : 80.0.h,
-        title: DrawableText(
+        title:title?? DrawableText(
           text: titleText ?? '',
           size: 28.0.spMin,
           fontFamily: FontManager.cairoBold,

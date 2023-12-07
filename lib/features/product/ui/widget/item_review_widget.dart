@@ -43,7 +43,7 @@ class ItemReviewWidget extends StatelessWidget {
                   ),
                   Column(
                     children: [
-                      const ReviewWidget(),
+                      const ReviewWidget(rate: 0),
                       DrawableText(text: review.createdAt?.formatDateTime ?? ''),
                     ],
                   ),

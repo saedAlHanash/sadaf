@@ -10,6 +10,7 @@ import 'package:image_multi_type/image_multi_type.dart';
 import '../../../../generated/assets.dart';
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
+import '../../features/cart/ui/widget/cart_icons.dart';
 import '../util/shared_preferences.dart';
 
 class NewNav extends StatefulWidget {
@@ -62,43 +63,7 @@ class _NewNavState extends State<NewNav> {
               label: '',
             ),
             BottomNavigationBarItem(
-              icon: Stack(
-                children: [
-                  Center(
-                    child: ImageMultiType(
-                      url: Assets.iconsCart,
-                      color: Colors.white,
-                      height: 25.0.spMin,
-                    ),
-                  ),
-                  BlocBuilder<UpdateCartCubit, UpdateCartInitial>(
-                    builder: (context, state) {
-                      return Positioned(
-                        top: 0.0,
-                        right: 25.0.r,
-                        child: Container(
-                          height: 21.0.r,
-                          width: 21.0.r,
-                          decoration: BoxDecoration(
-                            color: Colors.white,
-                            shape: BoxShape.circle,
-                            border: Border.all(
-                                color: AppColorManager.mainColor, width: 3.0.r),
-                          ),
-                          child: Center(
-                            child: DrawableText(
-                              text: (state.result < 10) ? state.result.toString() : '9+',
-                              color: AppColorManager.mainColor,
-                              size: state.result < 10 ? 10.0.sp : 8.0.sp,
-                              fontFamily: FontManager.cairoBold,
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                  ),
-                ],
-              ),
+              icon: const CartIcon(),
               activeIcon: ImageMultiType(
                 url: Assets.iconsCart,
                 color: Colors.white,
@@ -132,11 +97,11 @@ class _NewNavState extends State<NewNav> {
                   size: 25.0.spMin,
                 ),
               ),
-              activeIcon:  Container(
+              activeIcon: Container(
                 height: 35.0.r,
                 width: 35.0.r,
                 decoration:
-                const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
+                    const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
                 alignment: Alignment.center,
                 child: CircleImageWidget(
                   url: AppSharedPreference.getUserModel.avatar,

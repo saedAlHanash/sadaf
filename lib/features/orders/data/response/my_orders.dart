@@ -1,119 +1,101 @@
+import 'package:sadaf/core/util/abstraction.dart';
+
+import '../../../../core/api_manager/request_models/command.dart';
 import '../../../product/data/response/products_response.dart';
 
-class MyOrdersResponse {
-  MyOrdersResponse({
-    required this.result,
-    required this.message,
+class OrdersResponse extends AbstractMeta {
+  OrdersResponse({
     required this.data,
-    required this.currentPage,
-    required this.lastPage,
+    required super.meta,
   });
 
-  final bool result;
-  final String message;
   final List<Order> data;
-  final num currentPage;
-  final num lastPage;
 
-  factory MyOrdersResponse.fromJson(Map<String, dynamic> json) {
-    return MyOrdersResponse(
-      result: json["result"] ?? false,
-      message: json["message"] ?? "",
+  factory OrdersResponse.fromJson(Map<String, dynamic> json) {
+    return OrdersResponse(
       data: json["data"] == null
           ? []
           : List<Order>.from(json["data"]!.map((x) => Order.fromJson(x))),
-      currentPage: json["current_page"] ?? 0,
-      lastPage: json["last_page"] ?? 0,
+      meta: Meta.fromJson(json["meta"] ?? {}),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "result": result,
-        "message": message,
         "data": data.map((x) => x.toJson()).toList(),
-        "current_page": currentPage,
-        "last_page": lastPage,
+        "meta": meta.toJson(),
       };
 }
 
 class Order {
   Order({
     required this.id,
-    required this.status,
-    required this.totalPrice,
-    required this.note,
-    required this.details,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.subtotal,
+    required this.total,
+    required this.couponCode,
+    required this.user,
+    required this.products,
   });
 
   final int id;
-  final String status;
-  final num totalPrice;
-  final String note;
-  final List<Items> details;
-  final String createdAt;
-  final String updatedAt;
+  final String subtotal;
+  final String total;
+  final String couponCode;
+  final User user;
+  final List<Product> products;
 
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
       id: json["id"] ?? 0,
-      status: json["status"] ?? "",
-      totalPrice: json["total_price"] ?? 0,
-      note: json["note"] ?? "",
-      details: json["details"] == null
+      subtotal: json["subtotal"] ?? "",
+      total: json["total"] ?? "",
+      couponCode: json["coupon_code"] ?? "",
+      user: User.fromJson(json["user"] ?? {}),
+      products: json["products"] == null
           ? []
-          : List<Items>.from(json["details"]!.map((x) => Items.fromJson(x))),
-      createdAt: json["created_at"] ?? "",
-      updatedAt: json["updated_at"] ?? "",
+          : List<Product>.from(json["products"]!.map((x) => Product.fromJson(x))),
     );
   }
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "status": status,
-        "total_price": totalPrice,
-        "note": note,
-        "details": details.map((x) => x.toJson()).toList(),
-        "created_at": createdAt,
-        "updated_at": updatedAt,
+        "subtotal": subtotal,
+        "total": total,
+        "coupon_code": couponCode,
+        "user": user.toJson(),
+        "products": products.map((x) => x.toJson()).toList(),
       };
 }
 
-class Items {
-  Items({
+class User {
+  User({
     required this.id,
-    required this.quantity,
-    required this.amount,
-    required this.product,
-    required this.createdAt,
-    required this.updatedAt,
+    required this.name,
+    required this.emailOrPhone,
+    required this.address,
+    required this.mapAddress,
   });
 
   final int id;
-  final int quantity;
-  final String amount;
-  final Product product;
-  final String createdAt;
-  final String updatedAt;
+  final String name;
+  final String emailOrPhone;
+  final String address;
+  final String mapAddress;
 
-  factory Items.fromJson(Map<String, dynamic> json) {
-    return Items(
+  factory User.fromJson(Map<String, dynamic> json) {
+    return User(
       id: json["id"] ?? 0,
-      quantity: json["quantity"] ?? 0,
-      amount: json["amount"] ?? "",
-      product: Product.fromJson(json["product"] ?? {}),
-      createdAt: json["created_at"] ?? "",
-      updatedAt: json["updated_at"] ?? "",
+      name: json["name"] ?? "",
+      emailOrPhone: json["email_or_phone"] ?? "",
+      address: json["address"] ?? "",
+      mapAddress: json["map_address"] ?? "",
     );
   }
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "quantity": quantity,
-        "amount": amount,
-        "product": product.toJson(),
-        "created_at": createdAt,
-        "updated_at": updatedAt,
+        "name": name,
+        "email_or_phone": emailOrPhone,
+        "address": address,
+        "map_address": mapAddress,
       };
 }

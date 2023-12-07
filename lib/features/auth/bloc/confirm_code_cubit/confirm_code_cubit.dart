@@ -39,7 +39,7 @@ class ConfirmCodeCubit extends Cubit<ConfirmCodeInitial> {
     if (response.statusCode == 200) {
       final pair = Pair(LoginResponse.fromJson(response.jsonBody).data, null);
       AppSharedPreference.cashToken(pair.first.token);
-      AppSharedPreference.cashMyId(pair.first.id);
+      // AppSharedPreference.cashMyId(pair.first.id);
       AppSharedPreference.cashUser(pair.first);
       AppSharedPreference.removePhoneOrEmail();
       APIService.reInitial();

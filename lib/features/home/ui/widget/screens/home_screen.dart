@@ -15,6 +15,7 @@ import 'package:sadaf/generated/assets.dart';
 import '../../../../../generated/l10n.dart';
 import '../../../../../router/app_router.dart';
 import '../../../../categories/bloc/categories_cubit/categories_cubit.dart';
+import '../../../../product/bloc/new_arrival_cubit/new_arrival_cubit.dart';
 import '../../../../product/ui/widget/item_product.dart';
 import '../../../bloc/banner_cubit/banner_cubit.dart';
 import '../../../bloc/home_cubit/home_cubit.dart';
@@ -108,12 +109,19 @@ class HomeScreen extends StatelessWidget {
               SizedBox(
                 height: 355.0.h,
                 width: 1.0.sw,
-                child: ListView.builder(
-                  shrinkWrap: true,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: 3,
-                  itemBuilder: (_, i) {
-                    return const ItemLargeProduct();
+                child: BlocBuilder<NewArrivalProductsCubit, NewArrivalProductsInitial>(
+                  builder: (context, state) {
+                    if (state.statuses.loading) {
+                      return MyStyle.loadingWidget();
+                    }
+                    return ListView.builder(
+                      shrinkWrap: true,
+                      scrollDirection: Axis.horizontal,
+                      itemCount: state.result.length,
+                      itemBuilder: (_, i) {
+                        return ItemLargeProduct(product: state.result[i]);
+                      },
+                    );
                   },
                 ),
               ),

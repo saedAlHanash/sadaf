@@ -196,6 +196,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "support": MessageLookupByLibrary.simpleMessage("Support"),
         "termsAndConditions":
             MessageLookupByLibrary.simpleMessage("Terms And Conditions"),
+        "update": MessageLookupByLibrary.simpleMessage("update"),
         "useCurrentLocation":
             MessageLookupByLibrary.simpleMessage("Use Current Location"),
         "userName": MessageLookupByLibrary.simpleMessage("Username"),

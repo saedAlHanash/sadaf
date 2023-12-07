@@ -68,7 +68,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
         height: 1.0.sh,
         padding: MyStyle.authPagesPadding,
         child: const Center(
-          child: ImageMultiType(url: Assets.iconsLogo),
+          child: ImageMultiType(url: Assets.iconsLogoWhite),
         ),
       ),
     );
@@ -76,7 +76,7 @@ class _SplashScreenPageState extends State<SplashScreenPage> {
 }
 
 StartPage get getStartPage {
-  loggerObject.w(AppSharedPreference.getToken());
+
   if (AppSharedPreference.isLogin) {
     return StartPage.home;
   }

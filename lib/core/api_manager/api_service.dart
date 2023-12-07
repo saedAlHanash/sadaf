@@ -200,8 +200,9 @@ class APIService {
     (fields ?? {}).forEach((key, value) => f[key] = value.toString());
 
     innerHeader.addAll(header ?? {});
+    url = additionalConst + url;
     final uri = Uri.https(baseUrl, '$url/${path ?? ''}');
-
+    loggerObject.w(uri.toString());
     var request = http.MultipartRequest(type, uri);
 
     ///log
@@ -220,7 +221,7 @@ class APIService {
     }
 
     request.headers['Content-Type'] = 'multipart/form-data';
-
+    request.headers.addAll(innerHeader);
     request.fields.addAll(f);
 
     final stream = await request.send().timeout(
@@ -295,14 +296,13 @@ void _fixQuery(Map<String, dynamic>? query) {
   query?.forEach((key, value) => query[key] = value.toString());
 }
 
-
 class UploadFile {
   final Uint8List? fileBytes;
   final String nameField;
   final String? initialImage;
 
   UploadFile({
-     this.fileBytes,
+    this.fileBytes,
     this.initialImage,
     this.nameField = 'File',
   });

@@ -204,6 +204,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "support": MessageLookupByLibrary.simpleMessage("پاڵپشتی"),
         "termsAndConditions":
             MessageLookupByLibrary.simpleMessage("شەرعیەکان و ئەندامەکان"),
+        "update": MessageLookupByLibrary.simpleMessage("update"),
         "useCurrentLocation":
             MessageLookupByLibrary.simpleMessage("بەکارهێنانی شوێنی ئێستا"),
         "userName": MessageLookupByLibrary.simpleMessage("Navê bikaranîner"),

@@ -141,5 +141,6 @@
   "oops": "Oops!",
   "reset_password": "Reset Password",
   "enter_new_password_and_confirm": "Enter New Password And Confirm.",
-  "share": "Share"
+  "share": "Share",
+  "update": "update"
 }

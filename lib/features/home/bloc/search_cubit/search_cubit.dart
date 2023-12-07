@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/api_manager/api_url.dart';
@@ -45,7 +46,7 @@ class SearchCubit extends Cubit<SearchInitial> {
       );
 
       if (response.statusCode == 200) {
-        var json = jsonDecode(response.body);
+        var json = response.jsonBody;
         return Pair(
           json["data"] == null
               ? []

@@ -11,7 +11,7 @@ class UpdateCartCubit extends Cubit<UpdateCartInitial> {
 
   void updateCart() {
     final count = sl<CartService>().getCounts;
-    loggerObject.w(count);
+
     emit(UpdateCartInitial(result: count));
   }
 

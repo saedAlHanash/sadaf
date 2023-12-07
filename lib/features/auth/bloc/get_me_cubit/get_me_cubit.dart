@@ -47,7 +47,7 @@ class GetMeCubit extends Cubit<GetMeInitial> {
           .getApi(url: GetUrl.getMe);
 
       if (response.statusCode.success) {
-        return Pair(LoginResponse.fromJson(jsonDecode(response.body)).data, null);
+        return Pair(LoginResponse.fromJson(response.jsonBody).data, null);
       } else {
           return response.getPairError;
    

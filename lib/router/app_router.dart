@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/features/home/ui/pages/search_result_page.dart';
 import 'package:sadaf/features/notifications/ui/pages/notifications_page.dart';
+import 'package:sadaf/features/orders/bloc/order_by_id_cubit/order_by_id_cubit.dart';
 import 'package:sadaf/features/product/bloc/products_cubit/products_cubit.dart';
 import 'package:sadaf/features/product/data/response/products_response.dart';
 import 'package:sadaf/features/product/ui/pages/product_page.dart';
@@ -25,28 +26,28 @@ import '../features/auth/ui/pages/otp_password_page.dart';
 import '../features/auth/ui/pages/reset_password_page.dart';
 import '../features/auth/ui/pages/signup_page.dart';
 import '../features/auth/ui/pages/splash_screen_page.dart';
-import '../features/cart/bloc/cart_cubut/cart_cubit.dart';
 import '../features/cart/bloc/coupon_cubit/coupon_cubit.dart';
-import '../features/cart/bloc/create_order_cubit/create_order_cubit.dart';
 import '../features/categories/bloc/categories_cubit/categories_cubit.dart';
 import '../features/categories/ui/pages/categories_page.dart';
 import '../features/categories/ui/pages/products_page.dart';
 import '../features/home/bloc/home_cubit/home_cubit.dart';
 import '../features/home/bloc/search_cubit/search_cubit.dart';
-import '../features/home/bloc/slider_cubit/slider_cubit.dart';
 import '../features/home/ui/pages/home_page.dart';
 import '../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
 import '../features/offers/bloc/offers_cubit/offers_cubit.dart';
 import '../features/offers/ui/pages/all_offers_page.dart';
+import '../features/orders/bloc/create_order_cubit/create_order_cubit.dart';
 import '../features/orders/bloc/orders_cubit/orders_cubit.dart';
+import '../features/orders/data/response/my_orders.dart';
 import '../features/orders/ui/pages/my_orders_page.dart';
+import '../features/orders/ui/pages/order_page.dart';
 import '../features/product/bloc/product_by_id_cubit/product_by_id_cubit.dart';
 import '../features/product/data/request/product_filter_request.dart';
+import '../features/profile/bloc/profile_cubit/profile_cubit.dart';
 import '../features/profile/bloc/update_profile_cubit/update_profile_cubit.dart';
-import '../features/profile/ui/pages/profile_page.dart';
+import '../features/profile/ui/pages/my_info_page.dart';
 import '../features/profile/ui/pages/update_choice_page.dart';
 import '../features/profile/ui/pages/update_page.dart';
-import '../features/settings/bloc/update_user_cubit/update_user_cubit.dart';
 import '../features/settings/ui/pages/about_page.dart';
 import '../features/settings/ui/pages/privacy_page.dart';
 
@@ -177,7 +178,6 @@ class AppRoutes {
 
         final providers = [
           BlocProvider(create: (_) => di.sl<HomeCubit>()..getHome(_)),
-          BlocProvider(create: (_) => di.sl<CartCubit>()..getDeliveryPrice()),
           BlocProvider(create: (_) => di.sl<LogoutCubit>()),
           BlocProvider(create: (_) => di.sl<DeleteAccountCubit>()),
           BlocProvider(create: (_) => di.sl<CreateOrderCubit>()),
@@ -264,18 +264,12 @@ class AppRoutes {
           },
         );
       //endregion
-      case RouteName.profile:
+      case RouteName.myInfo:
         //region
 
-        final providers = [
-          BlocProvider(create: (_) => di.sl<UpdateUserCubit>()),
-        ];
         return MaterialPageRoute(
           builder: (context) {
-            return MultiBlocProvider(
-              providers: providers,
-              child: ProfilePage(),
-            );
+            return const MyInfoPage();
           },
         );
       //endregion
@@ -311,7 +305,7 @@ class AppRoutes {
 
       case RouteName.myOrders:
         final providers = [
-          BlocProvider(create: (_) => di.sl<OrdersCubit>()..getMyOrders(_)),
+          BlocProvider(create: (_) => di.sl<OrdersCubit>()..getOrders()),
         ];
         return MaterialPageRoute(
           builder: (_) {
@@ -322,11 +316,32 @@ class AppRoutes {
           },
         );
 
+      case RouteName.orderInfo:
+        //region
+        final providers = [
+          BlocProvider(
+            create: (context) => di.sl<OrderByIdCubit>()
+              ..getOrderById(
+                  id: ((settings.arguments ?? Order.fromJson({})) as Order).id),
+          ),
+        ];
+        return MaterialPageRoute(
+          builder: (context) {
+            return MultiBlocProvider(
+              providers: providers,
+              child: const OrderPage(),
+            );
+          },
+        );
+
+      //endregion
+
       //endregion
 
       //region product
 
       case RouteName.product:
+        //region
         final providers = [
           BlocProvider(
             create: (context) => di.sl<ProductByIdCubit>()
@@ -342,6 +357,8 @@ class AppRoutes {
             );
           },
         );
+
+      //endregion
 
       //endregion
 
@@ -395,7 +412,7 @@ class RouteName {
   static const confirmCode = '/7';
 
   static const product = '/9';
-  static const profile = '/10';
+  static const myInfo = '/10';
   static const searchResult = '/11';
   static const update = '/12';
   static const updateChoice = '/13';
@@ -409,4 +426,5 @@ class RouteName {
   static const otpPassword = '/21';
   static const donePage = '/22';
   static const products = '/23';
+  static const orderInfo = '/24';
 }

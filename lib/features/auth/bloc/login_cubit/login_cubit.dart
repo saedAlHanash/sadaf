@@ -40,9 +40,9 @@ class LoginCubit extends Cubit<LoginInitial> {
 
     if (response.statusCode.success) {
       final pair = Pair(LoginResponse.fromJson(response.jsonBody).data, null);
-      loggerObject.w(pair.first.toJson());
+
       AppSharedPreference.cashToken(pair.first.token);
-      AppSharedPreference.cashMyId(pair.first.id);
+      // AppSharedPreference.cashMyId(pair.first.id);
       AppSharedPreference.cashUser(pair.first);
       AppSharedPreference.removePhoneOrEmail();
       APIService.reInitial();

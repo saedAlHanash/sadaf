@@ -1,23 +1,29 @@
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/generated/assets.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
+import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/my_card_widget.dart';
+import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
+import '../../../cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../data/response/products_response.dart';
 
 class ItemLargeProduct extends StatelessWidget {
-  const ItemLargeProduct({super.key});
+  const ItemLargeProduct({super.key, required this.product});
+
+  final Product product;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, RouteName.product, arguments: Product.fromJson({}));
+        Navigator.pushNamed(context, RouteName.product, arguments: product);
       },
       child: SizedBox(
         width: 255.0.w,
@@ -32,7 +38,7 @@ class ItemLargeProduct extends StatelessWidget {
               ImageMultiType(
                 height: 180.0.r,
                 width: 180.0.r,
-                url: Assets.iconsTemp3,
+                url: product.thumbnail,
               ),
               14.0.verticalSpace,
               Row(
@@ -45,43 +51,63 @@ class ItemLargeProduct extends StatelessWidget {
                       children: [
                         DrawableText(
                           matchParent: true,
-                          size: 20.0.sp,
-                          text: 'Dining Chair',
+                          maxLines: 1,
+                          size: 18.0.sp,
+                          text: product.name,
                           fontFamily: FontManager.cairoBold,
                         ),
                         DrawableText(
                           matchParent: true,
                           size: 20.0.sp,
                           fontFamily: FontManager.cairoBold,
-                          text: 100000.formatPrice,
-                          color: AppColorManager.red,
+                          text: product.price,
+                          color: AppColorManager.black,
                         ),
                         DrawableText(
                           matchParent: true,
                           size: 15.0.sp,
-                          text: 400000.formatPrice,
-                          color: AppColorManager.gray,
+                          text: product.discountPrice,
+                          color: AppColorManager.redPrice,
                         ),
                       ],
                     ),
                   ),
-                  Expanded(
-                    flex: 1,
-                    child: InkWell(
-                      onTap: () {},
-                      child: Container(
-                        height: 80.0.r,
-                        width: 80.0.r,
-                        padding: const EdgeInsets.all(10.0).r,
-                        decoration: const BoxDecoration(
-                          color: Colors.black,
-                          shape: BoxShape.circle,
+                  BlocBuilder<AddToCartCubit, AddToCartInitial>(
+                    builder: (context, state) {
+                      return GestureDetector(
+                        onTap: state.statuses.loading
+                            ? null
+                            : () {
+                                context
+                                    .read<AddToCartCubit>()
+                                    .addToCart(productId: product.id);
+                              },
+                        child: BlocBuilder<AddToCartCubit, AddToCartInitial>(
+                          buildWhen: (p, c) => c.id == product.id,
+                          builder: (context, state) {
+                            if (state.statuses.loading) {
+                              return MyStyle.loadingWidget();
+                            }
+                            return Container(
+                              height: 45.0.r,
+                              width: 45.0.r,
+                              alignment: Alignment.center,
+                              padding: const EdgeInsets.all(10.0).r,
+                              decoration: const BoxDecoration(
+                                color: Colors.black,
+                                shape: BoxShape.circle,
+                              ),
+                              child: Center(
+                                child: ImageMultiType(
+                                  url: state.showDone ? Icons.check : Assets.iconsPackage,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            );
+                          },
                         ),
-                        child: const ImageMultiType(
-                          url: Assets.iconsPackage,
-                        ),
-                      ),
-                    ),
+                      );
+                    },
                   ),
                 ],
               )
@@ -319,6 +345,67 @@ class ItemProduct extends StatelessWidget {
                 color: Colors.red,
               ),
             10.0.verticalSpace,
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class ItemOrderProduct extends StatelessWidget {
+  const ItemOrderProduct({super.key, required this.product});
+final Product product;
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, RouteName.product, arguments: product);
+      },
+      child: Container(
+        width: 1.0.sw,
+        height: 60.0.h,
+   margin: const EdgeInsets.symmetric(vertical: 15.0).h,
+   padding: const EdgeInsets.symmetric(horizontal: 30.0).w,
+        child: Row(
+          children: [
+            ImageMultiType(
+              url: Assets.iconsTemp2,
+              height: 54.0.r,
+              width: 54.0.r,
+            ),
+            20.0.horizontalSpace,
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  DrawableText(
+                    size: 14.0.sp,
+                    text: product.name,
+                    fontFamily: FontManager.cairoBold,
+                    matchParent: true,
+                    drawableAlin: DrawableAlin.between,
+                    drawableEnd: DrawableText(
+                      size: 16.0.sp,
+                      text: product.price,
+                      color: AppColorManager.mainColor,
+                    ),
+                  ),
+                  DrawableText(
+                    size: 14.0.sp,
+                    text: 'quantity: ${product.quantity}',
+                    fontFamily: FontManager.cairoBold,
+                    color: Colors.grey,
+                    matchParent: true,
+                    drawableAlin: DrawableAlin.between,
+                    drawableEnd: DrawableText(
+                      size: 16.0.sp,
+                      text: product.discountPrice,
+                      color: AppColorManager.redPrice,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
       ),

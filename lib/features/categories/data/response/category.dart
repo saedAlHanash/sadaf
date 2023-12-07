@@ -23,11 +23,13 @@ class Category {
     required this.id,
     required this.name,
     required this.image,
+    required this.icon,
   });
 
   final int id;
   final String name;
   final String image;
+  final String icon;
 
   // ------
   bool selected = false;
@@ -36,7 +38,8 @@ class Category {
     return Category(
       id: json["id"] ?? 0,
       name: json["name"] ?? "",
-      image: json["image"] ?? "",
+      image: json["image"] ??json["icon"] ?? "",
+      icon: json["icon"] ?? "",
     );
   }
 
@@ -44,5 +47,6 @@ class Category {
         "id": id,
         "name": name,
         "image": image,
+        "icon": icon,
       };
 }

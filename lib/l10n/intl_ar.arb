@@ -140,5 +140,6 @@
   "oops": "حدث خطأ ما!",
   "reset_password": "إعادة تعيين كلمة المرور",
   "enter_new_password_and_confirm": "أدخل كلمة السر مع التأكيد",
-  "share": "مشاركة"
+  "share": "مشاركة",
+  "update": "تعديل"
 }

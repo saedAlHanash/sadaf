@@ -78,12 +78,13 @@ class PriceScreen extends StatelessWidget {
 }
 
 class ReviewWidget extends StatelessWidget {
-  const ReviewWidget({super.key});
+  const ReviewWidget({super.key, required this.rate});
 
+  final num rate;
   @override
   Widget build(BuildContext context) {
     return DrawableText(
-      text: '5/25 review',
+      text: '$rate/5 review',
       size: 12.0.sp,
       drawableAlin: DrawableAlin.withText,
       drawablePadding: 7.0.w,

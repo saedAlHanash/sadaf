@@ -36,15 +36,25 @@ class _CardAttachmentsSliderState extends State<CardAttachmentsSlider> {
   }
 
   Widget getAttachment() {
-    loggerObject.w(attachment.link);
+
     switch (attachment.type) {
       case AttachmentType.image:
-        return ImageMultiType(url: attachment.link);
+        return ImageMultiType(
+          url: attachment.link,
+          fit: BoxFit.fill,
+          height: 318.0.h,
+          width: 1.0.sw,
+        );
       case AttachmentType.youtube:
       case AttachmentType.video:
         return VideoPlayerWidget(attachment: attachment);
       case AttachmentType.d3:
-        return ImageMultiType(url: attachment.link);
+        return ImageMultiType(
+          url: attachment.link,
+          fit: BoxFit.fill,
+          height: 318.0.h,
+          width: 1.0.sw,
+        );
     }
   }
 
@@ -53,7 +63,8 @@ class _CardAttachmentsSliderState extends State<CardAttachmentsSlider> {
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [
-        SizedBox(
+        Container(
+          color: AppColorManager.lightGray,
           height: 318.0.h,
           width: 1.0.sw,
           child: Stack(

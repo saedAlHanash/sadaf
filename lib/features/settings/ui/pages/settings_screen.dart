@@ -319,8 +319,8 @@ class ItemMenu extends StatelessWidget {
       Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.name);
       return;
     }
-    if (name == S.of(context).changePhone) {
-      Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.phone);
+    if (name == S.of(context).changeEmail) {
+      Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.email);
       return;
     }
     if (name == S.of(context).changeAddress) {
@@ -333,7 +333,7 @@ class ItemMenu extends StatelessWidget {
     }
 
     if (name == S.of(context).myInfo) {
-      Navigator.pushNamed(context, RouteName.profile);
+      Navigator.pushNamed(context, RouteName.myInfo);
       return;
     }
     if (name == S.of(context).wishList) {

@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/router/app_router.dart';
 
 import '../../generated/l10n.dart';
@@ -31,7 +32,7 @@ class ErrorManager {
       case 404:
       case 500:
       default:
-        final errorBody = ErrorBody.fromJson(jsonDecode(response.body));
+        final errorBody = ErrorBody.fromJson(response.jsonBody);
         return '${errorBody.errors.join('\n')}\n ${response.statusCode}';
     }
   }

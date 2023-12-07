@@ -87,11 +87,11 @@ class MyStyle {
     boxShadow: MyStyle.allShadowDark,
   );
 
-  static Widget loadingWidget() {
+  static Widget loadingWidget({Color? color}) {
     return Padding(
       padding: const EdgeInsets.all(8.0).r,
-      child: const Center(
-        child: CircularProgressIndicator.adaptive(),
+      child:  Center(
+        child: CircularProgressIndicator.adaptive(backgroundColor: color),
       ),
     );
   }

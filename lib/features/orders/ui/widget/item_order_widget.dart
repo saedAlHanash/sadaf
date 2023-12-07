@@ -1,13 +1,10 @@
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_multi_type/round_image_widget.dart';
-import 'package:sadaf/core/util/snack_bar_message.dart';
-import 'package:sadaf/core/widgets/my_card_widget.dart';
-import 'package:sadaf/features/product/ui/widget/item_product.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
-import '../../../../generated/assets.dart';
+import '../../../../router/app_router.dart';
 import '../../data/response/my_orders.dart';
 
 class ItemOrderWidget extends StatelessWidget {
@@ -17,77 +14,47 @@ class ItemOrderWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        MyCardWidget(
-          cardColor: AppColorManager.f6,
-          elevation: 0.0,
-          padding: const EdgeInsets.all(7.0).r,
-          margin: const EdgeInsets.symmetric(horizontal: 15.0).r,
-          child: SizedBox(
-            height: 150.0.h,
-            child: Row(
-              children: [
-                Expanded(
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      DrawableText(
-                        fontFamily: FontManager.cairoBold,
-                        text: 'التاريخ: ${order.createdAt}',
-                        matchParent: true,
-                        drawableStart: IconButton(
-                          onPressed: () {
-                            final listProduct =
-                                order.details.map((e) => e.product).toList();
-                            NoteMessage.showBottomSheet(
-                                context,
-                                Container(
-                                  constraints: BoxConstraints(maxHeight: .5.sh),
-                                  child: ListView.builder(
-                                    itemCount: listProduct.length,
-                                    itemBuilder: (_, i) {
-                                      return 0.0.verticalSpace;
-                                    },
-                                  ),
-                                ));
-                          },
-                          icon: const Icon(
-                            Icons.info_outline,
-                            color: AppColorManager.mainColor,
-                          ),
-                        ),
-                      ),
-                      DrawableText(text: 'إجمالي المبلغ: ${order.totalPrice}'),
-                      DrawableText(text: 'عدد المنتجات: ${order.details.length}'),
-                      DrawableText(text: 'ملاحظات: ${order.note}'),
-                      DrawableText(text: 'حالة الطلب: ${order.status}'),
-                    ],
-                  ),
-                ),
-                RoundImageWidget(
-                  url: order.details.firstOrNull?.product.thumbnail ?? Assets.iconsLogo,
-                  height: 140.0.r,
-                  width: 140.0.r,
-                ),
-              ],
+    return InkWell(
+      onTap: () {
+        Navigator.pushNamed(context, RouteName.orderInfo, arguments: order);
+      },
+      child: Container(
+        margin: const EdgeInsets.only(left: 30.0).w,
+        padding: const EdgeInsets.only(right: 30.0, left: 5.0, top: 20.0, bottom: 20.0).r,
+        decoration: BoxDecoration(
+          border: Border.symmetric(
+            horizontal: BorderSide(
+              color: AppColorManager.black,
+              width: 1.0.h,
             ),
           ),
         ),
-        DrawableText(
-          text: 'حالة الطلب:',
-          matchParent: true,
-          textAlign: TextAlign.start,
-          padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0).r,
-          drawableAlin: DrawableAlin.withText,
-          drawablePadding: 5.0.w,
-          drawableEnd: DrawableText(
-            text: order.status,
-            fontFamily: FontManager.cairoBold,
-          ),
-        )
-      ],
+        child: Column(
+          children: [
+            DrawableText(
+              text: '#${order.id}',
+              matchParent: true,
+              size: 16.0.sp,
+              drawableAlin: DrawableAlin.between,
+              drawableEnd: DrawableText(
+                text: order.total,
+                fontFamily: FontManager.cairoBold,
+              ),
+            ),
+            10.0.verticalSpace,
+            DrawableText(
+              text: 'Progress',
+              matchParent: true,
+              drawableAlin: DrawableAlin.between,
+              drawableEnd: DrawableText(
+                size: 14.0.sp,
+                color: Colors.grey,
+                text: DateTime.now().formatDateTime,
+              ),
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -139,7 +139,7 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
                   return MyButton(
                     text: S.of(context).verify,
                     onTap: () {
-                      loggerObject.w(AppSharedPreference.getPhoneOrEmail);
+
                       if (AppSharedPreference.getPhoneOrEmail.isEmpty) {
                         Navigator.pushReplacementNamed(context, RouteName.login);
                         return;
