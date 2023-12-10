@@ -9,6 +9,7 @@ import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../router/app_router.dart';
 import '../../../cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../data/response/products_response.dart';
 
@@ -25,6 +26,14 @@ class AddToCartBtn extends StatelessWidget {
           onTap: state.statuses.loading
               ? null
               : () {
+                  if (product.options.isNotEmpty) {
+                    Navigator.pushReplacementNamed(
+                      context,
+                      RouteName.productOptions,
+                      arguments: product,
+                    );
+                    return;
+                  }
                   context.read<AddToCartCubit>().addToCart(productId: product.id);
                 },
           child: Container(

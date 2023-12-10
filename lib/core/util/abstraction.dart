@@ -19,7 +19,6 @@ abstract class AbstractCubit<T> extends Equatable {
 
 abstract class AbstractMeta {
   final Meta meta;
-
   AbstractMeta({
     required this.meta,
   });

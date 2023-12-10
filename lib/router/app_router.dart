@@ -42,7 +42,9 @@ import '../features/orders/data/response/my_orders.dart';
 import '../features/orders/ui/pages/my_orders_page.dart';
 import '../features/orders/ui/pages/order_page.dart';
 import '../features/product/bloc/product_by_id_cubit/product_by_id_cubit.dart';
+import '../features/product/bloc/select_option_cubit/select_option_cubit.dart';
 import '../features/product/data/request/product_filter_request.dart';
+import '../features/product/ui/pages/product_options_page.dart';
 import '../features/profile/bloc/profile_cubit/profile_cubit.dart';
 import '../features/profile/bloc/update_profile_cubit/update_profile_cubit.dart';
 import '../features/profile/ui/pages/my_info_page.dart';
@@ -360,6 +362,23 @@ class AppRoutes {
 
       //endregion
 
+      case RouteName.productOptions:
+        final product = ((settings.arguments ?? Product.fromJson({})) as Product);
+        //region
+        final providers = [
+          BlocProvider(create: (_) => di.sl<SelectOptionCubit>()..setProduct(product))
+        ];
+        return MaterialPageRoute(
+          builder: (context) {
+            return MultiBlocProvider(
+              providers: providers,
+              child: ProductOptionsPage(product: product),
+            );
+          },
+        );
+
+      //endregion
+
       //endregion
 
       //region product
@@ -427,4 +446,5 @@ class RouteName {
   static const donePage = '/22';
   static const products = '/23';
   static const orderInfo = '/24';
+  static const productOptions = '/25';
 }

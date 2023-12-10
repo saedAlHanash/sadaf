@@ -42,6 +42,7 @@ import '../../features/orders/bloc/orders_cubit/orders_cubit.dart';
 import '../../features/product/bloc/new_arrival_cubit/new_arrival_cubit.dart';
 import '../../features/product/bloc/product_by_id_cubit/product_by_id_cubit.dart';
 import '../../features/product/bloc/products_cubit/products_cubit.dart';
+import '../../features/product/bloc/select_option_cubit/select_option_cubit.dart';
 import '../../features/profile/bloc/profile_cubit/profile_cubit.dart';
 import '../../features/profile/bloc/update_profile_cubit/update_profile_cubit.dart';
 import '../../features/settings/bloc/update_user_cubit/update_user_cubit.dart';
@@ -154,6 +155,7 @@ Future<void> init() async {
 
   //endregion
 
+  sl.registerFactory(() => SelectOptionCubit());
 //! External
 
   final sharedPreferences = await SharedPreferences.getInstance();

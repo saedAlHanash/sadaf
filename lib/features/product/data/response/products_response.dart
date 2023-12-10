@@ -1,8 +1,13 @@
 import 'package:sadaf/core/extensions/extensions.dart';
+import 'package:sadaf/generated/assets.dart';
+import 'package:sadaf/generated/assets.dart';
+import 'package:sadaf/generated/assets.dart';
+import 'package:sadaf/generated/assets.dart';
 
 import '../../../../core/api_manager/request_models/command.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/abstraction.dart';
+import 'package:collection/collection.dart';
 
 class ProductsResponse extends AbstractMeta {
   ProductsResponse({
@@ -74,8 +79,9 @@ class Product {
 
   //----
   num quantity = 0;
-
   final attachment = <Attachment>[];
+  final Map<String, List<Option>> groupedOptions = {};
+  final Map<String, List<Option>> groupedColors = {};
 
   factory Product.fromJson(Map<String, dynamic> json) {
     final product = Product(
@@ -117,6 +123,46 @@ class Product {
     for (var e in product.images) {
       product.attachment.add(Attachment(link: e, type: AttachmentType.image));
     }
+    product.options.add(Option.fromJson(
+      {
+        "id": 1312,
+        "thumbnail": Assets.iconsTemp5,
+        "price": '5000',
+        "discount_price": '6000',
+        "size": '10*10',
+        "color": '#FFC107',
+      },
+    ));
+    product.options.add(Option.fromJson(
+      {
+        "id": 187,
+        "thumbnail": Assets.iconsTemp2,
+        "price": '5000',
+        "discount_price": '6000',
+        "size": '10*10',
+        "color": '#FBFBFB',
+      },
+    ));
+    product.options.add(Option.fromJson(
+      {
+        "id": 1561,
+        "thumbnail": Assets.iconsTemp1,
+        "price": '5000',
+        "discount_price": '6000',
+        "size": '10*20',
+        "color": '#910202',
+      },
+    ));
+    product.options.add(Option.fromJson(
+      {
+        "id": 12,
+        "thumbnail": Assets.iconsTemp,
+        "price": '5000',
+        "discount_price": '6000',
+        "size": '30*10',
+        "color": '#0D479E',
+      },
+    ));
 
     for (var e in product.videoLinks) {
       product.attachment.add(
@@ -127,6 +173,15 @@ class Product {
       );
     }
 
+    if (product.options.isNotEmpty) {
+      product.groupedOptions
+        ..clear()
+        ..addAll(groupBy(product.options, (option) => option.size));
+
+      product.groupedColors
+        ..clear()
+        ..addAll(groupBy(product.options, (option) => option.color));
+    }
     return product;
   }
 
@@ -285,7 +340,7 @@ class Review {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "user": user?.toJson(),
+        "user": user.toJson(),
         "rating": rating,
         "comment": comment,
         "created_at": createdAt?.toIso8601String(),
