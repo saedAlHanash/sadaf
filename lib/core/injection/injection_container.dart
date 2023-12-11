@@ -18,7 +18,9 @@ import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../features/cart/bloc/clear_cart_cubit/clear_cart_cubit.dart';
 import '../../features/cart/bloc/coupon_cubit/coupon_cubit.dart';
 import '../../features/cart/bloc/create_order_cubit/create_order_cubit.dart';
+import '../../features/cart/bloc/decrease_cubit/decrease_cubit.dart';
 import '../../features/cart/bloc/get_cart_cubit/get_cart_cubit.dart';
+import '../../features/cart/bloc/increase_cubit/increase_cubit.dart';
 import '../../features/cart/bloc/remove_from_cart_cubit/remove_from_cart_cubit.dart';
 import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
 import '../../features/cart/service/cart_service.dart';
@@ -115,6 +117,9 @@ Future<void> init() async {
   //region Cart
   sl.registerLazySingleton(() => CartService());
   sl.registerLazySingleton(() => CartCubit());
+
+  sl.registerLazySingleton(() => DecreaseCubit());
+  sl.registerLazySingleton(() => IncreaseCubit());
 
   sl.registerFactory(() => AddToCartCubit());
   sl.registerFactory(() => RemoveFromCartCubit());

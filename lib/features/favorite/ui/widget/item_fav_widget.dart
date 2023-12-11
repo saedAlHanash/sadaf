@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
+import 'package:sadaf/features/product/ui/widget/add_to_cart_btn.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
@@ -93,27 +94,7 @@ class ItemFavWidget extends StatelessWidget {
                           );
                         },
                       ),
-                      Container(
-                        height: 25.0.r,
-                        width: 25.0.r,
-                        color: Colors.black,
-                        child: BlocBuilder<AddToCartCubit, AddToCartInitial>(
-                          buildWhen: (p, c) => c.id == fav.id,
-                          builder: (context, state) {
-                            if (state.statuses.loading) {
-                              return MyStyle.loadingWidget();
-                            }
-                            return InkWell(
-                              onTap: () {
-                                context
-                                    .read<AddToCartCubit>()
-                                    .addToCart(productId: fav.id);
-                              },
-                              child: const Icon(Icons.add, color: Colors.white),
-                            );
-                          },
-                        ),
-                      ),
+                      AddToCartBtnFav(fav: fav),
                     ],
                   ),
                   30.0.horizontalSpace,

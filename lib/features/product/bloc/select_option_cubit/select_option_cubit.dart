@@ -11,9 +11,10 @@ class SelectOptionCubit extends Cubit<SelectOptionInitial> {
     emit(state.copyWith(selectedSize: size));
   }
 
-  void selectColor(int id, String image) {
+  void selectColor(int id, String image, Option option) {
     emit(state.copyWith(
       image: image,
+      option: option,
       selectedProductId: id,
     ));
   }

@@ -9,6 +9,8 @@ import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/abstraction.dart';
 import 'package:collection/collection.dart';
 
+import '../../../colors/data/response/color_response.dart';
+
 class ProductsResponse extends AbstractMeta {
   ProductsResponse({
     required this.data,
@@ -65,7 +67,7 @@ class Product {
   final String discountPrice;
   final String discountPriceInIqd;
   final String discountEndAt;
-  final String color;
+  final ColorModel color;
   final String size;
   final String createdAt;
   final String description;
@@ -94,7 +96,7 @@ class Product {
       discountPrice: json["discount_price"] ?? "",
       discountPriceInIqd: json["discount_price_in_iqd"] ?? "",
       discountEndAt: json["discount_end_at"] ?? "",
-      color: json["color"] ?? "",
+      color:ColorModel.fromJson( json["color"] ?? {}),
       size: json["size"] ?? "",
       createdAt: json["created_at"] ?? "",
       description: json["description"] ?? "",
@@ -123,46 +125,6 @@ class Product {
     for (var e in product.images) {
       product.attachment.add(Attachment(link: e, type: AttachmentType.image));
     }
-    product.options.add(Option.fromJson(
-      {
-        "id": 1312,
-        "thumbnail": Assets.iconsTemp5,
-        "price": '5000',
-        "discount_price": '6000',
-        "size": '10*10',
-        "color": '#FFC107',
-      },
-    ));
-    product.options.add(Option.fromJson(
-      {
-        "id": 187,
-        "thumbnail": Assets.iconsTemp2,
-        "price": '5000',
-        "discount_price": '6000',
-        "size": '10*10',
-        "color": '#FBFBFB',
-      },
-    ));
-    product.options.add(Option.fromJson(
-      {
-        "id": 1561,
-        "thumbnail": Assets.iconsTemp1,
-        "price": '5000',
-        "discount_price": '6000',
-        "size": '10*20',
-        "color": '#910202',
-      },
-    ));
-    product.options.add(Option.fromJson(
-      {
-        "id": 12,
-        "thumbnail": Assets.iconsTemp,
-        "price": '5000',
-        "discount_price": '6000',
-        "size": '30*10',
-        "color": '#0D479E',
-      },
-    ));
 
     for (var e in product.videoLinks) {
       product.attachment.add(
@@ -180,7 +142,7 @@ class Product {
 
       product.groupedColors
         ..clear()
-        ..addAll(groupBy(product.options, (option) => option.color));
+        ..addAll(groupBy(product.options, (option) => option.color.hex));
     }
     return product;
   }
@@ -195,7 +157,7 @@ class Product {
         "discount_price": discountPrice,
         "discount_price_in_iqd": discountPriceInIqd,
         "discount_end_at": discountEndAt,
-        "color": color,
+        "color": color.toJson(),
         "size": size,
         "created_at": createdAt,
         "description": description,
@@ -230,7 +192,7 @@ class Option {
   final String discountPriceInIqd;
   final String discountEndAt;
   final String size;
-  final String color;
+  final ColorModel color;
 
   factory Option.fromJson(Map<String, dynamic> json) {
     return Option(
@@ -242,7 +204,7 @@ class Option {
       discountPriceInIqd: json["discount_price_in_iqd"] ?? "",
       discountEndAt: json["discount_end_at"] ?? "",
       size: json["size"] ?? "",
-      color: json["color"] ?? "",
+      color: ColorModel.fromJson(json["color"] ?? {}),
     );
   }
 
@@ -255,7 +217,7 @@ class Option {
         "discount_price_in_iqd": discountPriceInIqd,
         "discount_end_at": discountEndAt,
         "size": size,
-        "color": color,
+        "color": color.toJson(),
       };
 }
 

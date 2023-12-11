@@ -25,9 +25,15 @@ class _SizeOptionsState extends State<SizeOptions> {
 
   @override
   void initState() {
-    if (widget.options.isNotEmpty) {
-      controller.selectIndex(0);
-    }
+    Future.delayed(
+      const Duration(seconds: 1),
+      () {
+        if (widget.options.isNotEmpty) {
+          controller.selectIndex(0);
+          context.read<SelectOptionCubit>().selectSize(widget.options[0]);
+        }
+      },
+    );
     super.initState();
   }
 
@@ -39,22 +45,26 @@ class _SizeOptionsState extends State<SizeOptions> {
 
   @override
   Widget build(BuildContext context) {
-    return GroupButton(
-      controller: controller,
-      isRadio: true,
-      onSelected: (value, i, _) {
-        context.read<SelectOptionCubit>().selectSize(value);
-      },
-      options: GroupButtonOptions(
-        buttonHeight: 28.0.h,
-        buttonWidth: 85.0.w,
-        direction: Axis.horizontal,
-        elevation: 0.0,
-        unselectedShadow: [],
-        selectedBorderColor: AppColorManager.mainColor,
-        unselectedBorderColor: AppColorManager.d9,
+    return SizedBox(
+      width: 1.0.sw,
+      child: GroupButton(
+        controller: controller,
+        isRadio: true,
+        onSelected: (value, i, _) {
+          context.read<SelectOptionCubit>().selectSize(value);
+        },
+        options: GroupButtonOptions(
+          buttonHeight: 28.0.h,
+          buttonWidth: 85.0.w,
+          direction: Axis.horizontal,
+          mainGroupAlignment: MainGroupAlignment.start,
+          elevation: 0.0,
+          unselectedShadow: [],
+          selectedBorderColor: AppColorManager.mainColor,
+          unselectedBorderColor: AppColorManager.d9,
+        ),
+        buttons: widget.options.map((e) => e).toList(),
       ),
-      buttons: widget.options.map((e) => e).toList(),
     );
   }
 }
@@ -91,8 +101,9 @@ class _ColorOptionsState extends State<ColorOptions> {
     final selectedSize = context.read<SelectOptionCubit>().state.selectedSize;
     widget.colors.forEachIndexed((i, color) {
       final b = product.groupedOptions[selectedSize]
-              ?.firstWhereOrNull((e) => e.color == color) ==
+              ?.firstWhereOrNull((e) => e.color.hex == color) ==
           null;
+
       if (b) disableIndexes.add(i);
     });
   }
@@ -114,64 +125,69 @@ class _ColorOptionsState extends State<ColorOptions> {
       },
       child: Column(
         children: [
-          GroupButton(
-            controller: controller,
-            isRadio: true,
-            onSelected: (value, i, _) {
-              if (disableIndexes.contains(i)) {
-                setState(() {
-                  rejectSelect = true;
-                  controller.unselectIndex(i);
-                });
-                return;
-              } else {
-                setState(() {
-                  rejectSelect = false;
-                });
-              }
-              final selectedSize = context.read<SelectOptionCubit>().state.selectedSize;
-              final selectedColor = value;
-              final option = product.groupedOptions[selectedSize]
-                  ?.firstWhereOrNull((element) {
-                    loggerObject.wtf(element.color);
-                    return element.color == selectedColor;
+          SizedBox(
+            width: 1.0.sw,
+            child: GroupButton(
+              controller: controller,
+              isRadio: true,
+              onSelected: (value, i, _) {
+                if (disableIndexes.contains(i)) {
+                  setState(() {
+                    rejectSelect = true;
+                    controller.unselectIndex(i);
                   });
+                  return;
+                } else {
+                  setState(() {
+                    rejectSelect = false;
+                  });
+                }
+                final selectedSize = context.read<SelectOptionCubit>().state.selectedSize;
+                final selectedColor = value;
+                final option =
+                    product.groupedOptions[selectedSize]?.firstWhereOrNull((element) {
+                  loggerObject.wtf(element.color);
+                  return element.color.hex == selectedColor;
+                });
 
-              loggerObject.w(option?.id);
-              loggerObject.w(value);
-              if (option != null) {
-                context
-                    .read<SelectOptionCubit>()
-                    .selectColor(option.id, option.thumbnail);
-              }
-            },
-            buttonBuilder: (selected, value, context) {
-              final color = getColorFromHex(value);
-              return Container(
-                height: 30.0.r,
-                width: 30.0.r,
-                decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: color,
-                    border: Border.all(color: AppColorManager.lightGray)),
-                child: selected
-                    ? ImageMultiType(
-                        url: Icons.check,
-                        color: getCheckColor(color),
-                      )
-                    : null,
-              );
-            },
-            options: GroupButtonOptions(
-              buttonHeight: 28.0.h,
-              buttonWidth: 85.0.w,
-              direction: Axis.horizontal,
-              elevation: 0.0,
-              unselectedShadow: [],
-              selectedBorderColor: AppColorManager.mainColor,
-              unselectedBorderColor: AppColorManager.d9,
+                loggerObject.w(option?.id);
+                loggerObject.w(value);
+                if (option != null) {
+                  context
+                      .read<SelectOptionCubit>()
+                      .selectColor(option.id, option.thumbnail, option);
+                }
+              },
+              buttonBuilder: (selected, value, context) {
+                final color = getColorFromHex(value);
+                return Container(
+                  height: 50.0.r,
+                  width: 50.0.r,
+                  padding: const EdgeInsets.all(5.0).r,
+                  decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: color,
+                      border: Border.all(color: AppColorManager.lightGray)),
+                  child: selected
+                      ? ImageMultiType(
+                          url: Icons.check,
+                          color: getCheckColor(color),
+                        )
+                      : null,
+                );
+              },
+              options: GroupButtonOptions(
+                buttonHeight: 28.0.h,
+                buttonWidth: 85.0.w,
+                direction: Axis.horizontal,
+                mainGroupAlignment: MainGroupAlignment.start,
+                elevation: 0.0,
+                unselectedShadow: [],
+                selectedBorderColor: AppColorManager.mainColor,
+                unselectedBorderColor: AppColorManager.d9,
+              ),
+              buttons: widget.colors.map((e) => e).toList(),
             ),
-            buttons: widget.colors.map((e) => e).toList(),
           ),
           10.0.verticalSpace,
           if (rejectSelect)

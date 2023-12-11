@@ -7,16 +7,15 @@ class CartResponse {
 
   final Cart data;
 
-  factory CartResponse.fromJson(Map<String, dynamic> json){
+  factory CartResponse.fromJson(Map<String, dynamic> json) {
     return CartResponse(
-      data: Cart.fromJson(json["data"]??{}),
+      data: Cart.fromJson(json["data"] ?? {}),
     );
   }
 
   Map<String, dynamic> toJson() => {
-    "data": data.toJson(),
-  };
-
+        "data": data.toJson(),
+      };
 }
 
 class Cart {
@@ -33,29 +32,30 @@ class Cart {
   final User user;
   final num subtotal;
   final num total;
-  final dynamic couponCode;
+  final String couponCode;
   final List<Product> products;
 
-  factory Cart.fromJson(Map<String, dynamic> json){
+  factory Cart.fromJson(Map<String, dynamic> json) {
     return Cart(
       id: json["id"] ?? 0,
-      user: User.fromJson(json["user"]??{}),
+      user: User.fromJson(json["user"] ?? {}),
       subtotal: json["subtotal"] ?? 0,
       total: json["total"] ?? 0,
-      couponCode: json["coupon_code"],
-      products: json["products"] == null ? [] : List<Product>.from(json["products"]!.map((x) => Product.fromJson(x))),
+      couponCode: json["coupon_code"] ?? '',
+      products: json["products"] == null
+          ? []
+          : List<Product>.from(json["products"]!.map((x) => Product.fromJson(x))),
     );
   }
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "user": user?.toJson(),
-    "subtotal": subtotal,
-    "total": total,
-    "coupon_code": couponCode,
-    "products": products.map((x) => x).toList(),
-  };
-
+        "id": id,
+        "user": user.toJson(),
+        "subtotal": subtotal,
+        "total": total,
+        "coupon_code": couponCode,
+        "products": products.map((x) => x).toList(),
+      };
 }
 
 class User {
@@ -69,7 +69,7 @@ class User {
   final String name;
   final String emailOrPhone;
 
-  factory User.fromJson(Map<String, dynamic> json){
+  factory User.fromJson(Map<String, dynamic> json) {
     return User(
       id: json["id"] ?? 0,
       name: json["name"] ?? "",
@@ -78,9 +78,8 @@ class User {
   }
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "name": name,
-    "email_or_phone": emailOrPhone,
-  };
-
+        "id": id,
+        "name": name,
+        "email_or_phone": emailOrPhone,
+      };
 }

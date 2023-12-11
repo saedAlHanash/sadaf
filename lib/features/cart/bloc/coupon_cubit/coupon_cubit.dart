@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/api_manager/api_url.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
+import 'package:sadaf/core/util/abstraction.dart';
 
 import '../../../../core/error/error_manager.dart';
 import '../../../../core/injection/injection_container.dart';
@@ -19,44 +20,35 @@ part 'coupon_state.dart';
 class CouponCubit extends Cubit<CouponInitial> {
   CouponCubit() : super(CouponInitial.initial());
 
-  
+  Future<void> applyCoupon({required String couponCode}) async {
+    if (couponCode.isEmpty) return;
+    emit(state.copyWith(
+      statuses: CubitStatuses.loading,
+      coupon: couponCode,
+    ));
 
-  Future<void> checkCoupon(BuildContext context,
-      {String? couponCode, num total = 0}) async {
-    if (couponCode == null || couponCode.isEmpty || total == 0) return;
-    emit(state.copyWith(statuses: CubitStatuses.loading));
-    final pair = await _checkCouponApi(couponCode: couponCode, total: total);
+    final pair = await _checkCouponApi();
 
     if (pair.first == null) {
-      if (context.mounted) {
-        NoteMessage.showSnakeBar(message: pair.second ?? '', context: context);
-      }
       emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
+      showErrorFromApi(state);
     } else {
       emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
     }
   }
 
-  Future<Pair<CheckCouponResult?, String?>> _checkCouponApi({
-    required String couponCode,
-    required num total,
-  }) async {
-     
-      final response = await APIService().getApi(
-        url: GetUrl.coupon,
-        query: {
-          'code': couponCode,
-          'total_price': total,
-        },
-      );
-
-      if (response.statusCode == 200) {
-        return Pair(CheckCouponResponse.fromJson(response.jsonBody).data, null);
-      } else {
-        return Pair(null, ErrorManager.getApiError(response));
-      }
-     
+  Future<Pair<bool?, String?>> _checkCouponApi() async {
+    final response = await APIService().postApi(
+      url: GetUrl.coupon,
+      body: {
+        'coupon_code': state.coupon,
+      },
+    );
+    if (response.statusCode == 200) {
+      return Pair(true, null);
+    } else {
+      return response.getPairError;
+    }
   }
 
-  void reInit() => emit(CouponInitial.initial());
 }

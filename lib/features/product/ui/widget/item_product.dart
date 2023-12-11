@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
+import 'package:sadaf/features/product/ui/widget/add_to_cart_btn.dart';
 import 'package:sadaf/generated/assets.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
@@ -72,43 +73,8 @@ class ItemLargeProduct extends StatelessWidget {
                       ],
                     ),
                   ),
-                  BlocBuilder<AddToCartCubit, AddToCartInitial>(
-                    builder: (context, state) {
-                      return GestureDetector(
-                        onTap: state.statuses.loading
-                            ? null
-                            : () {
-                                context
-                                    .read<AddToCartCubit>()
-                                    .addToCart(productId: product.id);
-                              },
-                        child: BlocBuilder<AddToCartCubit, AddToCartInitial>(
-                          buildWhen: (p, c) => c.id == product.id,
-                          builder: (context, state) {
-                            if (state.statuses.loading) {
-                              return MyStyle.loadingWidget();
-                            }
-                            return Container(
-                              height: 45.0.r,
-                              width: 45.0.r,
-                              alignment: Alignment.center,
-                              padding: const EdgeInsets.all(10.0).r,
-                              decoration: const BoxDecoration(
-                                color: Colors.black,
-                                shape: BoxShape.circle,
-                              ),
-                              child: Center(
-                                child: ImageMultiType(
-                                  url: state.showDone ? Icons.check : Assets.iconsPackage,
-                                  color: Colors.white,
-                                ),
-                              ),
-                            );
-                          },
-                        ),
-                      );
-                    },
-                  ),
+
+                  AddToCartBag(product: product),
                 ],
               )
             ],

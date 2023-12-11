@@ -10,6 +10,7 @@ class SelectOptionInitial extends Equatable {
   final int selectedProductId;
 
   final Product product;
+  final Option? option;
 
   const SelectOptionInitial({
     required this.selectedSize,
@@ -17,6 +18,7 @@ class SelectOptionInitial extends Equatable {
     required this.image,
     required this.selectedProductId,
     required this.product,
+     this.option,
   });
 
   factory SelectOptionInitial.initial() {
@@ -26,6 +28,7 @@ class SelectOptionInitial extends Equatable {
       image: '',
       selectedProductId: 0,
       product: Product.fromJson({}),
+
     );
   }
 
@@ -38,6 +41,7 @@ class SelectOptionInitial extends Equatable {
     String? image,
     int? selectedProductId,
     Product? product,
+    Option? option,
   }) {
     return SelectOptionInitial(
       selectedSize: selectedSize ?? this.selectedSize,
@@ -45,6 +49,7 @@ class SelectOptionInitial extends Equatable {
       image: image ?? this.image,
       selectedProductId: selectedProductId ?? this.selectedProductId,
       product: product ?? this.product,
+      option: option ?? this.option,
     );
   }
 }

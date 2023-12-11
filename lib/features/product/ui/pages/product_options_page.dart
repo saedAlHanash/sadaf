@@ -6,13 +6,12 @@ import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
+import 'package:sadaf/core/widgets/my_button.dart';
 import 'package:sadaf/features/product/ui/widget/options_widget.dart';
-import 'package:sadaf/features/product/ui/widget/related_product_widget.dart';
 import 'package:sadaf/generated/assets.dart';
 
 import '../../../../core/extensions/extensions.dart';
 import '../../../../generated/l10n.dart';
-import '../../bloc/product_by_id_cubit/product_by_id_cubit.dart';
 
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -27,74 +26,65 @@ class ProductOptionsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: const AppBarWidget(zeroHeight: true),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.symmetric(horizontal: 30.0).w,
-        child: Column(
-          children: [
-            Container(
-              color: AppColorManager.lightGray,
-              height: 318.0.h,
-              width: 1.0.sw,
-              child: BlocBuilder<SelectOptionCubit, SelectOptionInitial>(
-                builder: (context, state) {
-                  loggerObject.w(state.image);
-                  return ImageMultiType(url: state.image);
-                },
-              ),
+    return SingleChildScrollView(
+      child: Column(
+        children: [
+          .1.sw.verticalSpace,
+          SizedBox(
+            height: 250.0.h,
+            width: .9.sw,
+            child: BlocBuilder<SelectOptionCubit, SelectOptionInitial>(
+              builder: (context, state) {
+                loggerObject.w(state.image);
+                return ImageMultiType(url: state.image, fit: BoxFit.fill);
+              },
             ),
-            10.0.verticalSpace,
-            DrawableText(
-              text: product.name,
-              size: 24.0.sp,
-              matchParent: true,
-            ),
-            7.0.verticalSpace,
-            LargeReviewWidget(rating: product.rating),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(color: AppColorManager.f1),
-              ),
-              padding: const EdgeInsets.all(12.0).r,
-              child: Row(
-                children: [
-                  Expanded(
-                    child: Column(
+          ),
+          10.0.verticalSpace,
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0).w,
+            child: Column(
+              children: [
+                BlocBuilder<SelectOptionCubit, SelectOptionInitial>(
+                  builder: (context, state) {
+                    return Column(
                       children: [
                         DrawableText(
-                          text: product.price,
+                          text: state.option?.price ?? product.price,
                           size: 24.0.sp,
                           color: AppColorManager.black,
                           matchParent: true,
                         ),
                         DrawableText(
-                          text: product.discountPrice,
+                          text: state.option?.discountPrice ?? product.discountPrice,
                           size: 14.0.sp,
                           color: AppColorManager.redPrice,
                           matchParent: true,
                         ),
                       ],
-                    ),
-                  ),
-                  AmountWidget(product: product),
-                ],
-              ),
+                    );
+                  },
+                ),
+                30.0.verticalSpace,
+                DrawableText(text: S.of(context).sizes, matchParent: true),
+                10.0.verticalSpace,
+                SizeOptions(
+                  options: product.groupedOptions.entries.map((e) => e.key).toList(),
+                ),
+                30.0.verticalSpace,
+                DrawableText(text: S.of(context).colors, matchParent: true),
+                10.0.verticalSpace,
+                ColorOptions(
+                  colors: product.groupedColors.entries.map((e) => e.key).toList(),
+                ),
+                MyButton(
+                  text: S.of(context).continueTo,
+                  onTap: () => Navigator.pop(context, true),
+                )
+              ],
             ),
-            30.0.verticalSpace,
-            DrawableText(text: S.of(context).sizes, matchParent: true),
-            10.0.verticalSpace,
-            SizeOptions(
-              options: product.groupedOptions.entries.map((e) => e.key).toList(),
-            ),
-            30.0.verticalSpace,
-            DrawableText(text: S.of(context).colors, matchParent: true),
-            10.0.verticalSpace,
-            ColorOptions(
-              colors: product.groupedColors.entries.map((e) => e.key).toList(),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

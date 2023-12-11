@@ -11,7 +11,10 @@ import 'package:sadaf/generated/assets.dart';
 
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../features/cart/bloc/clear_cart_cubit/clear_cart_cubit.dart';
+import '../../features/cart/bloc/coupon_cubit/coupon_cubit.dart';
+import '../../features/cart/bloc/decrease_cubit/decrease_cubit.dart';
 import '../../features/cart/bloc/get_cart_cubit/get_cart_cubit.dart';
+import '../../features/cart/bloc/increase_cubit/increase_cubit.dart';
 import '../../features/cart/bloc/remove_from_cart_cubit/remove_from_cart_cubit.dart';
 import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
 import '../../features/categories/bloc/categories_cubit/categories_cubit.dart';
@@ -28,7 +31,7 @@ import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../router/app_router.dart';
 import '../app_theme.dart';
-import '../injection/injection_container.dart' as di;
+import '../injection/injection_container.dart';
 import '../injection/injection_container.dart';
 import '../util/shared_preferences.dart';
 import 'bloc/loading_cubit.dart';
@@ -138,25 +141,28 @@ class _MyAppState extends State<MyApp> {
           builder: (_, child) {
             return MultiBlocProvider(
               providers: [
-                BlocProvider(create: (_) => di.sl<SliderCubit>()..getSlider()),
-                BlocProvider(create: (_) => di.sl<BannerCubit>()..getBanner()),
-                BlocProvider(create: (_) => di.sl<CategoriesCubit>()..getCategories()),
-                BlocProvider(create: (_) => di.sl<ColorsCubit>()..getColors()),
-                BlocProvider(create: (_) => di.sl<LoadingCubit>()),
-                BlocProvider(create: (_) => di.sl<AddToCartCubit>()),
-                BlocProvider(create: (_) => di.sl<RemoveFromCartCubit>()),
-                BlocProvider(create: (_) => di.sl<ClearCartCubit>()),
-                BlocProvider(create: (_) => di.sl<AddFavoriteCubit>()),
-                BlocProvider(create: (_) => di.sl<UpdateCartCubit>()),
-                BlocProvider(create: (_) => di.sl<ProfileCubit>()..getProfile()),
-                BlocProvider(create: (_) => di.sl<CartCubit>()..getCart()),
-                BlocProvider(create: (_) => di.sl<FavoriteCubit>()..getFavorite()),
+                BlocProvider(create: (_) => sl<SliderCubit>()..getSlider()),
+                BlocProvider(create: (_) => sl<BannerCubit>()..getBanner()),
+                BlocProvider(create: (_) => sl<CategoriesCubit>()..getCategories()),
+                BlocProvider(create: (_) => sl<ColorsCubit>()..getColors()),
+                BlocProvider(create: (_) => sl<LoadingCubit>()),
+                BlocProvider(create: (_) => sl<AddToCartCubit>()),
+                BlocProvider(create: (_) => sl<RemoveFromCartCubit>()),
+                BlocProvider(create: (_) => sl<ClearCartCubit>()),
+                BlocProvider(create: (_) => sl<AddFavoriteCubit>()),
+                BlocProvider(create: (_) => sl<UpdateCartCubit>()),
+                BlocProvider(create: (_) => sl<DecreaseCubit>()),
+                BlocProvider(create: (_) => sl<IncreaseCubit>()),
+                BlocProvider(create: (_) => sl<CouponCubit>()),
+                BlocProvider(create: (_) => sl<ProfileCubit>()..getProfile()),
+                BlocProvider(create: (_) => sl<CartCubit>()..getCart()),
+                BlocProvider(create: (_) => sl<FavoriteCubit>()..getFavorite()),
                 BlocProvider(
-                  create: (_) => di.sl<ManufacturersCubit>()..getManufacturers(),
+                  create: (_) => sl<ManufacturersCubit>()..getManufacturers(),
                 ),
                 BlocProvider(
                   create: (_) =>
-                      di.sl<NewArrivalProductsCubit>()..getNewArrivalProducts(),
+                      sl<NewArrivalProductsCubit>()..getNewArrivalProducts(),
                 ),
               ],
               child: BlocListener<AddToCartCubit, AddToCartInitial>(

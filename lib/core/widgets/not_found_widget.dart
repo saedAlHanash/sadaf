@@ -10,7 +10,7 @@ class NotFoundWidget extends StatelessWidget {
     required this.icon,
   }) : super(key: key);
   final String text;
-  final String icon;
+  final dynamic icon;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class NotFoundWidget extends StatelessWidget {
               width: 250.0.spMin,
             ),
             DrawableText(
-              text: 'آسف !',
+              text: 'Sorry !',
               fontFamily: FontManager.cairoBold,
               color: Colors.black,
               size: 20.0.spMin,

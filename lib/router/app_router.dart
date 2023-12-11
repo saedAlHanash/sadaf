@@ -183,7 +183,7 @@ class AppRoutes {
           BlocProvider(create: (_) => di.sl<LogoutCubit>()),
           BlocProvider(create: (_) => di.sl<DeleteAccountCubit>()),
           BlocProvider(create: (_) => di.sl<CreateOrderCubit>()),
-          BlocProvider(create: (_) => di.sl<CouponCubit>()),
+
         ];
         return MaterialPageRoute(
           builder: (context) {

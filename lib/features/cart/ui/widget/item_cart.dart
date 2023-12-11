@@ -9,23 +9,24 @@ import 'package:sadaf/features/cart/service/cart_service.dart';
 
 import '../../../../core/injection/injection_container.dart';
 import '../../../../core/strings/app_color_manager.dart';
+import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/image_with_fav.dart';
 import '../../../../core/widgets/my_card_widget.dart';
 import '../../../../generated/assets.dart';
 import '../../../home/ui/widget/screens/home_screen.dart';
 import '../../../product/data/response/products_response.dart';
 import '../../../product/data/response/products_response.dart';
+import '../../bloc/decrease_cubit/decrease_cubit.dart';
+import '../../bloc/increase_cubit/increase_cubit.dart';
+import '../../bloc/remove_from_cart_cubit/remove_from_cart_cubit.dart';
 
 class ItemProductCart extends StatelessWidget {
   const ItemProductCart({
     super.key,
     required this.product,
-    required this.onRemove,
   });
 
   final Product product;
-
-  final Function(int id) onRemove;
 
   @override
   Widget build(BuildContext context) {
@@ -49,7 +50,7 @@ class ItemProductCart extends StatelessWidget {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                       children: [
-                         DrawableText(
+                        DrawableText(
                           text: product.name,
                           maxLines: 1,
                           matchParent: true,
@@ -69,8 +70,36 @@ class ItemProductCart extends StatelessWidget {
                       ],
                     ),
                   ),
-                  AmountWidget1(
-                    product: product,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.end,
+                    children: [
+                      BlocBuilder<RemoveFromCartCubit, RemoveFromCartInitial>(
+                        buildWhen: (p, c) => c.id == product.id,
+                        builder: (context, state) {
+                          if (state.statuses.loading) {
+                            return MyStyle.loadingWidget();
+                          }
+                          return InkWell(
+                            onTap: () {
+                              context
+                                  .read<RemoveFromCartCubit>()
+                                  .removeFromCart(productId: product.id);
+                            },
+                            child: const ImageMultiType(
+                              url: Icons.cancel_outlined,
+                              color: AppColorManager.red,
+                            ),
+                          );
+                        },
+                      ),
+                      Expanded(
+                        child: Center(
+                          child: AmountWidgetCart(
+                            product: product,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
@@ -82,68 +111,92 @@ class ItemProductCart extends StatelessWidget {
   }
 }
 
-class AmountWidget1 extends StatefulWidget {
-  const AmountWidget1({super.key, required this.product});
+class AmountWidgetCart extends StatefulWidget {
+  const AmountWidgetCart({super.key, required this.product});
 
   final Product product;
 
   @override
-  State<AmountWidget1> createState() => _AmountWidget1State();
+  State<AmountWidgetCart> createState() => _AmountWidgetCartState();
 }
 
-class _AmountWidget1State extends State<AmountWidget1> {
-  var amount = 1;
-
-  @override
-  void initState() {
-
-    super.initState();
-  }
-
+class _AmountWidgetCartState extends State<AmountWidgetCart> {
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      width: 95.0.w,
-      height: 26.0.h,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          Container(
-            height: 25.0.r,
-            width: 25.0.r,
-            alignment: Alignment.center,
-            color: AppColorManager.black,
-            child: InkWell(
-              onTap: () {
-                setState(() => amount++);
-                sl<CartService>()
-                    .addToCart(widget.product, addQuantity: false, context: context);
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<DecreaseCubit, DecreaseInitial>(
+          listenWhen: (p, c) => c.statuses.done && c.id == widget.product.id,
+          listener: (context, state) => setState(() => widget.product.quantity--),
+        ),
+        BlocListener<IncreaseCubit, IncreaseInitial>(
+          listenWhen: (p, c) => c.statuses.done && c.id == widget.product.id,
+          listener: (context, state) => setState(() => widget.product.quantity++),
+        ),
+      ],
+      child: SizedBox(
+        width: 95.0.w,
+        height: 26.0.h,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
+          children: [
+            BlocBuilder<IncreaseCubit, IncreaseInitial>(
+              buildWhen: (p, c) => c.id == widget.product.id,
+              builder: (context, state) {
+                return Container(
+                  height: 25.0.r,
+                  width: 25.0.r,
+                  alignment: Alignment.center,
+                  color: AppColorManager.black,
+                  child: InkWell(
+                    onTap: () {
+                      context
+                          .read<IncreaseCubit>()
+                          .increase(productId: widget.product.id);
+                    },
+                    child: state.statuses.loading
+                        ? MyStyle.loadingWidget(color: Colors.white)
+                        : Icon(
+                            Icons.add,
+                            color: Colors.white,
+                            size: 18.0.r,
+                          ),
+                  ),
+                );
               },
-              child: Icon(Icons.add, color: Colors.white,size: 18.0.r),
             ),
-          ),
-          DrawableText(
-            text: amount.toString(),
-            color: Colors.black,
-          ),
-          Container(
-            height: 25.0.r,
-            width: 25.0.r,
-            alignment: Alignment.center,
-            color: AppColorManager.black,
-            child: InkWell(
-              onTap: () {
-                if (amount <= 1) return;
-                setState(() => amount--);
-
-                sl<CartService>()
-                    .addToCart(widget.product, addQuantity: false, context: context);
-
+            DrawableText(
+              text: widget.product.quantity.toString(),
+              color: Colors.black,
+            ),
+            BlocBuilder<DecreaseCubit, DecreaseInitial>(
+              buildWhen: (p, c) => c.id == widget.product.id,
+              builder: (context, state) {
+                return Container(
+                  height: 25.0.r,
+                  width: 25.0.r,
+                  alignment: Alignment.center,
+                  color: AppColorManager.black,
+                  child: InkWell(
+                    onTap: () {
+                      if (widget.product.quantity <= 1) return;
+                      context
+                          .read<DecreaseCubit>()
+                          .decrease(productId: widget.product.id);
+                    },
+                    child: state.statuses.loading
+                        ? MyStyle.loadingWidget(color: Colors.white)
+                        : Icon(
+                            Icons.remove,
+                            color: Colors.white,
+                            size: 18.0.r,
+                          ),
+                  ),
+                );
               },
-              child: Icon(Icons.remove, color: Colors.white,size: 18.0.r),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

@@ -39,7 +39,7 @@ class GetUrl {
   static const categoryById = 'category';
   static const subCategoryById = 'subCategory';
 
-  static const coupon = 'coupon';
+  static const coupon = 'carts/redeem-coupon';
 
   static const flashDeals = '';
 
@@ -90,6 +90,14 @@ class PostUrl {
   static const addToCart = 'carts';
 
   static const updateProfile = 'profile/update';
+
+  static String increase(int id) {
+    return 'carts/products/$id/quantity/increase';
+  }
+
+  static String decrease(int id) {
+    return 'carts/products/$id/quantity/decrease';
+  }
 }
 
 class PutUrl {

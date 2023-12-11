@@ -7,7 +7,11 @@ import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/core/widgets/list_product_widget.dart';
 import 'package:sadaf/core/widgets/my_text_form_widget.dart';
+import 'package:sadaf/core/widgets/not_found_widget.dart';
+import 'package:sadaf/features/cart/bloc/get_cart_cubit/get_cart_cubit.dart';
 import 'package:sadaf/features/cart/ui/pages/done_create_order_page.dart';
+import 'package:sadaf/features/cart/ui/widget/coupon_widget.dart';
+import 'package:sadaf/generated/assets.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/app_bar/app_bar_widget.dart';
@@ -16,6 +20,7 @@ import '../../../../generated/l10n.dart';
 import '../../../orders/bloc/create_order_cubit/create_order_cubit.dart';
 import '../../../orders/data/request/create_order_request.dart';
 import '../../bloc/coupon_cubit/coupon_cubit.dart';
+import '../../bloc/remove_from_cart_cubit/remove_from_cart_cubit.dart';
 
 class CartScreen extends StatefulWidget {
   const CartScreen({super.key});
@@ -26,12 +31,6 @@ class CartScreen extends StatefulWidget {
 
 class _CartScreenState extends State<CartScreen> {
   final request = CreateOrderRequest();
-
-  @override
-  void initState() {
-    context.read<CouponCubit>().reInit();
-    super.initState();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -51,92 +50,48 @@ class _CartScreenState extends State<CartScreen> {
             setState(() {});
           },
         ),
+        BlocListener<RemoveFromCartCubit, RemoveFromCartInitial>(
+          listenWhen: (p, c) => c.statuses.done,
+          listener: (context, state) {
+            context.read<CartCubit>().getCart();
+          },
+        ),
       ],
       child: Column(
         children: [
           AppBarWidget(titleText: S.of(context).cart),
           Expanded(
-            child: SingleChildScrollView(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 0.48.sh,
-                    child: const ListProductCartWidget(),
-                  ),
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 30.0).r,
-                    child: BlocBuilder<CouponCubit, CouponInitial>(
-                      builder: (context, state) {
-                        return MyTextFormOutLineWidget(
-                          label: S.of(context).coupon_code,
-                          innerPadding: const EdgeInsets.symmetric(horizontal: 10.0).w,
-                          enable: state.statuses == CubitStatuses.init,
-                          onChanged: (val) => request.couponCode = val,
-                          iconWidgetLift: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 5.0).r,
-                            child: SizedBox(
-                              width: 74.0.w,
-                              child: TextButton(
-                                onPressed: () {},
-                                style: const ButtonStyle(
-                                    backgroundColor:
-                                        MaterialStatePropertyAll(AppColorManager.ee)),
-                                child: DrawableText(
-                                  text: S.of(context).apply,
-                                  size: 11.0.sp,
-                                ),
-                              ),
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                  // BlocBuilder<CartCubit, CartInitial>(
-                  //   builder: (context, state) {
-                  //     return Container(
-                  //       padding: EdgeInsets.symmetric(vertical: 20.0).r,
-                  //       color: AppColorManager.f8,
-                  //       child: Column(
-                  //         children: [
-                  //           ItemUnderLine(
-                  //             title: S.of(context).order_summary.toUpperCase(),
-                  //             data: state.subTotal.formatPrice,
-                  //           ),
-                  //           ItemUnderLine(
-                  //             title: S.of(context).additional_service.toUpperCase(),
-                  //             data: state.deliveryPrice.formatPrice,
-                  //           ),
-                  //           Divider(),
-                  //           ItemUnderLine(
-                  //             title: S.of(context).subtotal.toUpperCase(),
-                  //             data: (state.total).formatPrice,
-                  //             large: true,
-                  //           ),
-                  //         ],
-                  //       ),
-                  //     );
-                  //   },
-                  // ),
-                  20.0.verticalSpace,
-                  BlocConsumer<CreateOrderCubit, CreateOrderInitial>(
-                    listenWhen: (p, c) => c.statuses.done,
-                    listener: (context, state) {},
-                    builder: (context, state) {
-                      if (state.statuses.loading) {
-                        return MyStyle.loadingWidget();
-                      }
-                      return MyButton(
-                        onTap: () {
-                          context.read<CreateOrderCubit>().createOrder();
+            child: BlocBuilder<CartCubit, CartInitial>(
+              builder: (context, state) {
+                if (state.result.products.isEmpty) {
+                  return const NotFoundWidget(text: 'No Data', icon: Assets.iconsCart);
+                }
+                return SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      const ListProductCartWidget(),
+                      const CouponWidget(),
+                      20.0.verticalSpace,
+                      BlocConsumer<CreateOrderCubit, CreateOrderInitial>(
+                        listenWhen: (p, c) => c.statuses.done,
+                        listener: (context, state) {},
+                        builder: (context, state) {
+                          if (state.statuses.loading) {
+                            return MyStyle.loadingWidget();
+                          }
+                          return MyButton(
+                            onTap: () {
+                              context.read<CreateOrderCubit>().createOrder();
+                            },
+                            text: S.of(context).continueTo,
+                          );
                         },
-                        text: S.of(context).continueTo,
-                      );
-                    },
+                      ),
+                      20.0.verticalSpace,
+                    ],
                   ),
-                  20.0.verticalSpace,
-                ],
-              ),
+                );
+              },
             ),
           ),
         ],
