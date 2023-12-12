@@ -18,7 +18,6 @@ class ItemCategoryImageWidget extends StatefulWidget {
   }) : super(key: key);
 
   final Category item;
-
   final bool selected;
   final int? temp;
   final bool large;
@@ -34,32 +33,36 @@ class _ItemCategoryImageWidgetState extends State<ItemCategoryImageWidget> {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 60.0.r,
-      height: 70.0.r,
+      height: 60.0.r,
       child: InkWell(
         onTap: () => widget.onTap?.call(widget.item),
-        child: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 7.0).w,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ImageMultiType(
-                url: widget.item.image,
-                width: 28.0.r,
-                height: 28.0.r,
-                color:
-                    (widget.selected) ? AppColorManager.mainColor : AppColorManager.gray,
-              ),
-              DrawableText(
-                selectable: false,
-                textAlign: TextAlign.center,
-                text: widget.item.name,
-                maxLines: widget.singleLine ? 1 : 2,
-                color:
-                    (widget.selected) ? AppColorManager.mainColor : AppColorManager.gray,
-                fontFamily: FontManager.cairoBold,
-                size: 12.0.sp,
-              ),
-            ],
+        child: Opacity(
+          opacity: (widget.selected) ? 1 : 0.4,
+          child: Container(
+            padding: const EdgeInsets.symmetric(horizontal: 7.0).w,
+            alignment: Alignment.center,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ImageMultiType(
+                  url: widget.item.image,
+                  width: 28.0.r,
+                  height: 28.0.r,
+                ),
+                DrawableText(
+                  selectable: false,
+                  textAlign: TextAlign.center,
+                  text: widget.item.name,
+                  maxLines: widget.singleLine ? 1 : 2,
+                  color: (widget.selected)
+                      ? AppColorManager.mainColor
+                      : AppColorManager.gray,
+                  fontFamily: FontManager.cairoBold,
+                  size: 12.0.sp,
+                ),
+              ],
+            ),
           ),
         ),
       ),

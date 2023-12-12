@@ -6,6 +6,12 @@ class Categories {
   final List<Category> data;
 
   factory Categories.fromJson(Map<String, dynamic> json) {
+    if (json["data"] is! List) {
+      return Categories(
+        data: [Category.fromJson(json['data'] ?? {})],
+      );
+    }
+
     return Categories(
       data: json["data"] == null
           ? []
@@ -38,7 +44,7 @@ class Category {
     return Category(
       id: json["id"] ?? 0,
       name: json["name"] ?? "",
-      image: json["image"] ??json["icon"] ?? "",
+      image: json["image"] ?? json["icon"] ?? "",
       icon: json["icon"] ?? "",
     );
   }

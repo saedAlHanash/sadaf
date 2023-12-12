@@ -39,8 +39,8 @@ class Cart {
     return Cart(
       id: json["id"] ?? 0,
       user: User.fromJson(json["user"] ?? {}),
-      subtotal: json["subtotal"] ?? 0,
-      total: json["total"] ?? 0,
+      subtotal: num.tryParse(json["subtotal"] ?? '0') ?? 0,
+      total: num.tryParse(json["total"] ?? '0') ?? 0,
       couponCode: json["coupon_code"] ?? '',
       products: json["products"] == null
           ? []

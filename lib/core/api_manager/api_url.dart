@@ -58,6 +58,10 @@ class GetUrl {
   static const profile = 'profile';
 
   static var orderById = 'orders';
+
+  static var subCategories = 'categories/sub';
+
+  static var governors = 'governors';
 }
 
 class PostUrl {

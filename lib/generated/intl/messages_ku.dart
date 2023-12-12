@@ -108,6 +108,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Şîfreya we ji bîrkir"),
         "fullName": MessageLookupByLibrary.simpleMessage("Navê têkildar"),
+        "governor": MessageLookupByLibrary.simpleMessage("governor"),
         "haveBeenCreated":
             MessageLookupByLibrary.simpleMessage("هەژمارەکەت دروستکرا"),
         "home": MessageLookupByLibrary.simpleMessage("Mal"),
@@ -123,6 +124,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "min": MessageLookupByLibrary.simpleMessage("خولەک"),
         "minutes": MessageLookupByLibrary.simpleMessage("خولەکە"),
         "myInfo": MessageLookupByLibrary.simpleMessage("زانیاریەکانم"),
+        "myLocation": MessageLookupByLibrary.simpleMessage("My Location"),
         "myOrder": MessageLookupByLibrary.simpleMessage("Pirsên min"),
         "myOrders": MessageLookupByLibrary.simpleMessage("فەرمانەکانم"),
         "name": MessageLookupByLibrary.simpleMessage("ناو"),
@@ -171,6 +173,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "profile": MessageLookupByLibrary.simpleMessage("Profil"),
         "rePassword":
             MessageLookupByLibrary.simpleMessage("Şîfreya xwedîderketinê"),
+        "receiverPhone": MessageLookupByLibrary.simpleMessage("receiverPhone"),
         "region": MessageLookupByLibrary.simpleMessage("Herêm"),
         "registeredBefore":
             MessageLookupByLibrary.simpleMessage("پێشتر تۆمارکراویت؟"),
@@ -190,6 +193,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "search_In_All": MessageLookupByLibrary.simpleMessage("Search In All"),
         "seconds": MessageLookupByLibrary.simpleMessage("seconds"),
         "see_all": MessageLookupByLibrary.simpleMessage("هەموو ببینە"),
+        "selectFromMap": MessageLookupByLibrary.simpleMessage("From Map"),
+        "selectGovernor":
+            MessageLookupByLibrary.simpleMessage("Select Governor"),
         "settings": MessageLookupByLibrary.simpleMessage("Mîhengên"),
         "sgnIn": MessageLookupByLibrary.simpleMessage("چوونە ژوورەوە"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
@@ -219,6 +225,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Hejmara telefonê ne rast e"),
         "yourAddress": MessageLookupByLibrary.simpleMessage("ناونیشانی تۆ"),
         "yourEmail": MessageLookupByLibrary.simpleMessage("ئیمەیلی تۆ"),
+        "yourLocation": MessageLookupByLibrary.simpleMessage("Your Location"),
         "yourName": MessageLookupByLibrary.simpleMessage("ناوی تۆ"),
         "yourPhone": MessageLookupByLibrary.simpleMessage("ژمارەی مۆبایلەکەت")
       };

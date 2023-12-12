@@ -36,10 +36,15 @@ class Assets {
   static const String iconsMines = 'assets/icons/mines.svg';
   static const String iconsMyOrder = 'assets/icons/my_order.svg';
   static const String iconsNoCart = 'assets/icons/no_cart.svg';
+  static const String iconsNoCartResult = 'assets/icons/no_cart_result.svg';
   static const String iconsNoFav = 'assets/icons/no_fav.svg';
+  static const String iconsNoFavResult = 'assets/icons/no_fav_result.svg';
   static const String iconsNoNotifications = 'assets/icons/no_notifications.svg';
+  static const String iconsNoNotificationsResult = 'assets/icons/no_notifications_result.svg';
+  static const String iconsNoOffersResult = 'assets/icons/no_offers_result.svg';
   static const String iconsNoOrder = 'assets/icons/no_order.svg';
   static const String iconsNoSearch = 'assets/icons/no_search.svg';
+  static const String iconsNoSearchResult = 'assets/icons/no_search_result.svg';
   static const String iconsNotFound = 'assets/icons/not_found.svg';
   static const String iconsNotification = 'assets/icons/notification.svg';
   static const String iconsNotifications = 'assets/icons/notifications.svg';

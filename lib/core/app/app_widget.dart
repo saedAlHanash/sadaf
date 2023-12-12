@@ -21,6 +21,7 @@ import '../../features/categories/bloc/categories_cubit/categories_cubit.dart';
 import '../../features/colors/bloc/colors_cubit/colors_cubit.dart';
 import '../../features/favorite/bloc/add_favorite/add_favorite_cubit.dart';
 import '../../features/favorite/bloc/get_favorite/get_favorite_cubit.dart';
+import '../../features/governors/bloc/governors_cubit/governors_cubit.dart';
 import '../../features/home/bloc/banner_cubit/banner_cubit.dart';
 import '../../features/home/bloc/slider_cubit/slider_cubit.dart';
 import '../../features/manufacturers/bloc/manufacturerss_cubit/manufacturers_cubit.dart';
@@ -154,6 +155,7 @@ class _MyAppState extends State<MyApp> {
                 BlocProvider(create: (_) => sl<DecreaseCubit>()),
                 BlocProvider(create: (_) => sl<IncreaseCubit>()),
                 BlocProvider(create: (_) => sl<CouponCubit>()),
+                BlocProvider(create: (_) => sl<GovernorsCubit>()..getGovernors()),
                 BlocProvider(create: (_) => sl<ProfileCubit>()..getProfile()),
                 BlocProvider(create: (_) => sl<CartCubit>()..getCart()),
                 BlocProvider(create: (_) => sl<FavoriteCubit>()..getFavorite()),

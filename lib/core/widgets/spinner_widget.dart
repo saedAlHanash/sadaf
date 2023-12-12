@@ -4,29 +4,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../strings/app_color_manager.dart';
+import 'my_text_form_widget.dart';
 
 class SpinnerWidget<T> extends StatefulWidget {
   const SpinnerWidget({
     Key? key,
     required this.items,
     this.hint,
+    this.hintText,
     this.onChanged,
     this.customButton,
     this.width,
     this.dropdownWidth,
     this.sendFirstItem,
     this.expanded,
+    this.isOverButton,
     this.decoration,
   }) : super(key: key);
 
   final List<SpinnerItem> items;
   final Widget? hint;
+  final String? hintText;
   final Widget? customButton;
   final Function(SpinnerItem spinnerItem)? onChanged;
   final double? width;
   final double? dropdownWidth;
   final bool? sendFirstItem;
   final bool? expanded;
+  final bool? isOverButton;
   final BoxDecoration? decoration;
 
   @override
@@ -40,12 +45,12 @@ class SpinnerWidgetState<T> extends State<SpinnerWidget<T>> {
   @override
   void initState() {
     list = widget.items.map(
-          (item) {
+      (item) {
         if (item.isSelected) selectedItem = item;
 
         final padding = (item.icon == null)
-            ? const EdgeInsets.symmetric(horizontal: 15.0).w
-            : EdgeInsets.only(left: 15.0.w);
+            ? const EdgeInsets.symmetric(horizontal: 10.0).w
+            : EdgeInsets.only(left: 10.0.w);
 
         return DropdownMenuItem(
           value: item,
@@ -55,8 +60,8 @@ class SpinnerWidgetState<T> extends State<SpinnerWidget<T>> {
             padding: padding,
             color: (item.id != -1)
                 ? (item.enable)
-                ? Colors.black
-                : AppColorManager.gray.withOpacity(0.7)
+                    ? Colors.black
+                    : AppColorManager.gray.withOpacity(0.7)
                 : AppColorManager.gray.withOpacity(0.7),
             fontFamily: FontManager.cairoBold,
             drawableStart: item.icon,
@@ -87,46 +92,63 @@ class SpinnerWidgetState<T> extends State<SpinnerWidget<T>> {
   Widget build(BuildContext context) {
     return StatefulBuilder(
       builder: (_, state) {
-        return DropdownButton2(
-          items: list,
-          value: selectedItem,
-          hint: widget.hint,
-          onChanged: (value) {
-            if (!(value!).enable) return;
-            if (widget.onChanged != null) widget.onChanged!(value);
-            state(() => selectedItem = value);
-          },
-          buttonStyleData: ButtonStyleData(
-            width: widget.width,
-            height: 60.0.h,
-            decoration: widget.decoration ??
-                BoxDecoration(
-                  borderRadius: BorderRadius.circular(12.0.r),
-                  color: AppColorManager.f1.withOpacity(0.5),
-                ),
-            padding: const EdgeInsets.only(right: 10.0).w,
-            elevation: 0,
-          ),
-          dropdownStyleData: DropdownStyleData(
-            width: widget.dropdownWidth,
-            maxHeight: 300.0.h,
-            elevation: 2,
-          ),
-          iconStyleData: IconStyleData(
-            icon: Row(
+        return Column(
+          children: [
+            Row(
               children: [
-                const Icon(
-                  Icons.expand_more,
-                  color: AppColorManager.mainColor,
+                Container(color: AppColorManager.mainColor, height: .8.h, width: .04.sw),
+                3.0.horizontalSpace,
+                DrawableText(
+                  text: widget.hintText ?? '',
+                  color: AppColorManager.gray,
+                  size: 14.0.sp,
+                  fontFamily: FontManager.cairo,
                 ),
-                18.0.horizontalSpace,
+                3.0.horizontalSpace,
+                Expanded(
+                  child: Container(color: AppColorManager.mainColor, height: .8.h),
+                )
               ],
             ),
-            iconSize: 35.0.spMin,
-          ),
-          isExpanded: widget.expanded ?? false,
-          customButton: widget.customButton,
-          underline: 0.0.verticalSpace,
+            DropdownButton2(
+              items: list,
+              value: selectedItem,
+              hint: widget.hint,
+              onChanged: (value) {
+                if (!(value!).enable) return;
+                if (widget.onChanged != null) widget.onChanged!(value);
+                state(() => selectedItem = value);
+              },
+              buttonStyleData: ButtonStyleData(
+                width: widget.width,
+                height: 40.0.h,
+                decoration: widget.decoration ?? const BoxDecoration(),
+                elevation: 0,
+              ),
+              dropdownStyleData: DropdownStyleData(
+                width: widget.dropdownWidth,
+                maxHeight: 300.0.h,
+                elevation: 2,
+                isOverButton: widget.isOverButton ?? false,
+              ),
+              iconStyleData: IconStyleData(
+                icon: Row(
+                  children: [
+                    const Icon(
+                      Icons.expand_more,
+                      color: AppColorManager.mainColor,
+                    ),
+                    18.0.horizontalSpace,
+                  ],
+                ),
+                iconSize: 35.0.spMin,
+              ),
+              isExpanded: widget.expanded ?? false,
+              customButton: widget.customButton,
+              underline: 0.0.verticalSpace,
+            ),
+            Container(color: AppColorManager.mainColor, height: 1.0.h, width: 1.0.sw),
+          ],
         );
       },
     );
@@ -248,4 +270,3 @@ class SpinnerItem {
 
 //</editor-fold>
 }
-

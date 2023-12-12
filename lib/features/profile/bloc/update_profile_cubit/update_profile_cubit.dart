@@ -43,22 +43,21 @@ class UpdateProfileCubit extends Cubit<UpdateProfileInitial> {
     if (response.statusCode.success) {
       return Pair(ProfileResponse.fromJson(response.jsonBody).data, null);
     } else {
-        return response.getPairError;
+      return response.getPairError;
     }
   }
 
   set setName(String? val) => state.request.name = val;
 
-  set setHomeAddress(String? val) => state.request.homeAddress = val;
+  set setHomeAddress(String? val) => state.request.address = val;
 
-  set setCountry(String? val) => state.request.country = val;
+  set setGovernor(int? val) => state.request.governorId = val;
 
-  set setCity(String? val) => state.request.city = val;
-
+  set setReceiverPhone(String? val) => state.request.receiverPhone = val;
 
   set setEmailOrPhone(String? val) => state.request.emailOrPhone = val;
 
-  set setMapAddress(String? val) => state.request.mapAddress = val;
+  set setMapAddress(MapAddress? val) => state.request.mapAddress = val;
 
   set setAvatar(UploadFile? val) => state.request.avatar = val;
 

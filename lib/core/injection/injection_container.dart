@@ -26,10 +26,12 @@ import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
 import '../../features/cart/service/cart_service.dart';
 
 import '../../features/categories/bloc/categories_cubit/categories_cubit.dart';
+import '../../features/categories/bloc/sub_categories_cubit/sub_categories_cubit.dart';
 import '../../features/colors/bloc/colors_cubit/colors_cubit.dart';
 import '../../features/favorite/bloc/add_favorite/add_favorite_cubit.dart';
 import '../../features/favorite/bloc/get_favorite/get_favorite_cubit.dart';
 import '../../features/firebase/bloc/insert_firebase_token_cubit/insert_firebase_token_cubit.dart';
+import '../../features/governors/bloc/governors_cubit/governors_cubit.dart';
 import '../../features/home/bloc/banner_cubit/banner_cubit.dart';
 import '../../features/home/bloc/home_cubit/home_cubit.dart';
 import '../../features/home/bloc/search_cubit/search_cubit.dart';
@@ -104,7 +106,6 @@ Future<void> init() async {
 
   //region BestSeller
 
-
   //endregion
 
   //region fav
@@ -131,6 +132,13 @@ Future<void> init() async {
   //region category
 
   sl.registerFactory(() => CategoriesCubit());
+  sl.registerFactory(() => SubCategoriesCubit());
+
+  //endregion
+
+  //region Governors
+
+  sl.registerFactory<GovernorsCubit>(() => GovernorsCubit());
 
   //endregion
 
@@ -146,7 +154,6 @@ Future<void> init() async {
 
   //endregion
 
-
   //region manufacturers
   sl.registerFactory(() => ManufacturersCubit());
 
@@ -156,7 +163,6 @@ Future<void> init() async {
   sl.registerFactory(() => CreateOrderCubit());
   sl.registerFactory(() => OrdersCubit());
   sl.registerFactory(() => OrderByIdCubit());
-
 
   //endregion
 

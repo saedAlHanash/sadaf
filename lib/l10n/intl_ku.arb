@@ -142,5 +142,11 @@
   "reset_password": "Reset Password",
   "enter_new_password_and_confirm": "Enter New Password And Confirm.",
   "share": "Share",
-  "update": "update"
+  "update": "update",
+  "governor": "governor",
+  "receiverPhone": "receiverPhone",
+  "selectGovernor": "Select Governor",
+  "selectFromMap": "From Map",
+  "myLocation": "My Location",
+  "yourLocation": "Your Location"
 }

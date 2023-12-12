@@ -1489,6 +1489,66 @@ class S {
       args: [],
     );
   }
+
+  /// `governor`
+  String get governor {
+    return Intl.message(
+      'governor',
+      name: 'governor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `receiverPhone`
+  String get receiverPhone {
+    return Intl.message(
+      'receiverPhone',
+      name: 'receiverPhone',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Select Governor`
+  String get selectGovernor {
+    return Intl.message(
+      'Select Governor',
+      name: 'selectGovernor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `From Map`
+  String get selectFromMap {
+    return Intl.message(
+      'From Map',
+      name: 'selectFromMap',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `My Location`
+  String get myLocation {
+    return Intl.message(
+      'My Location',
+      name: 'myLocation',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Location`
+  String get yourLocation {
+    return Intl.message(
+      'Your Location',
+      name: 'yourLocation',
+      desc: '',
+      args: [],
+    );
+  }
 }
 
 class AppLocalizationDelegate extends LocalizationsDelegate<S> {

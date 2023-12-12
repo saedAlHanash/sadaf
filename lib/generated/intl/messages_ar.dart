@@ -103,6 +103,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("نسيت كلمة المرور؟"),
         "fullName": MessageLookupByLibrary.simpleMessage("الاسم الكامل"),
+        "governor": MessageLookupByLibrary.simpleMessage("المحافظة"),
         "haveBeenCreated":
             MessageLookupByLibrary.simpleMessage("تم إنشاء حسابك"),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
@@ -118,6 +119,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "min": MessageLookupByLibrary.simpleMessage("دقيقة"),
         "minutes": MessageLookupByLibrary.simpleMessage("دقائق"),
         "myInfo": MessageLookupByLibrary.simpleMessage("معلوماتي"),
+        "myLocation": MessageLookupByLibrary.simpleMessage("موقعي الحالي"),
         "myOrder": MessageLookupByLibrary.simpleMessage("طلباتي"),
         "myOrders": MessageLookupByLibrary.simpleMessage("طلباتي"),
         "name": MessageLookupByLibrary.simpleMessage("الاسم"),
@@ -163,6 +165,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "price": MessageLookupByLibrary.simpleMessage("السعر"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "rePassword": MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
+        "receiverPhone": MessageLookupByLibrary.simpleMessage("هاتف المستلم"),
         "region": MessageLookupByLibrary.simpleMessage("المنطقة"),
         "registeredBefore": MessageLookupByLibrary.simpleMessage("مسجل سابقًا"),
         "registered_before":
@@ -179,6 +182,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "search_In_All": MessageLookupByLibrary.simpleMessage("البحث في الكل"),
         "seconds": MessageLookupByLibrary.simpleMessage("ثواني"),
         "see_all": MessageLookupByLibrary.simpleMessage("عرض الكل"),
+        "selectFromMap": MessageLookupByLibrary.simpleMessage("من الخريطة"),
+        "selectGovernor": MessageLookupByLibrary.simpleMessage("اختر المحافظة"),
         "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
         "sgnIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول."),
         "share": MessageLookupByLibrary.simpleMessage("مشاركة"),
@@ -206,6 +211,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "wrongPhone": MessageLookupByLibrary.simpleMessage("رقم هاتف غير صحيح"),
         "yourAddress": MessageLookupByLibrary.simpleMessage("عنوانك"),
         "yourEmail": MessageLookupByLibrary.simpleMessage("بريدك الإلكتروني"),
+        "yourLocation": MessageLookupByLibrary.simpleMessage("موقعك"),
         "yourName": MessageLookupByLibrary.simpleMessage("اسمك"),
         "yourPhone": MessageLookupByLibrary.simpleMessage("رقم هاتفك")
       };

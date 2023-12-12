@@ -28,6 +28,7 @@ import '../features/auth/ui/pages/signup_page.dart';
 import '../features/auth/ui/pages/splash_screen_page.dart';
 import '../features/cart/bloc/coupon_cubit/coupon_cubit.dart';
 import '../features/categories/bloc/categories_cubit/categories_cubit.dart';
+import '../features/categories/bloc/sub_categories_cubit/sub_categories_cubit.dart';
 import '../features/categories/ui/pages/categories_page.dart';
 import '../features/categories/ui/pages/products_page.dart';
 import '../features/home/bloc/home_cubit/home_cubit.dart';
@@ -393,7 +394,7 @@ class AppRoutes {
           if ((request.categoryId ?? 0) != 0)
             BlocProvider(
               create: (context) =>
-                  di.sl<CategoriesCubit>()..getCategories(subId: request.categoryId),
+                  di.sl<SubCategoriesCubit>()..getSubCategories(subId: request.categoryId),
             ),
         ];
         return MaterialPageRoute(

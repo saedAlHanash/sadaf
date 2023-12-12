@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/circle_image_widget.dart';
 import 'package:sadaf/core/api_manager/api_service.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 
@@ -11,6 +12,7 @@ import '../../../../generated/assets.dart';
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
 import '../../features/cart/ui/widget/cart_icons.dart';
+import '../../features/profile/bloc/profile_cubit/profile_cubit.dart';
 import '../util/shared_preferences.dart';
 
 class NewNav extends StatefulWidget {
@@ -91,10 +93,14 @@ class _NewNavState extends State<NewNav> {
                 decoration:
                     const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
                 alignment: Alignment.center,
-                child: CircleImageWidget(
-                  url: AppSharedPreference.getUserModel.avatar,
-                  color: Colors.white,
-                  size: 25.0.spMin,
+                child: BlocBuilder<ProfileCubit, ProfileInitial>(
+                  builder: (context, state) {
+                    return CircleImageWidget(
+                      url: state.result.avatar,
+                      color: Colors.white,
+                      size: 25.0.spMin,
+                    );
+                  },
                 ),
               ),
               activeIcon: Container(
@@ -114,6 +120,7 @@ class _NewNavState extends State<NewNav> {
           ],
           currentIndex: selectedIndex,
           onTap: (value) {
+            if (context.read<ProfileCubit>().state.statuses.loading) return;
             widget.onChange.call(value);
             setState(() => selectedIndex = value);
           },

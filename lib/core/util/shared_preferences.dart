@@ -24,7 +24,7 @@ class AppSharedPreference {
   static const _phoneNumberPassword = '15';
   static const _otpPassword = '16';
   static const _currency = '17';
-  static const _profile = '18';
+  static const _profile = '19';
 
   static late SharedPreferences _prefs;
 

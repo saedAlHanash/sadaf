@@ -104,6 +104,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "forgetPassword":
             MessageLookupByLibrary.simpleMessage("Forgot Password?"),
         "fullName": MessageLookupByLibrary.simpleMessage("Full Name"),
+        "governor": MessageLookupByLibrary.simpleMessage("governor"),
         "haveBeenCreated": MessageLookupByLibrary.simpleMessage(
             "Your Account Had Been Created"),
         "home": MessageLookupByLibrary.simpleMessage("Home"),
@@ -119,6 +120,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "min": MessageLookupByLibrary.simpleMessage("Min"),
         "minutes": MessageLookupByLibrary.simpleMessage("Minutes"),
         "myInfo": MessageLookupByLibrary.simpleMessage("My Info"),
+        "myLocation": MessageLookupByLibrary.simpleMessage("My Location"),
         "myOrder": MessageLookupByLibrary.simpleMessage("My Orders"),
         "myOrders": MessageLookupByLibrary.simpleMessage("My Orders"),
         "name": MessageLookupByLibrary.simpleMessage("name"),
@@ -164,6 +166,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "rePassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "receiverPhone": MessageLookupByLibrary.simpleMessage("receiverPhone"),
         "region": MessageLookupByLibrary.simpleMessage("Region"),
         "registeredBefore":
             MessageLookupByLibrary.simpleMessage("Registered Before"),
@@ -182,6 +185,9 @@ class MessageLookup extends MessageLookupByLibrary {
         "search_In_All": MessageLookupByLibrary.simpleMessage("Search In All"),
         "seconds": MessageLookupByLibrary.simpleMessage("seconds"),
         "see_all": MessageLookupByLibrary.simpleMessage("See All"),
+        "selectFromMap": MessageLookupByLibrary.simpleMessage("From Map"),
+        "selectGovernor":
+            MessageLookupByLibrary.simpleMessage("Select Governor"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "sgnIn": MessageLookupByLibrary.simpleMessage("Sign In."),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
@@ -209,6 +215,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Invalid phone number"),
         "yourAddress": MessageLookupByLibrary.simpleMessage("Your Address"),
         "yourEmail": MessageLookupByLibrary.simpleMessage("Your Email"),
+        "yourLocation": MessageLookupByLibrary.simpleMessage("Your Location"),
         "yourName": MessageLookupByLibrary.simpleMessage("Your Name"),
         "yourPhone": MessageLookupByLibrary.simpleMessage("Your Phone")
       };

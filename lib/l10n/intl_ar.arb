@@ -141,5 +141,15 @@
   "reset_password": "إعادة تعيين كلمة المرور",
   "enter_new_password_and_confirm": "أدخل كلمة السر مع التأكيد",
   "share": "مشاركة",
-  "update": "تعديل"
+  "update": "تعديل",
+  "governor": "المحافظة",
+  "receiverPhone": "هاتف المستلم",
+  "selectGovernor": "اختر المحافظة",
+  "selectFromMap": "من الخريطة",
+  "myLocation": "موقعي الحالي",
+  "yourLocation": "موقعك"
+
+
+
+
 }

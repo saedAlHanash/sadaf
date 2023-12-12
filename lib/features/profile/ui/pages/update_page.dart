@@ -1,18 +1,25 @@
+import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
+import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/core/util/snack_bar_message.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:sadaf/core/widgets/my_button.dart';
 import 'package:sadaf/core/widgets/my_text_form_widget.dart';
+import 'package:sadaf/core/widgets/spinner_widget.dart';
 import 'package:sadaf/features/profile/bloc/profile_cubit/profile_cubit.dart';
 import 'package:sadaf/features/profile/ui/widget/top_profile_widget.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../../core/util/shared_preferences.dart';
 import '../../../../generated/l10n.dart';
+import '../../../governors/bloc/governors_cubit/governors_cubit.dart';
 import '../../bloc/update_profile_cubit/update_profile_cubit.dart';
 import '../../data/request/update_profile_request.dart';
 
@@ -47,6 +54,34 @@ class _UpdatePageState extends State<UpdatePage> {
         context.read<ProfileCubit>().getProfile();
       },
       child: Scaffold(
+        bottomNavigationBar: BlocConsumer<UpdateProfileCubit, UpdateProfileInitial>(
+          listenWhen: (p, c) => c.statuses.done,
+          listener: (context, state) {
+            NoteMessage.showAwesomeDoneDialog(
+              context,
+              message: '',
+              onCancel: () {
+                Navigator.pop(context);
+              },
+            );
+          },
+          builder: (context, state) {
+            return Container(
+              constraints: BoxConstraints(maxHeight: 120.0.h),
+              padding: const EdgeInsets.all(20.0).r,
+              child: MyButton(
+                text: S.of(context).saveChange,
+                child: state.statuses.loading
+                    ? MyStyle.loadingWidget(color: Colors.white)
+                    : null,
+                onTap: () {
+                  if (state.statuses.loading) return;
+                  updateCubit.updateProfile();
+                },
+              ),
+            );
+          },
+        ),
         appBar: const AppBarWidget(zeroHeight: true),
         body: SingleChildScrollView(
           child: TopProfileWidget(
@@ -79,21 +114,74 @@ class _UpdatePageState extends State<UpdatePage> {
               if (widget.updateType == UpdateType.address)
                 Column(
                   children: [
+                    BlocBuilder<GovernorsCubit, GovernorsInitial>(
+                      builder: (context, state) {
+                        if (state.statuses.loading) {
+                          return MyStyle.loadingWidget();
+                        }
+                        return SpinnerWidget(
+                          hintText: S.of(context).governor.toUpperCase(),
+                          isOverButton: true,
+                          expanded: true,
+                          items: state.getSpinnerItem(selectedId: user.governor.id),
+                          hint: user.governor.id == 0
+                              ? DrawableText(
+                                  text: S.of(context).selectGovernor,
+                                  color: AppColorManager.gray,
+                                )
+                              : null,
+                          onChanged: (item) {
+                            updateCubit.setGovernor = item.id;
+                          },
+                        );
+                      },
+                    ),
+                    15.0.verticalSpace,
                     MyTextFormOutLineWidget(
                       label: S.of(context).yourAddress,
                       onChanged: (val) => updateCubit.setHomeAddress = val,
                       initialValue: user.address,
                     ),
-                    // MyTextFormOutLineWidget(
-                    //   label: S.of(context).city,
-                    //   onChanged: (val) => updateCubit.setCity = val,
-                    //   initialValue: user.address.city,
-                    // ),
-                    // MyTextFormOutLineWidget(
-                    //   label: S.of(context).country,
-                    //   onChanged: (val) => updateCubit.setCountry = val,
-                    //   initialValue: user.address.country,
-                    // ),
+                    MyTextFormOutLineWidget(
+                      label: S.of(context).receiverPhone,
+                      onChanged: (val) => updateCubit.setReceiverPhone = val,
+                      initialValue: user.receiverPhone,
+                    ),
+                    MyTextFormOutLineWidget(
+                      label: S.of(context).location,
+                      onChanged: (val) => updateCubit.setReceiverPhone = val,
+                      initialValue: user.receiverPhone,
+                      iconWidgetLift: IconButton(
+                        onPressed: () {},
+                        icon: const ImageMultiType(url: Icons.my_location),
+                      ),
+                    ),
+
+                    MyTextFormOutLineWidget(
+                      label: S.of(context).yourAddress,
+                      initialValue: user.mapAddress.toString(),
+                      enable: false,
+                    ),
+                    Row(
+                      children: [
+                        Expanded(
+                          child: MyButton(
+                            color: AppColorManager.mainColorLight,
+                            text: S.of(context).selectFromMap,
+                            onTap: () {},
+                          ),
+                        ),
+                        15.0.horizontalSpace,
+                        Expanded(
+                          child: MyButton(
+                            color: AppColorManager.mainColorLight,
+                            text: S.of(context).myLocation,
+                            onTap: () {},
+                          ),
+                        ),
+                      ],
+                    ),
+                    50.0.verticalSpace,
                   ],
                 ),
               if (widget.updateType == UpdateType.pass)
@@ -113,31 +201,9 @@ class _UpdatePageState extends State<UpdatePage> {
                       label: S.of(context).confirmNewPassword,
                       onChanged: (val) => request.rePass = val,
                     ),
+
                   ],
                 ),
-              BlocConsumer<UpdateProfileCubit, UpdateProfileInitial>(
-                listenWhen: (p, c) => c.statuses.done,
-                listener: (context, state) {
-                  NoteMessage.showAwesomeDoneDialog(
-                    context,
-                    message: '',
-                    onCancel: () {
-                      Navigator.pop(context);
-                    },
-                  );
-                },
-                builder: (context, state) {
-                  if (state.statuses.loading) {
-                    return MyStyle.loadingWidget();
-                  }
-                  return MyButton(
-                    text: S.of(context).saveChange,
-                    onTap: () {
-                      return updateCubit.updateProfile();
-                    },
-                  );
-                },
-              ),
             ],
           ),
         ),
