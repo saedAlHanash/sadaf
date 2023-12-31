@@ -9,7 +9,7 @@ import '../strings/app_color_manager.dart';
 class MyStyle {
   //region number style
 
-  static final double cardRadios = 10.0.r;
+  static final double cardRadios = 0.0.r;
 
   //endregion
 

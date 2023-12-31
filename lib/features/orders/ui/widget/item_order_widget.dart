@@ -38,7 +38,7 @@ class ItemOrderWidget extends StatelessWidget {
               drawableAlin: DrawableAlin.between,
               drawableEnd: DrawableText(
                 text: order.total,
-                fontFamily: FontManager.cairoBold,
+                fontFamily: FontManager.cairoBold.name,
               ),
             ),
             10.0.verticalSpace,

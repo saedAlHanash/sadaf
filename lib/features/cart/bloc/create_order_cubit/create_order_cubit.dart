@@ -52,7 +52,7 @@
 //         sl<CartService>().cleanCart();
 //         return Pair(true, null);
 //       } else {
-//         return Pair(null, ErrorManager.getApiError(response));
+//       return response.getPairError;
 //       }
 //
 //   }

@@ -41,7 +41,7 @@ class GetUrl {
 
   static const coupon = 'carts/redeem-coupon';
 
-  static const flashDeals = '';
+  static const flashDeals = 'products/flash-deals';
 
   static const categories = 'categories';
   static const banners = 'ads/banners';
@@ -51,7 +51,7 @@ class GetUrl {
 
   static const manufacturers = 'manufacturers';
 
-  static const newArrivalProducts = 'products/new-arrival';
+  static const newArrivalProducts = 'products/new-arrivals';
 
   static const cart = 'carts';
 
@@ -119,4 +119,4 @@ class DeleteUrl {
 }
 
 const additionalConst = 'api/mobile/';
-const baseUrl = '5.bandtech.co';
+const baseUrl = 'back.sadafiq.com';

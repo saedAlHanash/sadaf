@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "aboutUs": MessageLookupByLibrary.simpleMessage("معلومات عنا"),
         "accountCreated":
             MessageLookupByLibrary.simpleMessage("تم إنشاء الحساب!"),
+        "add_to_cart": MessageLookupByLibrary.simpleMessage("أضف للسلة"),
         "additional_service":
             MessageLookupByLibrary.simpleMessage("خدمة إضافية"),
         "alreadyHaveAnAccount":

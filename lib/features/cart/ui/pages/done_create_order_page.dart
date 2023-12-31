@@ -30,7 +30,7 @@ class DoneCreateOrderPage extends StatelessWidget {
                   15.0.verticalSpace,
                   DrawableText(
                     text: 'تم الشراء بنجاح',
-                    fontFamily: FontManager.cairoBold,
+                    fontFamily: FontManager.cairoBold.name,
                     color: Colors.black,
                     size: 28.0.spMin,
                   ),

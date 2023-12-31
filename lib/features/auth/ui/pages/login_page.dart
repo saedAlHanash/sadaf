@@ -51,7 +51,7 @@ class _LoginPageState extends State<LoginPage> {
                 DrawableText(
                   text: S.of(context).welcomeBack,
                   size: 28.0.spMin,
-                  fontFamily: FontManager.cairoBold,
+                  fontFamily: FontManager.cairoBold.name,
                   matchParent: true,
                 ),
                 10.0.verticalSpace,
@@ -99,7 +99,7 @@ class _LoginPageState extends State<LoginPage> {
                   drawableEnd: TextButton(
                     onPressed: () => Navigator.pushNamed(context, RouteName.signup),
                     child: DrawableText(
-                      fontFamily: FontManager.cairoBold,
+                      fontFamily: FontManager.cairoBold.name,
                       text: '${S.of(context).signUp}.',
                     ),
                   ),

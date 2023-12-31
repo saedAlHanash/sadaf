@@ -43,7 +43,7 @@ class _MyExpansionWidgetState extends State<MyExpansionWidget> {
             if (e.headerText != null) {
               return DrawableText(
                 text: e.headerText!,
-                fontFamily: FontManager.cairoBold,
+                fontFamily: FontManager.cairoBold.name,
                 color: Colors.black,
                 drawablePadding: 10.0.w,
               );

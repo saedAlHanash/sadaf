@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sadaf/core/api_manager/api_url.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
@@ -46,6 +47,13 @@ class UpdateProfileCubit extends Cubit<UpdateProfileInitial> {
       return response.getPairError;
     }
   }
+
+  final addressController = TextEditingController(
+    text: AppSharedPreference.getProfile.address,
+  );
+  final locationController = TextEditingController(
+    text: AppSharedPreference.getProfile.mapAddress.toString(),
+  );
 
   set setName(String? val) => state.request.name = val;
 

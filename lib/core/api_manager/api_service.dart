@@ -29,7 +29,9 @@ var loggerObject = Logger(
   ),
 );
 
-var serverDateTime = DateTime.now();
+DateTime? _serverDateTime;
+
+DateTime get serverDateTime => _serverDateTime ?? DateTime.now();
 
 typedef OnUploadProgressCallback = void Function(int sentBytes, int totalBytes);
 
@@ -65,16 +67,17 @@ class APIService {
     required String url,
     Map<String, dynamic>? query,
     String? path,
+    String? hostName,
   }) async {
     if (!await network.isConnected) _noInternet;
 
-    url = additionalConst + url;
+    if (hostName == null) url = additionalConst + url;
 
     _fixQuery(query);
 
     if (path != null) url = '$url/$path';
 
-    var uri = Uri.https(baseUrl, url, query);
+    final uri = Uri.https(hostName ?? baseUrl, url, query);
 
     logRequest(url, query);
 

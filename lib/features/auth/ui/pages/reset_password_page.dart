@@ -63,7 +63,7 @@ class _ResetPasswordPageState extends State<ResetPasswordPage> {
           child: DrawableText(
             size: 18.0.sp,
             underLine: true,
-            fontFamily: FontManager.cairoBold,
+            fontFamily: FontManager.cairoBold.name,
             text: '${S.of(context).login}.',
           ),
         ),

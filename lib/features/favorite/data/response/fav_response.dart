@@ -38,7 +38,7 @@ class Fav {
   factory Fav.fromJson(Map<String, dynamic> json) {
     return Fav(
       id: json["id"] ?? 0,
-      productId: json["productId"] ?? 0,
+      productId: json["product_id"] ?? 0,
       name: json["name"] ?? "",
       thumbnail: json["thumbnail"] ?? "",
       price: json["price"] ?? "",
@@ -48,7 +48,7 @@ class Fav {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "productId": productId,
+        "product_id": productId,
         "name": name,
         "thumbnail": thumbnail,
         "price": price,

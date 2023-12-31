@@ -1,21 +1,15 @@
 part of 'flash_deal_cubit.dart';
 
-class FlashDealsInitial extends Equatable {
-  final CubitStatuses statuses;
-  final List<FlashDeal> result;
-  final String error;
-
+class FlashDealsInitial extends AbstractCubit<List<FlashDeal>> {
   const FlashDealsInitial({
-    required this.statuses,
-    required this.result,
-    required this.error,
+    required super.result,
+    super.error,
+    super.statuses,
   });
 
   factory FlashDealsInitial.initial() {
     return const FlashDealsInitial(
-      result: <FlashDeal>[],
-      error: '',
-      statuses: CubitStatuses.init,
+      result: [],
     );
   }
 
@@ -33,5 +27,4 @@ class FlashDealsInitial extends Equatable {
       error: error ?? this.error,
     );
   }
-
 }

@@ -50,6 +50,7 @@ class Product {
     required this.createdAt,
     required this.description,
     required this.images,
+    required this.dddImages,
     required this.videoLinks,
     required this.options,
     required this.reviews,
@@ -67,11 +68,12 @@ class Product {
   final String discountPrice;
   final String discountPriceInIqd;
   final String discountEndAt;
-  final ColorModel color;
+  final List<ColorModel> color;
   final String size;
   final String createdAt;
   final String description;
   final List<String> images;
+  final List<String> dddImages;
   final List<String> videoLinks;
   final List<Option> options;
   final List<Review> reviews;
@@ -96,11 +98,17 @@ class Product {
       discountPrice: json["discount_price"] ?? "",
       discountPriceInIqd: json["discount_price_in_iqd"] ?? "",
       discountEndAt: json["discount_end_at"] ?? "",
-      color:ColorModel.fromJson( json["color"] ?? {}),
+      color: json["color"] == null
+          ? <ColorModel>[]
+          : (json["color"] is List)
+              ? List<ColorModel>.from(json["color"]!.map((x) => ColorModel.fromJson(x)))
+              : [ColorModel.fromJson(json["color"] ?? {})],
       size: json["size"] ?? "",
       createdAt: json["created_at"] ?? "",
       description: json["description"] ?? "",
       images:
+          json["images"] == null ? [] : List<String>.from(json["images"]!.map((x) => x)),
+      dddImages:
           json["images"] == null ? [] : List<String>.from(json["images"]!.map((x) => x)),
       videoLinks: json["video_links"] == null
           ? []
@@ -119,11 +127,16 @@ class Product {
     );
 
     product.quantity = json['quantity'] ?? 0;
+
     product.attachment
         .add(Attachment(link: product.thumbnail, type: AttachmentType.image));
 
     for (var e in product.images) {
       product.attachment.add(Attachment(link: e, type: AttachmentType.image));
+    }
+
+    for (var e in product.dddImages) {
+      product.attachment.add(Attachment(link: e, type: AttachmentType.d3));
     }
 
     for (var e in product.videoLinks) {
@@ -157,11 +170,12 @@ class Product {
         "discount_price": discountPrice,
         "discount_price_in_iqd": discountPriceInIqd,
         "discount_end_at": discountEndAt,
-        "color": color.toJson(),
+        "color": color.map((e) => e.toJson()).toList(),
         "size": size,
         "created_at": createdAt,
         "description": description,
         "images": images.map((x) => x).toList(),
+        "threed_images": dddImages.map((x) => x).toList(),
         "video_links": videoLinks.map((x) => x).toList(),
         "options": options.map((x) => x.toJson()).toList(),
         "reviews": reviews.map((x) => x.toJson()).toList(),

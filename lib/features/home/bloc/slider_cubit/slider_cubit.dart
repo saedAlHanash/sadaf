@@ -39,7 +39,7 @@ class SliderCubit extends Cubit<SliderInitial> {
     if (response.statusCode == 200) {
       return Pair(BannersResponse.fromJson(response.jsonBody).data, null);
     } else {
-      return Pair(null, ErrorManager.getApiError(response));
+    return response.getPairError;
     }
   }
 }

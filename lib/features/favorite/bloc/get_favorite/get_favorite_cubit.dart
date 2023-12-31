@@ -36,7 +36,7 @@ class FavoriteCubit extends Cubit<FavoriteInitial> {
         null,
       );
     } else {
-      return Pair(null, ErrorManager.getApiError(response));
+    return response.getPairError;
     }
   }
 

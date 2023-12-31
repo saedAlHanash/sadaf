@@ -123,7 +123,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             10.0.verticalSpace,
             DrawableText(
-                text: 'تسجبل الخروج ?', fontFamily: FontManager.cairoBold, size: 20.0.sp),
+                text: 'تسجبل الخروج ?', fontFamily: FontManager.cairoBold.name, size: 20.0.sp),
             const Divider(endIndent: 10.0, indent: 10.0),
             DrawableText(
               text: 'هل أنت متأكد من تسجيل الخروج؟ ',
@@ -194,7 +194,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             10.0.verticalSpace,
             DrawableText(
                 text: 'تأكيد حذف الحساب',
-                fontFamily: FontManager.cairoBold,
+                fontFamily: FontManager.cairoBold.name,
                 size: 19.0.sp),
             const Divider(endIndent: 10.0, indent: 10.0),
             DrawableText(

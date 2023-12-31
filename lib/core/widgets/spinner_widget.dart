@@ -63,7 +63,7 @@ class SpinnerWidgetState<T> extends State<SpinnerWidget<T>> {
                     ? Colors.black
                     : AppColorManager.gray.withOpacity(0.7)
                 : AppColorManager.gray.withOpacity(0.7),
-            fontFamily: FontManager.cairoBold,
+            fontFamily: FontManager.cairoBold.name,
             drawableStart: item.icon,
             drawablePadding: 15.0.w,
           ),
@@ -102,7 +102,7 @@ class SpinnerWidgetState<T> extends State<SpinnerWidget<T>> {
                   text: widget.hintText ?? '',
                   color: AppColorManager.gray,
                   size: 14.0.sp,
-                  fontFamily: FontManager.cairo,
+                  fontFamily: FontManager.cairo.name,
                 ),
                 3.0.horizontalSpace,
                 Expanded(

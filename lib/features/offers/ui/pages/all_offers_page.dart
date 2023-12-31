@@ -17,7 +17,9 @@ import '../../bloc/offers_cubit/offers_cubit.dart';
 import '../widget/offers_list_page.dart';
 
 class AllOffersPage extends StatefulWidget {
-  const AllOffersPage({super.key});
+  const AllOffersPage({super.key, required this.index});
+
+  final int index;
 
   @override
   State<AllOffersPage> createState() => _AllOffersPageState();
@@ -30,6 +32,12 @@ class _AllOffersPageState extends State<AllOffersPage>
   @override
   void initState() {
     _tabController = TabController(length: 2, vsync: this);
+    if (widget.index > 0) {
+      Future.delayed(
+        const Duration(milliseconds: 500),
+        () => _tabController.animateTo(1),
+      );
+    }
     super.initState();
   }
 

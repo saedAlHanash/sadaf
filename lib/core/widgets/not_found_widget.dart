@@ -27,7 +27,7 @@ class NotFoundWidget extends StatelessWidget {
             ),
             DrawableText(
               text: 'Sorry !',
-              fontFamily: FontManager.cairoBold,
+              fontFamily: FontManager.cairoBold.name,
               color: Colors.black,
               size: 20.0.spMin,
             ),

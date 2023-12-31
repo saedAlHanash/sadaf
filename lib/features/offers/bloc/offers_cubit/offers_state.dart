@@ -1,21 +1,15 @@
 part of 'offers_cubit.dart';
 
-class OffersInitial extends Equatable {
-  final CubitStatuses statuses;
-  final List<Offer> result;
-  final String error;
-
+class OffersInitial extends AbstractCubit<List<Offer>> {
   const OffersInitial({
-    required this.statuses,
-    required this.result,
-    required this.error,
+    required super.result,
+    super.error,
+    super.statuses,
   });
 
   factory OffersInitial.initial() {
     return const OffersInitial(
-      result: <Offer>[],
-      error: '',
-      statuses: CubitStatuses.init,
+      result: [],
     );
   }
 
@@ -33,5 +27,4 @@ class OffersInitial extends Equatable {
       error: error ?? this.error,
     );
   }
-
 }

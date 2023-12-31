@@ -77,15 +77,12 @@ class _TopProfileWidgetState extends State<TopProfileWidget> {
                         matchParent: true,
                         textAlign: TextAlign.center,
                         color: Colors.white,
-                        fontFamily: FontManager.cairoBold,
+                        fontFamily: FontManager.cairoBold.name,
                         size: 24.0.sp,
                         drawableAlin: DrawableAlin.between,
-                        text: S
-                            .of(context)
-                            .profile,
+                        text: S.of(context).profile,
                         drawableStart: InkWell(
-                          onTap: () =>
-                          widget.title == null
+                          onTap: () => widget.title == null
                               ? Scaffold.of(context).openDrawer()
                               : Navigator.pop(context),
                           child: ImageMultiType(
@@ -104,7 +101,7 @@ class _TopProfileWidgetState extends State<TopProfileWidget> {
                   Positioned(
                     bottom: 0.0,
                     right: 60.w,
-                    child:ItemImageCreate(
+                    child: ItemImageCreate(
                       onLoad: (bytes) {
                         loggerObject.w('message');
                         return widget.onLoad?.call(bytes);
@@ -138,7 +135,7 @@ class _TopProfileWidgetState extends State<TopProfileWidget> {
                               DrawableText(
                                 text: state.result.name,
                                 textAlign: TextAlign.right,
-                                fontFamily: FontManager.cairoBold,
+                                fontFamily: FontManager.cairoBold.name,
                                 size: 24.0.sp,
                               ),
                               DrawableText(

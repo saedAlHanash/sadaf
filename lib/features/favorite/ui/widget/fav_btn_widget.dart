@@ -10,9 +10,10 @@ import '../../../../core/util/my_style.dart';
 import '../../bloc/add_favorite/add_favorite_cubit.dart';
 
 class FavBtnWidget extends StatelessWidget {
-  const FavBtnWidget({super.key, required this.product});
+  const FavBtnWidget({super.key, required this.product, this.withBackground = true});
 
   final Product product;
+  final bool withBackground;
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +22,14 @@ class FavBtnWidget extends StatelessWidget {
       width: 50.0.r,
       alignment: Alignment.center,
       padding: const EdgeInsets.all(10.0).r,
-      decoration: BoxDecoration(
-        shape: BoxShape.circle,
-        color: Colors.white.withOpacity(0.5),
-      ),
+      decoration: withBackground
+          ? BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white.withOpacity(0.5),
+            )
+          : null,
       child: BlocBuilder<AddFavoriteCubit, AddFavoriteInitial>(
+        buildWhen: (p, c) => c.product.id == product.id,
         builder: (context, state) {
           if (state.statuses.loading) {
             return MyStyle.loadingWidget();

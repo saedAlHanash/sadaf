@@ -49,6 +49,7 @@ class _CardAttachmentsSliderState extends State<CardAttachmentsSlider> {
       case AttachmentType.video:
         return VideoPlayerWidget(attachment: attachment);
       case AttachmentType.d3:
+        //TODO:
         return ImageMultiType(
           url: attachment.link,
           fit: BoxFit.fill,

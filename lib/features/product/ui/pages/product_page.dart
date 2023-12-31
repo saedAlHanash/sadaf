@@ -80,9 +80,7 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
                 SliverToBoxAdapter(
                     child: Column(
                   children: [
-                    CardAttachmentsSlider(
-                      product: state.result,
-                    ),
+                    CardAttachmentsSlider(product: state.result),
                     20.0.verticalSpace,
                     SizedBox(
                       height: 42.h,

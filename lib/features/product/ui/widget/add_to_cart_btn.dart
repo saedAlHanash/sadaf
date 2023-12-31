@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/util/snack_bar_message.dart';
 
@@ -68,7 +69,7 @@ class AddToCartBtn extends StatelessWidget {
               text: S.of(context).add_to_cart,
               matchParent: true,
               color: Colors.white,
-              fontFamily: FontManager.cairoBold,
+              fontFamily: FontManager.cairoBold.name,
               size: 24.0.sp,
               textAlign: TextAlign.center,
               drawableEnd: BlocBuilder<AddToCartCubit, AddToCartInitial>(
@@ -100,24 +101,26 @@ class AddToCartBtnFav extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 25.0.r,
-      width: 25.0.r,
-      color: Colors.black,
-      child: BlocBuilder<AddToCartCubit, AddToCartInitial>(
-        buildWhen: (p, c) => c.id == fav.productId,
-        builder: (context, state) {
-          if (state.statuses.loading) {
-            return MyStyle.loadingWidget();
-          }
-          return InkWell(
-            onTap: () {
-              context.read<AddToCartCubit>().addToCart(productId: fav.productId);
-            },
-            child: const Icon(Icons.add, color: Colors.white),
-          );
-        },
-      ),
+    return BlocBuilder<AddToCartCubit, AddToCartInitial>(
+      buildWhen: (p, c) => c.id == fav.productId,
+      builder: (context, state) {
+        return InkWell(
+          onTap: state.statuses.loading
+              ? null
+              : () {
+                  loggerObject.w(fav.productId);
+                  context.read<AddToCartCubit>().addToCart(productId: fav.productId);
+                },
+          child: Container(
+            height: 30.0.r,
+            width: 30.0.r,
+            color: Colors.black,
+            child: state.statuses.loading
+                ? MyStyle.loadingWidget(color: AppColorManager.whit)
+                : const Icon(Icons.add, color: Colors.white),
+          ),
+        );
+      },
     );
   }
 }

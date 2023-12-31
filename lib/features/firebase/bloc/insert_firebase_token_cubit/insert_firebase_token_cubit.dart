@@ -52,7 +52,7 @@ class InsertFirebaseTokenCubit extends Cubit<InsertFirebaseTokenInitial> {
       if (response.statusCode.success) {
         return Pair(true, null);
       } else {
-        return Pair(null, ErrorManager.getApiError(response));
+      return response.getPairError;
       }
      
   }

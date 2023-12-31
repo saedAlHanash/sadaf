@@ -46,7 +46,7 @@ class CartIcon extends StatelessWidget {
                           : '9+',
                       color: AppColorManager.mainColor,
                       size: state.result.products.length < 10 ? 10.0.sp : 8.0.sp,
-                      fontFamily: FontManager.cairoBold,
+                      fontFamily: FontManager.cairoBold.name,
                     ),
                   ),
                 ),

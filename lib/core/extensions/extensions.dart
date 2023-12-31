@@ -87,6 +87,14 @@ extension SplitByLength on String {
   }
 
   String get removeSpace => replaceAll(' ', '');
+
+  String get removeDuplicates {
+    List<String> words = split(' ');
+    Set<String> uniqueWords = Set<String>.from(words);
+    List<String> uniqueList = uniqueWords.toList();
+    String output = uniqueList.join(' ');
+    return output;
+  }
 }
 
 extension StringHelper on String? {
@@ -311,4 +319,13 @@ class FormatDateTime {
     required this.minutes,
     required this.seconds,
   });
+
+  @override
+  String toString() {
+    return '$months\n'
+        '$days\n'
+        '$hours\n'
+        '$minutes\n'
+        '$seconds\n';
+  }
 }

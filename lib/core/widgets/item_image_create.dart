@@ -33,7 +33,19 @@ class ItemImageCreate extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              CircleImageWidget(url: image),
+              Container(
+                height: 100.0.r,
+                width: 100.0.r,
+                clipBehavior: Clip.hardEdge,
+                decoration: const BoxDecoration(
+                  color:Colors.white,
+                  shape: BoxShape.circle,
+                ),
+                child: ImageMultiType(
+                  url: image,
+                  fit: BoxFit.cover,
+                ),
+              ),
               const ImageMultiType(url: Icons.edit, color: Colors.white)
             ],
           ),

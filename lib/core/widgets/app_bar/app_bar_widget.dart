@@ -32,7 +32,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         title:title?? DrawableText(
           text: titleText ?? '',
           size: 28.0.spMin,
-          fontFamily: FontManager.cairoBold,
+          fontFamily: FontManager.cairoBold.name,
         ),
         leading: Navigator.canPop(context) ? const BackBtnWidget() : null,
         actions: actions,

@@ -8,7 +8,7 @@ import 'package:sadaf/features/product/bloc/products_cubit/products_cubit.dart';
 import 'package:sadaf/features/product/data/response/products_response.dart';
 import 'package:sadaf/features/product/ui/pages/product_page.dart';
 
-import '../core/injection/injection_container.dart' as di;
+import '../core/injection/injection_container.dart';
 import '../features/auth/bloc/confirm_code_cubit/confirm_code_cubit.dart';
 import '../features/auth/bloc/delete_account_cubit/delete_account_cubit.dart';
 import '../features/auth/bloc/forget_password_cubit/forget_password_cubit.dart';
@@ -26,16 +26,14 @@ import '../features/auth/ui/pages/otp_password_page.dart';
 import '../features/auth/ui/pages/reset_password_page.dart';
 import '../features/auth/ui/pages/signup_page.dart';
 import '../features/auth/ui/pages/splash_screen_page.dart';
-import '../features/cart/bloc/coupon_cubit/coupon_cubit.dart';
-import '../features/categories/bloc/categories_cubit/categories_cubit.dart';
 import '../features/categories/bloc/sub_categories_cubit/sub_categories_cubit.dart';
 import '../features/categories/ui/pages/categories_page.dart';
 import '../features/categories/ui/pages/products_page.dart';
 import '../features/home/bloc/home_cubit/home_cubit.dart';
 import '../features/home/bloc/search_cubit/search_cubit.dart';
 import '../features/home/ui/pages/home_page.dart';
+import '../features/map/bloc/my_location_cubit/my_location_cubit.dart';
 import '../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
-import '../features/offers/bloc/offers_cubit/offers_cubit.dart';
 import '../features/offers/ui/pages/all_offers_page.dart';
 import '../features/orders/bloc/create_order_cubit/create_order_cubit.dart';
 import '../features/orders/bloc/orders_cubit/orders_cubit.dart';
@@ -46,7 +44,6 @@ import '../features/product/bloc/product_by_id_cubit/product_by_id_cubit.dart';
 import '../features/product/bloc/select_option_cubit/select_option_cubit.dart';
 import '../features/product/data/request/product_filter_request.dart';
 import '../features/product/ui/pages/product_options_page.dart';
-import '../features/profile/bloc/profile_cubit/profile_cubit.dart';
 import '../features/profile/bloc/update_profile_cubit/update_profile_cubit.dart';
 import '../features/profile/ui/pages/my_info_page.dart';
 import '../features/profile/ui/pages/update_choice_page.dart';
@@ -68,9 +65,9 @@ class AppRoutes {
         //region
         {
           return MaterialPageRoute(
-            builder: (context) {
+            builder: (_) {
               final providers = [
-                BlocProvider(create: (context) => di.sl<SignupCubit>()),
+                BlocProvider(create: (_) => sl<SignupCubit>()),
               ];
               return MultiBlocProvider(
                 providers: providers,
@@ -84,10 +81,10 @@ class AppRoutes {
         //region
         {
           final providers = [
-            BlocProvider(create: (context) => di.sl<LoginCubit>()),
+            BlocProvider(create: (_) => sl<LoginCubit>()),
           ];
           return MaterialPageRoute(
-            builder: (context) {
+            builder: (_) {
               return MultiBlocProvider(
                 providers: providers,
                 child: const LoginPage(),
@@ -100,10 +97,10 @@ class AppRoutes {
         //region
         {
           final providers = [
-            BlocProvider(create: (context) => di.sl<ForgetPasswordCubit>()),
+            BlocProvider(create: (_) => sl<ForgetPasswordCubit>()),
           ];
           return MaterialPageRoute(
-            builder: (context) {
+            builder: (_) {
               return MultiBlocProvider(
                 providers: providers,
                 child: const ForgetPasswordPage(),
@@ -116,10 +113,10 @@ class AppRoutes {
         //region
         {
           final providers = [
-            BlocProvider(create: (context) => di.sl<ResetPasswordCubit>()),
+            BlocProvider(create: (_) => sl<ResetPasswordCubit>()),
           ];
           return MaterialPageRoute(
-            builder: (context) {
+            builder: (_) {
               return MultiBlocProvider(
                 providers: providers,
                 child: const ResetPasswordPage(),
@@ -132,11 +129,11 @@ class AppRoutes {
         //region
         {
           final providers = [
-            BlocProvider(create: (context) => di.sl<ConfirmCodeCubit>()),
-            BlocProvider(create: (context) => di.sl<ResendCodeCubit>()),
+            BlocProvider(create: (_) => sl<ConfirmCodeCubit>()),
+            BlocProvider(create: (_) => sl<ResendCodeCubit>()),
           ];
           return MaterialPageRoute(
-            builder: (context) {
+            builder: (_) {
               return MultiBlocProvider(
                 providers: providers,
                 child: const ConfirmCodePage(),
@@ -149,11 +146,11 @@ class AppRoutes {
         //region
         {
           final providers = [
-            BlocProvider(create: (context) => di.sl<OtpPasswordCubit>()),
-            BlocProvider(create: (context) => di.sl<ResendCodeCubit>()),
+            BlocProvider(create: (_) => sl<OtpPasswordCubit>()),
+            BlocProvider(create: (_) => sl<ResendCodeCubit>()),
           ];
           return MaterialPageRoute(
-            builder: (context) {
+            builder: (_) {
               return MultiBlocProvider(
                 providers: providers,
                 child: const OtpPasswordPage(),
@@ -167,7 +164,7 @@ class AppRoutes {
         //region
         {
           return MaterialPageRoute(
-            builder: (context) {
+            builder: (_) {
               return DonePage(params: settings.arguments as DonePageParams);
             },
           );
@@ -180,14 +177,13 @@ class AppRoutes {
         //region
 
         final providers = [
-          BlocProvider(create: (_) => di.sl<HomeCubit>()..getHome(_)),
-          BlocProvider(create: (_) => di.sl<LogoutCubit>()),
-          BlocProvider(create: (_) => di.sl<DeleteAccountCubit>()),
-          BlocProvider(create: (_) => di.sl<CreateOrderCubit>()),
-
+          BlocProvider(create: (_) => sl<HomeCubit>()..getHome(_)),
+          BlocProvider(create: (_) => sl<LogoutCubit>()),
+          BlocProvider(create: (_) => sl<DeleteAccountCubit>()),
+          BlocProvider(create: (_) => sl<CreateOrderCubit>()),
         ];
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             return MultiBlocProvider(
               providers: providers,
               child: const Homepage(),
@@ -199,15 +195,9 @@ class AppRoutes {
       case RouteName.offers:
         //region
 
-        final providers = [
-          BlocProvider(create: (_) => di.sl<OffersCubit>()..getOffers(_)),
-        ];
         return MaterialPageRoute(
-          builder: (context) {
-            return MultiBlocProvider(
-              providers: providers,
-              child: const AllOffersPage(),
-            );
+          builder: (_) {
+            return AllOffersPage(index: (settings.arguments ?? 0) as int);
           },
         );
       //endregion
@@ -216,10 +206,10 @@ class AppRoutes {
         //region
 
         final providers = [
-          BlocProvider(create: (_) => di.sl<NotificationsCubit>()..getNotifications(_)),
+          BlocProvider(create: (_) => sl<NotificationsCubit>()..getNotifications(_)),
         ];
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             return MultiBlocProvider(
               providers: providers,
               child: const NotificationsPage(),
@@ -233,12 +223,12 @@ class AppRoutes {
 
         final providers = [
           BlocProvider(
-            create: (_) => di.sl<SearchCubit>()
+            create: (_) => sl<SearchCubit>()
               ..getSearch(_, searchKey: (settings.arguments ?? '') as String),
           ),
         ];
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             return MultiBlocProvider(
               providers: providers,
               child: const SearchResultPage(),
@@ -254,10 +244,11 @@ class AppRoutes {
         //region
 
         final providers = [
-          BlocProvider(create: (_) => di.sl<UpdateProfileCubit>()),
+          BlocProvider(create: (_) => sl<UpdateProfileCubit>()),
+          BlocProvider(create: (_) => sl<MyLocationCubit>()),
         ];
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             return MultiBlocProvider(
               providers: providers,
               child: UpdatePage(
@@ -271,7 +262,7 @@ class AppRoutes {
         //region
 
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             return const MyInfoPage();
           },
         );
@@ -280,7 +271,7 @@ class AppRoutes {
       case RouteName.updateChoice:
         //region
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             return const UpdateChoicePage();
           },
         );
@@ -288,7 +279,7 @@ class AppRoutes {
       case RouteName.about:
         //region
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             return const AboutPage();
           },
         );
@@ -296,7 +287,7 @@ class AppRoutes {
       case RouteName.privacy:
         //region
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             return const PrivacyPage();
           },
         );
@@ -308,7 +299,7 @@ class AppRoutes {
 
       case RouteName.myOrders:
         final providers = [
-          BlocProvider(create: (_) => di.sl<OrdersCubit>()..getOrders()),
+          BlocProvider(create: (_) => sl<OrdersCubit>()..getOrders()),
         ];
         return MaterialPageRoute(
           builder: (_) {
@@ -323,13 +314,13 @@ class AppRoutes {
         //region
         final providers = [
           BlocProvider(
-            create: (context) => di.sl<OrderByIdCubit>()
+            create: (_) => sl<OrderByIdCubit>()
               ..getOrderById(
                   id: ((settings.arguments ?? Order.fromJson({})) as Order).id),
           ),
         ];
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             return MultiBlocProvider(
               providers: providers,
               child: const OrderPage(),
@@ -347,13 +338,12 @@ class AppRoutes {
         //region
         final providers = [
           BlocProvider(
-            create: (context) => di.sl<ProductByIdCubit>()
-              ..getProductById(
-                  id: ((settings.arguments ?? Product.fromJson({})) as Product).id),
+            create: (_) => sl<ProductByIdCubit>()
+              ..getProductById(id: (settings.arguments ?? 0) as int),
           ),
         ];
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             return MultiBlocProvider(
               providers: providers,
               child: const ProductPage(),
@@ -367,10 +357,10 @@ class AppRoutes {
         final product = ((settings.arguments ?? Product.fromJson({})) as Product);
         //region
         final providers = [
-          BlocProvider(create: (_) => di.sl<SelectOptionCubit>()..setProduct(product))
+          BlocProvider(create: (_) => sl<SelectOptionCubit>()..setProduct(product))
         ];
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             return MultiBlocProvider(
               providers: providers,
               child: ProductOptionsPage(product: product),
@@ -389,16 +379,16 @@ class AppRoutes {
             as ProductFilterRequest;
         final providers = [
           BlocProvider(
-            create: (context) => di.sl<ProductsCubit>()..getProducts(request: request),
+            create: (_) => sl<ProductsCubit>()..getProducts(request: request),
           ),
           if ((request.categoryId ?? 0) != 0)
             BlocProvider(
-              create: (context) =>
-                  di.sl<SubCategoriesCubit>()..getSubCategories(subId: request.categoryId),
+              create: (_) =>
+                  sl<SubCategoriesCubit>()..getSubCategories(subId: request.categoryId),
             ),
         ];
         return MaterialPageRoute(
-          builder: (context) {
+          builder: (_) {
             return MultiBlocProvider(
               providers: providers,
               child: const ProductsPage(),
@@ -410,7 +400,7 @@ class AppRoutes {
 
       //region category
       case RouteName.category:
-        return MaterialPageRoute(builder: (context) {
+        return MaterialPageRoute(builder: (_) {
           return CategoriesPage();
         });
 

@@ -66,7 +66,7 @@ class _OtpPasswordPageState extends State<OtpPasswordPage> {
           child: DrawableText(
             size: 18.0.sp,
             underLine: true,
-            fontFamily: FontManager.cairoBold,
+            fontFamily: FontManager.cairoBold.name,
             text: '${S.of(context).login}.',
           ),
         ),
@@ -106,7 +106,7 @@ class _OtpPasswordPageState extends State<OtpPasswordPage> {
                       return DrawableText(
                         text: S.of(context).resend,
                         underLine: true,
-                        fontFamily: FontManager.cairoBold,
+                        fontFamily: FontManager.cairoBold.name,
                       );
                     },
                   ),

@@ -31,12 +31,14 @@ import '../../features/colors/bloc/colors_cubit/colors_cubit.dart';
 import '../../features/favorite/bloc/add_favorite/add_favorite_cubit.dart';
 import '../../features/favorite/bloc/get_favorite/get_favorite_cubit.dart';
 import '../../features/firebase/bloc/insert_firebase_token_cubit/insert_firebase_token_cubit.dart';
+import '../../features/flash_deal/bloc/flash_deal_cubit/flash_deal_cubit.dart';
 import '../../features/governors/bloc/governors_cubit/governors_cubit.dart';
 import '../../features/home/bloc/banner_cubit/banner_cubit.dart';
 import '../../features/home/bloc/home_cubit/home_cubit.dart';
 import '../../features/home/bloc/search_cubit/search_cubit.dart';
 import '../../features/home/bloc/slider_cubit/slider_cubit.dart';
 import '../../features/manufacturers/bloc/manufacturerss_cubit/manufacturers_cubit.dart';
+import '../../features/map/bloc/my_location_cubit/my_location_cubit.dart';
 import '../../features/notifications/bloc/notification_count_cubit/notification_count_cubit.dart';
 import '../../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
 import '../../features/offers/bloc/offers_cubit/offers_cubit.dart';
@@ -64,6 +66,7 @@ Future<void> init() async {
 
   sl.registerFactory(() => NotificationCountCubit());
   sl.registerFactory(() => UpdateCartCubit());
+  sl.registerFactory(() => MyLocationCubit());
   sl.registerLazySingleton(() => LoadingCubit());
   sl.registerLazySingleton(() => SettingService());
   sl.registerLazySingleton(() => InsertFirebaseTokenCubit());
@@ -101,6 +104,7 @@ Future<void> init() async {
 
   //region offers
   sl.registerFactory(() => OffersCubit());
+  sl.registerFactory(() => FlashDealsCubit());
 
   //endregion
 

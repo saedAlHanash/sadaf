@@ -1,15 +1,21 @@
+import 'dart:async';
+
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
+import 'package:sadaf/features/flash_deal/data/models/flash_deal.dart';
 import 'package:sadaf/generated/assets.dart';
 
+import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../generated/l10n.dart';
 
 class FlashDealWidget extends StatelessWidget {
-  const FlashDealWidget({super.key});
+  const FlashDealWidget({super.key, required this.item});
+
+  final FlashDeal item;
 
   @override
   Widget build(BuildContext context) {
@@ -20,47 +26,7 @@ class FlashDealWidget extends StatelessWidget {
         children: [
           Expanded(
             flex: 1,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                DrawableText(
-                  size: 12.0.sp,
-                  text: S.of(context).days,
-                  matchParent: true,
-                  drawableAlin: DrawableAlin.between,
-                  drawablePadding: 10.0.w,
-                  drawableStart: DrawableText(
-                    text: '20',
-                    fontFamily: FontManager.cairoBold,
-                    size: 13.0.sp,
-                  ),
-                ),
-                DrawableText(
-                  size: 12.0.sp,
-                  text: S.of(context).hours,
-                  matchParent: true,
-                  drawableAlin: DrawableAlin.between,
-                  drawablePadding: 10.0.w,
-                  drawableStart: DrawableText(
-                    text: '20',
-                    fontFamily: FontManager.cairoBold,
-                    size: 13.0.sp,
-                  ),
-                ),
-                DrawableText(
-                  size: 12.0.sp,
-                  text: S.of(context).min,
-                  matchParent: true,
-                  drawableAlin: DrawableAlin.between,
-                  drawablePadding: 10.0.w,
-                  drawableStart: DrawableText(
-                    text: '20',
-                    fontFamily: FontManager.cairoBold,
-                    size: 13.0.sp,
-                  ),
-                ),
-              ],
-            ),
+            child: DateTimeWidget(dateTime: item.discountEndAt ?? serverDateTime),
           ),
           15.0.horizontalSpace,
           Expanded(
@@ -72,7 +38,7 @@ class FlashDealWidget extends StatelessWidget {
               child: Row(
                 children: [
                   ImageMultiType(
-                    url: Assets.iconsTemp2,
+                    url: item.thumbnail,
                     height: 81.0.r,
                     width: 81.0.r,
                   ),
@@ -83,41 +49,20 @@ class FlashDealWidget extends StatelessWidget {
                       children: [
                         DrawableText(
                           size: 14.0.sp,
-                          text: 'Dining Chair',
-                          fontFamily: FontManager.cairoBold,
+                          maxLines: 1,
+                          text: item.name,
+                          fontFamily: FontManager.cairoBold.name,
                         ),
                         DrawableText(
                           size: 14.0.sp,
-                          fontFamily: FontManager.cairoBold,
-                          text: 100000.formatPrice,
-                          color: AppColorManager.red,
+                          fontFamily: FontManager.cairoBold.name,
+                          text: item.price.formatPrice,
+                          color: AppColorManager.black,
                         ),
                         DrawableText(
                           size: 8.0.sp,
-                          text: 400000.formatPrice,
-                          color: AppColorManager.gray,
-                        ),
-                        const Spacer(),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            DrawableText(
-                              size: 10.0.sp,
-                              text: S.of(context).back,
-                              drawableStart: ImageMultiType(
-                                url: Icons.keyboard_arrow_left_rounded,
-                                height: 8.0.sp,
-                              ),
-                            ),
-                            DrawableText(
-                              size: 10.0.sp,
-                              text: S.of(context).next,
-                              drawableEnd: ImageMultiType(
-                                url: Icons.keyboard_arrow_right_rounded,
-                                height: 8.0.sp,
-                              ),
-                            ),
-                          ],
+                          text: item.discountPrice.formatPrice,
+                          color: AppColorManager.redPrice,
                         ),
                       ],
                     ),
@@ -133,60 +78,21 @@ class FlashDealWidget extends StatelessWidget {
 }
 
 class FlashDealWidgetFullCard extends StatelessWidget {
-  const FlashDealWidgetFullCard({super.key});
+  const FlashDealWidgetFullCard({super.key, required this.item});
+
+  final FlashDeal item;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       color: AppColorManager.f8,
-      padding: const EdgeInsets.symmetric(horizontal: 20.0,vertical: 8.0).r,
+      padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 8.0).r,
       width: 1.0.sw,
       height: 122.0.h,
       child: Row(
         children: [
           Expanded(
-            flex: 1,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                DrawableText(
-                  size: 12.0.sp,
-                  text: S.of(context).days,
-                  matchParent: true,
-                  drawableAlin: DrawableAlin.between,
-                  drawablePadding: 10.0.w,
-                  drawableStart: DrawableText(
-                    text: '20',
-                    fontFamily: FontManager.cairoBold,
-                    size: 13.0.sp,
-                  ),
-                ),
-                DrawableText(
-                  size: 12.0.sp,
-                  text: S.of(context).hours,
-                  matchParent: true,
-                  drawableAlin: DrawableAlin.between,
-                  drawablePadding: 10.0.w,
-                  drawableStart: DrawableText(
-                    text: '20',
-                    fontFamily: FontManager.cairoBold,
-                    size: 13.0.sp,
-                  ),
-                ),
-                DrawableText(
-                  size: 12.0.sp,
-                  text: S.of(context).min,
-                  matchParent: true,
-                  drawableAlin: DrawableAlin.between,
-                  drawablePadding: 10.0.w,
-                  drawableStart: DrawableText(
-                    text: '20',
-                    fontFamily: FontManager.cairoBold,
-                    size: 13.0.sp,
-                  ),
-                ),
-              ],
-            ),
+            child: DateTimeWidget(dateTime: item.discountEndAt ?? serverDateTime),
           ),
           15.0.horizontalSpace,
           Expanded(
@@ -195,7 +101,7 @@ class FlashDealWidgetFullCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ImageMultiType(
-                  url: Assets.iconsTemp2,
+                  url: item.thumbnail,
                   height: 100.0.r,
                   width: 100.0.r,
                 ),
@@ -207,19 +113,22 @@ class FlashDealWidgetFullCard extends StatelessWidget {
                     children: [
                       DrawableText(
                         size: 14.0.sp,
-                        text: 'Dining Chair',
-                        fontFamily: FontManager.cairoBold,
+                        text: item.name,
+                        maxLines: 1,
+                        fontFamily: FontManager.cairoBold.name,
                       ),
                       DrawableText(
                         size: 12.0.sp,
-                        fontFamily: FontManager.cairoBold,
-                        text: 100000.formatPrice,
-                        color: AppColorManager.red,
+                        maxLines: 1,
+                        fontFamily: FontManager.cairoBold.name,
+                        text: item.price.formatPrice,
+                        color: AppColorManager.black,
                       ),
                       DrawableText(
                         size: 8.0.sp,
-                        text: 400000.formatPrice,
-                        color: AppColorManager.gray,
+                        maxLines: 1,
+                        text: item.discountPrice.formatPrice,
+                        color: AppColorManager.redPrice,
                         matchParent: true,
                         drawableAlin: DrawableAlin.between,
                         drawableEnd: ImageMultiType(
@@ -227,7 +136,6 @@ class FlashDealWidgetFullCard extends StatelessWidget {
                           width: 18.0.r,
                           url: Assets.iconsBag,
                         ),
-
                       ),
                     ],
                   ),
@@ -237,6 +145,92 @@ class FlashDealWidgetFullCard extends StatelessWidget {
           ),
         ],
       ),
+    );
+  }
+}
+
+class DateTimeWidget extends StatefulWidget {
+  const DateTimeWidget({super.key, required this.dateTime});
+
+  final DateTime dateTime;
+
+  @override
+  State<DateTimeWidget> createState() => _DateTimeWidgetState();
+}
+
+class _DateTimeWidgetState extends State<DateTimeWidget> {
+  Timer? _timer;
+
+  String d = '-';
+  String h = '-';
+  String m = '-';
+
+  @override
+  void initState() {
+    setTimes();
+    _timer = Timer.periodic(const Duration(minutes: 1), (_) {
+      setState(() => setTimes());
+    });
+    super.initState();
+  }
+
+  void setTimes() {
+    final f = widget.dateTime.getFormat(serverDate: serverDateTime);
+
+    loggerObject.wtf(f.toString());
+    d = ((f.months * 30) + f.days).toString();
+    h = (f.hours).toString();
+    m = (f.minutes).toString();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      children: [
+        DrawableText(
+          size: 12.0.sp,
+          text: S.of(context).days,
+          matchParent: true,
+          drawableAlin: DrawableAlin.between,
+          drawablePadding: 10.0.w,
+          drawableStart: DrawableText(
+            text: d,
+            fontFamily: FontManager.cairoBold.name,
+            size: 13.0.sp,
+          ),
+        ),
+        DrawableText(
+          size: 12.0.sp,
+          text: S.of(context).hours,
+          matchParent: true,
+          drawableAlin: DrawableAlin.between,
+          drawablePadding: 10.0.w,
+          drawableStart: DrawableText(
+            text: h,
+            fontFamily: FontManager.cairoBold.name,
+            size: 13.0.sp,
+          ),
+        ),
+        DrawableText(
+          size: 12.0.sp,
+          text: S.of(context).min,
+          matchParent: true,
+          drawableAlin: DrawableAlin.between,
+          drawablePadding: 10.0.w,
+          drawableStart: DrawableText(
+            text: m,
+            fontFamily: FontManager.cairoBold.name,
+            size: 13.0.sp,
+          ),
+        ),
+      ],
     );
   }
 }

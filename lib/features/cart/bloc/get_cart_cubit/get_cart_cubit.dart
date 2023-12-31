@@ -33,7 +33,7 @@ class CartCubit extends Cubit<CartInitial> {
     if (response.statusCode == 200) {
       return Pair(CartResponse.fromJson(response.jsonBody).data, null);
     } else {
-      return Pair(null, ErrorManager.getApiError(response));
+    return response.getPairError;
     }
   }
 

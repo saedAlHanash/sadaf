@@ -54,7 +54,7 @@ class SearchCubit extends Cubit<SearchInitial> {
           null,
         );
       } else {
-        return Pair(null, ErrorManager.getApiError(response));
+      return response.getPairError;
       }
      
   }

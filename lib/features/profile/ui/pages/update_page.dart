@@ -14,12 +14,14 @@ import 'package:sadaf/core/widgets/my_button.dart';
 import 'package:sadaf/core/widgets/my_text_form_widget.dart';
 import 'package:sadaf/core/widgets/spinner_widget.dart';
 import 'package:sadaf/features/profile/bloc/profile_cubit/profile_cubit.dart';
+import 'package:sadaf/features/profile/data/response/profile_response.dart';
 import 'package:sadaf/features/profile/ui/widget/top_profile_widget.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../../core/util/shared_preferences.dart';
 import '../../../../generated/l10n.dart';
 import '../../../governors/bloc/governors_cubit/governors_cubit.dart';
+import '../../../map/bloc/my_location_cubit/my_location_cubit.dart';
 import '../../bloc/update_profile_cubit/update_profile_cubit.dart';
 import '../../data/request/update_profile_request.dart';
 
@@ -42,17 +44,34 @@ class _UpdatePageState extends State<UpdatePage> {
     updateCubit = context.read<UpdateProfileCubit>();
     request = updateCubit.state.request;
     request.type = widget.updateType;
-    request.avatar = UploadFile(initialImage: user.avatar);
+    request.avatar = UploadFile(initialImage: user.avatar,nameField: 'avatar');
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<UpdateProfileCubit, UpdateProfileInitial>(
-      listenWhen: (p, c) => c.statuses.done,
-      listener: (context, state) {
-        context.read<ProfileCubit>().getProfile();
-      },
+    return MultiBlocListener(
+      listeners: [
+        BlocListener<UpdateProfileCubit, UpdateProfileInitial>(
+          listenWhen: (p, c) => c.statuses.done,
+          listener: (context, state) {
+            context.read<ProfileCubit>().getProfile();
+          },
+        ),
+        BlocListener<MyLocationCubit, MyLocationInitial>(
+          listenWhen: (p, c) => c.state.done,
+          listener: (context, state) {
+            updateCubit.setHomeAddress = state.name;
+            updateCubit.addressController.text = state.name;
+            updateCubit.setMapAddress = MapAddress(
+              latitude: state.result.latitude,
+              longitude: state.result.longitude,
+            );
+            updateCubit.locationController.text =
+                updateCubit.state.request.mapAddress.toString();
+          },
+        ),
+      ],
       child: Scaffold(
         bottomNavigationBar: BlocConsumer<UpdateProfileCubit, UpdateProfileInitial>(
           listenWhen: (p, c) => c.statuses.done,
@@ -87,7 +106,7 @@ class _UpdatePageState extends State<UpdatePage> {
           child: TopProfileWidget(
             onLoad: (bytes) {
               setState(() {
-                request.avatar = request.avatar!.copyWith(fileBytes: bytes);
+                updateCubit.setAvatar = request.avatar!.copyWith(fileBytes: bytes);
               });
             },
             file: request.avatar,
@@ -140,7 +159,7 @@ class _UpdatePageState extends State<UpdatePage> {
                     MyTextFormOutLineWidget(
                       label: S.of(context).yourAddress,
                       onChanged: (val) => updateCubit.setHomeAddress = val,
-                      initialValue: user.address,
+                      controller: updateCubit.addressController,
                     ),
                     MyTextFormOutLineWidget(
                       label: S.of(context).receiverPhone,
@@ -149,17 +168,7 @@ class _UpdatePageState extends State<UpdatePage> {
                     ),
                     MyTextFormOutLineWidget(
                       label: S.of(context).location,
-                      onChanged: (val) => updateCubit.setReceiverPhone = val,
-                      initialValue: user.receiverPhone,
-                      iconWidgetLift: IconButton(
-                        onPressed: () {},
-                        icon: const ImageMultiType(url: Icons.my_location),
-                      ),
-                    ),
-
-                    MyTextFormOutLineWidget(
-                      label: S.of(context).yourAddress,
-                      initialValue: user.mapAddress.toString(),
+                      controller: updateCubit.locationController,
                       enable: false,
                     ),
                     Row(
@@ -168,15 +177,26 @@ class _UpdatePageState extends State<UpdatePage> {
                           child: MyButton(
                             color: AppColorManager.mainColorLight,
                             text: S.of(context).selectFromMap,
-                            onTap: () {},
+                            onTap: () {
+
+                            },
                           ),
                         ),
                         15.0.horizontalSpace,
                         Expanded(
-                          child: MyButton(
-                            color: AppColorManager.mainColorLight,
-                            text: S.of(context).myLocation,
-                            onTap: () {},
+                          child: BlocBuilder<MyLocationCubit, MyLocationInitial>(
+                            builder: (context, state) {
+                              if (state.state.loading) {
+                                return MyStyle.loadingWidget();
+                              }
+                              return MyButton(
+                                color: AppColorManager.mainColorLight,
+                                text: S.of(context).myLocation,
+                                onTap: () {
+                                  context.read<MyLocationCubit>().getMyLocation(context);
+                                },
+                              );
+                            },
                           ),
                         ),
                       ],
@@ -201,7 +221,6 @@ class _UpdatePageState extends State<UpdatePage> {
                       label: S.of(context).confirmNewPassword,
                       onChanged: (val) => request.rePass = val,
                     ),
-
                   ],
                 ),
             ],

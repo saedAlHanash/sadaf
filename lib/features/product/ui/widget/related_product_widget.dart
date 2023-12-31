@@ -21,7 +21,7 @@ class RelatedProductWidget extends StatelessWidget {
             DrawableText(
               text: S.of(context).related_products,
               size: 18.0.sp,
-              fontFamily: FontManager.cairo,
+              fontFamily: FontManager.cairo.name,
               matchParent: true,
             ),
             SizedBox(
@@ -33,7 +33,7 @@ class RelatedProductWidget extends StatelessWidget {
                 itemCount: state.result.relatedProducts.length,
                 separatorBuilder: (_, i) => 20.0.horizontalSpace,
                 itemBuilder: (_, i) {
-                  return const ItemRelatedProductProduct();
+                  return ItemRelatedProductProduct(item: state.result.relatedProducts[i]);
                 },
               ),
             )

@@ -13,6 +13,8 @@ import '../../../../core/widgets/my_card_widget.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../../cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
+import '../../../favorite/ui/widget/fav_btn_widget.dart';
+import '../../../offers/data/models/offer.dart';
 import '../../data/response/products_response.dart';
 
 class ItemLargeProduct extends StatelessWidget {
@@ -24,7 +26,7 @@ class ItemLargeProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, RouteName.product, arguments: product);
+        startProductPage(context, product.id);
       },
       child: SizedBox(
         width: 255.0.w,
@@ -55,12 +57,12 @@ class ItemLargeProduct extends StatelessWidget {
                           maxLines: 1,
                           size: 18.0.sp,
                           text: product.name,
-                          fontFamily: FontManager.cairoBold,
+                          fontFamily: FontManager.cairoBold.name,
                         ),
                         DrawableText(
                           matchParent: true,
                           size: 20.0.sp,
-                          fontFamily: FontManager.cairoBold,
+                          fontFamily: FontManager.cairoBold.name,
                           text: product.price,
                           color: AppColorManager.black,
                         ),
@@ -73,7 +75,6 @@ class ItemLargeProduct extends StatelessWidget {
                       ],
                     ),
                   ),
-
                   AddToCartBag(product: product),
                 ],
               )
@@ -86,13 +87,15 @@ class ItemLargeProduct extends StatelessWidget {
 }
 
 class ItemHorizontalProduct extends StatelessWidget {
-  const ItemHorizontalProduct({super.key});
+  const ItemHorizontalProduct({super.key, required this.item});
+
+  final Offer item;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        // Navigator.pushNamed(context, RouteName.product, arguments: product);
+        startProductPage(context, item.id);
       },
       child: SizedBox(
         width: 182.0.w,
@@ -103,30 +106,34 @@ class ItemHorizontalProduct extends StatelessWidget {
           child: Row(
             children: [
               ImageMultiType(
-                url: Assets.iconsTemp2,
+                url: item.thumbnail,
                 height: 85.0.r,
                 width: 85.0.r,
               ),
               20.0.horizontalSpace,
               Expanded(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     DrawableText(
                       size: 14.0.sp,
-                      text: 'Dining Chair',
-                      fontFamily: FontManager.cairoBold,
+                      maxLines: 1,
+                      text: item.name,
+                      fontFamily: FontManager.cairoBold.name,
                     ),
                     DrawableText(
-                      size: 14.0.sp,
-                      fontFamily: FontManager.cairoBold,
-                      text: 100000.formatPrice,
-                      color: AppColorManager.red,
+                      size: 13.0.sp,
+                      maxLines: 1,
+                      fontFamily: FontManager.cairoBold.name,
+                      text: item.price.formatPrice,
+                      color: AppColorManager.black,
                     ),
                     DrawableText(
-                      size: 8.0.sp,
-                      text: 400000.formatPrice,
-                      color: AppColorManager.gray,
+                      size: 10.0.sp,
+                      maxLines: 1,
+                      text: item.discountPrice.formatPrice,
+                      color: AppColorManager.redPrice,
                     ),
                   ],
                 ),
@@ -140,15 +147,16 @@ class ItemHorizontalProduct extends StatelessWidget {
 }
 
 class ItemRelatedProductProduct extends StatelessWidget {
-  const ItemRelatedProductProduct({super.key, this.width});
+  const ItemRelatedProductProduct({super.key, this.width, required this.item});
 
   final double? width;
+  final Product item;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, RouteName.product, arguments: Product.fromJson({}));
+        startProductPage(context, item.id);
       },
       child: SizedBox(
         width: width ?? 139.0.w,
@@ -167,15 +175,14 @@ class ItemRelatedProductProduct extends StatelessWidget {
                     child: ImageMultiType(
                       height: 180.0.r,
                       width: 180.0.r,
-                      url: Assets.iconsTestPng,
+                      url: item.thumbnail,
                     ),
                   ),
                   Align(
                     alignment: Alignment.topRight,
-                    child: ImageMultiType(
-                      width: 16.0.r,
-                      height: 16.0.r,
-                      url: Assets.iconsFav,
+                    child: FavBtnWidget(
+                      product: item,
+                      withBackground: false,
                     ),
                   ),
                   Align(
@@ -193,17 +200,18 @@ class ItemRelatedProductProduct extends StatelessWidget {
               ),
             ),
             DrawableText(
-              text: 'GLASS  CHAIR',
+              text: item.name,
               maxLines: 1,
               matchParent: true,
             ),
             DrawableText(
-              text: '1.000.000',
-              color: AppColorManager.redPrice,
+              text: item.price,
+              color: AppColorManager.black,
               matchParent: true,
               drawableAlin: DrawableAlin.between,
               drawableEnd: DrawableText(
-                text: '4.000.000',
+                text: item.discountPrice,
+                color: AppColorManager.redPrice,
                 size: 12.0.sp,
               ),
             ),
@@ -215,13 +223,15 @@ class ItemRelatedProductProduct extends StatelessWidget {
 }
 
 class ItemProductOffer extends StatelessWidget {
-  const ItemProductOffer({super.key});
+  const ItemProductOffer({super.key, required this.item});
+
+  final Offer item;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, RouteName.product, arguments: Product.fromJson({}));
+        startProductPage(context, item.id);
       },
       child: SizedBox(
         width: 120.0.w,
@@ -230,23 +240,27 @@ class ItemProductOffer extends StatelessWidget {
             ImageMultiType(
               height: 120.0.r,
               width: 120.0.r,
-              url: Assets.iconsTestPng,
+              url: item.thumbnail,
             ),
             DrawableText(
-              text: 'GLASS  CHAIR',
               maxLines: 1,
+              text: item.name,
+              fontFamily: FontManager.cairoBold.name,
               matchParent: true,
             ),
             DrawableText(
-              text: '1.000.000',
+              maxLines: 1,
+              fontFamily: FontManager.cairoBold.name,
+              text: item.price.formatPrice,
+              color: AppColorManager.black,
+              matchParent: true,
+            ),
+            DrawableText(
+              maxLines: 1,
+              text: item.discountPrice.formatPrice,
               color: AppColorManager.redPrice,
               matchParent: true,
-            ),
-            DrawableText(
-              matchParent: true,
-              text: '4.000.000',
               size: 12.0.sp,
-              color: Colors.grey,
               drawableAlin: DrawableAlin.between,
               drawableEnd: ImageMultiType(
                 height: 18.0.r,
@@ -270,7 +284,7 @@ class ItemProduct extends StatelessWidget {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, RouteName.product, arguments: product);
+        startProductPage(context, product.id);
       },
       child: Container(
         color: AppColorManager.lightGray,
@@ -288,11 +302,11 @@ class ItemProduct extends StatelessWidget {
               matchParent: true,
               size: 16.0.sp,
               color: AppColorManager.mainColorLight,
-              fontFamily: FontManager.cairoBold,
+              fontFamily: FontManager.cairoBold.name,
             ),
             DrawableText(
               text: product.price.formatPrice,
-              fontFamily: FontManager.cairoBold,
+              fontFamily: FontManager.cairoBold.name,
               matchParent: true,
               maxLines: 1,
               drawableAlin: DrawableAlin.between,
@@ -320,18 +334,20 @@ class ItemProduct extends StatelessWidget {
 
 class ItemOrderProduct extends StatelessWidget {
   const ItemOrderProduct({super.key, required this.product});
-final Product product;
+
+  final Product product;
+
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-        Navigator.pushNamed(context, RouteName.product, arguments: product);
+        startProductPage(context, product.id);
       },
       child: Container(
         width: 1.0.sw,
         height: 60.0.h,
-   margin: const EdgeInsets.symmetric(vertical: 15.0).h,
-   padding: const EdgeInsets.symmetric(horizontal: 30.0).w,
+        margin: const EdgeInsets.symmetric(vertical: 15.0).h,
+        padding: const EdgeInsets.symmetric(horizontal: 30.0).w,
         child: Row(
           children: [
             ImageMultiType(
@@ -347,7 +363,7 @@ final Product product;
                   DrawableText(
                     size: 14.0.sp,
                     text: product.name,
-                    fontFamily: FontManager.cairoBold,
+                    fontFamily: FontManager.cairoBold.name,
                     matchParent: true,
                     drawableAlin: DrawableAlin.between,
                     drawableEnd: DrawableText(
@@ -359,7 +375,7 @@ final Product product;
                   DrawableText(
                     size: 14.0.sp,
                     text: 'quantity: ${product.quantity}',
-                    fontFamily: FontManager.cairoBold,
+                    fontFamily: FontManager.cairoBold.name,
                     color: Colors.grey,
                     matchParent: true,
                     drawableAlin: DrawableAlin.between,
@@ -377,4 +393,8 @@ final Product product;
       ),
     );
   }
+}
+
+void startProductPage(BuildContext context, int productId) {
+  Navigator.pushNamed(context, RouteName.product, arguments: productId);
 }

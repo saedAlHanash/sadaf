@@ -88,7 +88,7 @@ class ItemFavWidget extends StatelessWidget {
                             onTap: () {
                               context
                                   .read<AddFavoriteCubit>()
-                                  .removeFav(productId: fav.id);
+                                  .removeFav(productId: fav.productId);
                             },
                             child: const Icon(Icons.favorite, color: Colors.black),
                           );

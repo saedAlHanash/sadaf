@@ -58,7 +58,7 @@ class _ItemCategoryImageWidgetState extends State<ItemCategoryImageWidget> {
                   color: (widget.selected)
                       ? AppColorManager.mainColor
                       : AppColorManager.gray,
-                  fontFamily: FontManager.cairoBold,
+                  fontFamily: FontManager.cairoBold.name,
                   size: 12.0.sp,
                 ),
               ],

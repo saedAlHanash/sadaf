@@ -89,7 +89,7 @@
 //
 //         return Pair(response.jsonBody['message'] ?? '', null);
 //       } else {
-//         return Pair(null, ErrorManager.getApiError(response));
+//       return response.getPairError;
 //       }
 //
 //   }
