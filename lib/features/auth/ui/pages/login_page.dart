@@ -42,7 +42,7 @@ class _LoginPageState extends State<LoginPage> {
       child: Scaffold(
         appBar: const AppBarWidget(),
         body: SingleChildScrollView(
-        padding: MyStyle.authPagesPadding,
+          padding: MyStyle.authPagesPadding,
           child: Form(
             key: _formKey,
             child: Column(
@@ -63,8 +63,9 @@ class _LoginPageState extends State<LoginPage> {
                 70.0.verticalSpace,
                 MyTextFormOutLineWidget(
                   validator: (p0) => loginCubit.validatePhoneOrEmail,
-                  label: S.of(context).email,
+                  label: S.of(context).phoneNumber,
                   initialValue: loginCubit.state.request.phoneOrEmail,
+                  //TODO: change this to phone
                   keyBordType: TextInputType.emailAddress,
                   onChanged: (val) => loginCubit.setPhoneOrEmail = val,
                 ),
@@ -125,13 +126,14 @@ class _ForgetAndRememberWidgetState extends State<_ForgetAndRememberWidget> {
   Widget build(BuildContext context) {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [  DrawableText(
-        text: S.of(context).rememberMe,
-        drawableEnd: Checkbox(
-          value: true,
-          onChanged: (value) {},
+      children: [
+        DrawableText(
+          text: S.of(context).rememberMe,
+          drawableEnd: Checkbox(
+            value: true,
+            onChanged: (value) {},
+          ),
         ),
-      ),
         TextButton(
           onPressed: () {
             Navigator.pushNamed(context, RouteName.forgetPassword);
@@ -141,7 +143,6 @@ class _ForgetAndRememberWidgetState extends State<_ForgetAndRememberWidget> {
             underLine: true,
           ),
         ),
-
       ],
     );
   }

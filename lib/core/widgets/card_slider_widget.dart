@@ -158,6 +158,7 @@ class _CardImageSliderState extends State<CardImageSlider> {
           autoPlayInterval: const Duration(seconds: 10),
           height: widget.height,
           viewportFraction: 1,
+          enableInfiniteScroll: false,
           onPageChanged: (i, reason) {
             key.currentState!.changePage(i);
             currentImage = i;

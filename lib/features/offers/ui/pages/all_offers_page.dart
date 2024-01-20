@@ -12,7 +12,7 @@ import '../../../../core/widgets/list_product_widget.dart';
 import '../../../../core/widgets/not_found_widget.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
-import '../../../flash_deal/ui/widget/flash_deal_list_page.dart';
+import '../../../flash_deal/ui/widget/flash_deal_list.dart';
 import '../../bloc/offers_cubit/offers_cubit.dart';
 import '../widget/offers_list_page.dart';
 
@@ -62,6 +62,7 @@ class _AllOffersPageState extends State<AllOffersPage>
             SizedBox(
               height: 42.h,
               child: TabBar(
+                indicatorSize: TabBarIndicatorSize.tab,
                 controller: _tabController,
                 indicator: const BoxDecoration(
                   gradient: LinearGradient(

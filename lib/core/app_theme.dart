@@ -42,14 +42,17 @@ final appTheme = ThemeData(
       style: ButtonStyle(
         alignment: Alignment.center,
         padding: MaterialStatePropertyAll(EdgeInsets.all(50.0.r)),
-        // backgroundColor: MaterialStateProperty.resolveWith<Color?>(
-        //   (Set<MaterialState> states) {
-        //     if (states.contains(MaterialState.pressed)) {
-        //       return AppColorManager.mainColor.withOpacity(0.8);
-        //     }
-        //     return AppColorManager.mainColor; // Use the component's default.
-        //   },
-        // ),
+        backgroundColor: MaterialStateProperty.resolveWith<Color?>(
+          (Set<MaterialState> states) {
+            if (states.contains(MaterialState.pressed)) {
+              return AppColorManager.mainColor.withOpacity(0.8);
+            }
+            return AppColorManager.mainColor; // Use the component's default.
+          },
+        ),
+        surfaceTintColor: const MaterialStatePropertyAll(AppColorManager.mainColor),
+        shape: const MaterialStatePropertyAll(
+            RoundedRectangleBorder(borderRadius: BorderRadius.zero)),
         overlayColor: MaterialStateProperty.resolveWith<Color?>(
           (Set<MaterialState> states) => secondaryColor,
         ),

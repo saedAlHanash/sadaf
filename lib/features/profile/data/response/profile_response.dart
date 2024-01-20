@@ -39,8 +39,7 @@ class Profile {
     return Profile(
       name: json["name"] ?? "",
       emailOrPhone: json["email_or_phone"] ?? "",
-      mapAddress: MapAddress.fromJson(
-          json["map_address"] is String ? {} : (json["map_address"] ?? {})),
+      mapAddress: MapAddress.fromJson(json["map_address"] is String ? {} : (json["map_address"] ?? {})),
       governor:
           Governor.fromJson(json["governor"] is List ? {} : (json["governor"] ?? {})),
       address: json["address"] ?? "",

@@ -88,6 +88,7 @@ class PostUrl {
   static const restPass = 'reset-password';
 
   static const createOrder = 'checkout/cash';
+  static const createEPaymentOrder = 'checkout/credit';
 
   static const resendCode = 'opt-resend';
 

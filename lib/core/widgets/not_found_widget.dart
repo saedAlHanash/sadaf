@@ -25,17 +25,13 @@ class NotFoundWidget extends StatelessWidget {
               height: 250.0.spMin,
               width: 250.0.spMin,
             ),
-            DrawableText(
-              text: 'Sorry !',
-              fontFamily: FontManager.cairoBold.name,
-              color: Colors.black,
-              size: 20.0.spMin,
-            ),
             10.0.verticalSpace,
             DrawableText(
               text: text,
+              matchParent: true,
+              textAlign: TextAlign.center,
               color: Colors.black,
-              size: 16.0.spMin,
+              size: 20.0.spMin,
             )
           ],
         ),

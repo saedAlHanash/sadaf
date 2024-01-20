@@ -39,7 +39,6 @@ class CartCubit extends Cubit<CartInitial> {
 
 // void remove({required int id}) {
 //   state.result.removeWhere((e) => e.id == id);
-//   loggerObject.w(state.result);
 //   emit(state.copyWith(result: state.result, statuses: CubitStatuses.loading));
 //   Future.delayed(
 //     const Duration(seconds: 1),

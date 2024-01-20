@@ -14,12 +14,12 @@ import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../generated/l10n.dart';
 import '../../../cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
-import '../../../cart/bloc/update_cart_cubit/update_cart_cubit.dart';
+
 import '../../bloc/product_by_id_cubit/product_by_id_cubit.dart';
 import '../widget/attacments_widget.dart';
-import '../widget/description_screen.dart';
-import '../widget/price_screen.dart';
-import '../widget/review_screen.dart';
+import 'description_screen.dart';
+import 'price_screen.dart';
+import 'review_screen.dart';
 
 class ProductPage extends StatefulWidget {
   const ProductPage({super.key});
@@ -78,38 +78,40 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
             headerSliverBuilder: (context, innerBoxIsScrolled) {
               return [
                 SliverToBoxAdapter(
-                    child: Column(
-                  children: [
-                    CardAttachmentsSlider(product: state.result),
-                    20.0.verticalSpace,
-                    SizedBox(
-                      height: 42.h,
-                      child: Stack(
-                        children: [
-                          Positioned(
-                            width: 1.0.sw,
-                            height: 2.0.h,
-                            bottom: 0.0,
-                            child: Container(
-                              height: 1.0.h,
-                              color: AppColorManager.lightGray,
+                  child: Column(
+                    children: [
+                      CardAttachmentsSlider(product: state.result),
+                      20.0.verticalSpace,
+                      SizedBox(
+                        height: 42.h,
+                        child: Stack(
+                          children: [
+                            Positioned(
+                              width: 1.0.sw,
+                              height: 2.0.h,
+                              bottom: 0.0,
+                              child: Container(
+                                height: 1.0.h,
+                                color: AppColorManager.lightGray,
+                              ),
                             ),
-                          ),
-                          TabBar(
-                            controller: _tabController,
-                            labelColor: AppColorManager.mainColor,
-                            unselectedLabelColor: AppColorManager.ac,
-                            tabs: [
-                              Tab(text: S.of(context).price.toUpperCase()),
-                              Tab(text: S.of(context).description.toUpperCase()),
-                              Tab(text: S.of(context).reviews.toUpperCase()),
-                            ],
-                          ),
-                        ],
+                            TabBar(
+                              indicatorSize: TabBarIndicatorSize.tab,
+                              controller: _tabController,
+                              labelColor: AppColorManager.mainColor,
+                              unselectedLabelColor: AppColorManager.ac,
+                              tabs: [
+                                Tab(text: S.of(context).price.toUpperCase()),
+                                Tab(text: S.of(context).description.toUpperCase()),
+                                Tab(text: S.of(context).reviews.toUpperCase()),
+                              ],
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
-                ))
+                    ],
+                  ),
+                )
               ];
             },
             body: TabBarView(

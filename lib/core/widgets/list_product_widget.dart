@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
-import 'package:sadaf/features/cart/service/cart_service.dart';
+
 
 import '../../features/cart/bloc/get_cart_cubit/get_cart_cubit.dart';
 import '../../features/cart/ui/widget/item_cart.dart';

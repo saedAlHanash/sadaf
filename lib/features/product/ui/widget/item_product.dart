@@ -351,7 +351,7 @@ class ItemOrderProduct extends StatelessWidget {
         child: Row(
           children: [
             ImageMultiType(
-              url: Assets.iconsTemp2,
+              url: product.thumbnail,
               height: 54.0.r,
               width: 54.0.r,
             ),

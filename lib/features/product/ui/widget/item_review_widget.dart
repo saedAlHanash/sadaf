@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/circle_image_widget.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
-import 'package:sadaf/features/product/ui/widget/price_screen.dart';
+import 'package:sadaf/features/product/ui/pages/price_screen.dart';
 
 import '../../data/response/products_response.dart';
 

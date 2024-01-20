@@ -10,7 +10,7 @@ import 'package:image_multi_type/image_multi_type.dart';
 
 import '../../../../generated/assets.dart';
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
-import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
+
 import '../../features/cart/ui/widget/cart_icons.dart';
 import '../../features/profile/bloc/profile_cubit/profile_cubit.dart';
 import '../util/shared_preferences.dart';

@@ -12,6 +12,7 @@ import '../error/error_manager.dart';
 import '../strings/enum_manager.dart';
 import '../util/pair_class.dart';
 import '../util/snack_bar_message.dart';
+import '../widgets/spinner_widget.dart';
 
 extension SplitByLength on String {
   List<String> splitByLength1(int length, {bool ignoreEmpty = false}) {
@@ -95,6 +96,20 @@ extension SplitByLength on String {
     String output = uniqueList.join(' ');
     return output;
   }
+
+  OrderStatus get getOrderStatus {
+
+    if (toLowerCase() == 'pending') return OrderStatus.pending;
+    if (toLowerCase() == 'processing') return OrderStatus.processing;
+    if (toLowerCase() == 'ready') return OrderStatus.ready;
+    if (toLowerCase() == 'shipping') return OrderStatus.shipping;
+    if (toLowerCase() == 'completed') return OrderStatus.completed;
+    if (toLowerCase() == 'canceled') return OrderStatus.canceled;
+    if (toLowerCase() == 'payment_failed') return OrderStatus.paymentFailed;
+    if (toLowerCase() == 'returned') return OrderStatus.returned;
+
+    return OrderStatus.pending;
+  }
 }
 
 extension StringHelper on String? {
@@ -119,7 +134,24 @@ extension HelperJson on Map<String, dynamic> {
   }
 }
 
-extension UpdateTypeHelper on UpdateType {
+extension ListEnumHelper on List<Enum> {
+  List<SpinnerItem> getSpinnerItems({int? selectedId, Widget? icon}) {
+    return List<SpinnerItem>.from(
+      map(
+        (e) => SpinnerItem(
+          isSelected: e.index == selectedId,
+          name: e.getName,
+          icon: icon,
+          item: e,
+        ),
+      ),
+    );
+    for (var e in this) {}
+    return [];
+  }
+}
+
+extension EnumHelper on Enum {
   String get getName {
     switch (this) {
       case UpdateType.name:
@@ -132,7 +164,34 @@ extension UpdateTypeHelper on UpdateType {
         return S().changeAddress;
       case UpdateType.pass:
         return S().changePassword;
+      case PaymentMethod.cash:
+        return S().cashPayment;
+      case PaymentMethod.ePay:
+        return S().ePayment;
     }
+    return name;
+  }
+
+  String get getNameDateOrderStatus{
+    switch (this) {
+      case OrderStatus.pending:
+        return '${S().donePending} ${S().at}';//
+      case OrderStatus.processing:
+        return '${S().doneProcessing} ${S().at}';//
+      case OrderStatus.ready:
+        return '${S().doneReady} ${S().at}';//
+      case OrderStatus.shipping:
+        return '${S().doneShipping} ${S().at}';//
+      case OrderStatus.completed:
+        return '${S().doneCompleted} ${S().at}';//
+      case OrderStatus.canceled:
+        return '${S().doneCanceled} ${S().at}';//
+      case OrderStatus.paymentFailed:
+        return '${S().donePaymentFailed} ${S().at}';//
+      case OrderStatus.returned:
+        return '${S().doneReturned} ${S().at}';//
+    }
+    return '';
   }
 }
 

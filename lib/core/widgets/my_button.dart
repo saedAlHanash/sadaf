@@ -34,7 +34,7 @@ class MyButton extends StatelessWidget {
   Widget build(BuildContext context) {
     final child = this.child ??
         DrawableText(
-          text:toUpper?text.toUpperCase(): text,
+          text: toUpper ? text.toUpperCase() : text,
           color: textColor ?? AppColorManager.whit,
           fontFamily: FontManager.cairoBold.name,
         );
@@ -43,6 +43,7 @@ class MyButton extends StatelessWidget {
       width: width ?? .9.sw,
       child: ElevatedButton(
         style: ButtonStyle(
+          surfaceTintColor: MaterialStatePropertyAll(color),
           backgroundColor: MaterialStatePropertyAll(color),
           // padding: MaterialStatePropertyAll(padding),
           padding: MaterialStatePropertyAll(const EdgeInsets.symmetric(vertical: 13.0).r),

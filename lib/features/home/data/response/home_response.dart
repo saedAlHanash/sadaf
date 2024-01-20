@@ -1,3 +1,6 @@
+import 'package:sadaf/features/categories/data/response/category.dart';
+import 'package:sadaf/features/flash_deal/data/models/flash_deal.dart';
+
 import '../../../offers/data/models/offer.dart';
 import '../../../product/data/response/products_response.dart';
 
@@ -21,55 +24,42 @@ class HomeResponse {
 
 class HomeResult {
   HomeResult({
+    required this.categories,
+    required this.newProducts,
+    required this.flashDeals,
     required this.offers,
-    required this.products,
-    required this.bestSeller,
   });
 
+  final List<Category> categories;
+  final List<Product> newProducts;
+  final List<FlashDeal> flashDeals;
   final List<Offer> offers;
-  final List<Product> products;
-  final List<Product> bestSeller;
 
   factory HomeResult.fromJson(Map<String, dynamic> json) {
     return HomeResult(
-      offers: json["offers"] == null
+    offers  : json["offers"] == null
           ? []
           : List<Offer>.from(json["offers"]!.map((x) => Offer.fromJson(x))),
-      products: json["products"] == null
+
+      newProducts: json["new_products"] == null
           ? []
-          : List<Product>.from(json["products"]!.map((x) => Product.fromJson(x))),
-      bestSeller: json["bestSeller"] == null
+          : List<Product>.from(json["new_products"]!.map((x) => Product.fromJson(x))),
+
+      flashDeals: json["flash_deals"] == null
           ? []
-          : List<Product>.from(json["bestSeller"]!.map((x) => Product.fromJson(x))),
+          : List<FlashDeal>.from(json["flash_deals"]!.map((x) => FlashDeal.fromJson(x))),
+
+    categories: json["categories"] == null
+          ? []
+          : List<Category>.from(json["categories"]!.map((x) => Category.fromJson(x))),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "offers": offers.map((x) => x.toJson()).toList(),
-        "products": products.map((x) => x.toJson()).toList(),
-        "bestSeller": bestSeller.map((x) => x).toList(),
-      };
-}
-
-class Brand {
-  Brand({
-    required this.id,
-    required this.name,
-  });
-
-  final int id;
-  final String name;
-
-  factory Brand.fromJson(Map<String, dynamic> json) {
-    return Brand(
-      id: json["id"] ?? 0,
-      name: json["name"] ?? "",
-    );
-  }
-
-  Map<String, dynamic> toJson() => {
-        "id": id,
-        "name": name,
+        "categories": categories.map((x) => x.toJson()).toList(),
+        "new_products": newProducts.map((x) => x.toJson()).toList(),
+        "flash_deals": flashDeals.map((x) => x).toList(),
+        "offers": offers.map((x) => x).toList(),
       };
 }
 

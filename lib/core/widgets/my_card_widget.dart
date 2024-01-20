@@ -31,6 +31,7 @@ class MyCardWidget extends StatelessWidget {
     return Card(
       margin: margin,
       color: cardColor,
+      surfaceTintColor: cardColor,
       clipBehavior: Clip.hardEdge,
       elevation: elevation,
       shadowColor: AppColorManager.lightGray,

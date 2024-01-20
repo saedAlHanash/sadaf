@@ -1540,6 +1540,266 @@ class S {
     );
   }
 
+  /// `start with 07 and 11 digit`
+  String get helperPhoneText {
+    return Intl.message(
+      'start with 07 and 11 digit',
+      name: 'helperPhoneText',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry, Your Search Is \nNot Available`
+  String get emptySearch {
+    return Intl.message(
+      'Sorry, Your Search Is \nNot Available',
+      name: 'emptySearch',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry, There Are \nNo Requests`
+  String get emptyCart {
+    return Intl.message(
+      'Sorry, There Are \nNo Requests',
+      name: 'emptyCart',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry, There Are \nNo Requests`
+  String get emptyFav {
+    return Intl.message(
+      'Sorry, There Are \nNo Requests',
+      name: 'emptyFav',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry, There Are \nNo Offers`
+  String get emptyOffers {
+    return Intl.message(
+      'Sorry, There Are \nNo Offers',
+      name: 'emptyOffers',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry, There Are \nNo Notifications`
+  String get emptyNotifications {
+    return Intl.message(
+      'Sorry, There Are \nNo Notifications',
+      name: 'emptyNotifications',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sorry, There Are \nNo Orders`
+  String get emptyOrders {
+    return Intl.message(
+      'Sorry, There Are \nNo Orders',
+      name: 'emptyOrders',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Confirm Address`
+  String get confirmAddress {
+    return Intl.message(
+      'Confirm Address',
+      name: 'confirmAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Cash Payment`
+  String get cashPayment {
+    return Intl.message(
+      'Cash Payment',
+      name: 'cashPayment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `E-Payment`
+  String get ePayment {
+    return Intl.message(
+      'E-Payment',
+      name: 'ePayment',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Method`
+  String get paymentMethod {
+    return Intl.message(
+      'Payment Method',
+      name: 'paymentMethod',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Created`
+  String get donePending {
+    return Intl.message(
+      'Order Created',
+      name: 'donePending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Processed`
+  String get doneProcessing {
+    return Intl.message(
+      'Order Processed',
+      name: 'doneProcessing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Was Ready`
+  String get doneReady {
+    return Intl.message(
+      'Order Was Ready',
+      name: 'doneReady',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Shipped`
+  String get doneShipping {
+    return Intl.message(
+      'Order Shipped',
+      name: 'doneShipping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Completed`
+  String get doneCompleted {
+    return Intl.message(
+      'Order Completed',
+      name: 'doneCompleted',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Canceled`
+  String get doneCanceled {
+    return Intl.message(
+      'Order Canceled',
+      name: 'doneCanceled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// ` PaymentFailed`
+  String get donePaymentFailed {
+    return Intl.message(
+      ' PaymentFailed',
+      name: 'donePaymentFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Order Returned`
+  String get doneReturned {
+    return Intl.message(
+      'Order Returned',
+      name: 'doneReturned',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `At`
+  String get at {
+    return Intl.message(
+      'At',
+      name: 'at',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Not Yet`
+  String get notYet {
+    return Intl.message(
+      'Not Yet',
+      name: 'notYet',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Tracking Order`
+  String get trackingOrder {
+    return Intl.message(
+      'Tracking Order',
+      name: 'trackingOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Your Order`
+  String get yourOrder {
+    return Intl.message(
+      'Your Order',
+      name: 'yourOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Delivery Date`
+  String get deliveryDate {
+    return Intl.message(
+      'Delivery Date',
+      name: 'deliveryDate',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ready To Deliver`
+  String get readyToDeliver {
+    return Intl.message(
+      'Ready To Deliver',
+      name: 'readyToDeliver',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Estimated For`
+  String get estimatedFor {
+    return Intl.message(
+      'Estimated For',
+      name: 'estimatedFor',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your Location`
   String get yourLocation {
     return Intl.message(

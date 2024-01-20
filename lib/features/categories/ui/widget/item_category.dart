@@ -54,7 +54,9 @@ class ItemCategory extends StatelessWidget {
                 8.0.verticalSpace,
                 DrawableText(
                   text: category.name,
-                  size: 16.0.sp,
+                  textAlign: TextAlign.center,
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0).w,
+                  size: 12.0.sp,
                   color: Colors.white,
                 ),
               ],

@@ -5,16 +5,8 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 
-import 'package:sadaf/features/cart/service/cart_service.dart';
-
-import '../../../../core/injection/injection_container.dart';
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/util/my_style.dart';
-import '../../../../core/widgets/image_with_fav.dart';
-import '../../../../core/widgets/my_card_widget.dart';
-import '../../../../generated/assets.dart';
-import '../../../home/ui/widget/screens/home_screen.dart';
-import '../../../product/data/response/products_response.dart';
 import '../../../product/data/response/products_response.dart';
 import '../../bloc/decrease_cubit/decrease_cubit.dart';
 import '../../bloc/increase_cubit/increase_cubit.dart';
@@ -38,7 +30,7 @@ class ItemProductCart extends StatelessWidget {
         child: Row(
           children: [
             ImageMultiType(
-              url: Assets.iconsTemp5,
+              url: product.thumbnail,
               width: 80.0.r,
               height: 80.0.r,
             ),

@@ -108,7 +108,7 @@ class AddToCartBtnFav extends StatelessWidget {
           onTap: state.statuses.loading
               ? null
               : () {
-                  loggerObject.w(fav.productId);
+
                   context.read<AddToCartCubit>().addToCart(productId: fav.productId);
                 },
           child: Container(

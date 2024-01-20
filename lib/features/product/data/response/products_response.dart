@@ -108,8 +108,9 @@ class Product {
       description: json["description"] ?? "",
       images:
           json["images"] == null ? [] : List<String>.from(json["images"]!.map((x) => x)),
-      dddImages:
-          json["images"] == null ? [] : List<String>.from(json["images"]!.map((x) => x)),
+      dddImages: json["threed_images"] == null
+          ? []
+          : List<String>.from(json["threed_images"]!.map((x) => x)),
       videoLinks: json["video_links"] == null
           ? []
           : List<String>.from(json["video_links"]!.map((x) => x)),
@@ -134,7 +135,7 @@ class Product {
     for (var e in product.images) {
       product.attachment.add(Attachment(link: e, type: AttachmentType.image));
     }
-
+    
     for (var e in product.dddImages) {
       product.attachment.add(Attachment(link: e, type: AttachmentType.d3));
     }

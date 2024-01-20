@@ -5,7 +5,7 @@ import 'package:sadaf/core/extensions/extensions.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../router/app_router.dart';
-import '../../data/response/my_orders.dart';
+import '../../data/response/orders_response.dart';
 
 class ItemOrderWidget extends StatelessWidget {
   const ItemOrderWidget({super.key, required this.order});
@@ -43,7 +43,7 @@ class ItemOrderWidget extends StatelessWidget {
             ),
             10.0.verticalSpace,
             DrawableText(
-              text: 'Progress',
+              text: order.status,
               matchParent: true,
               drawableAlin: DrawableAlin.between,
               drawableEnd: DrawableText(

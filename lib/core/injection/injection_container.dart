@@ -13,18 +13,13 @@ import '../../features/auth/bloc/otp_password_cubit/otp_password_cubit.dart';
 import '../../features/auth/bloc/resend_code_cubit/resend_code_cubit.dart';
 import '../../features/auth/bloc/reset_password_cubit/reset_password_cubit.dart';
 import '../../features/auth/bloc/signup_cubit/signup_cubit.dart';
-
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../features/cart/bloc/clear_cart_cubit/clear_cart_cubit.dart';
 import '../../features/cart/bloc/coupon_cubit/coupon_cubit.dart';
-import '../../features/cart/bloc/create_order_cubit/create_order_cubit.dart';
 import '../../features/cart/bloc/decrease_cubit/decrease_cubit.dart';
 import '../../features/cart/bloc/get_cart_cubit/get_cart_cubit.dart';
 import '../../features/cart/bloc/increase_cubit/increase_cubit.dart';
 import '../../features/cart/bloc/remove_from_cart_cubit/remove_from_cart_cubit.dart';
-import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
-import '../../features/cart/service/cart_service.dart';
-
 import '../../features/categories/bloc/categories_cubit/categories_cubit.dart';
 import '../../features/categories/bloc/sub_categories_cubit/sub_categories_cubit.dart';
 import '../../features/colors/bloc/colors_cubit/colors_cubit.dart';
@@ -42,7 +37,7 @@ import '../../features/map/bloc/my_location_cubit/my_location_cubit.dart';
 import '../../features/notifications/bloc/notification_count_cubit/notification_count_cubit.dart';
 import '../../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
 import '../../features/offers/bloc/offers_cubit/offers_cubit.dart';
-import '../../features/orders/bloc/create_order_cubit/create_order_cubit.dart';
+import '../../features/cart/bloc/create_order_cubit/create_order_cubit.dart';
 import '../../features/orders/bloc/order_by_id_cubit/order_by_id_cubit.dart';
 import '../../features/orders/bloc/orders_cubit/orders_cubit.dart';
 import '../../features/product/bloc/new_arrival_cubit/new_arrival_cubit.dart';
@@ -51,7 +46,6 @@ import '../../features/product/bloc/products_cubit/products_cubit.dart';
 import '../../features/product/bloc/select_option_cubit/select_option_cubit.dart';
 import '../../features/profile/bloc/profile_cubit/profile_cubit.dart';
 import '../../features/profile/bloc/update_profile_cubit/update_profile_cubit.dart';
-import '../../features/settings/bloc/update_user_cubit/update_user_cubit.dart';
 import '../../features/settings/services/setting_service.dart';
 import '../app/bloc/loading_cubit.dart';
 import '../network/network_info.dart';
@@ -65,7 +59,6 @@ Future<void> init() async {
   sl.registerLazySingleton(() => InternetConnectionChecker());
 
   sl.registerFactory(() => NotificationCountCubit());
-  sl.registerFactory(() => UpdateCartCubit());
   sl.registerFactory(() => MyLocationCubit());
   sl.registerLazySingleton(() => LoadingCubit());
   sl.registerLazySingleton(() => SettingService());
@@ -120,7 +113,7 @@ Future<void> init() async {
   //endregion
 
   //region Cart
-  sl.registerLazySingleton(() => CartService());
+
   sl.registerLazySingleton(() => CartCubit());
 
   sl.registerLazySingleton(() => DecreaseCubit());

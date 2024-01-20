@@ -26,6 +26,8 @@ class AppColorManager {
   static const d9 = Color(0xFFD9D9D9);
 
   static const fc = Color(0xFFFCFCFC);
+  static const c50 = Color(0xFF505050);
+  static const c6e = Color(0xFF6E6E6E);
 
   static const f8 = Color(0xFFF8F8F8);
 }

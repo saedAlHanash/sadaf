@@ -146,12 +146,12 @@ class _ColorOptionsState extends State<ColorOptions> {
                 final selectedColor = value;
                 final option =
                     product.groupedOptions[selectedSize]?.firstWhereOrNull((element) {
-                  loggerObject.wtf(element.color);
+
                   return element.color.hex == selectedColor;
                 });
 
-                loggerObject.w(option?.id);
-                loggerObject.w(value);
+
+
                 if (option != null) {
                   context
                       .read<SelectOptionCubit>()

@@ -4,17 +4,19 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
+import 'package:sadaf/core/widgets/not_found_widget.dart';
 import 'package:sadaf/features/categories/ui/pages/categories_page.dart';
 import 'package:sadaf/features/categories/ui/widget/list_categories_filter.dart';
 import 'package:sadaf/features/home/ui/widget/search_widget.dart';
 import 'package:sadaf/features/product/ui/widget/item_product.dart';
+import 'package:sadaf/generated/assets.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../../generated/l10n.dart';
-import '../../../product/bloc/products_cubit/products_cubit.dart';
-import '../../bloc/categories_cubit/categories_cubit.dart';
-import '../../bloc/sub_categories_cubit/sub_categories_cubit.dart';
-import '../widget/item_category_image.dart';
+import '../../bloc/products_cubit/products_cubit.dart';
+import '../../../categories/bloc/categories_cubit/categories_cubit.dart';
+import '../../../categories/bloc/sub_categories_cubit/sub_categories_cubit.dart';
+import '../../../categories/ui/widget/item_category_image.dart';
 
 class ProductsPage extends StatefulWidget {
   const ProductsPage({super.key});
@@ -69,6 +71,12 @@ class _ProductsPageState extends State<ProductsPage> {
                   }
                   final list = state.result;
 
+                  if (list.isEmpty) {
+                    return NotFoundWidget(
+                      text: S.of(context).emptySearch,
+                      icon: Assets.iconsNoSearchResult,
+                    );
+                  }
                   return ListView.separated(
                     itemCount: list.length.countDiv2,
                     padding:

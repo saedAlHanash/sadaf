@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
 
 import '../../../../core/widgets/bottom_nav_widget.dart';
+import '../../../../generated/l10n.dart';
 import '../../../cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../../cart/ui/pages/cart_screen.dart';
 import '../../../favorite/ui/pages/fav_screen.dart';
@@ -51,7 +52,9 @@ class _HomepageState extends State<Homepage> {
           return true;
         },
         child: Scaffold(
-          appBar: const AppBarWidget(zeroHeight: true),
+          appBar: pageIndex == 1
+              ? AppBarWidget(titleText: S.of(context).cart)
+              : const AppBarWidget(zeroHeight: true),
           bottomNavigationBar: NewNav(
             onChange: (index) {
               pageIndex = index;

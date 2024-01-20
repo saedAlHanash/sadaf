@@ -9,44 +9,6 @@ import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../../product/data/request/product_filter_request.dart';
 
-class TopSearchBar extends StatelessWidget {
-  const TopSearchBar({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0).r,
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Expanded(
-            child: SearchFieldWidget(),
-          ),
-          10.0.horizontalSpace,
-          Container(
-            height: 45.0.h,
-            width: 45.0.h,
-            decoration: BoxDecoration(
-              border: Border.all(
-                color: Colors.black.withOpacity(.6),
-              ),
-            ),
-            child: InkWell(
-              onTap: () async {},
-              child: ImageMultiType(
-                url: Icons.filter_list_sharp,
-                height: 30.0.r,
-                color: Colors.grey,
-              ),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-}
-
 class SearchFieldWidget extends StatefulWidget {
   const SearchFieldWidget({super.key});
 
@@ -70,11 +32,12 @@ class _SearchFieldWidgetState extends State<SearchFieldWidget> {
       height: 45.0.h,
       padding: const EdgeInsets.only(top: 8.0),
       decoration: BoxDecoration(
+        color: Colors.black38,
         border: Border.all(
           color: Colors.black.withOpacity(.6),
         ),
       ),
-      child: MyEditTextWidget(
+      child: MyEditTextWidgetWhite(
         controller: searchC,
         backgroundColor: Colors.transparent,
         radios: 0.0,
@@ -88,7 +51,7 @@ class _SearchFieldWidgetState extends State<SearchFieldWidget> {
             padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
             child: const ImageMultiType(
               url: Assets.iconsSearch,
-              color: AppColorManager.gray,
+              color: Colors.white54,
             ),
           ),
         ),

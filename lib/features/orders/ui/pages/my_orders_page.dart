@@ -24,12 +24,12 @@ class MyOrdersPage extends StatelessWidget {
             return MyStyle.loadingWidget();
           }
           final list = state.result;
-          // if (list.isEmpty) {
-          //   return const NotFoundWidget(
-          //     text: 'لا توجد طلبات',
-          //     icon: Assets.iconsNoOrder,
-          //   );
-          // }
+          if (list.isEmpty) {
+            return  NotFoundWidget(
+              text: S.of(context).emptyOrders,
+              icon: Assets.iconsNoCartResult,
+            );
+          }
 
           return ListView.separated(
             itemBuilder: (_, i) {
@@ -44,3 +44,11 @@ class MyOrdersPage extends StatelessWidget {
     );
   }
 }
+//if(date_pending)
+// date_processing
+// date_ready
+// date_shipping
+// date_completed
+// date_canceled
+// date_paymentFailed
+// date_returned

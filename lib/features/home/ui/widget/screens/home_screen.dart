@@ -7,7 +7,7 @@ import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/util/my_style.dart';
 import 'package:sadaf/core/widgets/card_slider_widget.dart';
-import 'package:sadaf/features/home/ui/widget/flash_deal_widget.dart';
+import 'package:sadaf/features/flash_deal/ui/widget/flash_deal_widget.dart';
 import 'package:sadaf/features/categories/ui/widget/item_category.dart';
 import 'package:sadaf/features/home/ui/widget/search_widget.dart';
 import 'package:sadaf/generated/assets.dart';
@@ -38,7 +38,7 @@ class HomeScreen extends StatelessWidget {
             children: [
               //سلايدر الصور
               const _BannerWidget(),
-              const TopSearchBar(),
+              20.0.verticalSpace,
               //التصنيفات
               const _CategoriesWidget(),
               20.0.verticalSpace,
@@ -64,19 +64,20 @@ class _CategoriesWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<CategoriesCubit, CategoriesInitial>(
+    return BlocBuilder<HomeCubit, HomeInitial>(
       builder: (context, state) {
         if (state.statuses.loading) {
           return MyStyle.loadingWidget();
         }
+        if(state.result.categories.isEmpty)return 0.0.verticalSpace;
         return SizedBox(
           height: 120.0.h,
           child: ListView.separated(
-            itemCount: state.result.length,
+            itemCount: state.result.categories.length,
             padding: const EdgeInsets.symmetric(horizontal: 30.0).w,
             scrollDirection: Axis.horizontal,
             itemBuilder: (_, i) {
-              final category = state.result[i];
+              final category = state.result.categories[i];
               return ItemCategory(category: category);
             },
             separatorBuilder: (_, i) => 12.0.horizontalSpace,
@@ -92,14 +93,43 @@ class _BannerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<BannerCubit, BannerInitial>(
-      builder: (context, state) {
-        if (state.result.isEmpty) return 0.0.verticalSpace;
-        return CardImageSlider(
-          images: state.result.map((e) => e.image).toList(),
-          height: 200.0.h,
-        );
-      },
+    return SizedBox(
+      height: 275.0.h,
+      width: double.infinity,
+      child: Stack(
+        children: [
+          BlocBuilder<BannerCubit, BannerInitial>(
+            builder: (context, state) {
+              if (state.result.isEmpty) return 0.0.verticalSpace;
+              return CardImageSlider(
+                images: state.result.map((e) => e.image).toList(),
+                height: 275.0.h,
+              );
+            },
+          ),
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0).r,
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                const Expanded(
+                  child: SearchFieldWidget(),
+                ),
+                34.0.horizontalSpace,
+                InkWell(
+                  onTap: () async {},
+                  child: ImageMultiType(
+                    url: Icons.notifications,
+                    height: 20.0.r,
+                    color: Colors.black,
+                  ),
+                )
+              ],
+            ),
+          ),
+        ],
+      ),
     );
   }
 }
@@ -129,40 +159,41 @@ class _FlashDealListWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        DrawableText.titleList(
-          text: S.of(context).flash_deal,
-          padding: MyStyle.pagePadding,
-          drawableEnd: TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, RouteName.offers, arguments: 1);
-            },
-            child: DrawableText(
-              text: S.of(context).see_all,
-              color: AppColorManager.gray,
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 105.0.h,
-          width: 1.0.sw,
-          child: BlocBuilder<FlashDealsCubit, FlashDealsInitial>(
-            builder: (context, state) {
-              if (state.statuses.loading) {
-                return MyStyle.loadingWidget();
-              }
-              return ListView.builder(
-                scrollDirection: Axis.horizontal,
-                itemCount: state.result.length,
-                itemBuilder: (_, i) {
-                  return FlashDealWidget(item: state.result[i]);
+    return BlocBuilder<HomeCubit, HomeInitial>(
+      builder: (context, state) {
+        if (state.statuses.loading) {
+          return MyStyle.loadingWidget();
+        }
+        if (state.result.flashDeals.isEmpty) return 0.0.verticalSpace;
+        return Column(
+          children: [
+            DrawableText.titleList(
+              text: S.of(context).flash_deal,
+              padding: MyStyle.pagePadding,
+              drawableEnd: TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteName.offers, arguments: 1);
                 },
-              );
-            },
-          ),
-        ),
-      ],
+                child: DrawableText(
+                  text: S.of(context).see_all,
+                  color: AppColorManager.gray,
+                ),
+              ),
+            ),
+            SizedBox(
+              height: 105.0.h,
+              width: 1.0.sw,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                itemCount: state.result.flashDeals.length,
+                itemBuilder: (_, i) {
+                  return FlashDealWidget(item: state.result.flashDeals[i]);
+                },
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -172,41 +203,42 @@ class _NewArrival extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        DrawableText.titleList(
-          text: S.of(context).new_arrival,
-          padding: MyStyle.pagePadding,
-          drawableEnd: TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, RouteName.offers);
-            },
-            child: DrawableText(
-              text: S.of(context).see_all,
-              color: AppColorManager.gray,
+    return BlocBuilder<HomeCubit, HomeInitial>(
+      builder: (context, state) {
+        if (state.statuses.loading) {
+          return MyStyle.loadingWidget();
+        }
+        if (state.result.newProducts.isEmpty) return 0.0.verticalSpace;
+        return Column(
+          children: [
+            DrawableText.titleList(
+              text: S.of(context).new_arrival,
+              padding: MyStyle.pagePadding,
+              drawableEnd: TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteName.offers);
+                },
+                child: DrawableText(
+                  text: S.of(context).see_all,
+                  color: AppColorManager.gray,
+                ),
+              ),
             ),
-          ),
-        ),
-        SizedBox(
-          height: 355.0.h,
-          width: 1.0.sw,
-          child: BlocBuilder<NewArrivalProductsCubit, NewArrivalProductsInitial>(
-            builder: (context, state) {
-              if (state.statuses.loading) {
-                return MyStyle.loadingWidget();
-              }
-              return ListView.builder(
+            SizedBox(
+              height: 355.0.h,
+              width: 1.0.sw,
+              child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                itemCount: state.result.length,
+                itemCount: state.result.newProducts.length,
                 itemBuilder: (_, i) {
-                  return ItemLargeProduct(product: state.result[i]);
+                  return ItemLargeProduct(product: state.result.newProducts[i]);
                 },
-              );
-            },
-          ),
-        ),
-      ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }
@@ -216,41 +248,42 @@ class _Offers extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        DrawableText.titleList(
-          text: S.of(context).offer,
-          padding: MyStyle.pagePadding,
-          drawableEnd: TextButton(
-            onPressed: () {
-              Navigator.pushNamed(context, RouteName.offers, arguments: 0);
-            },
-            child: DrawableText(
-              text: S.of(context).see_all,
-              color: AppColorManager.gray,
+    return BlocBuilder<HomeCubit, HomeInitial>(
+      builder: (context, state) {
+        if (state.statuses.loading) {
+          return MyStyle.loadingWidget();
+        }
+        if (state.result.offers.isEmpty) return 0.0.verticalSpace;
+        return Column(
+          children: [
+            DrawableText.titleList(
+              text: S.of(context).offer,
+              padding: MyStyle.pagePadding,
+              drawableEnd: TextButton(
+                onPressed: () {
+                  Navigator.pushNamed(context, RouteName.offers, arguments: 0);
+                },
+                child: DrawableText(
+                  text: S.of(context).see_all,
+                  color: AppColorManager.gray,
+                ),
+              ),
             ),
-          ),
-        ),
-        SizedBox(
-          height: 130.0.h,
-          width: 1.0.sw,
-          child: BlocBuilder<OffersCubit, OffersInitial>(
-            builder: (context, state) {
-              if (state.statuses.loading) {
-                return MyStyle.loadingWidget();
-              }
-              return ListView.builder(
+            SizedBox(
+              height: 130.0.h,
+              width: 1.0.sw,
+              child: ListView.builder(
                 shrinkWrap: true,
                 scrollDirection: Axis.horizontal,
-                itemCount: state.result.length,
+                itemCount: state.result.offers.length,
                 itemBuilder: (_, i) {
-                  return ItemHorizontalProduct(item: state.result[i]);
+                  return ItemHorizontalProduct(item: state.result.offers[i]);
                 },
-              );
-            },
-          ),
-        ),
-      ],
+              ),
+            ),
+          ],
+        );
+      },
     );
   }
 }

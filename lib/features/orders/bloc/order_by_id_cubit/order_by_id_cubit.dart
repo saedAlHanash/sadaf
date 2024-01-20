@@ -10,7 +10,7 @@ import '../../../../core/injection/injection_container.dart';
 import '../../../../core/network/network_info.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/pair_class.dart';
-import '../../data/response/my_orders.dart';
+import '../../data/response/orders_response.dart';
 
 part 'order_by_id_state.dart';
 

@@ -10,7 +10,7 @@ import 'package:sadaf/generated/assets.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../generated/l10n.dart';
 import '../../bloc/product_by_id_cubit/product_by_id_cubit.dart';
-import 'amount_widget.dart';
+import '../widget/amount_widget.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class PriceScreen extends StatelessWidget {
@@ -49,7 +49,6 @@ class PriceScreen extends StatelessWidget {
                             color: AppColorManager.black,
                             matchParent: true,
                           ),
-
                           DrawableText(
                             text: product.discountPrice,
                             size: 14.0.sp,
@@ -59,14 +58,14 @@ class PriceScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-                    AmountWidget(product: product),
+
                   ],
                 ),
               ),
               26.0.verticalSpace,
-              ProductDateWidget(
-                dateTime: DateTime.now().getFormat(serverDate: DateTime(2023, 11, 22)),
-              ),
+              // ProductDateWidget(
+              //   dateTime: DateTime.now().getFormat(serverDate: DateTime(2023, 11, 22)),
+              // ),
               26.0.verticalSpace,
               const RelatedProductWidget(),
             ],
@@ -263,43 +262,6 @@ class ProductDateWidget extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-class ProductShareWidget extends StatelessWidget {
-  const ProductShareWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        DrawableText(
-          text: S.of(context).share,
-          color: AppColorManager.ac,
-        ),
-        ImageMultiType(
-          url: Assets.iconsFb,
-          height: 40.0.r,
-          width: 40.0.r,
-        ),
-        ImageMultiType(
-          url: Assets.iconsP,
-          height: 40.0.r,
-          width: 40.0.r,
-        ),
-        ImageMultiType(
-          url: Assets.iconsP,
-          height: 40.0.r,
-          width: 40.0.r,
-        ),
-        ImageMultiType(
-          url: Assets.iconsWhatsApp,
-          height: 40.0.r,
-          width: 40.0.r,
-        ),
-      ],
     );
   }
 }

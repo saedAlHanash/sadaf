@@ -44,7 +44,7 @@ class _UpdatePageState extends State<UpdatePage> {
     updateCubit = context.read<UpdateProfileCubit>();
     request = updateCubit.state.request;
     request.type = widget.updateType;
-    request.avatar = UploadFile(initialImage: user.avatar,nameField: 'avatar');
+    request.avatar = UploadFile(initialImage: user.avatar, nameField: 'avatar');
     super.initState();
   }
 
@@ -163,8 +163,10 @@ class _UpdatePageState extends State<UpdatePage> {
                     ),
                     MyTextFormOutLineWidget(
                       label: S.of(context).receiverPhone,
+                      hint: '07 * * * * * * * *',
+                      helperText: S.of(context).helperPhoneText,
                       onChanged: (val) => updateCubit.setReceiverPhone = val,
-                      initialValue: user.receiverPhone,
+                      initialValue: user.receiverPhone.replaceAll('+964', ''),
                     ),
                     MyTextFormOutLineWidget(
                       label: S.of(context).location,
@@ -177,9 +179,7 @@ class _UpdatePageState extends State<UpdatePage> {
                           child: MyButton(
                             color: AppColorManager.mainColorLight,
                             text: S.of(context).selectFromMap,
-                            onTap: () {
-
-                            },
+                            onTap: () {},
                           ),
                         ),
                         15.0.horizontalSpace,

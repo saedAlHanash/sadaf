@@ -19,8 +19,6 @@ class LoginResponse {
       };
 }
 
-
-
 class LoginData {
   LoginData({
     required this.name,
@@ -33,16 +31,16 @@ class LoginData {
     required this.token,
   });
 
-   String name;
-   String emailOrPhone;
-   String mapAddress;
-   String governor;
-   String address;
-   String receiverPhone;
-   String avatar;
-   String token;
+  String name;
+  String emailOrPhone;
+  dynamic mapAddress;
+  dynamic governor;
+  String address;
+  String receiverPhone;
+  String avatar;
+  String token;
 
-  factory LoginData.fromJson(Map<String, dynamic> json){
+  factory LoginData.fromJson(Map<String, dynamic> json) {
     return LoginData(
       name: json["name"] ?? "",
       emailOrPhone: json["email_or_phone"] ?? "",
@@ -56,14 +54,13 @@ class LoginData {
   }
 
   Map<String, dynamic> toJson() => {
-    "name": name,
-    "email_or_phone": emailOrPhone,
-    "map_address": mapAddress,
-    "governor": governor,
-    "address": address,
-    "receiver_phone": receiverPhone,
-    "avatar": avatar,
-    "token": token,
-  };
-
+        "name": name,
+        "email_or_phone": emailOrPhone,
+        "map_address": mapAddress,
+        "governor": governor,
+        "address": address,
+        "receiver_phone": receiverPhone,
+        "avatar": avatar,
+        "token": token,
+      };
 }

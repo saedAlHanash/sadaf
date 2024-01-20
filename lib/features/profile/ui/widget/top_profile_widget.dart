@@ -17,11 +17,17 @@ import '../../bloc/profile_cubit/profile_cubit.dart';
 
 class TopProfileWidget extends StatefulWidget {
   const TopProfileWidget(
-      {super.key, required this.children, this.title, this.file, this.onLoad});
+      {super.key,
+      required this.children,
+      this.title,
+      this.file,
+      this.onLoad,
+      this.updateImage});
 
   final List<Widget> children;
   final String? title;
   final UploadFile? file;
+  final bool? updateImage;
   final Function(Uint8List bytes)? onLoad;
 
   @override
@@ -41,14 +47,15 @@ class _TopProfileWidgetState extends State<TopProfileWidget> {
               child: Stack(
                 children: [
                   SizedBox(
+                    width: double.infinity,
+                    height: double.infinity,
+                    child: ImageMultiType(
+                      url: widget.file?.fileBytes ?? state.result.avatar,
                       width: double.infinity,
                       height: double.infinity,
-                      child: ImageMultiType(
-                        url: widget.file?.fileBytes ?? state.result.avatar,
-                        width: double.infinity,
-                        height: double.infinity,
-                        fit: BoxFit.cover,
-                      )),
+                      fit: BoxFit.cover,
+                    ),
+                  ),
                   ClipRRect(
                     child: BackdropFilter(
                       filter: ImageFilter.blur(sigmaX: 3, sigmaY: 3),
@@ -101,15 +108,28 @@ class _TopProfileWidgetState extends State<TopProfileWidget> {
                   Positioned(
                     bottom: 0.0,
                     right: 60.w,
-                    child: ItemImageCreate(
-                      onLoad: (bytes) {
-                        loggerObject.w('message');
-                        return widget.onLoad?.call(bytes);
-                      },
-                      image: widget.file?.fileBytes ??
-                          widget.file?.initialImage ??
-                          state.result.avatar,
-                    ),
+                    child: (widget.updateImage ?? true)
+                        ? ItemImageCreate(
+                            onLoad: (bytes) {
+                              return widget.onLoad?.call(bytes);
+                            },
+                            image: widget.file?.fileBytes ??
+                                widget.file?.initialImage ??
+                                state.result.avatar,
+                          )
+                        : Container(
+                            height: 100.0.r,
+                            width: 100.0.r,
+                            clipBehavior: Clip.hardEdge,
+                            decoration: const BoxDecoration(
+                              color: Colors.white,
+                              shape: BoxShape.circle,
+                            ),
+                            child: ImageMultiType(
+                              url: state.result.avatar,
+                              fit: BoxFit.cover,
+                            ),
+                          ),
                   ),
                 ],
               ),

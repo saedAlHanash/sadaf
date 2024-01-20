@@ -19,14 +19,13 @@ class MyInfoPage extends StatefulWidget {
 }
 
 class _MyInfoPageState extends State<MyInfoPage> {
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const AppBarWidget(zeroHeight: true),
       body: SingleChildScrollView(
         child: TopProfileWidget(
+          updateImage: false,
           title: S.of(context).profile,
           children: [
             BlocBuilder<ProfileCubit, ProfileInitial>(

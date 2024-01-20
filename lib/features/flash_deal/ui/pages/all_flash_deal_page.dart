@@ -13,7 +13,7 @@ import '../../../../core/widgets/not_found_widget.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../bloc/flash_deal_cubit/flash_deal_cubit.dart';
-import '../widget/flash_deal_list_page.dart';
+import '../widget/flash_deal_list.dart';
 
 class AllFlashDealsPage extends StatefulWidget {
   const AllFlashDealsPage({super.key});
@@ -53,6 +53,7 @@ class _AllFlashDealsPageState extends State<AllFlashDealsPage>
             SizedBox(
               height: 42.h,
               child: TabBar(
+                indicatorSize: TabBarIndicatorSize.tab,
                 controller: _tabController,
                 indicator: const BoxDecoration(
                   gradient: LinearGradient(

@@ -37,6 +37,7 @@ class _ListCategoriesFilterState extends State<ListCategoriesFilter> {
   Widget build(BuildContext context) {
     return BlocBuilder<SubCategoriesCubit, SubCategoriesInitial>(
       builder: (context, state) {
+        if (state.result.isEmpty) return 0.0.verticalSpace;
         return SizedBox(
           height: 70.0.h,
           width: 1.0.sw,

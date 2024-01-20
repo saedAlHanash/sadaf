@@ -8,6 +8,7 @@ import '../../../../core/util/my_style.dart';
 import '../../../../core/util/shared_preferences.dart';
 import '../../../../core/widgets/not_found_widget.dart';
 import '../../../../generated/assets.dart';
+import '../../../../generated/l10n.dart';
 import '../../bloc/notification_count_cubit/notification_count_cubit.dart';
 import '../../bloc/notifications_cubit/notifications_cubit.dart';
 
@@ -29,17 +30,17 @@ class _NotificationsPageState extends State<NotificationsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(titleText: 'الإشعارات'),
+      appBar:  AppBarWidget(titleText: S.of(context).notification),
       body: BlocBuilder<NotificationsCubit, NotificationsInitial>(
         builder: (context, state) {
           if (state.statuses.loading) {
             return MyStyle.loadingWidget();
           }
           if (state.result.isEmpty) {
-            return const Expanded(
+            return  Expanded(
               child: NotFoundWidget(
-                icon: Assets.iconsNoNotifications,
-                text: 'لا يوجد إشعارات',
+                icon: Assets.iconsNoNotificationsResult,
+                text: S.of(context).emptyNotifications,
               ),
             );
           }

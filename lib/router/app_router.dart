@@ -4,11 +4,13 @@ import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/features/home/ui/pages/search_result_page.dart';
 import 'package:sadaf/features/notifications/ui/pages/notifications_page.dart';
 import 'package:sadaf/features/orders/bloc/order_by_id_cubit/order_by_id_cubit.dart';
+import 'package:sadaf/features/orders/ui/pages/tracking_order_page.dart';
 import 'package:sadaf/features/product/bloc/products_cubit/products_cubit.dart';
 import 'package:sadaf/features/product/data/response/products_response.dart';
 import 'package:sadaf/features/product/ui/pages/product_page.dart';
 
 import '../core/injection/injection_container.dart';
+import '../core/widgets/web_view.dart';
 import '../features/auth/bloc/confirm_code_cubit/confirm_code_cubit.dart';
 import '../features/auth/bloc/delete_account_cubit/delete_account_cubit.dart';
 import '../features/auth/bloc/forget_password_cubit/forget_password_cubit.dart';
@@ -28,16 +30,16 @@ import '../features/auth/ui/pages/signup_page.dart';
 import '../features/auth/ui/pages/splash_screen_page.dart';
 import '../features/categories/bloc/sub_categories_cubit/sub_categories_cubit.dart';
 import '../features/categories/ui/pages/categories_page.dart';
-import '../features/categories/ui/pages/products_page.dart';
+import '../features/product/ui/pages/products_page.dart';
 import '../features/home/bloc/home_cubit/home_cubit.dart';
 import '../features/home/bloc/search_cubit/search_cubit.dart';
 import '../features/home/ui/pages/home_page.dart';
 import '../features/map/bloc/my_location_cubit/my_location_cubit.dart';
 import '../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
 import '../features/offers/ui/pages/all_offers_page.dart';
-import '../features/orders/bloc/create_order_cubit/create_order_cubit.dart';
+import '../features/cart/bloc/create_order_cubit/create_order_cubit.dart';
 import '../features/orders/bloc/orders_cubit/orders_cubit.dart';
-import '../features/orders/data/response/my_orders.dart';
+import '../features/orders/data/response/orders_response.dart';
 import '../features/orders/ui/pages/my_orders_page.dart';
 import '../features/orders/ui/pages/order_page.dart';
 import '../features/product/bloc/product_by_id_cubit/product_by_id_cubit.dart';
@@ -217,25 +219,25 @@ class AppRoutes {
           },
         );
       //endregion
-
-      case RouteName.searchResult:
-        //region
-
-        final providers = [
-          BlocProvider(
-            create: (_) => sl<SearchCubit>()
-              ..getSearch(_, searchKey: (settings.arguments ?? '') as String),
-          ),
-        ];
-        return MaterialPageRoute(
-          builder: (_) {
-            return MultiBlocProvider(
-              providers: providers,
-              child: const SearchResultPage(),
-            );
-          },
-        );
-      //endregion
+      //
+      // case RouteName.searchResult:
+      //   //region
+      //
+      //   final providers = [
+      //     BlocProvider(
+      //       create: (_) => sl<SearchCubit>()
+      //         ..getSearch(_, searchKey: (settings.arguments ?? '') as String),
+      //     ),
+      //   ];
+      //   return MaterialPageRoute(
+      //     builder: (_) {
+      //       return MultiBlocProvider(
+      //         providers: providers,
+      //         child: const SearchResultPage(),
+      //       );
+      //     },
+      //   );
+      // //endregion
 
       //endregion
 
@@ -298,6 +300,7 @@ class AppRoutes {
       //region orders and cart
 
       case RouteName.myOrders:
+        //region
         final providers = [
           BlocProvider(create: (_) => sl<OrdersCubit>()..getOrders()),
         ];
@@ -309,6 +312,7 @@ class AppRoutes {
             );
           },
         );
+      //endregion
 
       case RouteName.orderInfo:
         //region
@@ -324,6 +328,23 @@ class AppRoutes {
             return MultiBlocProvider(
               providers: providers,
               child: const OrderPage(),
+            );
+          },
+        );
+
+      //endregion
+
+      case RouteName.trackingOrder:
+        //region
+        final providers = [
+          BlocProvider(create: (_) => sl<OrderByIdCubit>()),
+        ];
+        return MaterialPageRoute(
+          builder: (_) {
+            return MultiBlocProvider(
+              providers: providers,
+              child: TrackingOrderPage(
+                  order: (settings.arguments ?? Order.fromJson({})) as Order),
             );
           },
         );
@@ -405,6 +426,14 @@ class AppRoutes {
         });
 
       //endregion
+
+      //region webView
+      case RouteName.webView:
+        return MaterialPageRoute(
+          builder: (_) => WebViewExample(url: settings.arguments as String),
+        );
+
+      //endregion
     }
 
     return MaterialPageRoute(builder: (_) => const Scaffold(backgroundColor: Colors.red));
@@ -423,7 +452,8 @@ class RouteName {
 
   static const product = '/9';
   static const myInfo = '/10';
-  static const searchResult = '/11';
+
+  // static const searchResult = '/11';
   static const update = '/12';
   static const updateChoice = '/13';
   static const notifications = '/14';
@@ -438,4 +468,6 @@ class RouteName {
   static const products = '/23';
   static const orderInfo = '/24';
   static const productOptions = '/25';
+  static const webView = '/26';
+  static const trackingOrder = '/27';
 }

@@ -16,8 +16,8 @@ import '../../features/cart/bloc/decrease_cubit/decrease_cubit.dart';
 import '../../features/cart/bloc/get_cart_cubit/get_cart_cubit.dart';
 import '../../features/cart/bloc/increase_cubit/increase_cubit.dart';
 import '../../features/cart/bloc/remove_from_cart_cubit/remove_from_cart_cubit.dart';
-import '../../features/cart/bloc/update_cart_cubit/update_cart_cubit.dart';
 import '../../features/categories/bloc/categories_cubit/categories_cubit.dart';
+import '../../features/categories/bloc/sub_categories_cubit/sub_categories_cubit.dart';
 import '../../features/colors/bloc/colors_cubit/colors_cubit.dart';
 import '../../features/favorite/bloc/add_favorite/add_favorite_cubit.dart';
 import '../../features/favorite/bloc/get_favorite/get_favorite_cubit.dart';
@@ -97,7 +97,7 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    loggerObject.w(AppSharedPreference.getToken());
+
     final loading = Builder(builder: (_) {
       return Visibility(
         visible: context.watch<LoadingCubit>().state.isLoading,
@@ -150,10 +150,10 @@ class _MyAppState extends State<MyApp> {
                 BlocProvider(create: (_) => sl<RemoveFromCartCubit>()),
                 BlocProvider(create: (_) => sl<ClearCartCubit>()),
                 BlocProvider(create: (_) => sl<AddFavoriteCubit>()),
-                BlocProvider(create: (_) => sl<UpdateCartCubit>()),
                 BlocProvider(create: (_) => sl<DecreaseCubit>()),
                 BlocProvider(create: (_) => sl<IncreaseCubit>()),
                 BlocProvider(create: (_) => sl<CouponCubit>()),
+                BlocProvider(create: (_) => sl<SubCategoriesCubit>()),
                 BlocProvider(create: (_) => sl<OffersCubit>()..getOffers(_)),
                 BlocProvider(create: (_) => sl<SliderCubit>()..getSlider()),
                 BlocProvider(create: (_) => sl<FlashDealsCubit>()..getFlashDeals()),

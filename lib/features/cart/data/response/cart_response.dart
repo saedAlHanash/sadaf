@@ -9,7 +9,7 @@ class CartResponse {
 
   factory CartResponse.fromJson(Map<String, dynamic> json) {
     return CartResponse(
-      data: Cart.fromJson(json["data"] ?? {}),
+      data: Cart.fromJson(json["data"] is List ? {} : json["data"] ?? {}),
     );
   }
 

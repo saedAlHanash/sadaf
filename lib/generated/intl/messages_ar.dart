@@ -33,12 +33,14 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("هل لديك حساب بالفعل؟"),
         "apply": MessageLookupByLibrary.simpleMessage("تطبيق"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("تطبيق الفلاتر"),
+        "at": MessageLookupByLibrary.simpleMessage("عند"),
         "back": MessageLookupByLibrary.simpleMessage("عودة"),
         "birthday": MessageLookupByLibrary.simpleMessage("تاريخ الميلاد"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
         "card_name": MessageLookupByLibrary.simpleMessage("اسم البطاقة"),
         "card_number": MessageLookupByLibrary.simpleMessage("رقم البطاقة"),
         "cart": MessageLookupByLibrary.simpleMessage("السلة"),
+        "cashPayment": MessageLookupByLibrary.simpleMessage("دفع نقدي"),
         "changeAddress": MessageLookupByLibrary.simpleMessage("تغيير العنوان"),
         "changeEmail":
             MessageLookupByLibrary.simpleMessage("تغيير البريد الإلكتروني"),
@@ -55,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "color": MessageLookupByLibrary.simpleMessage("اللون"),
         "colors": MessageLookupByLibrary.simpleMessage("الألوان"),
         "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
+        "confirmAddress": MessageLookupByLibrary.simpleMessage("تأكيد العنوان"),
         "confirmCode": MessageLookupByLibrary.simpleMessage("أدخل رمز التأكيد"),
         "confirmMethod": MessageLookupByLibrary.simpleMessage(
             "يرجى اختيار كيفية إرسال رمز التحقق"),
@@ -78,23 +81,43 @@ class MessageLookup extends MessageLookupByLibrary {
         "cvc": MessageLookupByLibrary.simpleMessage("الرقم السري"),
         "days": MessageLookupByLibrary.simpleMessage("أيام"),
         "deleteAccount": MessageLookupByLibrary.simpleMessage("حذف الحساب"),
+        "deliveryDate": MessageLookupByLibrary.simpleMessage("تاريخ التسليم "),
         "description": MessageLookupByLibrary.simpleMessage("الوصف"),
         "didNotReceiveOTP":
             MessageLookupByLibrary.simpleMessage("لم تتلقَ الرمز؟"),
         "doNotHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("لا تمتلك حساب؟"),
         "done": MessageLookupByLibrary.simpleMessage("تم"),
+        "doneCanceled": MessageLookupByLibrary.simpleMessage("تم إلغاؤه"),
+        "doneCompleted": MessageLookupByLibrary.simpleMessage("تم إكماله"),
+        "donePaymentFailed":
+            MessageLookupByLibrary.simpleMessage("فشل عملية الدفع"),
+        "donePending": MessageLookupByLibrary.simpleMessage("تم إنشاءه"),
+        "doneProcessing": MessageLookupByLibrary.simpleMessage("تمت معالجته"),
+        "doneReady": MessageLookupByLibrary.simpleMessage("تم تحضيره"),
+        "doneReturned": MessageLookupByLibrary.simpleMessage("تم الإرجاع"),
+        "doneShipping": MessageLookupByLibrary.simpleMessage("تم شحنه"),
         "done_resend_code":
             MessageLookupByLibrary.simpleMessage("تم إعادة الإرسال"),
+        "ePayment": MessageLookupByLibrary.simpleMessage("دفع إلكتروني"),
         "editProfile":
             MessageLookupByLibrary.simpleMessage("تعديل الصفحة الشخصية"),
         "email": MessageLookupByLibrary.simpleMessage("البريد الإلكتروني"),
         "emailEmpty":
             MessageLookupByLibrary.simpleMessage("حقل البريد الإلكتروني مطلوب"),
+        "emptyCart": MessageLookupByLibrary.simpleMessage("السلة فارغة"),
+        "emptyFav": MessageLookupByLibrary.simpleMessage("المفضلة فارغة"),
+        "emptyNotifications":
+            MessageLookupByLibrary.simpleMessage("لا يوجد إشعارات"),
+        "emptyOffers": MessageLookupByLibrary.simpleMessage("لا يوجد عروض"),
+        "emptyOrders": MessageLookupByLibrary.simpleMessage("لا يوجد طلبات"),
+        "emptySearch":
+            MessageLookupByLibrary.simpleMessage("لا يوجد نتائج بحث"),
         "enterOTP": MessageLookupByLibrary.simpleMessage(
             "أدخل رمز التفعيل الخاص بك هنا."),
         "enter_new_password_and_confirm":
             MessageLookupByLibrary.simpleMessage("أدخل كلمة السر مع التأكيد"),
+        "estimatedFor": MessageLookupByLibrary.simpleMessage("الوقت المتوقع"),
         "expiration": MessageLookupByLibrary.simpleMessage("انتهاء الصلاحية"),
         "faq": MessageLookupByLibrary.simpleMessage("الأسئلة الشائعة"),
         "fav": MessageLookupByLibrary.simpleMessage("المفضلة"),
@@ -107,6 +130,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "governor": MessageLookupByLibrary.simpleMessage("المحافظة"),
         "haveBeenCreated":
             MessageLookupByLibrary.simpleMessage("تم إنشاء حسابك"),
+        "helperPhoneText":
+            MessageLookupByLibrary.simpleMessage("يبدأ ب 07 ويحتوي 11 رَقَم"),
         "home": MessageLookupByLibrary.simpleMessage("الرئيسية"),
         "homeAddress": MessageLookupByLibrary.simpleMessage("عنوان المنزل"),
         "hours": MessageLookupByLibrary.simpleMessage("ساعات"),
@@ -137,6 +162,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "next": MessageLookupByLibrary.simpleMessage("التالي"),
         "noInternet": MessageLookupByLibrary.simpleMessage(
             "يرجى التحقق من اتصالك بالإنترنت"),
+        "notYet": MessageLookupByLibrary.simpleMessage("ليس بعد"),
         "notification": MessageLookupByLibrary.simpleMessage("الإشعارات"),
         "numberPhone": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
         "offer": MessageLookupByLibrary.simpleMessage("عرض"),
@@ -150,6 +176,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("كلمة المرور غير متطابقة"),
         "passwordReset": MessageLookupByLibrary.simpleMessage(
             "تم إعادة تعيين كلمة المرور الخاصة بك!"),
+        "paymentMethod": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
         "payment_summary": MessageLookupByLibrary.simpleMessage("ملخص الدفع"),
         "phoneCall": MessageLookupByLibrary.simpleMessage("مكالمة هاتفية"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
@@ -166,6 +193,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "price": MessageLookupByLibrary.simpleMessage("السعر"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "rePassword": MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
+        "readyToDeliver": MessageLookupByLibrary.simpleMessage("جاهز للتسليم"),
         "receiverPhone": MessageLookupByLibrary.simpleMessage("هاتف المستلم"),
         "region": MessageLookupByLibrary.simpleMessage("المنطقة"),
         "registeredBefore": MessageLookupByLibrary.simpleMessage("مسجل سابقًا"),
@@ -199,6 +227,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "support": MessageLookupByLibrary.simpleMessage("الدعم"),
         "termsAndConditions":
             MessageLookupByLibrary.simpleMessage("الشروط والأحكام"),
+        "trackingOrder": MessageLookupByLibrary.simpleMessage("تتبع الطلب"),
         "update": MessageLookupByLibrary.simpleMessage("تعديل"),
         "useCurrentLocation":
             MessageLookupByLibrary.simpleMessage("استخدم الموقع الحالي"),
@@ -214,6 +243,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "yourEmail": MessageLookupByLibrary.simpleMessage("بريدك الإلكتروني"),
         "yourLocation": MessageLookupByLibrary.simpleMessage("موقعك"),
         "yourName": MessageLookupByLibrary.simpleMessage("اسمك"),
+        "yourOrder": MessageLookupByLibrary.simpleMessage("طلبك"),
         "yourPhone": MessageLookupByLibrary.simpleMessage("رقم هاتفك")
       };
 }

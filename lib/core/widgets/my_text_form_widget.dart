@@ -2,6 +2,7 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:sadaf/core/api_manager/api_service.dart';
 
 import '../strings/app_color_manager.dart';
 import '../util/my_style.dart';
@@ -11,6 +12,7 @@ class MyTextFormOutLineWidget extends StatefulWidget {
     Key? key,
     this.label = '',
     this.hint = '',
+    this.helperText = '',
     this.maxLines = 1,
     this.obscureText = false,
     this.textAlign = TextAlign.start,
@@ -28,10 +30,12 @@ class MyTextFormOutLineWidget extends StatefulWidget {
     this.iconWidget,
     this.iconWidgetLift,
     this.onChangedFocus,
+    this.onTap,
   }) : super(key: key);
   final bool? enable;
   final String label;
   final String hint;
+  final String? helperText;
   final dynamic icon;
   final Widget? iconWidget;
   final Widget? iconWidgetLift;
@@ -42,6 +46,7 @@ class MyTextFormOutLineWidget extends StatefulWidget {
   final TextAlign textAlign;
   final Function(String)? onChanged;
   final Function(bool)? onChangedFocus;
+  final Function()? onTap;
 
   final String? Function(String?)? validator;
   final TextEditingController? controller;
@@ -124,6 +129,8 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
       border: border,
       focusedBorder: focusedBorder,
       enabledBorder: border,
+      helperText: widget.helperText?.toUpperCase(),
+      helperStyle: const TextStyle(color: Colors.grey),
       fillColor: AppColorManager.lightGray,
       label: DrawableText(
         text: widget.label.toUpperCase(),
@@ -131,6 +138,7 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
         size: 16.0.spMin,
       ),
       counter: const SizedBox(),
+      hintText: widget.hint,
       alignLabelWithHint: true,
       labelStyle: TextStyle(color: widget.color ?? AppColorManager.mainColor),
       suffixIcon: widget.obscureText ? suffixIcon : widget.iconWidgetLift,
@@ -152,6 +160,7 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 15.0).h,
             child: TextFormField(
+              onTap: () => widget.onTap?.call(),
               validator: widget.validator,
               decoration: inputDecoration,
               maxLines: widget.maxLines,
@@ -297,80 +306,130 @@ class MyEditTextWidget extends StatelessWidget {
   }
 }
 
-class MyTextFormNoLabelWidget extends StatelessWidget {
-  const MyTextFormNoLabelWidget({
-    Key? key,
-    this.label = '',
-    this.hint = '',
-    this.maxLines = 1,
-    this.obscureText = false,
-    this.textAlign = TextAlign.start,
-    this.maxLength = 1000,
-    this.onChanged,
-    this.controller,
-    this.keyBordType,
-    this.innerPadding,
-    this.enable,
-    this.icon,
-    this.color = Colors.black,
-    this.initialValue,
-    this.textDirection,
-  }) : super(key: key);
-  final bool? enable;
-  final String label;
-  final String hint;
-  final String? icon;
-  final Color color;
-  final int maxLines;
-  final int maxLength;
-  final bool obscureText;
-  final TextAlign textAlign;
-  final Function(String val)? onChanged;
-  final TextEditingController? controller;
-  final TextInputType? keyBordType;
-  final EdgeInsets? innerPadding;
-  final String? initialValue;
-  final TextDirection? textDirection;
-
-  @override
-  Widget build(BuildContext context) {
-    return Column(
-      children: [
-        DrawableText(
-          text: label,
-          matchParent: true,
-          color: AppColorManager.black,
-          padding: const EdgeInsets.symmetric(horizontal: 10.0).w,
-          size: 18.0.sp,
-        ),
-        3.0.verticalSpace,
-        MyTextFormOutLineWidget(
-          maxLines: maxLines,
-          initialValue: initialValue,
-          obscureText: obscureText,
-          textAlign: textAlign,
-          onChanged: onChanged,
-          textDirection: textDirection,
-          maxLength: maxLength,
-          controller: controller,
-          color: color,
-          enable: enable,
-          hint: hint,
-          keyBordType: keyBordType,
-          icon: icon,
-          innerPadding: innerPadding,
-          key: key,
-        ),
-        5.0.verticalSpace,
-      ],
-    );
-  }
-}
-
 class RectCustomClipper extends CustomClipper<Rect> {
   @override
   Rect getClip(Size size) => Rect.fromLTWH(3.w, 0, size.width - 6.w, size.height);
 
   @override
   bool shouldReclip(covariant CustomClipper<Rect> oldClipper) => oldClipper != this;
+}
+
+class MyEditTextWidgetWhite extends StatelessWidget {
+  const MyEditTextWidgetWhite({
+    Key? key,
+    this.hint = '',
+    this.maxLines = 1,
+    this.textAlign,
+    this.maxLength = 1000,
+    this.onChanged,
+    this.controller,
+    this.keyBordType,
+    this.innerPadding,
+    this.backgroundColor,
+    this.focusNode,
+    this.obscureText = false,
+    this.icon,
+    this.enable,
+    this.radios,
+    this.textInputAction,
+    this.onFieldSubmitted,
+  }) : super(key: key);
+
+  final String hint;
+  final int maxLines;
+  final int maxLength;
+  final bool obscureText;
+  final bool? enable;
+  final TextAlign? textAlign;
+  final Function(String val)? onChanged;
+  final TextEditingController? controller;
+  final TextInputType? keyBordType;
+  final EdgeInsets? innerPadding;
+  final Color? backgroundColor;
+  final Widget? icon;
+  final FocusNode? focusNode;
+  final double? radios;
+  final TextInputAction? textInputAction;
+  final Function(String)? onFieldSubmitted;
+
+  @override
+  Widget build(BuildContext context) {
+    bool obscureText = this.obscureText;
+    Widget? suffixIcon;
+    late VoidCallback onChangeObscure;
+
+    if (icon != null) suffixIcon = icon;
+
+    if (obscureText) {
+      suffixIcon = StatefulBuilder(builder: (context, state) {
+        return InkWell(
+            splashColor: Colors.transparent,
+            onTap: () {
+              state(() => obscureText = !obscureText);
+              onChangeObscure();
+            },
+            child: Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 20.0).r,
+              child: Icon(
+                obscureText ? Icons.visibility : Icons.visibility_off,
+                size: 20.0.spMin,
+              ),
+            ));
+      });
+    }
+
+    final border = OutlineInputBorder(
+        borderSide: BorderSide(
+          color: backgroundColor ?? AppColorManager.offWhit.withOpacity(0.27),
+        ),
+        borderRadius: BorderRadius.circular(radios ?? 10.0.r));
+
+    final inputDecoration = InputDecoration(
+      hintText: hint,
+      hintStyle: TextStyle(
+        fontFamily: FontManager.cairoSemiBold.name,
+        fontSize: 18.0.spMin,
+        color: Colors.white54,
+      ),
+      contentPadding: innerPadding ?? const EdgeInsets.symmetric(horizontal: 10.0).w,
+      counter: const SizedBox(),
+      enabledBorder: border,
+      focusedErrorBorder: border,
+      disabledBorder: border,
+      focusedBorder: border,
+      errorMaxLines: 0,
+      constraints: BoxConstraints(maxWidth: .9.sw, minWidth: .3.sw),
+      border: border,
+      fillColor: backgroundColor ?? AppColorManager.offWhit.withOpacity(0.27),
+      filled: true,
+      enabled: enable ?? true,
+      prefixIcon: suffixIcon ?? 0.0.verticalSpace,
+      prefixIconConstraints: BoxConstraints(maxWidth: 80.0.spMin, minHeight: 50.0.spMin),
+    );
+
+    return StatefulBuilder(
+      builder: (context, state) {
+        onChangeObscure = () => state(() {});
+        return TextFormField(
+          obscureText: obscureText,
+          decoration: inputDecoration,
+          maxLines: maxLines,
+          textAlign: textAlign ?? TextAlign.start,
+          onChanged: onChanged,
+          style: TextStyle(
+            fontFamily: FontManager.cairoBold.name,
+            fontSize: 18.0.spMin,
+            color: Colors.white,
+          ),
+          cursorColor: Colors.white,
+          focusNode: focusNode,
+          maxLength: maxLength,
+          controller: controller,
+          keyboardType: keyBordType,
+          textInputAction: textInputAction,
+          onFieldSubmitted: onFieldSubmitted,
+        );
+      },
+    );
+  }
 }

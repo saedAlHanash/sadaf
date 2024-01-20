@@ -22,16 +22,10 @@ class UpdateChoicePage extends StatelessWidget {
               name: S.of(context).changeName,
               icon: Assets.iconsUserName,
             ),
-            if (!AppSharedPreference.getUserModel.emailOrPhone.contains('@'))
-              ItemMenu(
-                name: S.of(context).changePhone,
-                icon: Assets.iconsChangePhone,
-              ),
-            if (AppSharedPreference.getUserModel.emailOrPhone.contains('@'))
-              ItemMenu(
-                name: S.of(context).changeEmail,
-                icon: Assets.iconsEmail,
-              ),
+            ItemMenu(
+              name: S.of(context).changePhone,
+              icon: Assets.iconsPhone,
+            ),
             ItemMenu(
               name: S.of(context).changeAddress,
               icon: Assets.iconsLocator,

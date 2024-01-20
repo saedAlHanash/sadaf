@@ -3,9 +3,11 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/features/product/data/response/products_response.dart';
-import 'package:sadaf/features/product/ui/widget/price_screen.dart';
+import 'package:sadaf/features/product/ui/pages/price_screen.dart';
 
+import '../../../../core/widgets/not_found_widget.dart';
 import '../../../../generated/assets.dart';
+import '../../../../generated/l10n.dart';
 import '../../../product/ui/widget/item_product.dart';
 import '../../bloc/offers_cubit/offers_cubit.dart';
 
@@ -16,6 +18,12 @@ class OfferListPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<OffersCubit, OffersInitial>(
       builder: (context, state) {
+        if (state.result.isEmpty) {
+          return NotFoundWidget(
+            text: S.of(context).emptyOffers,
+            icon: Assets.iconsNoOffersResult,
+          );
+        }
         return ListView.separated(
           itemCount: (state.result.length / 2).round(),
           padding: const EdgeInsets.symmetric(vertical: 45.0, horizontal: 30.0).r,

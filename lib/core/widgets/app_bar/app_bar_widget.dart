@@ -12,7 +12,9 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     Key? key,
     this.titleText,
     this.elevation,
-       this.zeroHeight, this.actions, this.title,
+    this.zeroHeight,
+    this.actions,
+    this.title,
   }) : super(key: key);
 
   final String? titleText;
@@ -28,12 +30,14 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
       onWillPop: () async => context.read<LoadingCubit>().isLoadingForPop(),
       child: AppBar(
         backgroundColor: AppColorManager.whit,
+        surfaceTintColor: Colors.white,
         toolbarHeight: (zeroHeight ?? false) ? 0 : 80.0.h,
-        title:title?? DrawableText(
-          text: titleText ?? '',
-          size: 28.0.spMin,
-          fontFamily: FontManager.cairoBold.name,
-        ),
+        title: title ??
+            DrawableText(
+              text: titleText ?? '',
+              size: 28.0.spMin,
+              fontFamily: FontManager.cairoBold.name,
+            ),
         leading: Navigator.canPop(context) ? const BackBtnWidget() : null,
         actions: actions,
         elevation: elevation ?? 0.0,
@@ -45,6 +49,5 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   // TODO: implement preferredSize
-  Size get preferredSize => Size(1.0.sw,(zeroHeight ?? false) ? 0 : 80.0.h);
+  Size get preferredSize => Size(1.0.sw, (zeroHeight ?? false) ? 0 : 80.0.h);
 }
-

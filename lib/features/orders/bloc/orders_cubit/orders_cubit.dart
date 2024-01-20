@@ -9,7 +9,7 @@ import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/abstraction.dart';
 import '../../../../core/util/pair_class.dart';
 
-import '../../data/response/my_orders.dart';
+import '../../data/response/orders_response.dart';
 
 part 'orders_state.dart';
 

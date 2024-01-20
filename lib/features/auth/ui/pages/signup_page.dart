@@ -67,6 +67,18 @@ class _SignupPageState extends State<SignupPage> {
                   controller: bDateController,
                   enable: false,
                   label: S.of(context).birthday,
+                  onTap: () async {
+                    final datePicked = await showDatePicker(
+                        context: context,
+                        initialDate: signupState.request.birthday ?? DateTime(2000),
+                        lastDate: DateTime.now(),
+                        firstDate: DateTime(1900),
+                        initialDatePickerMode: DatePickerMode.year,
+                        initialEntryMode: DatePickerEntryMode.calendarOnly);
+                    if (datePicked == null) return;
+                    signupCubit.setBirthday = datePicked;
+                    bDateController.text = datePicked.formatDate ?? '';
+                  },
                   iconWidget: SelectSingeDateScrollWidget(
                     initial: signupState.request.birthday,
                     maxDate: DateTime.now(),
@@ -81,8 +93,9 @@ class _SignupPageState extends State<SignupPage> {
                 MyTextFormOutLineWidget(
                   validator: (p0) => signupCubit.validatePhoneOrEmail,
                   initialValue: signupState.request.phoneOrEmail,
+                  //TODO: change this to phone
                   keyBordType: TextInputType.emailAddress,
-                  label: '${S.of(context).email} - ${S.of(context).phoneNumber}',
+                  label: S.of(context).phoneNumber,
                   onChanged: (val) => signupCubit.setPhoneOrEmail = val,
                 ),
                 // كلمة السر

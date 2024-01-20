@@ -85,6 +85,8 @@ class NoteMessage {
       barrierColor: Colors.black.withOpacity(0.3),
       builder: (BuildContext context) {
         return Dialog(
+          surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
           alignment: Alignment.center,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
@@ -133,6 +135,8 @@ class NoteMessage {
       barrierColor: Colors.black.withOpacity(0.3),
       builder: (BuildContext context) {
         return Dialog(
+          surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
           alignment: Alignment.center,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(12.0.r)),
@@ -181,6 +185,8 @@ class NoteMessage {
       barrierColor: Colors.black.withOpacity(0.3),
       builder: (BuildContext context) {
         return Dialog(
+          surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
           alignment: Alignment.center,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(Radius.circular(12.0.r)),
@@ -224,6 +230,8 @@ class NoteMessage {
       barrierColor: Colors.black.withOpacity(0.3),
       builder: (BuildContext context) {
         return Dialog(
+          surfaceTintColor: Colors.white,
+          backgroundColor: Colors.white,
           alignment: Alignment.center,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.all(
@@ -275,6 +283,7 @@ class NoteMessage {
       context: context,
       builder: (BuildContext context) {
         return Dialog(
+          surfaceTintColor: Colors.transparent,
           alignment: Alignment.center,
           backgroundColor: Colors.transparent,
           shape: RoundedRectangleBorder(

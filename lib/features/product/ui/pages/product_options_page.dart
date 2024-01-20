@@ -13,7 +13,6 @@ import 'package:sadaf/generated/assets.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../generated/l10n.dart';
 
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 import '../../bloc/select_option_cubit/select_option_cubit.dart';
 import '../../data/response/products_response.dart';
@@ -35,7 +34,7 @@ class ProductOptionsPage extends StatelessWidget {
             width: .9.sw,
             child: BlocBuilder<SelectOptionCubit, SelectOptionInitial>(
               builder: (context, state) {
-                loggerObject.w(state.image);
+
                 return ImageMultiType(url: state.image, fit: BoxFit.fill);
               },
             ),
@@ -112,37 +111,6 @@ class ReviewWidget extends StatelessWidget {
   }
 }
 
-class LargeReviewWidget extends StatelessWidget {
-  const LargeReviewWidget({super.key, required this.rating});
-
-  final num rating;
-
-  @override
-  Widget build(BuildContext context) {
-    return DrawableText(
-      text: '${rating.toDouble()}',
-      size: 12.0.sp,
-      padding: const EdgeInsets.symmetric(vertical: 20.0).h,
-      matchParent: true,
-      drawableAlin: DrawableAlin.withText,
-      drawablePadding: 7.0.w,
-      drawableStart: RatingBar.builder(
-        initialRating: rating.toDouble(),
-        minRating: 0,
-        direction: Axis.horizontal,
-        allowHalfRating: true,
-        itemCount: 5,
-        itemSize: 17.0.r,
-        itemPadding: const EdgeInsets.symmetric(horizontal: 4.0).w,
-        itemBuilder: (__, _) {
-          return const Icon(Icons.star, color: Colors.black);
-        },
-        onRatingUpdate: (value) {},
-        ignoreGestures: true,
-      ),
-    );
-  }
-}
 
 class ColorsProductWidget extends StatelessWidget {
   const ColorsProductWidget({super.key});
@@ -277,43 +245,6 @@ class ProductDateWidget extends StatelessWidget {
           )
         ],
       ),
-    );
-  }
-}
-
-class ProductShareWidget extends StatelessWidget {
-  const ProductShareWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-      children: [
-        DrawableText(
-          text: S.of(context).share,
-          color: AppColorManager.ac,
-        ),
-        ImageMultiType(
-          url: Assets.iconsFb,
-          height: 40.0.r,
-          width: 40.0.r,
-        ),
-        ImageMultiType(
-          url: Assets.iconsP,
-          height: 40.0.r,
-          width: 40.0.r,
-        ),
-        ImageMultiType(
-          url: Assets.iconsP,
-          height: 40.0.r,
-          width: 40.0.r,
-        ),
-        ImageMultiType(
-          url: Assets.iconsWhatsApp,
-          height: 40.0.r,
-          width: 40.0.r,
-        ),
-      ],
     );
   }
 }

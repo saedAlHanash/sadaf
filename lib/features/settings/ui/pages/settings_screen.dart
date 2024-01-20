@@ -38,6 +38,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       child: TopProfileWidget(
+        updateImage: false,
         children: [
           ItemMenu(
             name: S.of(context).myInfo,
@@ -123,7 +124,9 @@ class _SettingsScreenState extends State<SettingsScreen> {
           children: [
             10.0.verticalSpace,
             DrawableText(
-                text: 'تسجبل الخروج ?', fontFamily: FontManager.cairoBold.name, size: 20.0.sp),
+                text: 'تسجبل الخروج ?',
+                fontFamily: FontManager.cairoBold.name,
+                size: 20.0.sp),
             const Divider(endIndent: 10.0, indent: 10.0),
             DrawableText(
               text: 'هل أنت متأكد من تسجيل الخروج؟ ',

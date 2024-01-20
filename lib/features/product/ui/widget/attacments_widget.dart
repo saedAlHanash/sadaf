@@ -10,8 +10,10 @@ import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/core/widgets/my_card_widget.dart';
 import 'package:sadaf/features/favorite/ui/widget/fav_btn_widget.dart';
 import 'package:sadaf/features/product/ui/widget/share_btn.dart';
+import 'package:sadaf/generated/assets.dart';
 
 import '../../data/response/products_response.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 class CardAttachmentsSlider extends StatefulWidget {
   const CardAttachmentsSlider({Key? key, required this.product}) : super(key: key);
@@ -36,7 +38,6 @@ class _CardAttachmentsSliderState extends State<CardAttachmentsSlider> {
   }
 
   Widget getAttachment() {
-
     switch (attachment.type) {
       case AttachmentType.image:
         return ImageMultiType(
@@ -49,12 +50,16 @@ class _CardAttachmentsSliderState extends State<CardAttachmentsSlider> {
       case AttachmentType.video:
         return VideoPlayerWidget(attachment: attachment);
       case AttachmentType.d3:
-        //TODO:
-        return ImageMultiType(
-          url: attachment.link,
-          fit: BoxFit.fill,
+        return SizedBox(
           height: 318.0.h,
           width: 1.0.sw,
+          child: ModelViewer(
+            // backgroundColor: const Color.fromARGB(0xFF, 0xEE, 0xEE, 0xEE),
+            src: attachment.link,
+            alt: 'A 3D model',
+            autoRotate: true,
+
+          ),
         );
     }
   }
@@ -99,7 +104,11 @@ class _CardAttachmentsSliderState extends State<CardAttachmentsSlider> {
                 onTap: () => setState(() => attachment = item),
                 splashColor: Colors.transparent,
                 child: RoundImageWidget(
-                  url: item.type == AttachmentType.youtube ? Icons.play_arrow : item.link,
+                  url: item.type == AttachmentType.youtube
+                      ? Assets.iconsYoutube
+                      : item.type == AttachmentType.d3
+                          ? Assets.iconsDdd1
+                          : item.link,
                   height: 60.0.r,
                   width: 60.0.r,
                 ),
