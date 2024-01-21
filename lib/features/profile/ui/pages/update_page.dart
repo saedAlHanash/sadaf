@@ -20,6 +20,7 @@ import 'package:sadaf/features/profile/ui/widget/top_profile_widget.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../core/util/shared_preferences.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../router/app_router.dart';
 import '../../../governors/bloc/governors_cubit/governors_cubit.dart';
 import '../../../map/bloc/my_location_cubit/my_location_cubit.dart';
 import '../../bloc/update_profile_cubit/update_profile_cubit.dart';
@@ -179,7 +180,26 @@ class _UpdatePageState extends State<UpdatePage> {
                           child: MyButton(
                             color: AppColorManager.mainColorLight,
                             text: S.of(context).selectFromMap,
-                            onTap: () {},
+                            onTap: () {
+                              Navigator.pushNamed(context, RouteName.map,
+                                      arguments: user.mapAddress.getLatLng)
+                                  .then((value) {
+                                if (value != null && value is LatLng) {
+                                  
+                                  getLocationNameApi(latLng: value).then((locationName) {
+                                    updateCubit.setHomeAddress = locationName;
+                                    updateCubit.addressController.text = locationName;
+                                  });
+
+                                  updateCubit.setMapAddress = MapAddress(
+                                    latitude: value.latitude,
+                                    longitude: value.longitude,
+                                  );
+                                  updateCubit.locationController.text =
+                                      updateCubit.state.request.mapAddress.toString();
+                                }
+                              });
+                            },
                           ),
                         ),
                         15.0.horizontalSpace,

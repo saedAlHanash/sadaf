@@ -1,8 +1,10 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:http/http.dart' as http;
 import 'package:intl/intl.dart';
+import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
 
 import '../../features/product/data/response/products_response.dart';
@@ -13,6 +15,11 @@ import '../strings/enum_manager.dart';
 import '../util/pair_class.dart';
 import '../util/snack_bar_message.dart';
 import '../widgets/spinner_widget.dart';
+
+extension PolylineExt on List<List<num>> {
+  List<LatLng> unpackPolyline() =>
+      map((p) => LatLng(p[0].toDouble(), p[1].toDouble())).toList();
+}
 
 extension SplitByLength on String {
   List<String> splitByLength1(int length, {bool ignoreEmpty = false}) {
@@ -98,7 +105,6 @@ extension SplitByLength on String {
   }
 
   OrderStatus get getOrderStatus {
-
     if (toLowerCase() == 'pending') return OrderStatus.pending;
     if (toLowerCase() == 'processing') return OrderStatus.processing;
     if (toLowerCase() == 'ready') return OrderStatus.ready;
@@ -168,28 +174,61 @@ extension EnumHelper on Enum {
         return S().cashPayment;
       case PaymentMethod.ePay:
         return S().ePayment;
+      case OrderStatus.pending:
+        return S().pending;
+      case OrderStatus.processing:
+        return S().processing;
+      case OrderStatus.ready:
+        return S().ready;
+      case OrderStatus.shipping:
+        return S().shipping;
+      case OrderStatus.completed:
+        return S().completed;
+      case OrderStatus.canceled:
+        return S().canceled;
+      case OrderStatus.paymentFailed:
+        return S().paymentFailed;
+      case OrderStatus.returned:
+        return S().returned;
     }
     return name;
   }
 
-  String get getNameDateOrderStatus{
+  Color get getOrderStateColorText {
     switch (this) {
       case OrderStatus.pending:
-        return '${S().donePending} ${S().at}';//
       case OrderStatus.processing:
-        return '${S().doneProcessing} ${S().at}';//
       case OrderStatus.ready:
-        return '${S().doneReady} ${S().at}';//
       case OrderStatus.shipping:
-        return '${S().doneShipping} ${S().at}';//
+        return AppColorManager.mainColor;
       case OrderStatus.completed:
-        return '${S().doneCompleted} ${S().at}';//
+        return Colors.green;
       case OrderStatus.canceled:
-        return '${S().doneCanceled} ${S().at}';//
       case OrderStatus.paymentFailed:
-        return '${S().donePaymentFailed} ${S().at}';//
       case OrderStatus.returned:
-        return '${S().doneReturned} ${S().at}';//
+        return Colors.red;
+    }
+    return AppColorManager.mainColor;
+  }
+
+  String get getNameDateOrderStatus {
+    switch (this) {
+      case OrderStatus.pending:
+        return '${S().donePending} ${S().at}'; //
+      case OrderStatus.processing:
+        return '${S().doneProcessing} ${S().at}'; //
+      case OrderStatus.ready:
+        return '${S().doneReady} ${S().at}'; //
+      case OrderStatus.shipping:
+        return '${S().doneShipping} ${S().at}'; //
+      case OrderStatus.completed:
+        return '${S().doneCompleted} ${S().at}'; //
+      case OrderStatus.canceled:
+        return '${S().doneCanceled} ${S().at}'; //
+      case OrderStatus.paymentFailed:
+        return '${S().donePaymentFailed} ${S().at}'; //
+      case OrderStatus.returned:
+        return '${S().doneReturned} ${S().at}'; //
     }
     return '';
   }

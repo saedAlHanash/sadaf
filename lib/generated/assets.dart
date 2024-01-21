@@ -54,6 +54,7 @@ class Assets {
   static const String iconsSummerSell = 'assets/icons/summer_sell.png';
   static const String iconsSupport = 'assets/icons/support.svg';
   static const String iconsTermsAndConditions = 'assets/icons/terms_and_conditions.svg';
+  static const String iconsTrack = 'assets/icons/track.svg';
   static const String iconsTracking = 'assets/icons/tracking.svg';
   static const String iconsTranguler = 'assets/icons/tranguler.svg';
   static const String iconsUserName = 'assets/icons/user_name.svg';

@@ -105,7 +105,7 @@ Future<String> getLocationNameApi({
   if (response.statusCode == 200) {
     final result = OsmNameModel.fromJson(jsonDecode(response.body));
 
-    var s = result.address.getName();
+    var s = result.displayName;
     if (s.isEmpty) s = result.displayName.removeDuplicates;
     return s;
   } else {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/features/home/ui/pages/search_result_page.dart';
 import 'package:sadaf/features/notifications/ui/pages/notifications_page.dart';
@@ -30,6 +31,10 @@ import '../features/auth/ui/pages/signup_page.dart';
 import '../features/auth/ui/pages/splash_screen_page.dart';
 import '../features/categories/bloc/sub_categories_cubit/sub_categories_cubit.dart';
 import '../features/categories/ui/pages/categories_page.dart';
+import '../features/driver/bloc/driver_location_cubit/driver_location_cubit.dart';
+import '../features/map/bloc/map_controller_cubit/map_controller_cubit.dart';
+import '../features/map/ui/pages/map_page.dart';
+import '../features/orders/bloc/order_status_cubit/order_status_cubit.dart';
 import '../features/product/ui/pages/products_page.dart';
 import '../features/home/bloc/home_cubit/home_cubit.dart';
 import '../features/home/bloc/search_cubit/search_cubit.dart';
@@ -242,6 +247,7 @@ class AppRoutes {
       //endregion
 
       //region settings
+
       case RouteName.update:
         //region
 
@@ -260,6 +266,19 @@ class AppRoutes {
           },
         );
       //endregion
+
+      case RouteName.map:
+        //region
+
+        return MaterialPageRoute(
+          builder: (_) {
+            return MapPage(
+              initial: (settings.arguments ?? initialLocation) as LatLng,
+            );
+          },
+        );
+      //endregion
+
       case RouteName.myInfo:
         //region
 
@@ -278,6 +297,7 @@ class AppRoutes {
           },
         );
       //endregion
+
       case RouteName.about:
         //region
         return MaterialPageRoute(
@@ -286,6 +306,7 @@ class AppRoutes {
           },
         );
       //endregion
+
       case RouteName.privacy:
         //region
         return MaterialPageRoute(
@@ -322,6 +343,11 @@ class AppRoutes {
               ..getOrderById(
                   id: ((settings.arguments ?? Order.fromJson({})) as Order).id),
           ),
+          BlocProvider(
+            create: (_) => sl<OrderStatusCubit>()
+              ..getOrderStatus(
+                  id: ((settings.arguments ?? Order.fromJson({})) as Order).id),
+          ),
         ];
         return MaterialPageRoute(
           builder: (_) {
@@ -337,14 +363,19 @@ class AppRoutes {
       case RouteName.trackingOrder:
         //region
         final providers = [
-          BlocProvider(create: (_) => sl<OrderByIdCubit>()),
+          BlocProvider(
+            create: (_) => sl<OrderByIdCubit>()
+              ..getOrderById(
+                  id: ((settings.arguments ?? Order.fromJson({})) as Order).id),
+          ),
+          BlocProvider(create: (_) => sl<DriverLocationCubit>()),
+          BlocProvider(create: (_) => sl<MapControllerCubit>()),
         ];
         return MaterialPageRoute(
           builder: (_) {
             return MultiBlocProvider(
               providers: providers,
-              child: TrackingOrderPage(
-                  order: (settings.arguments ?? Order.fromJson({})) as Order),
+              child: const TrackingOrderPage(),
             );
           },
         );
@@ -470,4 +501,5 @@ class RouteName {
   static const productOptions = '/25';
   static const webView = '/26';
   static const trackingOrder = '/27';
+  static const map = '/28';
 }

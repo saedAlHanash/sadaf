@@ -58,10 +58,14 @@ dependencies:
   geolocator: any
   intl: any
   collection: any
-  flutter_local_notifications: ^15.1.0+1
+  flutter_local_notifications: ^16.3.1+1
   package_info_plus: ^4.1.0
   webview_flutter: ^4.4.4
   awesome_dialog: any
+  google_polyline_algorithm: any
+  widget_to_marker: any
+
+
 
 dev_dependencies:
   flutter_test:

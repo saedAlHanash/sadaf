@@ -168,11 +168,22 @@
   "donePaymentFailed": "فشل عملية الدفع",
   "doneReturned": "تم الإرجاع",
   "at": "عند",
+  "pending": "انتظار",
+  "processing": "معالجة",
+  "ready": "جاهز",
+  "shipping": "مشحون",
+  "completed": "منتهي",
+  "canceled": "ملغي",
+  "paymentFailed": "فشل الدفع",
+  "returned": "استعادة",
+  "reviewOrder": "عرض الطلب",
+
   "notYet": "ليس بعد",
   "trackingOrder": "تتبع الطلب",
   "yourOrder": "طلبك",
   "deliveryDate": "تاريخ التسليم ",
   "readyToDeliver": "جاهز للتسليم",
   "estimatedFor": "الوقت المتوقع",
+  "pleasSetYourAddress": "الرجاء تعيين عنوانك",
   "add_to_cart": "أضف للسلة"
 }

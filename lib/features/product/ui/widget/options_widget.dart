@@ -45,22 +45,37 @@ class _SizeOptionsState extends State<SizeOptions> {
 
   @override
   Widget build(BuildContext context) {
+
     return SizedBox(
       width: 1.0.sw,
       child: GroupButton(
         controller: controller,
-        isRadio: true,
         onSelected: (value, i, _) {
           context.read<SelectOptionCubit>().selectSize(value);
         },
+        // buttonBuilder: (selected, value, context) {
+        //   return Container(
+        //     width: 100.0.w,
+        //     decoration: BoxDecoration(
+        //         color: selected ? AppColorManager.mainColor : Colors.white,
+        //         border: Border.all(color: AppColorManager.gray)),
+        //     child: DrawableText(
+        //       text: 'value',
+        //       textAlign: TextAlign.center,
+        //       matchParent: true,
+        //       color: selected ? Colors.white : AppColorManager.mainColor,
+        //     ),
+        //   );
+        // },
         options: GroupButtonOptions(
           buttonHeight: 28.0.h,
           buttonWidth: 85.0.w,
           direction: Axis.horizontal,
           mainGroupAlignment: MainGroupAlignment.start,
           elevation: 0.0,
+          selectedTextStyle: TextStyle(color: Colors.black),
           unselectedShadow: [],
-          selectedBorderColor: AppColorManager.mainColor,
+          selectedBorderColor: AppColorManager.lightGrayEd,
           unselectedBorderColor: AppColorManager.d9,
         ),
         buttons: widget.options.map((e) => e).toList(),
@@ -146,11 +161,8 @@ class _ColorOptionsState extends State<ColorOptions> {
                 final selectedColor = value;
                 final option =
                     product.groupedOptions[selectedSize]?.firstWhereOrNull((element) {
-
                   return element.color.hex == selectedColor;
                 });
-
-
 
                 if (option != null) {
                   context

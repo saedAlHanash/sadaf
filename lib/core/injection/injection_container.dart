@@ -23,6 +23,7 @@ import '../../features/cart/bloc/remove_from_cart_cubit/remove_from_cart_cubit.d
 import '../../features/categories/bloc/categories_cubit/categories_cubit.dart';
 import '../../features/categories/bloc/sub_categories_cubit/sub_categories_cubit.dart';
 import '../../features/colors/bloc/colors_cubit/colors_cubit.dart';
+import '../../features/driver/bloc/driver_location_cubit/driver_location_cubit.dart';
 import '../../features/favorite/bloc/add_favorite/add_favorite_cubit.dart';
 import '../../features/favorite/bloc/get_favorite/get_favorite_cubit.dart';
 import '../../features/firebase/bloc/insert_firebase_token_cubit/insert_firebase_token_cubit.dart';
@@ -33,12 +34,14 @@ import '../../features/home/bloc/home_cubit/home_cubit.dart';
 import '../../features/home/bloc/search_cubit/search_cubit.dart';
 import '../../features/home/bloc/slider_cubit/slider_cubit.dart';
 import '../../features/manufacturers/bloc/manufacturerss_cubit/manufacturers_cubit.dart';
+import '../../features/map/bloc/map_controller_cubit/map_controller_cubit.dart';
 import '../../features/map/bloc/my_location_cubit/my_location_cubit.dart';
 import '../../features/notifications/bloc/notification_count_cubit/notification_count_cubit.dart';
 import '../../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
 import '../../features/offers/bloc/offers_cubit/offers_cubit.dart';
 import '../../features/cart/bloc/create_order_cubit/create_order_cubit.dart';
 import '../../features/orders/bloc/order_by_id_cubit/order_by_id_cubit.dart';
+import '../../features/orders/bloc/order_status_cubit/order_status_cubit.dart';
 import '../../features/orders/bloc/orders_cubit/orders_cubit.dart';
 import '../../features/product/bloc/new_arrival_cubit/new_arrival_cubit.dart';
 import '../../features/product/bloc/product_by_id_cubit/product_by_id_cubit.dart';
@@ -160,6 +163,9 @@ Future<void> init() async {
   sl.registerFactory(() => CreateOrderCubit());
   sl.registerFactory(() => OrdersCubit());
   sl.registerFactory(() => OrderByIdCubit());
+  sl.registerFactory(() => OrderStatusCubit());
+  sl.registerFactory(() => DriverLocationCubit());
+  sl.registerFactory(() => MapControllerCubit());
 
   //endregion
 

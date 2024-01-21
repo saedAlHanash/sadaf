@@ -1,3 +1,5 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
 class ProfileResponse {
   ProfileResponse({
     required this.data,
@@ -39,7 +41,8 @@ class Profile {
     return Profile(
       name: json["name"] ?? "",
       emailOrPhone: json["email_or_phone"] ?? "",
-      mapAddress: MapAddress.fromJson(json["map_address"] is String ? {} : (json["map_address"] ?? {})),
+      mapAddress: MapAddress.fromJson(
+          json["map_address"] is String ? {} : (json["map_address"] ?? {})),
       governor:
           Governor.fromJson(json["governor"] is List ? {} : (json["governor"] ?? {})),
       address: json["address"] ?? "",
@@ -82,6 +85,8 @@ class Governor {
 }
 
 class MapAddress {
+  LatLng? get getLatLng => latitude == 0 ? null : LatLng(latitude, longitude);
+
   MapAddress({
     required this.latitude,
     required this.longitude,
@@ -97,8 +102,8 @@ class MapAddress {
 
   factory MapAddress.fromJson(Map<String, dynamic> json) {
     return MapAddress(
-      latitude: json["latitude"] ?? 0,
-      longitude: json["longitude"] ?? 0,
+      latitude: double.tryParse(json["latitude"].toString()) ?? 0,
+      longitude: double.tryParse(json["longitude"].toString()) ?? 0,
     );
   }
 

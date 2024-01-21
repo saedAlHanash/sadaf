@@ -120,7 +120,7 @@ class _NewNavState extends State<NewNav> {
           ],
           currentIndex: selectedIndex,
           onTap: (value) {
-            if (context.read<ProfileCubit>().state.statuses.loading) return;
+            // if (context.read<ProfileCubit>().state.statuses.loading) return;
             widget.onChange.call(value);
             setState(() => selectedIndex = value);
           },

@@ -18,6 +18,7 @@ import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../../product/ui/widget/item_product.dart';
 import '../../bloc/order_by_id_cubit/order_by_id_cubit.dart';
+import '../../bloc/order_status_cubit/order_status_cubit.dart';
 import '../../bloc/orders_cubit/orders_cubit.dart';
 
 class OrderPage extends StatelessWidget {
@@ -47,27 +48,6 @@ class OrderPage extends StatelessWidget {
             ),
           )
         ],
-      ),
-      bottomNavigationBar: MyButton(
-        onTap: () {
-          Navigator.pushNamed(
-            context,
-            RouteName.trackingOrder,
-            arguments: context.read<OrderByIdCubit>().state.result,
-          );
-        },
-        child: DrawableText(
-          text: S.of(context).trackingOrder.toUpperCase(),
-          color: AppColorManager.whit,
-          fontFamily: FontManager.cairoBold.name,
-          drawablePadding: 20.0.w,
-          drawableEnd: ImageMultiType(
-            url: Icons.map_outlined,
-            color: Colors.white,
-            height: 30.0.r,
-            width: 30.0.r,
-          ),
-        ),
       ),
       body: SingleChildScrollView(
         child: BlocBuilder<OrderByIdCubit, OrderByIdInitial>(
@@ -136,18 +116,24 @@ class OrderPage extends StatelessWidget {
                     ],
                   ),
                 ),
-                if (state.result.statusEnum == OrderStatus.canceled)
-                  const _ItemDateOrderRed(state: OrderStatus.canceled),
-                if (state.result.statusEnum == OrderStatus.paymentFailed)
-                  const _ItemDateOrderRed(state: OrderStatus.paymentFailed),
-                if (state.result.statusEnum == OrderStatus.returned)
-                  const _ItemDateOrderRed(state: OrderStatus.returned),
-                _ItemDateOrder(state: OrderStatus.pending, date: DateTime.now()),
-                _ItemDateOrder(state: OrderStatus.processing, date: DateTime.now()),
-                _ItemDateOrder(state: OrderStatus.ready, date: DateTime.now()),
-                _ItemDateOrder(state: OrderStatus.shipping, date: DateTime.now()),
-                _ItemDateOrder(
-                  state: OrderStatus.completed,
+                BlocBuilder<OrderStatusCubit, OrderStatusInitial>(
+                  builder: (context, state) {
+                    if (state.statuses.loading) {
+                      return MyStyle.loadingWidget();
+                    }
+                    return const Column(
+                      children: [
+                        _ItemDateOrderRed(state: OrderStatus.canceled),
+                        _ItemDateOrderRed(state: OrderStatus.paymentFailed),
+                        _ItemDateOrderRed(state: OrderStatus.returned),
+                        _ItemDateOrder(state: OrderStatus.pending),
+                        _ItemDateOrder(state: OrderStatus.processing),
+                        _ItemDateOrder(state: OrderStatus.ready),
+                        _ItemDateOrder(state: OrderStatus.shipping),
+                        _ItemDateOrder(state: OrderStatus.completed),
+                      ],
+                    );
+                  },
                 ),
                 40.0.verticalSpace,
               ],
@@ -160,13 +146,13 @@ class OrderPage extends StatelessWidget {
 }
 
 class _ItemDateOrder extends StatelessWidget {
-  const _ItemDateOrder({required this.state, this.date});
+  const _ItemDateOrder({required this.state});
 
   final OrderStatus state;
-  final DateTime? date;
 
   @override
   Widget build(BuildContext context) {
+    final date = context.read<OrderStatusCubit>().state.getDate(state);
     return DrawableText(
       size: 18.0.sp,
       padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 30.0).r,
@@ -179,7 +165,7 @@ class _ItemDateOrder extends StatelessWidget {
         textAlign: TextAlign.center,
         text: date == null
             ? S.of(context).notYet
-            : '${date!.formatDate}\n${date!.formatTime}',
+            : '${date.formatDate}\n${date.formatTime}',
         color: date == null ? AppColorManager.lightGrayEd : AppColorManager.c6e,
       ),
     );
@@ -187,13 +173,14 @@ class _ItemDateOrder extends StatelessWidget {
 }
 
 class _ItemDateOrderRed extends StatelessWidget {
-  const _ItemDateOrderRed({required this.state, this.date});
+  const _ItemDateOrderRed({required this.state});
 
   final OrderStatus state;
-  final DateTime? date;
 
   @override
   Widget build(BuildContext context) {
+    final date = context.read<OrderStatusCubit>().state.getDate(state);
+    if (date == null) return 0.0.verticalSpace;
     return DrawableText(
       size: 18.0.sp,
       padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 30.0).r,
@@ -204,9 +191,7 @@ class _ItemDateOrderRed extends StatelessWidget {
       drawableEnd: DrawableText(
         size: 14.0.sp,
         textAlign: TextAlign.center,
-        text: date == null
-            ? S.of(context).notYet
-            : '${date!.formatDate}\n${date!.formatTime}',
+        text: '${date.formatDate}\n${date.formatTime}',
         color: Colors.red,
       ),
     );

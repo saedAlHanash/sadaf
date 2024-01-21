@@ -13,7 +13,6 @@ import 'package:sadaf/generated/assets.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../generated/l10n.dart';
 
-
 import '../../bloc/select_option_cubit/select_option_cubit.dart';
 import '../../data/response/products_response.dart';
 import '../widget/amount_widget.dart';
@@ -34,7 +33,6 @@ class ProductOptionsPage extends StatelessWidget {
             width: .9.sw,
             child: BlocBuilder<SelectOptionCubit, SelectOptionInitial>(
               builder: (context, state) {
-
                 return ImageMultiType(url: state.image, fit: BoxFit.fill);
               },
             ),
@@ -65,21 +63,49 @@ class ProductOptionsPage extends StatelessWidget {
                   },
                 ),
                 30.0.verticalSpace,
-                DrawableText(text: S.of(context).sizes, matchParent: true),
-                10.0.verticalSpace,
-                SizeOptions(
-                  options: product.groupedOptions.entries.map((e) => e.key).toList(),
+                Builder(
+                  builder: (context) {
+                    final sizes = product.groupedOptions.entries
+                        .map((e) => e.key)
+                        .toList()
+                      ..removeWhere((element) => element.isEmpty);
+                    if (sizes.isEmpty) return 0.0.verticalSpace;
+                    return Column(
+                      children: [
+                        DrawableText(text: S.of(context).sizes, matchParent: true),
+                        10.0.verticalSpace,
+                        SizeOptions(
+                          options: sizes,
+                        ),
+                      ],
+                    );
+                  },
                 ),
                 30.0.verticalSpace,
-                DrawableText(text: S.of(context).colors, matchParent: true),
-                10.0.verticalSpace,
-                ColorOptions(
-                  colors: product.groupedColors.entries.map((e) => e.key).toList(),
+                Builder(
+                  builder: (context) {
+                    final colors = product.groupedColors.entries
+                        .map((e) => e.key)
+                        .toList()
+                      ..removeWhere((element) => element.isEmpty);
+                    if (colors.isEmpty) return 0.0.verticalSpace;
+                    return Column(
+                      children: [
+                        DrawableText(text: S.of(context).colors, matchParent: true),
+                        10.0.verticalSpace,
+                        ColorOptions(
+                          colors: colors,
+                        ),
+                      ],
+                    );
+                  },
                 ),
+                30.0.verticalSpace,
                 MyButton(
                   text: S.of(context).continueTo,
                   onTap: () => Navigator.pop(context, true),
-                )
+                ),
+                20.0.verticalSpace,
               ],
             ),
           ),
@@ -110,7 +136,6 @@ class ReviewWidget extends StatelessWidget {
     );
   }
 }
-
 
 class ColorsProductWidget extends StatelessWidget {
   const ColorsProductWidget({super.key});

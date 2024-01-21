@@ -1740,6 +1740,86 @@ class S {
     );
   }
 
+  /// `Pending`
+  String get pending {
+    return Intl.message(
+      'Pending',
+      name: 'pending',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Processing`
+  String get processing {
+    return Intl.message(
+      'Processing',
+      name: 'processing',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Ready`
+  String get ready {
+    return Intl.message(
+      'Ready',
+      name: 'ready',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Shipping`
+  String get shipping {
+    return Intl.message(
+      'Shipping',
+      name: 'shipping',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Completed`
+  String get completed {
+    return Intl.message(
+      'Completed',
+      name: 'completed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Canceled`
+  String get canceled {
+    return Intl.message(
+      'Canceled',
+      name: 'canceled',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Payment Failed`
+  String get paymentFailed {
+    return Intl.message(
+      'Payment Failed',
+      name: 'paymentFailed',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Returned`
+  String get returned {
+    return Intl.message(
+      'Returned',
+      name: 'returned',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Not Yet`
   String get notYet {
     return Intl.message(
@@ -1795,6 +1875,26 @@ class S {
     return Intl.message(
       'Estimated For',
       name: 'estimatedFor',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Pleas Set Your Address`
+  String get pleasSetYourAddress {
+    return Intl.message(
+      'Pleas Set Your Address',
+      name: 'pleasSetYourAddress',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Review Order`
+  String get reviewOrder {
+    return Intl.message(
+      'Review Order',
+      name: 'reviewOrder',
       desc: '',
       args: [],
     );

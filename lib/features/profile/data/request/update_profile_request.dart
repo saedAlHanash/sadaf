@@ -46,7 +46,8 @@ class UpdateProfileRequest {
   Map<String, dynamic> toJson() => {
         "name": name,
         "email_or_phone": emailOrPhone,
-        "map_address": mapAddress?.toJson(),
+        "latitude": mapAddress?.latitude,
+        "longitude": mapAddress?.longitude,
         "address": address,
         "old_password": oldPass,
         "new_password": newPass,

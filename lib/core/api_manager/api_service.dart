@@ -68,6 +68,7 @@ class APIService {
     Map<String, dynamic>? query,
     String? path,
     String? hostName,
+
   }) async {
     if (!await network.isConnected) _noInternet;
 
@@ -76,6 +77,7 @@ class APIService {
     _fixQuery(query);
 
     if (path != null) url = '$url/$path';
+
 
     final uri = Uri.https(hostName ?? baseUrl, url, query);
 

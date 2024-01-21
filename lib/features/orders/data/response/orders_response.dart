@@ -1,3 +1,4 @@
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/util/abstraction.dart';
 
@@ -37,8 +38,10 @@ class Order {
     required this.subtotal,
     required this.total,
     required this.couponCode,
+    required this.estimatedTime,
     required this.address,
     required this.user,
+    required this.driver,
     required this.products,
   });
 
@@ -48,20 +51,24 @@ class Order {
   final String subtotal;
   final String total;
   final String couponCode;
+  final DateTime? estimatedTime;
   final Address address;
   final User user;
+  final Driver driver;
   final List<Product> products;
 
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
       id: json["id"] ?? 0,
-      status: json["status"] ?? "",
-      statusEnum: OrderStatus.values[(json["real_status"] ?? 1) - 1],
+      status: OrderStatus.values[(json["status"] ?? 1) - 1].getName,
+      statusEnum: OrderStatus.values[(json["status"] ?? 1) - 1],
       subtotal: json["subtotal"] ?? "",
       total: json["total"] ?? "",
       couponCode: json["coupon_code"] ?? "",
+      estimatedTime: DateTime.tryParse(json["estimated_time"].toString()),
       address: Address.fromJson(json["address"] is String ? {} : (json["address"] ?? {})),
       user: User.fromJson(json["user"] ?? {}),
+      driver: Driver.fromJson(json["driver"] ?? {}),
       products: json["products"] == null
           ? []
           : List<Product>.from(json["products"]!.map((x) => Product.fromJson(x))),
@@ -74,8 +81,10 @@ class Order {
         "subtotal": subtotal,
         "total": total,
         "coupon_code": couponCode,
+        "estimated_time": estimatedTime,
         "address": address.toJson(),
         "user": user.toJson(),
+        "driver": driver.toJson(),
         "products": products.map((x) => x.toJson()).toList(),
       };
 }
@@ -139,5 +148,73 @@ class Address {
         "map_address": mapAddress.toJson(),
         "governor": governor,
         "receiver_phone": receiverPhone,
+      };
+}
+
+class Driver {
+  Driver({
+    required this.id,
+    required this.name,
+    required this.emailOrPhone,
+    required this.phone,
+    required this.avatar,
+    required this.trackNumber,
+    required this.mapAddress,
+  });
+
+  final int id;
+  final String name;
+  final String emailOrPhone;
+  final String phone;
+  final String avatar;
+  final String trackNumber;
+  final MapAddress mapAddress;
+
+  factory Driver.fromJson(Map<String, dynamic> json) {
+    return Driver(
+      id: json["id"] ?? 0,
+      name: json["name"] ?? "",
+      emailOrPhone: json["email_or_phone"] ?? "",
+      phone: json["phone"] ?? "",
+      avatar: json["avatar"] ?? "",
+      trackNumber: json["track_number"] ?? "",
+      mapAddress:
+      MapAddress.fromJson(json["map_address"]??{}),
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "id": id,
+        "name": name,
+        "email_or_phone": emailOrPhone,
+        "phone": phone,
+        "avatar": avatar,
+        "track_number": trackNumber,
+        "map_address": mapAddress?.toJson(),
+      };
+}
+
+class MapAddress {
+  MapAddress({
+    required this.latitude,
+    required this.longitude,
+  });
+
+  LatLng? get latLng =>
+      latitude == 0 ? null : LatLng(latitude.toDouble(), longitude.toDouble());
+
+  final num latitude;
+  final num longitude;
+
+  factory MapAddress.fromJson(Map<String, dynamic> json) {
+    return MapAddress(
+      latitude: json["latitude"] ?? 0,
+      longitude: json["longitude"] ?? 0,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "latitude": latitude,
+        "longitude": longitude,
       };
 }

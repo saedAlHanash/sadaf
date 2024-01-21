@@ -57,11 +57,15 @@ class GetUrl {
 
   static const profile = 'profile';
 
-  static var orderById = 'orders';
+  static const orderById = 'orders';
 
-  static var subCategories = 'categories/sub';
+  static const subCategories = 'categories/sub';
 
-  static var governors = 'governors';
+  static const governors = 'governors';
+
+  static const orderStatus='orders/statues';
+
+  static const driverLocation = 'orders/coordinate';
 }
 
 class PostUrl {

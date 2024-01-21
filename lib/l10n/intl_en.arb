@@ -168,11 +168,23 @@
   "donePaymentFailed": " PaymentFailed",
   "doneReturned": "Order Returned",
   "at": "At",
+  "pending": "Pending",
+  "processing": "Processing",
+  "ready": "Ready",
+  "shipping": "Shipping",
+  "completed": "Completed",
+  "canceled": "Canceled",
+  "paymentFailed": "Payment Failed",
+  "returned": "Returned",
+
   "notYet": "Not Yet",
   "trackingOrder": "Tracking Order",
   "yourOrder": "Your Order",
   "deliveryDate": "Delivery Date",
   "readyToDeliver": "Ready To Deliver",
   "estimatedFor": "Estimated For",
+  "pleasSetYourAddress": "Pleas Set Your Address",
+  "reviewOrder": "Review Order",
+
   "yourLocation": "Your Location"
 }

@@ -45,11 +45,8 @@ class _CartScreenState extends State<CartScreen> {
                     MaterialPageRoute(builder: (_) => const DoneCreateOrderPage()));
                 break;
               case PaymentMethod.ePay:
-                Navigator.pushNamed(
-                  context,
-                  RouteName.webView,
-                  arguments: state.paymentUrl
-                );
+                Navigator.pushNamed(context, RouteName.webView,
+                    arguments: state.paymentUrl);
                 break;
             }
           },
@@ -211,6 +208,18 @@ class _ConfirmAddress extends StatelessWidget {
                     ),
                   ),
                   onTap: () {
+                    if (user.mapAddress.latitude == 0 || user.address.isEmpty) {
+                      NoteMessage.showErrorDialog(context,
+                              text: S.of(context).pleasSetYourAddress)
+                          .then(
+                        (value) {
+                          Navigator.pop(context, false);
+                          Navigator.pushNamed(context, RouteName.update,
+                              arguments: UpdateType.address);
+                        },
+                      );
+                      return;
+                    }
                     Navigator.pop(context, true);
                   },
                 ),

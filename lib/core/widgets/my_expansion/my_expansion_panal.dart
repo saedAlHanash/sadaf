@@ -165,7 +165,7 @@ class MyExpansionPanelList extends StatefulWidget {
     this.animationDuration = kThemeAnimationDuration,
     this.expandedHeaderPadding = _kPanelHeaderExpandedDefaultPadding,
     this.dividerColor,
-    this.elevation = 2,
+    this.elevation = 0,
     this.cardElevation,
     this.decoration,
   })  : _allowOnlyOnePanelOpen = false,
@@ -192,7 +192,7 @@ class MyExpansionPanelList extends StatefulWidget {
     this.initialOpenPanelValue,
     this.expandedHeaderPadding = _kPanelHeaderExpandedDefaultPadding,
     this.dividerColor,
-    this.elevation = 2,
+    this.elevation = 0,
     this.cardElevation,
     this.decoration,
   }) : _allowOnlyOnePanelOpen = true;
@@ -263,7 +263,7 @@ class _MyExpansionPanelListState extends State<MyExpansionPanelList> {
     super.initState();
     if (widget._allowOnlyOnePanelOpen) {
       assert(_allIdentifiersUnique(),
-      'All ExpansionPanelRadio identifier values must be unique.');
+          'All ExpansionPanelRadio identifier values must be unique.');
       if (widget.initialOpenPanelValue != null) {
         _currentOpenPanel = searchPanelByValue(
             widget.children.cast<ExpansionPanelRadio>(), widget.initialOpenPanelValue);
@@ -277,7 +277,7 @@ class _MyExpansionPanelListState extends State<MyExpansionPanelList> {
 
     if (widget._allowOnlyOnePanelOpen) {
       assert(_allIdentifiersUnique(),
-      'All ExpansionPanelRadio identifier values must be unique.');
+          'All ExpansionPanelRadio identifier values must be unique.');
       // If the previous widget was non-radio ExpansionPanelList, initialize the
       // open panel to widget.initialOpenPanelValue
       if (!oldWidget._allowOnlyOnePanelOpen) {
@@ -300,7 +300,7 @@ class _MyExpansionPanelListState extends State<MyExpansionPanelList> {
   bool _isChildExpanded(int index) {
     if (widget._allowOnlyOnePanelOpen) {
       final ExpansionPanelRadio radioWidget =
-      widget.children[index] as ExpansionPanelRadio;
+          widget.children[index] as ExpansionPanelRadio;
       return _currentOpenPanel?.value == radioWidget.value;
     }
     return widget.children[index].isExpanded;
@@ -317,13 +317,13 @@ class _MyExpansionPanelListState extends State<MyExpansionPanelList> {
 
     if (widget._allowOnlyOnePanelOpen) {
       final ExpansionPanelRadio pressedChild =
-      widget.children[index] as ExpansionPanelRadio;
+          widget.children[index] as ExpansionPanelRadio;
 
       // If another ExpansionPanelRadio was already open, apply its
       // expansionCallback (if any) to false, because it's closing.
       for (int childIndex = 0; childIndex < widget.children.length; childIndex += 1) {
         final ExpansionPanelRadio child =
-        widget.children[childIndex] as ExpansionPanelRadio;
+            widget.children[childIndex] as ExpansionPanelRadio;
         if (widget.expansionCallback != null &&
             childIndex != index &&
             child.value == _currentOpenPanel?.value) {
@@ -350,9 +350,9 @@ class _MyExpansionPanelListState extends State<MyExpansionPanelList> {
   @override
   Widget build(BuildContext context) {
     assert(
-    kElevationToShadow.containsKey(widget.elevation),
-    'Invalid value for elevation. See the kElevationToShadow constant for'
-        ' possible elevation values.',
+      kElevationToShadow.containsKey(widget.elevation),
+      'Invalid value for elevation. See the kElevationToShadow constant for'
+      ' possible elevation values.',
     );
 
     final items = <MergeableMaterialItem>[];
@@ -369,46 +369,13 @@ class _MyExpansionPanelListState extends State<MyExpansionPanelList> {
         _isChildExpanded(index),
       );
 
-      Widget expandIconContainer = ExpandIcon(
-        isExpanded: _isChildExpanded(index),
-        // padding: const EdgeInsets.all(16.0),
-        color: AppColorManager.mainColor,
-        disabledColor: AppColorManager.mainColor,
-        expandedColor: AppColorManager.mainColor,
-        onPressed: (!child.canTapOnHeader)
-            ? (bool isExpanded) => _handlePressed(isExpanded, index)
-            : null,
-      );
-      if (!child.canTapOnHeader) {
-        final MaterialLocalizations localizations = MaterialLocalizations.of(context);
-        expandIconContainer = Semantics(
-          label: _isChildExpanded(index)
-              ? localizations.expandedIconTapHint
-              : localizations.collapsedIconTapHint,
-          container: true,
-          child: expandIconContainer,
-        );
-      }
-      Widget header = Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8.0).w,
-        child: Row(
-          children: <Widget>[
-            Expanded(
-              child: AnimatedContainer(
-                duration: widget.animationDuration,
-                curve: Curves.fastOutSlowIn,
-                margin: _isChildExpanded(index)
-                    ? widget.expandedHeaderPadding
-                    : EdgeInsets.zero,
-                child: ConstrainedBox(
-                  constraints:
-                  const BoxConstraints(minHeight: _kPanelHeaderCollapsedHeight),
-                  child: headerWidget,
-                ),
-              ),
-            ),
-            expandIconContainer,
-          ],
+      Widget header = AnimatedContainer(
+        duration: widget.animationDuration,
+        curve: Curves.fastOutSlowIn,
+        margin: _isChildExpanded(index) ? widget.expandedHeaderPadding : EdgeInsets.zero,
+        child: ConstrainedBox(
+          constraints: const BoxConstraints(minHeight: _kPanelHeaderCollapsedHeight),
+          child: headerWidget,
         ),
       );
 
@@ -431,7 +398,6 @@ class _MyExpansionPanelListState extends State<MyExpansionPanelList> {
               padding: widget.children[index].bodyPadding ?? EdgeInsets.zero,
               child: child.body,
             ),
-
             firstCurve: const Interval(0.0, 0.6, curve: Curves.fastOutSlowIn),
             secondCurve: const Interval(0.4, 1.0, curve: Curves.fastOutSlowIn),
             sizeCurve: Curves.fastOutSlowIn,
@@ -448,9 +414,9 @@ class _MyExpansionPanelListState extends State<MyExpansionPanelList> {
           key: _SaltedKey<BuildContext, int>(context, index * 2),
           child: widget.decoration == null
               ? MyCardWidget(
-                  padding: const EdgeInsets.only(bottom: 10.0).h,
+                  padding: EdgeInsets.zero,
                   cardColor: widget.children[index].backgroundColor ?? Colors.white,
-                  elevation: 10.0,
+                  elevation: 0,
                   margin: const EdgeInsets.symmetric(vertical: 10.0).h,
                   child: itemWidget,
                 )

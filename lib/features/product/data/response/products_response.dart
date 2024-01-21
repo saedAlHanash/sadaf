@@ -135,7 +135,7 @@ class Product {
     for (var e in product.images) {
       product.attachment.add(Attachment(link: e, type: AttachmentType.image));
     }
-    
+
     for (var e in product.dddImages) {
       product.attachment.add(Attachment(link: e, type: AttachmentType.d3));
     }
@@ -150,6 +150,7 @@ class Product {
     }
 
     if (product.options.isNotEmpty) {
+
       product.groupedOptions
         ..clear()
         ..addAll(groupBy(product.options, (option) => option.size));

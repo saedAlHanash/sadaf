@@ -1,4 +1,3 @@
-
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -14,14 +13,14 @@ class MyExpansionWidget extends StatefulWidget {
     this.onTapItem,
     this.elevation,
     this.onExpansion,
-       this.decoration,
+    this.decoration,
   }) : super(key: key);
 
   final List<ItemExpansion> items;
   final double? elevation;
-    final BoxDecoration? decoration;
+  final BoxDecoration? decoration;
   final Function(int)? onTapItem;
-  final ItemExpansionOption Function(ItemExpansion)? onExpansion;
+  final Function(int panelIndex, bool isExpanded)? onExpansion;
 
   @override
   State<MyExpansionWidget> createState() => _MyExpansionWidgetState();
@@ -35,6 +34,7 @@ class _MyExpansionWidgetState extends State<MyExpansionWidget> {
         return MyExpansionPanel(
           canTapOnHeader: true,
           isExpanded: e.isExpanded,
+          bodyPadding: EdgeInsets.zero,
           withSideColor: e.withSideColor,
           backgroundColor: (e.isExpanded && e.withSideColor)
               ? AppColorManager.lightGray
@@ -50,6 +50,7 @@ class _MyExpansionWidgetState extends State<MyExpansionWidget> {
             }
             return e.header ?? const DrawableText(text: 'header');
           },
+
           body: e.body,
           enable: e.enable,
           onTapItem: widget.onTapItem,
@@ -59,14 +60,14 @@ class _MyExpansionWidgetState extends State<MyExpansionWidget> {
 
     return MyExpansionPanelList(
       elevation: 0.0,
-      cardElevation: 5.0,
+      cardElevation: 0,
       children: listItem,
       decoration: widget.decoration,
       dividerColor: Colors.transparent,
       expansionCallback: (panelIndex, isExpanded) {
+        widget.onExpansion?.call(panelIndex, isExpanded);
         setState(() {
-          widget.items[panelIndex].isExpanded =
-              !widget.items[panelIndex].isExpanded;
+          widget.items[panelIndex].isExpanded = !widget.items[panelIndex].isExpanded;
         });
       },
     );

@@ -345,7 +345,7 @@ class ItemOrderProduct extends StatelessWidget {
       },
       child: Container(
         width: 1.0.sw,
-        height: 60.0.h,
+        height: 75.0.h,
         margin: const EdgeInsets.symmetric(vertical: 15.0).h,
         padding: const EdgeInsets.symmetric(horizontal: 30.0).w,
         child: Row(
@@ -363,9 +363,11 @@ class ItemOrderProduct extends StatelessWidget {
                   DrawableText(
                     size: 14.0.sp,
                     text: product.name,
+                    maxLines: 2,
                     fontFamily: FontManager.cairoBold.name,
                     matchParent: true,
                     drawableAlin: DrawableAlin.between,
+                    drawablePadding: 15.0.w,
                     drawableEnd: DrawableText(
                       size: 16.0.sp,
                       text: product.price,

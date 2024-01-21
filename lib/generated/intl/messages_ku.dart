@@ -38,6 +38,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "birthday": MessageLookupByLibrary.simpleMessage("ڕۆژی لەدایکبوون"),
         "cancel": MessageLookupByLibrary.simpleMessage("Betal bike"),
+        "canceled": MessageLookupByLibrary.simpleMessage("Canceled"),
         "card_name": MessageLookupByLibrary.simpleMessage("ناوی کارت"),
         "card_number": MessageLookupByLibrary.simpleMessage("ژمارەی کارت"),
         "cart": MessageLookupByLibrary.simpleMessage("Çarçove"),
@@ -58,6 +59,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("ئەم کۆدە نادروستە"),
         "color": MessageLookupByLibrary.simpleMessage("ڕەنگ"),
         "colors": MessageLookupByLibrary.simpleMessage("ڕەنگەکان"),
+        "completed": MessageLookupByLibrary.simpleMessage("Completed"),
         "confirm": MessageLookupByLibrary.simpleMessage("Pêşdeçûyî"),
         "confirmAddress":
             MessageLookupByLibrary.simpleMessage("Confirm Address"),
@@ -188,9 +190,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Şîfre ne dengeyekî"),
         "passwordReset":
             MessageLookupByLibrary.simpleMessage("وشەی تێپەڕەوشەت\nڕێکخستووە!"),
+        "paymentFailed": MessageLookupByLibrary.simpleMessage("Payment Failed"),
         "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment Method"),
         "payment_summary":
             MessageLookupByLibrary.simpleMessage("کورتەی پارەدان"),
+        "pending": MessageLookupByLibrary.simpleMessage("Pending"),
         "phoneCall": MessageLookupByLibrary.simpleMessage("پەیوەندی تەلەفۆنی"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Hejmara telefonê"),
         "phoneNumberCanNotBeChange": MessageLookupByLibrary.simpleMessage(
@@ -200,12 +204,16 @@ class MessageLookup extends MessageLookupByLibrary {
         "phoneSms": MessageLookupByLibrary.simpleMessage("پەیامی تەلەفۆن"),
         "pleasCreateAccount": MessageLookupByLibrary.simpleMessage(
             "Ji kerema xwe re hesabê çêbikin"),
+        "pleasSetYourAddress":
+            MessageLookupByLibrary.simpleMessage("Pleas Set Your Address"),
         "policy": MessageLookupByLibrary.simpleMessage(
             "Polîtîkaya bikaranîna û mahremiyê"),
         "price": MessageLookupByLibrary.simpleMessage("نرخ"),
+        "processing": MessageLookupByLibrary.simpleMessage("Processing"),
         "profile": MessageLookupByLibrary.simpleMessage("Profil"),
         "rePassword":
             MessageLookupByLibrary.simpleMessage("Şîfreya xwedîderketinê"),
+        "ready": MessageLookupByLibrary.simpleMessage("Ready"),
         "readyToDeliver":
             MessageLookupByLibrary.simpleMessage("Ready To Deliver"),
         "receiverPhone": MessageLookupByLibrary.simpleMessage("receiverPhone"),
@@ -220,6 +228,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "resend": MessageLookupByLibrary.simpleMessage("دووبارە ناردن"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "returned": MessageLookupByLibrary.simpleMessage("Returned"),
+        "reviewOrder": MessageLookupByLibrary.simpleMessage("Review Order"),
         "reviews": MessageLookupByLibrary.simpleMessage("بەڵێوەچوونەکان"),
         "saveChange":
             MessageLookupByLibrary.simpleMessage("پاشکەوتکردنی گۆڕانکاری"),
@@ -234,6 +244,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Mîhengên"),
         "sgnIn": MessageLookupByLibrary.simpleMessage("چوونە ژوورەوە"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
+        "shipping": MessageLookupByLibrary.simpleMessage("Shipping"),
         "signInToContinue":
             MessageLookupByLibrary.simpleMessage("Sign In To Continue"),
         "signInWithSocial": MessageLookupByLibrary.simpleMessage(

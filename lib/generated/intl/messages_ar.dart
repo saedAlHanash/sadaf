@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("عودة"),
         "birthday": MessageLookupByLibrary.simpleMessage("تاريخ الميلاد"),
         "cancel": MessageLookupByLibrary.simpleMessage("إلغاء"),
+        "canceled": MessageLookupByLibrary.simpleMessage("ملغي"),
         "card_name": MessageLookupByLibrary.simpleMessage("اسم البطاقة"),
         "card_number": MessageLookupByLibrary.simpleMessage("رقم البطاقة"),
         "cart": MessageLookupByLibrary.simpleMessage("السلة"),
@@ -56,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("هذا الكود غير صالح"),
         "color": MessageLookupByLibrary.simpleMessage("اللون"),
         "colors": MessageLookupByLibrary.simpleMessage("الألوان"),
+        "completed": MessageLookupByLibrary.simpleMessage("منتهي"),
         "confirm": MessageLookupByLibrary.simpleMessage("تأكيد"),
         "confirmAddress": MessageLookupByLibrary.simpleMessage("تأكيد العنوان"),
         "confirmCode": MessageLookupByLibrary.simpleMessage("أدخل رمز التأكيد"),
@@ -176,8 +178,10 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("كلمة المرور غير متطابقة"),
         "passwordReset": MessageLookupByLibrary.simpleMessage(
             "تم إعادة تعيين كلمة المرور الخاصة بك!"),
+        "paymentFailed": MessageLookupByLibrary.simpleMessage("فشل الدفع"),
         "paymentMethod": MessageLookupByLibrary.simpleMessage("طريقة الدفع"),
         "payment_summary": MessageLookupByLibrary.simpleMessage("ملخص الدفع"),
+        "pending": MessageLookupByLibrary.simpleMessage("انتظار"),
         "phoneCall": MessageLookupByLibrary.simpleMessage("مكالمة هاتفية"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("رقم الهاتف"),
         "phoneNumberCanNotBeChange":
@@ -188,11 +192,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("رسالة نصية على الهاتف"),
         "pleasCreateAccount":
             MessageLookupByLibrary.simpleMessage("يرجى إنشاء حساب"),
+        "pleasSetYourAddress":
+            MessageLookupByLibrary.simpleMessage("الرجاء تعيين عنوانك"),
         "policy":
             MessageLookupByLibrary.simpleMessage("سياسة الاستخدام والخصوصية"),
         "price": MessageLookupByLibrary.simpleMessage("السعر"),
+        "processing": MessageLookupByLibrary.simpleMessage("معالجة"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),
         "rePassword": MessageLookupByLibrary.simpleMessage("تأكيد كلمة المرور"),
+        "ready": MessageLookupByLibrary.simpleMessage("جاهز"),
         "readyToDeliver": MessageLookupByLibrary.simpleMessage("جاهز للتسليم"),
         "receiverPhone": MessageLookupByLibrary.simpleMessage("هاتف المستلم"),
         "region": MessageLookupByLibrary.simpleMessage("المنطقة"),
@@ -205,6 +213,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "resend": MessageLookupByLibrary.simpleMessage("إعادة الإرسال"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("إعادة تعيين كلمة المرور"),
+        "returned": MessageLookupByLibrary.simpleMessage("استعادة"),
+        "reviewOrder": MessageLookupByLibrary.simpleMessage("عرض الطلب"),
         "reviews": MessageLookupByLibrary.simpleMessage("التقييمات"),
         "saveChange": MessageLookupByLibrary.simpleMessage("حفظ التغيير"),
         "save_for_later": MessageLookupByLibrary.simpleMessage("حفظ لاحقًا؟"),
@@ -216,6 +226,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("الإعدادات"),
         "sgnIn": MessageLookupByLibrary.simpleMessage("تسجيل الدخول."),
         "share": MessageLookupByLibrary.simpleMessage("مشاركة"),
+        "shipping": MessageLookupByLibrary.simpleMessage("مشحون"),
         "signInToContinue":
             MessageLookupByLibrary.simpleMessage("تسجيل الدخول للمتابعة"),
         "signInWithSocial": MessageLookupByLibrary.simpleMessage(

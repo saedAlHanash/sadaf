@@ -37,6 +37,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "birthday": MessageLookupByLibrary.simpleMessage("birthday"),
         "cancel": MessageLookupByLibrary.simpleMessage("Cancel"),
+        "canceled": MessageLookupByLibrary.simpleMessage("Canceled"),
         "card_name": MessageLookupByLibrary.simpleMessage("Card Name"),
         "card_number": MessageLookupByLibrary.simpleMessage("Card Number"),
         "cart": MessageLookupByLibrary.simpleMessage("Cart"),
@@ -56,6 +57,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("This Code Is Invalid CODE"),
         "color": MessageLookupByLibrary.simpleMessage("Color"),
         "colors": MessageLookupByLibrary.simpleMessage("Colors"),
+        "completed": MessageLookupByLibrary.simpleMessage("Completed"),
         "confirm": MessageLookupByLibrary.simpleMessage("Confirm"),
         "confirmAddress":
             MessageLookupByLibrary.simpleMessage("Confirm Address"),
@@ -183,9 +185,11 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Password does not match"),
         "passwordReset": MessageLookupByLibrary.simpleMessage(
             "Your Password Has\nBeen Reset!"),
+        "paymentFailed": MessageLookupByLibrary.simpleMessage("Payment Failed"),
         "paymentMethod": MessageLookupByLibrary.simpleMessage("Payment Method"),
         "payment_summary":
             MessageLookupByLibrary.simpleMessage("Payment Summary"),
+        "pending": MessageLookupByLibrary.simpleMessage("Pending"),
         "phoneCall": MessageLookupByLibrary.simpleMessage("Phone Call"),
         "phoneNumber": MessageLookupByLibrary.simpleMessage("Phone Number"),
         "phoneNumberCanNotBeChange": MessageLookupByLibrary.simpleMessage(
@@ -195,11 +199,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "phoneSms": MessageLookupByLibrary.simpleMessage("Phone SMS"),
         "pleasCreateAccount":
             MessageLookupByLibrary.simpleMessage("Please create an account"),
+        "pleasSetYourAddress":
+            MessageLookupByLibrary.simpleMessage("Pleas Set Your Address"),
         "policy": MessageLookupByLibrary.simpleMessage(
             "Terms of Use and Privacy Policy"),
         "price": MessageLookupByLibrary.simpleMessage("Price"),
+        "processing": MessageLookupByLibrary.simpleMessage("Processing"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
         "rePassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
+        "ready": MessageLookupByLibrary.simpleMessage("Ready"),
         "readyToDeliver":
             MessageLookupByLibrary.simpleMessage("Ready To Deliver"),
         "receiverPhone": MessageLookupByLibrary.simpleMessage("receiverPhone"),
@@ -214,6 +222,8 @@ class MessageLookup extends MessageLookupByLibrary {
         "resend": MessageLookupByLibrary.simpleMessage("Resend"),
         "reset_password":
             MessageLookupByLibrary.simpleMessage("Reset Password"),
+        "returned": MessageLookupByLibrary.simpleMessage("Returned"),
+        "reviewOrder": MessageLookupByLibrary.simpleMessage("Review Order"),
         "reviews": MessageLookupByLibrary.simpleMessage("Reviews"),
         "saveChange": MessageLookupByLibrary.simpleMessage("save change"),
         "save_for_later":
@@ -227,6 +237,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "sgnIn": MessageLookupByLibrary.simpleMessage("Sign In."),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
+        "shipping": MessageLookupByLibrary.simpleMessage("Shipping"),
         "signInToContinue":
             MessageLookupByLibrary.simpleMessage("Sign In To Continue"),
         "signInWithSocial": MessageLookupByLibrary.simpleMessage(
