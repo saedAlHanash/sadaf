@@ -33,7 +33,10 @@ import '../features/categories/bloc/sub_categories_cubit/sub_categories_cubit.da
 import '../features/categories/ui/pages/categories_page.dart';
 import '../features/chat/bloc/add_message_cubit/add_message_cubit.dart';
 import '../features/chat/bloc/chat_messages_cubit/chat_messages_cubit.dart';
+import '../features/chat/data/response/support_message_response.dart';
 import '../features/chat/ui/pages/chat_screen.dart';
+import '../features/chat/ui/pages/support_chat_screen.dart';
+import '../features/chat/ui/pages/support_rooms_page.dart';
 import '../features/driver/bloc/driver_location_cubit/driver_location_cubit.dart';
 import '../features/map/bloc/map_controller_cubit/map_controller_cubit.dart';
 import '../features/map/ui/pages/map_page.dart';
@@ -215,15 +218,10 @@ class AppRoutes {
       case RouteName.notifications:
         //region
 
-        final providers = [
-          BlocProvider(create: (_) => sl<NotificationsCubit>()..getNotifications(_)),
-        ];
+
         return MaterialPageRoute(
           builder: (_) {
-            return MultiBlocProvider(
-              providers: providers,
-              child: const NotificationsPage(),
-            );
+            return const NotificationsPage();
           },
         );
       //endregion
@@ -456,7 +454,7 @@ class AppRoutes {
       //region category
       case RouteName.category:
         return MaterialPageRoute(builder: (_) {
-          return CategoriesPage();
+          return const CategoriesPage();
         });
 
       //endregion
@@ -471,16 +469,42 @@ class AppRoutes {
 
       //region Chat
       case RouteName.chat:
+        //region
         final order = (settings.arguments ?? Order.fromJson({})) as Order;
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
-              BlocProvider(create: (_) => sl<MessagesCubit>()..getMessages(id: order.id)),
+              BlocProvider(
+                  create: (_) => sl<MessagesCubit>()..getMessages(mId: order.id)),
               BlocProvider(create: (_) => sl<AddMessageCubit>()),
             ],
             child: ChatScreen(order: order),
           ),
         );
+      //endregion
+
+      case RouteName.supportRoom:
+        //region
+        final room = (settings.arguments ?? Room.fromJson({})) as Room;
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => sl<AddMessageCubit>()),
+              BlocProvider(
+                create: (_) => sl<MessagesCubit>()..getRoomMessages(mId: room.id),
+              ),
+            ],
+            child: SupportChatScreen(room: room),
+          ),
+        );
+      //endregion
+
+      case RouteName.supportRooms:
+        //region
+        return MaterialPageRoute(
+          builder: (_) => const SupportRoomsPage(),
+        );
+      //endregion
 
       //endregion
     }
@@ -521,4 +545,6 @@ class RouteName {
   static const trackingOrder = '/27';
   static const map = '/28';
   static const chat = '/29';
+  static const supportRooms = '/30';
+  static const supportRoom = '/31';
 }

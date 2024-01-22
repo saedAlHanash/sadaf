@@ -200,7 +200,10 @@ class APIService {
     Map<String, String>? header,
   }) async {
     Map<String, String> f = {};
-    (fields ?? {}).forEach((key, value) => f[key] = value.toString());
+
+    (fields ?? {})
+      ..removeWhere((key, value) => value == null)
+      ..forEach((key, value) => f[key] = value.toString());
 
     innerHeader.addAll(header ?? {});
     url = additionalConst + url;

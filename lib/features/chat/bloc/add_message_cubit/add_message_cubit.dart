@@ -14,10 +14,10 @@ part 'add_message_state.dart';
 class AddMessageCubit extends Cubit<AddMessageInitial> {
   AddMessageCubit() : super(AddMessageInitial.initial());
 
-  Future<void> addMessage({required int orderId, required MessageRequest request}) async {
+  Future<void> addMessage({required int mId, required MessageRequest request}) async {
     emit(state.copyWith(
       statuses: CubitStatuses.loading,
-      orderId: orderId,
+      mId: mId,
       request: request,
     ));
 
@@ -33,8 +33,40 @@ class AddMessageCubit extends Cubit<AddMessageInitial> {
 
   Future<Pair<bool?, String?>> _addMessageApi() async {
     final response = await APIService().uploadMultiPart(
-      url: PostUrl.addMessage(state.orderId),
+      url: PostUrl.addMessage(state.mId),
       fields: state.request.toMap(),
+      files: state.request.file,
+    );
+
+    if (response.statusCode == 200) {
+      return Pair(true, null);
+    } else {
+      return response.getPairError;
+    }
+  }
+
+  Future<void> addSupportMessage(
+      {required int mId, required MessageRequest request}) async {
+    emit(state.copyWith(
+      statuses: CubitStatuses.loading,
+      mId: mId,
+      request: request,
+    ));
+
+    final pair = await _addSupportMessageApi();
+
+    if (pair.first == null) {
+      emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
+      showErrorFromApi(state);
+    } else {
+      emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
+    }
+  }
+
+  Future<Pair<bool?, String?>> _addSupportMessageApi() async {
+    final response = await APIService().uploadMultiPart(
+      url: PostUrl.addSupportMessage,
+      fields: state.request.toMap()..addAll({'conversation_id': state.mId}),
       files: state.request.file,
     );
 

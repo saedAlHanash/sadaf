@@ -67,7 +67,11 @@ class GetUrl {
 
   static const driverLocation = 'orders/coordinate';
 
-  static var getMessages ='drivers/messages';
+  static var getMessages = 'drivers/messages';
+
+  static var getSupportMessages = 'conversations';
+
+  static var getRoomMessages = 'messages';
 }
 
 class PostUrl {
@@ -101,6 +105,8 @@ class PostUrl {
   static const addToCart = 'carts';
 
   static const updateProfile = 'profile/update';
+
+  static var addSupportMessage = 'messages/add';
 
   static String addMessage(int id) {
     return 'drivers/messages/$id/add';

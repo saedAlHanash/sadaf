@@ -208,6 +208,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Pleas Set Your Address"),
         "policy": MessageLookupByLibrary.simpleMessage(
             "Polîtîkaya bikaranîna û mahremiyê"),
+        "policyJust": MessageLookupByLibrary.simpleMessage("Privacy Policy"),
         "price": MessageLookupByLibrary.simpleMessage("نرخ"),
         "processing": MessageLookupByLibrary.simpleMessage("Processing"),
         "profile": MessageLookupByLibrary.simpleMessage("Profil"),

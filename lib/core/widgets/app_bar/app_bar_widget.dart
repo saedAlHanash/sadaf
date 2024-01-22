@@ -34,6 +34,7 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
         toolbarHeight: (zeroHeight ?? false) ? 0 : 80.0.h,
         title: title ??
             DrawableText(
+              textAlign: TextAlign.center,
               text: titleText ?? '',
               size: 28.0.spMin,
               fontFamily: FontManager.cairoBold.name,

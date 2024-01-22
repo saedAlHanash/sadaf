@@ -6,6 +6,9 @@ import 'package:sadaf/features/settings/services/setting_service.dart';
 
 import '../../../../core/injection/injection_container.dart';
 import '../../../../core/widgets/app_bar/app_bar_widget.dart';
+import '../../../../core/widgets/not_found_widget.dart';
+import '../../../../generated/assets.dart';
+import '../../../../generated/l10n.dart';
 
 class PrivacyPage extends StatelessWidget {
   const PrivacyPage({super.key});
@@ -13,12 +16,18 @@ class PrivacyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: const AppBarWidget(titleText: 'سياسة الخصوصية'),
+      appBar: AppBarWidget(titleText: S.of(context).policyJust),
       body: FutureBuilder(
         future: sl<SettingService>().getPrivacy(),
         builder: (context, snapShot) {
           if (!snapShot.hasData) {
             return Center(child: MyStyle.loadingWidget());
+          }
+          if (snapShot.data!.isEmpty) {
+            return const NotFoundWidget(
+              text: 'No Data',
+              icon: Assets.iconsNoSearchResult,
+            );
           }
           return DrawableText(
             text: snapShot.data!,

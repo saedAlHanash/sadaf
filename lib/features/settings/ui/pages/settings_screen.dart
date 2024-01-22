@@ -48,10 +48,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
             name: S.of(context).myOrder,
             icon: Assets.iconsMyOrder,
           ),
-          ItemMenu(
-            name: S.of(context).wishList,
-            icon: Assets.iconsFav,
-          ),
+
           ItemMenu(
             name: S.of(context).faq,
             icon: Assets.iconsFaq,
@@ -351,11 +348,11 @@ class ItemMenu extends StatelessWidget {
       return;
     }
     if (name == S.of(context).aboutUs) {
-      Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.name);
+      Navigator.pushNamed(context, RouteName.about);
       return;
     }
     if (name == S.of(context).support) {
-      Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.phone);
+      Navigator.pushNamed(context, RouteName.supportRooms);
       return;
     }
   }

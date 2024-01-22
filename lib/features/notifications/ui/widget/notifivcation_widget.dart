@@ -6,29 +6,30 @@ import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/features/notifications/data/response/notifications_response.dart';
 
 class NotificationWidget extends StatelessWidget {
-  const NotificationWidget({super.key, required this.not});
+  const NotificationWidget({super.key, required this.not, required this.i});
 
   final NotificationModel not;
+  final int i;
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const EdgeInsets.symmetric(vertical: 10.0).h,
+      margin: const EdgeInsets.symmetric(vertical: 5.0).h,
       padding: const EdgeInsets.symmetric(vertical: 13.0, horizontal: 30.0).r,
       decoration: BoxDecoration(
-        color: AppColorManager.f6,
+        color: i % 2 != 0 ? Colors.white : AppColorManager.f6,
         borderRadius: BorderRadius.circular(12.0.r),
       ),
       child: Column(
         children: [
           DrawableText(
-            text: not.message,
+            text: not.notification.title,
             matchParent: true,
             textAlign: TextAlign.start,
           ),
           10.0.verticalSpace,
           DrawableText(
-            text: not.createdAt?.formatDateTime ?? '',
+            text: not.createdAt,
             matchParent: true,
             color: Colors.grey,
             size: 12.0.spMin,

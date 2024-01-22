@@ -1,21 +1,19 @@
 part of 'notifications_cubit.dart';
 
-class NotificationsInitial extends Equatable {
-  final CubitStatuses statuses;
-  final List<NotificationModel> result;
-  final String error;
+class NotificationsInitial extends AbstractCubit<List<NotificationModel>> {
+  final int mId;
 
   const NotificationsInitial({
-    required this.statuses,
-    required this.result,
-    required this.error,
+    required super.result,
+    super.error,
+    super.statuses,
+    required this.mId,
   });
 
   factory NotificationsInitial.initial() {
     return const NotificationsInitial(
-      result: <NotificationModel>[],
-      error: '',
-      statuses: CubitStatuses.init,
+      result: [],
+      mId: 0,
     );
   }
 
@@ -26,12 +24,13 @@ class NotificationsInitial extends Equatable {
     CubitStatuses? statuses,
     List<NotificationModel>? result,
     String? error,
+    int? mId,
   }) {
     return NotificationsInitial(
       statuses: statuses ?? this.statuses,
       result: result ?? this.result,
       error: error ?? this.error,
+      mId: mId ?? this.mId,
     );
   }
-
 }

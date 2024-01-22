@@ -25,6 +25,7 @@ class AppSharedPreference {
   static const _otpPassword = '16';
   static const _currency = '17';
   static const _profile = '19';
+  static const _readiedNotifications = '20';
 
   static late SharedPreferences _prefs;
 
@@ -123,19 +124,6 @@ class AppSharedPreference {
     return _prefs.getString(_fireToken) ?? '';
   }
 
-  static void addNotificationCount() {
-    var count = getNotificationCount() + 1;
-    _prefs.setInt(_notificationCount, count);
-  }
-
-  static int getNotificationCount() {
-    return _prefs.getInt(_notificationCount) ?? 0;
-  }
-
-  static void clearNotificationCount() {
-    _prefs.setInt(_notificationCount, 0);
-  }
-
   static bool isCachedSocial() {
     return (_prefs.getString(_social) ?? '').length > 10;
   }
@@ -147,6 +135,12 @@ class AppSharedPreference {
   static bool getActiveNotification() {
     return _prefs.getBool(_activeNoti) ?? true;
   }
+
+  static void cashReadiedNotifications(int val) {
+    _prefs.setInt(_notificationCount, val);
+  }
+
+  static int get getReadiedNotifications => _prefs.getInt(_notificationCount) ?? 0;
 
   static void cashMyId(int id) {
     _prefs.setInt(_myId, id);

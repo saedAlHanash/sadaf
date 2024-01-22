@@ -1,19 +1,19 @@
 part of 'chat_messages_cubit.dart';
 
 class MessagesInitial extends AbstractCubit<List<MessageModel>> {
-  final int selectedId;
+  final int mId;
 
   const MessagesInitial({
     required super.result,
     super.error,
     super.statuses,
-    required this.selectedId,
+    required this.mId,
   });
 
   factory MessagesInitial.initial() {
     return const MessagesInitial(
       result: [],
-      selectedId: 0,
+      mId: 0,
     );
   }
 
@@ -24,13 +24,13 @@ class MessagesInitial extends AbstractCubit<List<MessageModel>> {
     CubitStatuses? statuses,
     List<MessageModel>? result,
     String? error,
-    int? selectedId,
+    int? mId,
   }) {
     return MessagesInitial(
       statuses: statuses ?? this.statuses,
       result: result ?? this.result,
       error: error ?? this.error,
-      selectedId: selectedId ?? this.selectedId,
+      mId: mId ?? this.mId,
     );
   }
 }

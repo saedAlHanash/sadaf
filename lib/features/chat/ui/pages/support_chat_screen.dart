@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/util/pick_image_helper.dart';
@@ -13,19 +12,20 @@ import 'package:sadaf/features/chat/data/response/message_response.dart';
 import 'package:sadaf/features/chat/ui/widget/chat_item.dart';
 
 import '../../../../core/util/my_style.dart';
-import '../../../orders/data/response/orders_response.dart';
+import '../../../../generated/l10n.dart';
 import '../../bloc/chat_messages_cubit/chat_messages_cubit.dart';
+import '../../data/response/support_message_response.dart';
 
-class ChatScreen extends StatefulWidget {
-  const ChatScreen({super.key, required this.order});
+class SupportChatScreen extends StatefulWidget {
+  const SupportChatScreen({super.key, required this.room});
 
-  final Order order;
+  final Room room;
 
   @override
-  State<ChatScreen> createState() => _ChatScreenState();
+  State<SupportChatScreen> createState() => _SupportChatScreenState();
 }
 
-class _ChatScreenState extends State<ChatScreen> {
+class _SupportChatScreenState extends State<SupportChatScreen> {
   final textController = TextEditingController();
   late final AddMessageCubit addMessageCubit;
 
@@ -50,11 +50,11 @@ class _ChatScreenState extends State<ChatScreen> {
                 },
               ),
             );
-        context.read<MessagesCubit>().getMessages(mId: widget.order.id);
+        context.read<MessagesCubit>().getRoomMessages(mId: widget.room.id);
       },
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        appBar: AppBarWidget(titleText: widget.order.driver.name),
+        appBar: AppBarWidget(titleText: '${S.of(context).support} ${widget.room.id}'),
         body: Column(
           children: [
             Expanded(
@@ -95,8 +95,8 @@ class _ChatScreenState extends State<ChatScreen> {
                                       fileBytes: await image.readAsBytes()),
                                 );
 
-                                addMessageCubit.addMessage(
-                                    mId: widget.order.id, request: request);
+                                addMessageCubit.addSupportMessage(
+                                    mId: widget.room.id, request: request);
                               }
                             },
                             child: const ImageMultiType(url: Icons.camera_alt));
@@ -111,8 +111,8 @@ class _ChatScreenState extends State<ChatScreen> {
                           onFieldSubmitted: (value) {
                             if (value.isEmpty) return;
 
-                            addMessageCubit.addMessage(
-                                mId: widget.order.id,
+                            addMessageCubit.addSupportMessage(
+                                mId: widget.room.id,
                                 request: MessageRequest(message: value));
                           },
                           decoration: InputDecoration(
@@ -139,8 +139,8 @@ class _ChatScreenState extends State<ChatScreen> {
                             final value = textController.text;
                             if (value.isEmpty) return;
 
-                            addMessageCubit.addMessage(
-                              mId: widget.order.id,
+                            addMessageCubit.addSupportMessage(
+                              mId: widget.room.id,
                               request: MessageRequest(message: value),
                             );
                           },

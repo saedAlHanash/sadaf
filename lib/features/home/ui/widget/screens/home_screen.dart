@@ -6,6 +6,7 @@ import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/util/my_style.dart';
+import 'package:sadaf/core/util/shared_preferences.dart';
 import 'package:sadaf/core/widgets/card_slider_widget.dart';
 import 'package:sadaf/features/flash_deal/ui/widget/flash_deal_widget.dart';
 import 'package:sadaf/features/categories/ui/widget/item_category.dart';
@@ -16,6 +17,7 @@ import '../../../../../generated/l10n.dart';
 import '../../../../../router/app_router.dart';
 import '../../../../categories/bloc/categories_cubit/categories_cubit.dart';
 import '../../../../flash_deal/bloc/flash_deal_cubit/flash_deal_cubit.dart';
+import '../../../../notifications/bloc/notifications_cubit/notifications_cubit.dart';
 import '../../../../offers/bloc/offers_cubit/offers_cubit.dart';
 import '../../../../product/bloc/new_arrival_cubit/new_arrival_cubit.dart';
 import '../../../../product/ui/widget/item_product.dart';
@@ -69,7 +71,7 @@ class _CategoriesWidget extends StatelessWidget {
         if (state.statuses.loading) {
           return MyStyle.loadingWidget();
         }
-        if(state.result.categories.isEmpty)return 0.0.verticalSpace;
+        if (state.result.categories.isEmpty) return 0.0.verticalSpace;
         return SizedBox(
           height: 120.0.h,
           child: ListView.separated(
@@ -116,15 +118,49 @@ class _BannerWidget extends StatelessWidget {
                 const Expanded(
                   child: SearchFieldWidget(),
                 ),
-                34.0.horizontalSpace,
-                InkWell(
-                  onTap: () async {},
-                  child: ImageMultiType(
-                    url: Icons.notifications,
-                    height: 20.0.r,
-                    color: Colors.black,
-                  ),
-                )
+                20.0.horizontalSpace,
+                StatefulBuilder(builder: (context, mState) {
+                  return InkWell(
+                    onTap: () async {
+                      await Navigator.pushNamed(context, RouteName.notifications);
+                      mState(() {});
+                    },
+                    child: Stack(
+                      children: [
+                        ImageMultiType(
+                          url: Icons.notifications,
+                          height: 40.0.r,
+                          color: AppColorManager.mainColorDark,
+                        ),
+                        Positioned(
+                          top: 0,
+                          right: 0,
+                          child: BlocBuilder<NotificationsCubit, NotificationsInitial>(
+                            builder: (context, state) {
+                              final calculate = (state.result.length -
+                                  AppSharedPreference.getReadiedNotifications);
+                              final count = calculate <= 0
+                                  ? '0'
+                                  : calculate > 9
+                                      ? '+9'
+                                      : '$calculate';
+                              return Container(
+                                height: 20.0.r,
+                                width: 20.0.r,
+                                alignment: Alignment.center,
+                                decoration: const BoxDecoration(
+                                  color: Colors.white,
+                                  shape: BoxShape.circle,
+                                ),
+                                child: Text(count),
+                              );
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                  );
+                })
               ],
             ),
           ),

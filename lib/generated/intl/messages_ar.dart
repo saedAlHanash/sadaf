@@ -196,6 +196,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("الرجاء تعيين عنوانك"),
         "policy":
             MessageLookupByLibrary.simpleMessage("سياسة الاستخدام والخصوصية"),
+        "policyJust": MessageLookupByLibrary.simpleMessage("سياسة الخصوصية"),
         "price": MessageLookupByLibrary.simpleMessage("السعر"),
         "processing": MessageLookupByLibrary.simpleMessage("معالجة"),
         "profile": MessageLookupByLibrary.simpleMessage("الملف الشخصي"),

@@ -18,6 +18,7 @@ import '../../features/cart/bloc/increase_cubit/increase_cubit.dart';
 import '../../features/cart/bloc/remove_from_cart_cubit/remove_from_cart_cubit.dart';
 import '../../features/categories/bloc/categories_cubit/categories_cubit.dart';
 import '../../features/categories/bloc/sub_categories_cubit/sub_categories_cubit.dart';
+import '../../features/chat/bloc/support_rooms_cubit/support_rooms_cubit.dart';
 import '../../features/colors/bloc/colors_cubit/colors_cubit.dart';
 import '../../features/favorite/bloc/add_favorite/add_favorite_cubit.dart';
 import '../../features/favorite/bloc/get_favorite/get_favorite_cubit.dart';
@@ -26,7 +27,8 @@ import '../../features/governors/bloc/governors_cubit/governors_cubit.dart';
 import '../../features/home/bloc/banner_cubit/banner_cubit.dart';
 import '../../features/home/bloc/slider_cubit/slider_cubit.dart';
 import '../../features/manufacturers/bloc/manufacturerss_cubit/manufacturers_cubit.dart';
-import '../../features/notifications/bloc/notification_count_cubit/notification_count_cubit.dart';
+
+import '../../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
 import '../../features/offers/bloc/offers_cubit/offers_cubit.dart';
 import '../../features/product/bloc/new_arrival_cubit/new_arrival_cubit.dart';
 import '../../features/profile/bloc/profile_cubit/profile_cubit.dart';
@@ -73,8 +75,6 @@ class _MyAppState extends State<MyApp> {
         Note.showBigTextNotification(title: title, body: body);
       }
 
-      AppSharedPreference.addNotificationCount();
-      context.read<NotificationCountCubit>().changeCount();
     });
     setImageMultiTypeErrorImage(
       const Opacity(
@@ -97,7 +97,6 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-
     final loading = Builder(builder: (_) {
       return Visibility(
         visible: context.watch<LoadingCubit>().state.isLoading,
@@ -145,25 +144,29 @@ class _MyAppState extends State<MyApp> {
           builder: (_, child) {
             return MultiBlocProvider(
               providers: [
+                BlocProvider(create: (_) => sl<CouponCubit>()),
                 BlocProvider(create: (_) => sl<LoadingCubit>()),
+                BlocProvider(create: (_) => sl<IncreaseCubit>()),
+                BlocProvider(create: (_) => sl<DecreaseCubit>()),
                 BlocProvider(create: (_) => sl<AddToCartCubit>()),
-                BlocProvider(create: (_) => sl<RemoveFromCartCubit>()),
                 BlocProvider(create: (_) => sl<ClearCartCubit>()),
                 BlocProvider(create: (_) => sl<AddFavoriteCubit>()),
-                BlocProvider(create: (_) => sl<DecreaseCubit>()),
-                BlocProvider(create: (_) => sl<IncreaseCubit>()),
-                BlocProvider(create: (_) => sl<CouponCubit>()),
                 BlocProvider(create: (_) => sl<SubCategoriesCubit>()),
-                BlocProvider(create: (_) => sl<OffersCubit>()..getOffers(_)),
-                BlocProvider(create: (_) => sl<SliderCubit>()..getSlider()),
-                BlocProvider(create: (_) => sl<FlashDealsCubit>()..getFlashDeals()),
-                BlocProvider(create: (_) => sl<BannerCubit>()..getBanner()),
-                BlocProvider(create: (_) => sl<CategoriesCubit>()..getCategories()),
-                BlocProvider(create: (_) => sl<ColorsCubit>()..getColors()),
-                BlocProvider(create: (_) => sl<GovernorsCubit>()..getGovernors()),
-                BlocProvider(create: (_) => sl<ProfileCubit>()..getProfile()),
+                BlocProvider(create: (_) => sl<RemoveFromCartCubit>()),
                 BlocProvider(create: (_) => sl<CartCubit>()..getCart()),
+                BlocProvider(create: (_) => sl<BannerCubit>()..getBanner()),
+                BlocProvider(create: (_) => sl<SliderCubit>()..getSlider()),
+                BlocProvider(create: (_) => sl<ColorsCubit>()..getColors()),
+                BlocProvider(create: (_) => sl<OffersCubit>()..getOffers(_)),
+                BlocProvider(create: (_) => sl<ProfileCubit>()..getProfile()),
                 BlocProvider(create: (_) => sl<FavoriteCubit>()..getFavorite()),
+                BlocProvider(create: (_) => sl<GovernorsCubit>()..getGovernors()),
+                BlocProvider(create: (_) => sl<FlashDealsCubit>()..getFlashDeals()),
+                BlocProvider(create: (_) => sl<CategoriesCubit>()..getCategories()),
+                BlocProvider(create: (_) => sl<NotificationsCubit>()..getNotifications()),
+                BlocProvider(
+                  create: (_) => sl<SupportMessagesCubit>()..getSupportMessages(),
+                ),
                 BlocProvider(
                   create: (_) => sl<ManufacturersCubit>()..getManufacturers(),
                 ),

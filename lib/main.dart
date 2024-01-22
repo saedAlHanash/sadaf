@@ -13,7 +13,7 @@ import 'core/app/app_widget.dart';
 import 'core/app/bloc/loading_cubit.dart';
 import 'core/injection/injection_container.dart' as di;
 import 'core/util/shared_preferences.dart';
-import 'features/notifications/bloc/notification_count_cubit/notification_count_cubit.dart';
+
 import 'firebase_options.dart';
 
 //adb shell setprop debug.firebase.analytics.app com.slf.sadaf
@@ -55,7 +55,6 @@ void main() async {
     MultiBlocProvider(
       providers: [
         BlocProvider(create: (_) => di.sl<LoadingCubit>()),
-        BlocProvider(create: (_) => di.sl<NotificationCountCubit>()),
       ],
       child: const MyApp(),
     ),
@@ -111,7 +110,6 @@ Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
     Note.showBigTextNotification(title: title, body: body);
   }
 
-  AppSharedPreference.addNotificationCount();
 }
 
 class MyHttpOverrides extends HttpOverrides {

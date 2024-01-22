@@ -10,9 +10,6 @@ final appTheme = ThemeData(
       backgroundColor: primaryColor,
       centerTitle: true,
     ),
-    switchTheme: const SwitchThemeData(
-        thumbColor: MaterialStatePropertyAll(primaryColor),
-        overlayColor: MaterialStatePropertyAll(secondaryColor)),
     brightness: Brightness.light,
     primaryColor: primaryColor,
     colorScheme: const ColorScheme.light(

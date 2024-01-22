@@ -6,7 +6,6 @@ class MessageRequest {
 
   MessageRequest({
     this.message,
-
   });
 
   MessageRequest copyWith({

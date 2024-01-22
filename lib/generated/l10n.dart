@@ -420,6 +420,16 @@ class S {
     );
   }
 
+  /// `Privacy Policy`
+  String get policyJust {
+    return Intl.message(
+      'Privacy Policy',
+      name: 'policyJust',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Logout`
   String get logout {
     return Intl.message(

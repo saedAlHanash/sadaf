@@ -24,37 +24,51 @@ class NotificationsResponse {
 class NotificationModel {
   NotificationModel({
     required this.id,
-    required this.message,
-    required this.type,
-    required this.product,
+    required this.notification,
     required this.createdAt,
-    required this.updatedAt,
   });
 
-  final int id;
-  final String message;
-  final String type;
-  final Product product;
-  final DateTime? createdAt;
-  final DateTime? updatedAt;
+  final String id;
+  final Notification notification;
+  final String createdAt;
 
   factory NotificationModel.fromJson(Map<String, dynamic> json) {
     return NotificationModel(
-      id: json["id"] ?? 0,
-      message: json["message"] ?? "",
-      type: json["type"] ?? "",
-      product: Product.fromJson(json["product"] ?? {}),
-      createdAt: DateTime.tryParse(json["created_at"] ?? ""),
-      updatedAt: DateTime.tryParse(json["updated_at"] ?? ""),
+      id: json["id"] ?? "",
+      notification: Notification.fromJson(json["notification"] ?? {}),
+      createdAt: json["created_at"] ?? "",
     );
   }
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "message": message,
-        "type": type,
-        "product": product.toJson(),
+        "notification": notification.toJson(),
         "created_at": createdAt,
-        "updated_at": updatedAt,
+      };
+}
+
+class Notification {
+  Notification({
+    required this.title,
+    required this.body,
+    required this.conversationId,
+  });
+
+  final String title;
+  final String body;
+  final int conversationId;
+
+  factory Notification.fromJson(Map<String, dynamic> json) {
+    return Notification(
+      title: json["title"] ?? "",
+      body: json["body"] ?? "",
+      conversationId: json["conversation_id"] ?? 0,
+    );
+  }
+
+  Map<String, dynamic> toJson() => {
+        "title": title,
+        "body": body,
+        "conversation_id": conversationId,
       };
 }

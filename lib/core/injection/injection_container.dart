@@ -24,6 +24,7 @@ import '../../features/categories/bloc/categories_cubit/categories_cubit.dart';
 import '../../features/categories/bloc/sub_categories_cubit/sub_categories_cubit.dart';
 import '../../features/chat/bloc/add_message_cubit/add_message_cubit.dart';
 import '../../features/chat/bloc/chat_messages_cubit/chat_messages_cubit.dart';
+import '../../features/chat/bloc/support_rooms_cubit/support_rooms_cubit.dart';
 import '../../features/colors/bloc/colors_cubit/colors_cubit.dart';
 import '../../features/driver/bloc/driver_location_cubit/driver_location_cubit.dart';
 import '../../features/favorite/bloc/add_favorite/add_favorite_cubit.dart';
@@ -38,7 +39,7 @@ import '../../features/home/bloc/slider_cubit/slider_cubit.dart';
 import '../../features/manufacturers/bloc/manufacturerss_cubit/manufacturers_cubit.dart';
 import '../../features/map/bloc/map_controller_cubit/map_controller_cubit.dart';
 import '../../features/map/bloc/my_location_cubit/my_location_cubit.dart';
-import '../../features/notifications/bloc/notification_count_cubit/notification_count_cubit.dart';
+
 import '../../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
 import '../../features/offers/bloc/offers_cubit/offers_cubit.dart';
 import '../../features/cart/bloc/create_order_cubit/create_order_cubit.dart';
@@ -63,7 +64,7 @@ Future<void> init() async {
   sl.registerLazySingleton<NetworkInfo>(() => NetworkInfoImpl(connectionChecker: sl()));
   sl.registerLazySingleton(() => InternetConnectionChecker());
 
-  sl.registerFactory(() => NotificationCountCubit());
+
   sl.registerFactory(() => MyLocationCubit());
   sl.registerLazySingleton(() => LoadingCubit());
   sl.registerLazySingleton(() => SettingService());
@@ -159,6 +160,7 @@ Future<void> init() async {
   //region chat
   sl.registerFactory(() => MessagesCubit());
   sl.registerFactory(() => AddMessageCubit());
+  sl.registerFactory(() => SupportMessagesCubit());
 
   //endregion
 

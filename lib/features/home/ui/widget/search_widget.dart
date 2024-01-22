@@ -31,12 +31,7 @@ class _SearchFieldWidgetState extends State<SearchFieldWidget> {
     return Container(
       height: 45.0.h,
       padding: const EdgeInsets.only(top: 8.0),
-      decoration: BoxDecoration(
-        color: Colors.black38,
-        border: Border.all(
-          color: Colors.black.withOpacity(.6),
-        ),
-      ),
+      color: Colors.black26,
       child: MyEditTextWidgetWhite(
         controller: searchC,
         backgroundColor: Colors.transparent,
