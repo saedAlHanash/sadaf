@@ -63,9 +63,11 @@ class GetUrl {
 
   static const governors = 'governors';
 
-  static const orderStatus='orders/statues';
+  static const orderStatus = 'orders/statues';
 
   static const driverLocation = 'orders/coordinate';
+
+  static var getMessages ='drivers/messages';
 }
 
 class PostUrl {
@@ -99,6 +101,10 @@ class PostUrl {
   static const addToCart = 'carts';
 
   static const updateProfile = 'profile/update';
+
+  static String addMessage(int id) {
+    return 'drivers/messages/$id/add';
+  }
 
   static String increase(int id) {
     return 'carts/products/$id/quantity/increase';

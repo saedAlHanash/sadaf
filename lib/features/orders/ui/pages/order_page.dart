@@ -30,6 +30,9 @@ class OrderPage extends StatelessWidget {
       appBar: AppBarWidget(
         title: BlocBuilder<OrderByIdCubit, OrderByIdInitial>(
           builder: (context, state) {
+            if (state.statuses.loading) {
+              return 0.0.verticalSpace;
+            }
             return DrawableText(
               text: '#${state.result.id}',
               size: 28.0.spMin,
@@ -40,8 +43,12 @@ class OrderPage extends StatelessWidget {
           Center(
             child: BlocBuilder<OrderByIdCubit, OrderByIdInitial>(
               builder: (context, state) {
+                if (state.statuses.loading) {
+                  return 0.0.verticalSpace;
+                }
                 return DrawableText(
                   text: state.result.status,
+                  color: state.result.statusEnum.getOrderStateColorText,
                   padding: const EdgeInsets.symmetric(horizontal: 30.0).w,
                 );
               },

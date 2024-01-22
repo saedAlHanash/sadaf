@@ -145,7 +145,7 @@ class ItemOrderBody extends StatelessWidget {
               onPressed: () {
                 Navigator.pushNamed(
                   context,
-                  order.statusEnum == OrderStatus.completed
+                  order.statusEnum == OrderStatus.shipping
                       ? RouteName.trackingOrder
                       : RouteName.orderInfo,
                   arguments: order,

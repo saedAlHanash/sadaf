@@ -22,6 +22,8 @@ import '../../features/cart/bloc/increase_cubit/increase_cubit.dart';
 import '../../features/cart/bloc/remove_from_cart_cubit/remove_from_cart_cubit.dart';
 import '../../features/categories/bloc/categories_cubit/categories_cubit.dart';
 import '../../features/categories/bloc/sub_categories_cubit/sub_categories_cubit.dart';
+import '../../features/chat/bloc/add_message_cubit/add_message_cubit.dart';
+import '../../features/chat/bloc/chat_messages_cubit/chat_messages_cubit.dart';
 import '../../features/colors/bloc/colors_cubit/colors_cubit.dart';
 import '../../features/driver/bloc/driver_location_cubit/driver_location_cubit.dart';
 import '../../features/favorite/bloc/add_favorite/add_favorite_cubit.dart';
@@ -151,6 +153,12 @@ Future<void> init() async {
 
   //region colors
   sl.registerFactory(() => ColorsCubit());
+
+  //endregion
+
+  //region chat
+  sl.registerFactory(() => MessagesCubit());
+  sl.registerFactory(() => AddMessageCubit());
 
   //endregion
 

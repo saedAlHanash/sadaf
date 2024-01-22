@@ -22,6 +22,7 @@ import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/my_text_form_widget.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
+import '../../../../router/app_router.dart';
 import '../../../driver/bloc/driver_location_cubit/driver_location_cubit.dart';
 import '../../../map/bloc/map_controller_cubit/map_controller_cubit.dart';
 import '../../../product/ui/widget/item_product.dart';
@@ -58,7 +59,7 @@ class _TrackingOrderPageState extends State<TrackingOrderPage> {
                       20.0.verticalSpace,
                       _ItemDashedData(
                           title: S.of(context).deliveryDate,
-                          data: state.result.estimatedTime?.formatDateTime ?? '-'),
+                          data: state.result.estimatedTime?.formatDateTime ?? '   -  '),
                       20.0.verticalSpace,
                       ListTile(
                         contentPadding: EdgeInsets.zero,
@@ -69,7 +70,10 @@ class _TrackingOrderPageState extends State<TrackingOrderPage> {
                         enabled: false,
                         horizontalTitleGap: 15.0.w,
                         trailing: InkWell(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.pushNamed(context, RouteName.chat,
+                                arguments: state.result);
+                          },
                           child: ImageMultiType(
                             url: Assets.iconsChat,
                             height: 30.0.r,
@@ -83,7 +87,7 @@ class _TrackingOrderPageState extends State<TrackingOrderPage> {
                         ),
                         subtitle: DrawableText(
                           text:
-                              '${S.of(context).estimatedFor} ${DateTime.now().formatDateTime}',
+                              '${S.of(context).estimatedFor} ${state.result.estimatedTime?.formatDateTime ?? ''}',
                           size: 14.0.sp,
                           color: AppColorManager.c6e,
                         ),
@@ -222,8 +226,8 @@ class _MapTrackingState extends State<MapTracking> {
         point: driverPoint,
         //
         costumeMarker: ImageMultiType(
-          height: 100.0.r,
-          width: 100.0.r,
+          height: 50.0.r,
+          width: 50.0.r,
           url: Assets.iconsTrack,
         ),
       ),
@@ -236,8 +240,8 @@ class _MapTrackingState extends State<MapTracking> {
         point: orderPoint,
         //
         costumeMarker: ImageMultiType(
-          height: 100.0.r,
-          width: 100.0.r,
+          height: 50.0.r,
+          width: 50.0.r,
           url: Assets.iconsLocator,
         ),
       ),
@@ -302,8 +306,8 @@ class _MapTrackingState extends State<MapTracking> {
                 point: point,
                 costumeMarker: ImageMultiType(
                   url: Assets.iconsTrack,
-                  height: 100.0.r,
-                  width: 100.0.r,
+                  height: 50.0.r,
+                  width: 50.0.r,
                 ),
               ),
             );

@@ -31,6 +31,9 @@ import '../features/auth/ui/pages/signup_page.dart';
 import '../features/auth/ui/pages/splash_screen_page.dart';
 import '../features/categories/bloc/sub_categories_cubit/sub_categories_cubit.dart';
 import '../features/categories/ui/pages/categories_page.dart';
+import '../features/chat/bloc/add_message_cubit/add_message_cubit.dart';
+import '../features/chat/bloc/chat_messages_cubit/chat_messages_cubit.dart';
+import '../features/chat/ui/pages/chat_screen.dart';
 import '../features/driver/bloc/driver_location_cubit/driver_location_cubit.dart';
 import '../features/map/bloc/map_controller_cubit/map_controller_cubit.dart';
 import '../features/map/ui/pages/map_page.dart';
@@ -465,6 +468,21 @@ class AppRoutes {
         );
 
       //endregion
+
+      //region Chat
+      case RouteName.chat:
+        final order = (settings.arguments ?? Order.fromJson({})) as Order;
+        return MaterialPageRoute(
+          builder: (_) => MultiBlocProvider(
+            providers: [
+              BlocProvider(create: (_) => sl<MessagesCubit>()..getMessages(id: order.id)),
+              BlocProvider(create: (_) => sl<AddMessageCubit>()),
+            ],
+            child: ChatScreen(order: order),
+          ),
+        );
+
+      //endregion
     }
 
     return MaterialPageRoute(builder: (_) => const Scaffold(backgroundColor: Colors.red));
@@ -502,4 +520,5 @@ class RouteName {
   static const webView = '/26';
   static const trackingOrder = '/27';
   static const map = '/28';
+  static const chat = '/29';
 }

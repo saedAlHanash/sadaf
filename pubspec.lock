@@ -412,6 +412,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.9.0"
+  flutter_staggered_grid_view:
+    dependency: transitive
+    description:
+      name: flutter_staggered_grid_view
+      sha256: "19e7abb550c96fbfeb546b23f3ff356ee7c59a019a651f8f102a4ba9b7349395"
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.7.0"
   flutter_svg:
     dependency: transitive
     description:
@@ -687,6 +695,14 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "0.2.1+1"
+  infinite_scroll_pagination:
+    dependency: "direct main"
+    description:
+      name: infinite_scroll_pagination
+      sha256: b68bce20752fcf36c7739e60de4175494f74e99e9a69b4dd2fe3a1dd07a7f16a
+      url: "https://pub.dev"
+    source: hosted
+    version: "4.0.0"
   internet_connection_checker:
     dependency: "direct main"
     description:
@@ -840,13 +856,13 @@ packages:
     source: hosted
     version: "1.0.1"
   path_provider:
-    dependency: transitive
+    dependency: "direct main"
     description:
       name: path_provider
-      sha256: a1aa8aaa2542a6bc57e381f132af822420216c80d4781f7aa085ca3229208aaa
+      sha256: b27217933eeeba8ff24845c34003b003b2b22151de3c908d0e679e8fe1aa078b
       url: "https://pub.dev"
     source: hosted
-    version: "2.1.1"
+    version: "2.1.2"
   path_provider_android:
     dependency: transitive
     description:
@@ -1044,6 +1060,14 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.99"
+  sliver_tools:
+    dependency: transitive
+    description:
+      name: sliver_tools
+      sha256: eae28220badfb9d0559207badcbbc9ad5331aac829a88cb0964d330d2a4636a6
+      url: "https://pub.dev"
+    source: hosted
+    version: "0.2.12"
   smart_auth:
     dependency: transitive
     description:

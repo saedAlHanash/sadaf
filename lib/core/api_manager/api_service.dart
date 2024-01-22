@@ -68,7 +68,6 @@ class APIService {
     Map<String, dynamic>? query,
     String? path,
     String? hostName,
-
   }) async {
     if (!await network.isConnected) _noInternet;
 
@@ -77,7 +76,6 @@ class APIService {
     _fixQuery(query);
 
     if (path != null) url = '$url/$path';
-
 
     final uri = Uri.https(hostName ?? baseUrl, url, query);
 
@@ -206,7 +204,7 @@ class APIService {
 
     innerHeader.addAll(header ?? {});
     url = additionalConst + url;
-    final uri = Uri.https(baseUrl, '$url/${path ?? ''}');
+    final uri = Uri.https(baseUrl, '$url${path != null ? '/$path' : ''}');
     loggerObject.w(uri.toString());
     var request = http.MultipartRequest(type, uri);
 
