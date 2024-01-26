@@ -96,7 +96,7 @@ class BannerModel {
 
   factory BannerModel.fromJson(Map<String, dynamic> json) {
     return BannerModel(
-      id: json["id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
       image: json["image"] ?? "",
       action: json["action"] ?? "",
     );

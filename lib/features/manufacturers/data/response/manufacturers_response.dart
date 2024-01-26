@@ -31,7 +31,7 @@ class Manufacturer {
 
   factory Manufacturer.fromJson(Map<String, dynamic> json) {
     return Manufacturer(
-      id: json["id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
       name: json["name"] ?? "",
     );
   }

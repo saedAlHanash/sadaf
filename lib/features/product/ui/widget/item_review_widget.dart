@@ -16,47 +16,29 @@ class ItemReviewWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 30.0).w,
-          child: Column(
+        ListTile(
+          horizontalTitleGap: 0,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 20.0).r,
+          title: DrawableText(text: review.user.name),
+          leading: CircleImageWidget(url: review.user.avatar),
+          subtitle: DrawableText(
+            text: 'review.comment',
+            maxLines: 1,
+            size: 12.0.sp,
+            color: Colors.grey,
+          ),
+          trailing: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleImageWidget(
-                        size: 55.0.r,
-                        url: review.user.avatar,
-                      ),
-                      16.0.horizontalSpace,
-                      Column(
-                        mainAxisSize: MainAxisSize.min,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          DrawableText(text: review.user.name),
-                        ],
-                      ),
-                    ],
-                  ),
-                  Column(
-                    children: [
-                      const ReviewWidget(rate: 0),
-                      DrawableText(text: review.createdAt?.formatDateTime ?? ''),
-                    ],
-                  ),
-                ],
-              ),
+              const ReviewWidget(rate: 3),
               DrawableText(
-                text: review.comment,
-                padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 20.0).r,
+                text: review.createdAt?.formatDate ?? '',
+                color: Colors.grey,
               ),
             ],
           ),
         ),
-        const Divider(endIndent: 0, indent: 0),
+        const Divider(height: 0, endIndent: 0, indent: 0),
       ],
     );
   }

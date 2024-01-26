@@ -28,10 +28,10 @@ class OsmNameModel {
 
   factory OsmNameModel.fromJson(Map<String, dynamic> json) {
     return OsmNameModel(
-      placeId: json["place_id"] ?? 0,
+      placeId: int.tryParse(json["place_id"].toString()) ?? 0,
       licence: json["licence"] ?? "",
       osmType: json["osm_type"] ?? "",
-      osmId: json["osm_id"] ?? 0,
+      osmId: int.tryParse(json["osm_id"].toString())  ?? 0,
       lat: json["lat"] ?? "",
       lon: json["lon"] ?? "",
       displayName: json["display_name"] ?? "",

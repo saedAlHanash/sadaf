@@ -52,6 +52,7 @@ import '../../features/product/bloc/products_cubit/products_cubit.dart';
 import '../../features/product/bloc/select_option_cubit/select_option_cubit.dart';
 import '../../features/profile/bloc/profile_cubit/profile_cubit.dart';
 import '../../features/profile/bloc/update_profile_cubit/update_profile_cubit.dart';
+import '../../features/settings/bloc/faq_cubit/faq_cubit.dart';
 import '../../features/settings/services/setting_service.dart';
 import '../app/bloc/loading_cubit.dart';
 import '../network/network_info.dart';
@@ -180,6 +181,7 @@ Future<void> init() async {
   //endregion
 
   sl.registerFactory(() => SelectOptionCubit());
+  sl.registerFactory(() => FaqCubit());
 //! External
 
   final sharedPreferences = await SharedPreferences.getInstance();

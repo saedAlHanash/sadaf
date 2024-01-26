@@ -70,7 +70,7 @@ class Meta {
   factory Meta.fromJson(Map<String, dynamic> json) {
     return Meta(
       currentPage: json["current_page"] ?? 1,
-      from: json["from"] ?? 0,
+      from: int.tryParse(json["from"].toString()) ?? 0,
       lastPage: json["last_page"] ?? 1,
       perPage: json["per_page"] ?? 20,
       to: json["to"] ?? 1,

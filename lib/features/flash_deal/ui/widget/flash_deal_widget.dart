@@ -30,12 +30,12 @@ class FlashDealWidget extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
-              flex: 1,
+              flex: 2,
               child: DateTimeWidget(dateTime: item.discountEndAt ?? serverDateTime),
             ),
             15.0.horizontalSpace,
             Expanded(
-              flex: 4,
+              flex: 7,
               child: Container(
                 height: double.infinity,
                 color: AppColorManager.f8,
@@ -100,11 +100,12 @@ class FlashDealWidgetFullCard extends StatelessWidget {
         child: Row(
           children: [
             Expanded(
+              flex: 2,
               child: DateTimeWidget(dateTime: item.discountEndAt ?? serverDateTime),
             ),
             15.0.horizontalSpace,
             Expanded(
-              flex: 4,
+              flex: 7,
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

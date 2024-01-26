@@ -32,7 +32,7 @@ class Room {
 
   factory Room.fromJson(Map<String, dynamic> json){
     return Room(
-      id: json["id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
       lastMessage: json["last_message"] ?? "",
       open: json["open"] ?? false,
       user: User.fromJson(json["user"]??{}),
@@ -61,7 +61,7 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json){
     return User(
-      id: json["id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
       name: json["name"] ?? "",
       avatar: json["avatar"] ?? "",
     );

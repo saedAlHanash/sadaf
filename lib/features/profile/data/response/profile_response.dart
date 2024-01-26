@@ -73,7 +73,7 @@ class Governor {
 
   factory Governor.fromJson(Map<String, dynamic> json) {
     return Governor(
-      id: json["id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
       name: json["name"] ?? "",
     );
   }

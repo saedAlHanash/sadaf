@@ -47,8 +47,8 @@ class MessageModel {
 
   factory MessageModel.fromJson(Map<String, dynamic> json) {
     return MessageModel(
-      id: json["id"] ?? 0,
-      conversationId: json["conversation_id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
+      conversationId: int.tryParse(json["conversation_id"].toString())  ?? 0,
       senderType: json["sender_type"] ?? "",
       body: json["body"] ?? "",
       isFile: json["is_file"] ?? false,

@@ -59,7 +59,7 @@ class Order {
 
   factory Order.fromJson(Map<String, dynamic> json) {
     return Order(
-      id: json["id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
       status: OrderStatus.values[(json["status"] ?? 1) - 1].getName,
       statusEnum: OrderStatus.values[(json["status"] ?? 1) - 1],
       subtotal: json["subtotal"] ?? "",
@@ -102,7 +102,7 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json["id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
       name: json["name"] ?? "",
       emailOrPhone: json["email_or_phone"] ?? "",
     );
@@ -172,14 +172,13 @@ class Driver {
 
   factory Driver.fromJson(Map<String, dynamic> json) {
     return Driver(
-      id: json["id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
       name: json["name"] ?? "",
       emailOrPhone: json["email_or_phone"] ?? "",
       phone: json["phone"] ?? "",
       avatar: json["avatar"] ?? "",
       trackNumber: json["track_number"] ?? "",
-      mapAddress:
-      MapAddress.fromJson(json["map_address"]??{}),
+      mapAddress: MapAddress.fromJson(json["map_address"] ?? {}),
     );
   }
 
@@ -208,8 +207,8 @@ class MapAddress {
 
   factory MapAddress.fromJson(Map<String, dynamic> json) {
     return MapAddress(
-      latitude: json["latitude"] ?? 0,
-      longitude: json["longitude"] ?? 0,
+      latitude: num.tryParse(json["latitude"].toString()) ?? 0,
+      longitude: num.tryParse(json["longitude"].toString()) ?? 0,
     );
   }
 

@@ -18,16 +18,11 @@ class DescriptionProductScreen extends StatelessWidget {
           child: Column(
             children: [
               40.0.verticalSpace,
-              SizedBox(
-                height: 200.0.h,
-                child: SingleChildScrollView(
-                  padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-                  child: DrawableText(
-                    text: state.result.description,
-                    color: Colors.grey,
-                  ),
-                ),
+              DrawableText(
+                text: state.result.description,
+                color: Colors.grey,
               ),
+              26.0.verticalSpace,
               const RelatedProductWidget(),
             ],
           ),

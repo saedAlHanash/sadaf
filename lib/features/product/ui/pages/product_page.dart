@@ -92,7 +92,7 @@ class _ProductPageState extends State<ProductPage> with SingleTickerProviderStat
                               bottom: 0.0,
                               child: Container(
                                 height: 1.0.h,
-                                color: AppColorManager.lightGray,
+                                color: AppColorManager.lightGrayAb,
                               ),
                             ),
                             TabBar(

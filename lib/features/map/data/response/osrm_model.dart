@@ -41,9 +41,9 @@ class OsrmRoute {
     return OsrmRoute(
       geometry: json["geometry"] ?? "",
       weightName: json["weight_name"] ?? "",
-      weight: json["weight"] ?? 0,
-      duration: json["duration"] ?? 0,
-      distance: json["distance"] ?? 0,
+      weight: num.tryParse(json["weight"].toString()) ?? 0,
+      duration:num.tryParse( json["duration"] .toString())?? 0,
+      distance: num.tryParse(json["distance"].toString()) ?? 0,
     );
   }
 

@@ -37,7 +37,7 @@ class CheckCouponResult {
 
   factory CheckCouponResult.fromJson(Map<String, dynamic> json){
     return CheckCouponResult(
-      totalPrice: json["total_price"] ?? 0,
+      totalPrice: num.tryParse(json["total_price"].toString()) ?? 0,
       offer: json["offer"] ?? "",
     );
   }

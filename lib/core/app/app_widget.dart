@@ -32,6 +32,7 @@ import '../../features/notifications/bloc/notifications_cubit/notifications_cubi
 import '../../features/offers/bloc/offers_cubit/offers_cubit.dart';
 import '../../features/product/bloc/new_arrival_cubit/new_arrival_cubit.dart';
 import '../../features/profile/bloc/profile_cubit/profile_cubit.dart';
+import '../../features/settings/bloc/faq_cubit/faq_cubit.dart';
 import '../../generated/l10n.dart';
 import '../../main.dart';
 import '../../router/app_router.dart';
@@ -74,7 +75,6 @@ class _MyAppState extends State<MyApp> {
       if (AppSharedPreference.getActiveNotification()) {
         Note.showBigTextNotification(title: title, body: body);
       }
-
     });
     setImageMultiTypeErrorImage(
       const Opacity(
@@ -126,7 +126,6 @@ class _MyAppState extends State<MyApp> {
           initialHeightText: 1.5.sp,
           titleSizeText: 20.0.sp,
           initialSize: 16.0.sp,
-          renderHtml: false,
           selectable: false,
           initialColor: AppColorManager.black,
         );
@@ -151,6 +150,7 @@ class _MyAppState extends State<MyApp> {
                 BlocProvider(create: (_) => sl<AddToCartCubit>()),
                 BlocProvider(create: (_) => sl<ClearCartCubit>()),
                 BlocProvider(create: (_) => sl<AddFavoriteCubit>()),
+                BlocProvider(create: (_) => sl<FaqCubit>()..getFaq()),
                 BlocProvider(create: (_) => sl<SubCategoriesCubit>()),
                 BlocProvider(create: (_) => sl<RemoveFromCartCubit>()),
                 BlocProvider(create: (_) => sl<CartCubit>()..getCart()),

@@ -67,7 +67,7 @@ class Product {
   final String priceInIqd;
   final String discountPrice;
   final String discountPriceInIqd;
-  final String discountEndAt;
+  final DateTime? discountEndAt;
   final List<ColorModel> color;
   final String size;
   final String createdAt;
@@ -89,7 +89,7 @@ class Product {
 
   factory Product.fromJson(Map<String, dynamic> json) {
     final product = Product(
-      id: json["id"] ?? 0,
+      id: int.tryParse(json["id"].toString()) ?? 0,
       name: json["name"] ?? "",
       thumbnail: json["thumbnail"] ?? "",
       inStock: json["in_stock"] ?? false,
@@ -97,7 +97,7 @@ class Product {
       priceInIqd: json["price_in_iqd"] ?? "",
       discountPrice: json["discount_price"] ?? "",
       discountPriceInIqd: json["discount_price_in_iqd"] ?? "",
-      discountEndAt: json["discount_end_at"] ?? "",
+      discountEndAt: DateTime.tryParse(json["discount_end_at"] ?? ""),
       color: json["color"] == null
           ? <ColorModel>[]
           : (json["color"] is List)
@@ -120,7 +120,7 @@ class Product {
       reviews: json["reviews"] == null
           ? []
           : List<Review>.from(json["reviews"]!.map((x) => Review.fromJson(x))),
-      rating: json["rating"] ?? 0,
+      rating: num.tryParse(json["rating"].toString()) ?? 0,
       isFavorite: json["is_favorite"] ?? false,
       relatedProducts: json["related_products"] == null
           ? []
@@ -150,7 +150,6 @@ class Product {
     }
 
     if (product.options.isNotEmpty) {
-
       product.groupedOptions
         ..clear()
         ..addAll(groupBy(product.options, (option) => option.size));
@@ -212,7 +211,7 @@ class Option {
 
   factory Option.fromJson(Map<String, dynamic> json) {
     return Option(
-      id: json["id"] ?? 0,
+      id: int.tryParse(json["id"].toString()) ?? 0,
       thumbnail: json["thumbnail"] ?? "",
       price: json["price"] ?? "",
       priceInIqd: json["price_in_iqd"] ?? "",
@@ -264,7 +263,7 @@ class RelatedProduct {
 
   factory RelatedProduct.fromJson(Map<String, dynamic> json) {
     return RelatedProduct(
-      id: json["id"] ?? 0,
+      id: int.tryParse(json["id"].toString()) ?? 0,
       name: json["name"] ?? "",
       thumbnail: json["thumbnail"] ?? "",
       inStock: json["in_stock"] ?? false,
@@ -308,9 +307,9 @@ class Review {
 
   factory Review.fromJson(Map<String, dynamic> json) {
     return Review(
-      id: json["id"] ?? 0,
+      id: int.tryParse(json["id"].toString()) ?? 0,
       user: User.fromJson(json["user"] ?? {}),
-      rating: json["rating"] ?? 0,
+      rating: num.tryParse(json["rating"].toString()) ?? 0,
       comment: json["comment"] ?? "",
       createdAt: DateTime.tryParse(json["created_at"] ?? ""),
     );
@@ -338,7 +337,7 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json["id"] ?? 0,
+      id: int.tryParse(json["id"].toString()) ?? 0,
       name: json["name"] ?? "",
       avatar: json["avatar"] ?? "",
     );

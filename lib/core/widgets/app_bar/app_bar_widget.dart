@@ -29,7 +29,8 @@ class AppBarWidget extends StatelessWidget implements PreferredSizeWidget {
     return WillPopScope(
       onWillPop: () async => context.read<LoadingCubit>().isLoadingForPop(),
       child: AppBar(
-        backgroundColor: AppColorManager.whit,
+        backgroundColor:
+            (zeroHeight ?? false) ? AppColorManager.mainColorLight : AppColorManager.whit,
         surfaceTintColor: Colors.white,
         toolbarHeight: (zeroHeight ?? false) ? 0 : 80.0.h,
         title: title ??

@@ -29,7 +29,7 @@ class SliderResult {
 
   factory SliderResult.fromJson(Map<String, dynamic> json) {
     return SliderResult(
-      id: json["id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
       cover: json["cover"] ?? "",
     );
   }

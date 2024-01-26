@@ -9,6 +9,7 @@ import 'package:sadaf/features/orders/ui/pages/tracking_order_page.dart';
 import 'package:sadaf/features/product/bloc/products_cubit/products_cubit.dart';
 import 'package:sadaf/features/product/data/response/products_response.dart';
 import 'package:sadaf/features/product/ui/pages/product_page.dart';
+import 'package:sadaf/features/settings/ui/pages/faq_page.dart';
 
 import '../core/injection/injection_container.dart';
 import '../core/widgets/web_view.dart';
@@ -308,6 +309,15 @@ class AppRoutes {
         );
       //endregion
 
+      case RouteName.faq:
+        //region
+        return MaterialPageRoute(
+          builder: (_) {
+            return const FaqPage();
+          },
+        );
+      //endregion
+
       case RouteName.privacy:
         //region
         return MaterialPageRoute(
@@ -547,4 +557,5 @@ class RouteName {
   static const chat = '/29';
   static const supportRooms = '/30';
   static const supportRoom = '/31';
+  static const faq = '/32';
 }

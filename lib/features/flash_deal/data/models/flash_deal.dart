@@ -49,7 +49,7 @@ class FlashDeal {
 
   factory FlashDeal.fromJson(Map<String, dynamic> json) {
     return FlashDeal(
-      id: json["id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
       name: json["name"] ?? "",
       thumbnail: json["thumbnail"] ?? "",
       inStock: json["in_stock"] ?? false,

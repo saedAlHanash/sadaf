@@ -62,7 +62,7 @@ class Notification {
     return Notification(
       title: json["title"] ?? "",
       body: json["body"] ?? "",
-      conversationId: json["conversation_id"] ?? 0,
+      conversationId: int.tryParse(json["conversation_id"].toString())  ?? 0,
     );
   }
 

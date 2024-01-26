@@ -44,14 +44,15 @@ class MyOrdersPage extends StatelessWidget {
               },
               elevation: 0.0,
               items: list
-                  .mapIndexed((i, e) => ItemExpansion(
-
-                        body: ItemOrderBody(order: e),
-                        header: ItemOrderWidget(
-                          key: listKeys[i],
-                          order: e,
-                        ),
-                      ))
+                  .mapIndexed(
+                    (i, e) => ItemExpansion(
+                      body: ItemOrderBody(order: e),
+                      header: ItemOrderWidget(
+                        key: listKeys[i],
+                        order: e,
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
           );

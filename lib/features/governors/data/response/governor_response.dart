@@ -37,7 +37,7 @@ class GovernorModel {
 
   factory GovernorModel.fromJson(Map<String, dynamic> json) {
     return GovernorModel(
-      id: json["id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
       name: json["name"] ?? "",
       deliveryTime: json["delivery_time"] ?? "",
       price: json["price"] ?? "",

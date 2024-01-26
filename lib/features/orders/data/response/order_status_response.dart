@@ -34,7 +34,7 @@ class OrderStatusResult {
 
   factory OrderStatusResult.fromJson(Map<String, dynamic> json) {
     return OrderStatusResult(
-      id: json["id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
       status: OrderStatus.values[(int.tryParse(json["status"].toString()) ?? 1) - 1],
       changeAt: DateTime.tryParse(json["change_at"] ?? ""),
     );

@@ -9,6 +9,7 @@ class AppColorManager {
   static const ampere = Color(0xFFFFC107);
   static const gray = Color(0xFF848484);
   static const lightGray = Color(0xFFFBFBFB);
+  static const lightGrayAb = Color(0xFFABABAB);
   static const lightGrayEd = Color(0xFFEDEDED);
   static const offWhit = Color(0xFFD9D9D9);
   static const whit = Color(0xFFFFFFFF);
@@ -16,6 +17,7 @@ class AppColorManager {
   static const redPrice = Color(0xFF910202);
   static const cardColor = Color(0xFFEFEFEF);
   static const blue = Color(0xFF0D479E);
+  static const c8f = Color(0xFF8F7752);
 
   static const dividerColor = Color(0xFFCFCFCF);
   static const f1 = Color(0xFFf1f1f1);

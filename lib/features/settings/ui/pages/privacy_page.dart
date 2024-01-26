@@ -16,22 +16,44 @@ class PrivacyPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBarWidget(titleText: S.of(context).policyJust),
+      appBar: AppBarWidget(titleText: S.of(context).termsAndConditions),
       body: FutureBuilder(
         future: sl<SettingService>().getPrivacy(),
         builder: (context, snapShot) {
           if (!snapShot.hasData) {
             return Center(child: MyStyle.loadingWidget());
           }
-          if (snapShot.data!.isEmpty) {
+
+          if (snapShot.data == null) {
             return const NotFoundWidget(
               text: 'No Data',
               icon: Assets.iconsNoSearchResult,
             );
           }
-          return DrawableText(
-            text: snapShot.data!,
-            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 10.0).r,
+
+          final list = snapShot.data!;
+          return ListView.builder(
+            itemCount: list.length,
+            padding: const EdgeInsets.symmetric(horizontal: 30.0, vertical: 60.0).r,
+            itemBuilder: (_, i) {
+              return Column(
+                children: [
+                  DrawableText(
+                    text: list[i].name.toUpperCase(),
+                    size: 24.0.sp,
+                    matchParent: true,
+                  ),
+                  20.0.verticalSpace,
+                  DrawableText(
+                    text: list[i].name,
+                    matchParent: true,
+                    color: Colors.grey,
+                    size: 14.0.sp,
+                  ),
+                  30.0.verticalSpace,
+                ],
+              );
+            },
           );
         },
       ),

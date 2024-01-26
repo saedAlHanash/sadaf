@@ -32,7 +32,7 @@ class GetUrl {
 
   static const offers = 'products/offers';
   static const bestSeller = 'products/best-seller';
-  static const setting = 'setting';
+  static const setting = 'settings';
 
   static const orders = 'orders';
 
@@ -67,11 +67,15 @@ class GetUrl {
 
   static const driverLocation = 'orders/coordinate';
 
-  static var getMessages = 'drivers/messages';
+  static const getMessages = 'drivers/messages';
 
-  static var getSupportMessages = 'conversations';
+  static const getSupportMessages = 'conversations';
 
-  static var getRoomMessages = 'messages';
+  static const getRoomMessages = 'messages';
+
+  static const faq='questions';
+
+  static var termsAndConditions ='pages';
 }
 
 class PostUrl {
@@ -106,7 +110,7 @@ class PostUrl {
 
   static const updateProfile = 'profile/update';
 
-  static var addSupportMessage = 'messages/add';
+  static const addSupportMessage = 'messages/add';
 
   static String addMessage(int id) {
     return 'drivers/messages/$id/add';

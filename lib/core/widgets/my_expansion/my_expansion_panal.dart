@@ -381,7 +381,7 @@ class _MyExpansionPanelListState extends State<MyExpansionPanelList> {
 
       if (child.canTapOnHeader) {
         header = MergeSemantics(
-          child: InkWell(
+          child: GestureDetector(
             onTap: () {
               _handlePressed(_isChildExpanded(index), index);
             },

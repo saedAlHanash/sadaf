@@ -36,7 +36,7 @@ class ColorModel {
 
   factory ColorModel.fromJson(Map<String, dynamic> json) {
     return ColorModel(
-      id: json["id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
       name: json["name"] ?? "",
       hex: json["hex"] ?? "",
       color: getColorFromHex(json["hex"] ?? "fff"),

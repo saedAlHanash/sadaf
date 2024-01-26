@@ -2,6 +2,9 @@ import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/api_manager/api_url.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 
+import '../../../core/util/pair_class.dart';
+import '../data/response/terms_response.dart';
+
 class SettingService {
   num deliveryPrice = 0;
   var about = '';
@@ -28,26 +31,22 @@ class SettingService {
     if (about.isNotEmpty) return about;
     final result = await APIService().getApi(
       url: GetUrl.setting,
-      query: {'key': 'aboutUs'},
     );
     if (result.statusCode.success) {
-      about = result.jsonBody['data']['value'];
+      about = result.jsonBody['data']['description'] ?? '';
       return about;
     }
     return about;
   }
 
-  Future<String> getPrivacy() async {
-    if (privacy.isNotEmpty) return privacy;
+  Future<List<Terms>?> getPrivacy() async {
     final result = await APIService().getApi(
-      url: GetUrl.setting,
-      query: {'key': 'privacy'},
+      url: GetUrl.termsAndConditions,
     );
     if (result.statusCode.success) {
-      privacy = result.jsonBody['data']['value'];
-      return privacy;
+      return TermsResponse.fromJson(result.jsonBody).data;
     }
-    return privacy;
+    return null;
   }
 
   Future<String> getWhatsUp() async {

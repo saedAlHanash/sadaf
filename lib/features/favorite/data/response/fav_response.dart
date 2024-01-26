@@ -37,8 +37,8 @@ class Fav {
 
   factory Fav.fromJson(Map<String, dynamic> json) {
     return Fav(
-      id: json["id"] ?? 0,
-      productId: json["product_id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
+      productId:int.tryParse( json["product_id"].toString())  ?? 0,
       name: json["name"] ?? "",
       thumbnail: json["thumbnail"] ?? "",
       price: json["price"] ?? "",

@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +9,7 @@ import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/features/product/ui/widget/related_product_widget.dart';
 import 'package:sadaf/generated/assets.dart';
 
+import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../generated/l10n.dart';
 import '../../bloc/product_by_id_cubit/product_by_id_cubit.dart';
@@ -58,14 +61,14 @@ class PriceScreen extends StatelessWidget {
                         ],
                       ),
                     ),
-
                   ],
                 ),
               ),
               26.0.verticalSpace,
-              // ProductDateWidget(
-              //   dateTime: DateTime.now().getFormat(serverDate: DateTime(2023, 11, 22)),
-              // ),
+              if (product.discountEndAt != null)
+                ProductDateWidget(
+                  dateTime:  product.discountEndAt!,
+                ),
               26.0.verticalSpace,
               const RelatedProductWidget(),
             ],
@@ -80,19 +83,22 @@ class ReviewWidget extends StatelessWidget {
   const ReviewWidget({super.key, required this.rate});
 
   final num rate;
+
   @override
   Widget build(BuildContext context) {
-    return DrawableText(
-      text: '$rate/5 review',
-      size: 12.0.sp,
-      drawableAlin: DrawableAlin.withText,
-      drawablePadding: 7.0.w,
-      drawableStart: ImageMultiType(
-        url: Icons.star,
-        color: Colors.black,
-        height: 15.0.r,
-        width: 15.0.r,
-      ),
+    return RatingBar.builder(
+      initialRating: rate.toDouble(),
+      minRating: 0,
+      direction: Axis.horizontal,
+      allowHalfRating: true,
+      itemCount: 5,
+      itemSize: 13.0.r,
+      itemPadding: const EdgeInsets.symmetric(horizontal: 4.0).w,
+      itemBuilder: (__, _) {
+        return const Icon(Icons.star, color: Colors.black);
+      },
+      onRatingUpdate: (value) {},
+      ignoreGestures: true,
     );
   }
 }
@@ -177,10 +183,46 @@ class ColorsProductWidget extends StatelessWidget {
   }
 }
 
-class ProductDateWidget extends StatelessWidget {
+class ProductDateWidget extends StatefulWidget {
   const ProductDateWidget({super.key, required this.dateTime});
 
-  final FormatDateTime dateTime;
+  final DateTime dateTime;
+
+  @override
+  State<ProductDateWidget> createState() => _ProductDateWidgetState();
+}
+
+class _ProductDateWidgetState extends State<ProductDateWidget> {
+  Timer? _timer;
+
+  String d = '-';
+  String h = '-';
+  String m = '-';
+  String s = '-';
+
+  @override
+  void initState() {
+    setTimes();
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
+      setState(() => setTimes());
+    });
+    super.initState();
+  }
+
+  void setTimes() {
+    final f = widget.dateTime.getFormat(serverDate: serverDateTime);
+
+    d = ((f.months * 30) + f.days).toString();
+    h = (f.hours).toString();
+    m = (f.minutes).toString();
+    s = (f.seconds).toString();
+  }
+
+  @override
+  void dispose() {
+    _timer?.cancel();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -201,7 +243,7 @@ class ProductDateWidget extends StatelessWidget {
                     size: 9.0.sp,
                   ),
                   DrawableText(
-                    text: dateTime.days.toString(),
+                    text: d,
                     size: 24.0.sp,
                   ),
                 ],
@@ -215,7 +257,7 @@ class ProductDateWidget extends StatelessWidget {
                     size: 9.0.sp,
                   ),
                   DrawableText(
-                    text: dateTime.hours.toString(),
+                    text: h.toString(),
                     size: 24.0.sp,
                   ),
                 ],
@@ -229,7 +271,7 @@ class ProductDateWidget extends StatelessWidget {
                     size: 9.0.sp,
                   ),
                   DrawableText(
-                    text: dateTime.minutes.toString(),
+                    text: m.toString(),
                     size: 24.0.sp,
                   ),
                 ],
@@ -243,7 +285,7 @@ class ProductDateWidget extends StatelessWidget {
                     size: 9.0.sp,
                   ),
                   DrawableText(
-                    text: dateTime.seconds.toString(),
+                    text: s.toString(),
                     size: 24.0.sp,
                   ),
                 ],

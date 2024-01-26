@@ -26,11 +26,12 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
   String d = '-';
   String h = '-';
   String m = '-';
+  String s = '-';
 
   @override
   void initState() {
     setTimes();
-    _timer = Timer.periodic(const Duration(minutes: 1), (_) {
+    _timer = Timer.periodic(const Duration(seconds: 1), (_) {
       setState(() => setTimes());
     });
     super.initState();
@@ -39,10 +40,10 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
   void setTimes() {
     final f = widget.dateTime.getFormat(serverDate: serverDateTime);
 
-
     d = ((f.months * 30) + f.days).toString();
     h = (f.hours).toString();
     m = (f.minutes).toString();
+    s = (f.seconds).toString();
   }
 
   @override
@@ -88,6 +89,18 @@ class _DateTimeWidgetState extends State<DateTimeWidget> {
           drawablePadding: 10.0.w,
           drawableStart: DrawableText(
             text: m,
+            fontFamily: FontManager.cairoBold.name,
+            size: 13.0.sp,
+          ),
+        ),
+        DrawableText(
+          size: 10.0.sp,
+          text: S.of(context).seconds,
+          matchParent: true,
+          drawableAlin: DrawableAlin.between,
+          drawablePadding: 10.0.w,
+          drawableStart: DrawableText(
+            text: s,
             fontFamily: FontManager.cairoBold.name,
             size: 13.0.sp,
           ),

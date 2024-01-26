@@ -37,10 +37,10 @@ class Cart {
 
   factory Cart.fromJson(Map<String, dynamic> json) {
     return Cart(
-      id: json["id"] ?? 0,
+      id:int.tryParse( json["id"].toString()) ?? 0,
       user: User.fromJson(json["user"] ?? {}),
-      subtotal: num.tryParse(json["subtotal"] ?? '0') ?? 0,
-      total: num.tryParse(json["total"] ?? '0') ?? 0,
+      subtotal: num.tryParse(json["subtotal"].toString()) ?? 0,
+      total: num.tryParse(json["total"].toString()) ?? 0,
       couponCode: json["coupon_code"] ?? '',
       products: json["products"] == null
           ? []
@@ -71,7 +71,7 @@ class User {
 
   factory User.fromJson(Map<String, dynamic> json) {
     return User(
-      id: json["id"] ?? 0,
+      id: int.tryParse(json["id"].toString()) ?? 0,
       name: json["name"] ?? "",
       emailOrPhone: json["email_or_phone"] ?? "",
     );

@@ -49,7 +49,7 @@ class Offer {
 
   factory Offer.fromJson(Map<String, dynamic> json) {
     return Offer(
-      id: json["id"] ?? 0,
+            id: int.tryParse(json["id"].toString()) ?? 0,
       name: json["name"] ?? "",
       thumbnail: json["thumbnail"] ?? "",
       inStock: json["in_stock"] ?? false,

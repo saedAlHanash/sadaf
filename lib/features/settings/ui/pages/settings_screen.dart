@@ -36,77 +36,80 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(
-      child: TopProfileWidget(
-        updateImage: false,
-        children: [
-          ItemMenu(
-            name: S.of(context).myInfo,
-            icon: Assets.iconsProfile,
-          ),
-          ItemMenu(
-            name: S.of(context).myOrder,
-            icon: Assets.iconsMyOrder,
-          ),
+    return Scaffold(
+      drawer: Drawer(),
+      body: SingleChildScrollView(
+        child: TopProfileWidget(
+          updateImage: false,
+          children: [
+            ItemMenu(
+              name: S.of(context).myInfo,
+              icon: Assets.iconsProfile,
+            ),
+            ItemMenu(
+              name: S.of(context).myOrder,
+              icon: Assets.iconsMyOrder,
+            ),
 
-          ItemMenu(
-            name: S.of(context).faq,
-            icon: Assets.iconsFaq,
-          ),
-          ItemMenu(
-            name: S.of(context).termsAndConditions,
-            icon: Assets.iconsTermsAndConditions,
-          ),
-          ItemMenu(
-            name: S.of(context).aboutUs,
-            icon: Assets.iconsAboutUs,
-          ),
-          ItemMenu(
-            name: S.of(context).support,
-            icon: Assets.iconsSupport,
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              TextButton(
-                onPressed: () => logout(),
-                child: DrawableText(
-                  text: S.of(context).logout,
+            ItemMenu(
+              name: S.of(context).faq,
+              icon: Assets.iconsFaq,
+            ),
+            ItemMenu(
+              name: S.of(context).termsAndConditions,
+              icon: Assets.iconsTermsAndConditions,
+            ),
+            ItemMenu(
+              name: S.of(context).aboutUs,
+              icon: Assets.iconsAboutUs,
+            ),
+            ItemMenu(
+              name: S.of(context).support,
+              icon: Assets.iconsSupport,
+            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                TextButton(
+                  onPressed: () => logout(),
+                  child: DrawableText(
+                    text: S.of(context).logout,
+                    drawablePadding: 10.0.w,
+                    drawableEnd: ImageMultiType(
+                      url: Assets.iconsLogout,
+                      width: 20.0.r,
+                      height: 20.0.r,
+                    ),
+                  ),
+                ),
+                DrawableText(
+                  text: S.of(context).deleteAccount,
                   drawablePadding: 10.0.w,
+                  color: AppColorManager.red,
                   drawableEnd: ImageMultiType(
-                    url: Assets.iconsLogout,
+                    url: Icons.delete_forever,
+                    color: AppColorManager.red,
                     width: 20.0.r,
                     height: 20.0.r,
                   ),
                 ),
-              ),
-              DrawableText(
-                text: S.of(context).deleteAccount,
-                drawablePadding: 10.0.w,
-                color: AppColorManager.red,
-                drawableEnd: ImageMultiType(
-                  url: Icons.delete_forever,
-                  color: AppColorManager.red,
-                  width: 20.0.r,
-                  height: 20.0.r,
+              ],
+            ),
+            const Divider(),
+            DrawableText(
+              text: '',
+              drawablePadding: 10.0.w,
+              drawableEnd: GestureDetector(
+                onTap: () => LauncherHelper.openPage('https://www.bandtech.co/'),
+                child: ImageMultiType(
+                  url: Assets.iconsBandtechLogo,
+                  width: 80.0.spMin,
+                  height: 40.0.spMin,
                 ),
               ),
-            ],
-          ),
-          const Divider(),
-          DrawableText(
-            text: '',
-            drawablePadding: 10.0.w,
-            drawableEnd: GestureDetector(
-              onTap: () => LauncherHelper.openPage('https://www.bandtech.co/'),
-              child: ImageMultiType(
-                url: Assets.iconsBandtechLogo,
-                width: 80.0.spMin,
-                height: 40.0.spMin,
-              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
@@ -340,7 +343,7 @@ class ItemMenu extends StatelessWidget {
       return;
     }
     if (name == S.of(context).faq) {
-      Navigator.pushNamed(context, RouteName.about);
+      Navigator.pushNamed(context, RouteName.faq);
       return;
     }
     if (name == S.of(context).termsAndConditions) {
