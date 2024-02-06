@@ -80,7 +80,7 @@ class Product {
 
   //----
   num quantity = 0;
-  double localRate = 0;
+  double localRate = 3;
   final attachment = <Attachment>[];
   final Map<String, List<Option>> groupedOptions = {};
   final Map<String, List<Option>> groupedColors = {};
