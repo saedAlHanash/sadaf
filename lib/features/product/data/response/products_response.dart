@@ -1,14 +1,9 @@
+import 'package:collection/collection.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
-import 'package:sadaf/generated/assets.dart';
-import 'package:sadaf/generated/assets.dart';
-import 'package:sadaf/generated/assets.dart';
-import 'package:sadaf/generated/assets.dart';
 
 import '../../../../core/api_manager/request_models/command.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/abstraction.dart';
-import 'package:collection/collection.dart';
-
 import '../../../colors/data/response/color_response.dart';
 
 class ProductsResponse extends AbstractMeta {
@@ -56,6 +51,7 @@ class Product {
     required this.reviews,
     required this.rating,
     required this.isFavorite,
+    required this.isReviewed,
     required this.relatedProducts,
   });
 
@@ -79,10 +75,12 @@ class Product {
   final List<Review> reviews;
   final num rating;
   bool isFavorite;
+  final bool isReviewed;
   final List<Product> relatedProducts;
 
   //----
   num quantity = 0;
+  double localRate = 0;
   final attachment = <Attachment>[];
   final Map<String, List<Option>> groupedOptions = {};
   final Map<String, List<Option>> groupedColors = {};
@@ -122,12 +120,14 @@ class Product {
           : List<Review>.from(json["reviews"]!.map((x) => Review.fromJson(x))),
       rating: num.tryParse(json["rating"].toString()) ?? 0,
       isFavorite: json["is_favorite"] ?? false,
+      isReviewed: json["is_reviewed"] ?? false,
       relatedProducts: json["related_products"] == null
           ? []
           : List<Product>.from(json["related_products"]!.map((x) => Product.fromJson(x))),
     );
 
     product.quantity = json['quantity'] ?? 0;
+    product.localRate = json['localRate'] ?? 0;
 
     product.attachment
         .add(Attachment(link: product.thumbnail, type: AttachmentType.image));
@@ -182,6 +182,7 @@ class Product {
         "reviews": reviews.map((x) => x.toJson()).toList(),
         "rating": rating,
         "is_favorite": isFavorite,
+        "is_reviewed": isReviewed,
         "related_products": relatedProducts.map((x) => x.toJson()).toList(),
       };
 }
@@ -247,6 +248,7 @@ class RelatedProduct {
     required this.discountPrice,
     required this.discountPriceInIqd,
     required this.isFavorite,
+    required this.isReviewed,
     required this.createdAt,
   });
 
@@ -259,6 +261,7 @@ class RelatedProduct {
   final String discountPrice;
   final String discountPriceInIqd;
   final bool isFavorite;
+  final bool isReviewed;
   final String createdAt;
 
   factory RelatedProduct.fromJson(Map<String, dynamic> json) {
@@ -272,6 +275,7 @@ class RelatedProduct {
       discountPrice: json["discount_price"] ?? "",
       discountPriceInIqd: json["discount_price_in_iqd"] ?? "",
       isFavorite: json["is_favorite"] ?? false,
+      isReviewed: json["is_reviewed"] ?? false,
       createdAt: json["created_at"] ?? "",
     );
   }
@@ -286,6 +290,7 @@ class RelatedProduct {
         "discount_price": discountPrice,
         "discount_price_in_iqd": discountPriceInIqd,
         "is_favorite": isFavorite,
+        "is_reviewed": isReviewed,
         "created_at": createdAt,
       };
 }

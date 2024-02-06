@@ -1,6 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -1905,6 +1906,126 @@ class S {
     return Intl.message(
       'Review Order',
       name: 'reviewOrder',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `English`
+  String get en {
+    return Intl.message(
+      'English',
+      name: 'en',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Arabic`
+  String get ar {
+    return Intl.message(
+      'Arabic',
+      name: 'ar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Kurdish`
+  String get ku {
+    return Intl.message(
+      'Kurdish',
+      name: 'ku',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dollar`
+  String get dollar {
+    return Intl.message(
+      'Dollar',
+      name: 'dollar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Dinar`
+  String get dinar {
+    return Intl.message(
+      'Dinar',
+      name: 'dinar',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Please Send Your Rating For The Product`
+  String get setReview {
+    return Intl.message(
+      'Please Send Your Rating For The Product',
+      name: 'setReview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `No Reviews found`
+  String get emptyReview {
+    return Intl.message(
+      'No Reviews found',
+      name: 'emptyReview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Add Review`
+  String get addReview {
+    return Intl.message(
+      'Add Review',
+      name: 'addReview',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Search Result`
+  String get searchResult {
+    return Intl.message(
+      'Search Result',
+      name: 'searchResult',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Categories`
+  String get categories {
+    return Intl.message(
+      'Categories',
+      name: 'categories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sub Categories`
+  String get subCategories {
+    return Intl.message(
+      'Sub Categories',
+      name: 'subCategories',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Rated`
+  String get rated {
+    return Intl.message(
+      'Rated',
+      name: 'rated',
       desc: '',
       args: [],
     );

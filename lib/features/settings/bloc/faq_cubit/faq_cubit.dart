@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:sadaf/core/api_manager/api_url.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
-import 'package:sadaf/features/colors/data/response/color_response.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/error/error_manager.dart';

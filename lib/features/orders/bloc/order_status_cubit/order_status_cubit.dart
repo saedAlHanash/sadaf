@@ -5,12 +5,9 @@ import 'package:sadaf/core/util/abstraction.dart';
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/api_manager/api_url.dart';
 import '../../../../core/error/error_manager.dart';
-import '../../../../core/injection/injection_container.dart';
-import '../../../../core/network/network_info.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/pair_class.dart';
 import '../../data/response/order_status_response.dart';
-import '../../data/response/orders_response.dart';
 
 part 'order_status_state.dart';
 

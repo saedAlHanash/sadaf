@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
-import 'package:sadaf/features/home/ui/pages/search_result_page.dart';
 import 'package:sadaf/features/notifications/ui/pages/notifications_page.dart';
 import 'package:sadaf/features/orders/bloc/order_by_id_cubit/order_by_id_cubit.dart';
 import 'package:sadaf/features/orders/ui/pages/tracking_order_page.dart';
@@ -30,26 +29,20 @@ import '../features/auth/ui/pages/otp_password_page.dart';
 import '../features/auth/ui/pages/reset_password_page.dart';
 import '../features/auth/ui/pages/signup_page.dart';
 import '../features/auth/ui/pages/splash_screen_page.dart';
+import '../features/cart/bloc/create_order_cubit/create_order_cubit.dart';
 import '../features/categories/bloc/sub_categories_cubit/sub_categories_cubit.dart';
-import '../features/categories/ui/pages/categories_page.dart';
 import '../features/chat/bloc/add_message_cubit/add_message_cubit.dart';
 import '../features/chat/bloc/chat_messages_cubit/chat_messages_cubit.dart';
-import '../features/chat/data/response/support_message_response.dart';
 import '../features/chat/ui/pages/chat_screen.dart';
 import '../features/chat/ui/pages/support_chat_screen.dart';
-import '../features/chat/ui/pages/support_rooms_page.dart';
 import '../features/driver/bloc/driver_location_cubit/driver_location_cubit.dart';
-import '../features/map/bloc/map_controller_cubit/map_controller_cubit.dart';
-import '../features/map/ui/pages/map_page.dart';
-import '../features/orders/bloc/order_status_cubit/order_status_cubit.dart';
-import '../features/product/ui/pages/products_page.dart';
 import '../features/home/bloc/home_cubit/home_cubit.dart';
-import '../features/home/bloc/search_cubit/search_cubit.dart';
 import '../features/home/ui/pages/home_page.dart';
+import '../features/map/bloc/map_controller_cubit/map_controller_cubit.dart';
 import '../features/map/bloc/my_location_cubit/my_location_cubit.dart';
-import '../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
+import '../features/map/ui/pages/map_page.dart';
 import '../features/offers/ui/pages/all_offers_page.dart';
-import '../features/cart/bloc/create_order_cubit/create_order_cubit.dart';
+import '../features/orders/bloc/order_status_cubit/order_status_cubit.dart';
 import '../features/orders/bloc/orders_cubit/orders_cubit.dart';
 import '../features/orders/data/response/orders_response.dart';
 import '../features/orders/ui/pages/my_orders_page.dart';
@@ -58,6 +51,7 @@ import '../features/product/bloc/product_by_id_cubit/product_by_id_cubit.dart';
 import '../features/product/bloc/select_option_cubit/select_option_cubit.dart';
 import '../features/product/data/request/product_filter_request.dart';
 import '../features/product/ui/pages/product_options_page.dart';
+import '../features/product/ui/pages/products_page.dart';
 import '../features/profile/bloc/update_profile_cubit/update_profile_cubit.dart';
 import '../features/profile/ui/pages/my_info_page.dart';
 import '../features/profile/ui/pages/update_choice_page.dart';
@@ -218,7 +212,6 @@ class AppRoutes {
 
       case RouteName.notifications:
         //region
-
 
         return MaterialPageRoute(
           builder: (_) {
@@ -461,13 +454,7 @@ class AppRoutes {
 
       //endregion
 
-      //region category
-      case RouteName.category:
-        return MaterialPageRoute(builder: (_) {
-          return const CategoriesPage();
-        });
 
-      //endregion
 
       //region webView
       case RouteName.webView:
@@ -495,26 +482,25 @@ class AppRoutes {
 
       case RouteName.supportRoom:
         //region
-        final room = (settings.arguments ?? Room.fromJson({})) as Room;
         return MaterialPageRoute(
           builder: (_) => MultiBlocProvider(
             providers: [
               BlocProvider(create: (_) => sl<AddMessageCubit>()),
               BlocProvider(
-                create: (_) => sl<MessagesCubit>()..getRoomMessages(mId: room.id),
+                create: (_) => sl<MessagesCubit>()..getRoomMessages(),
               ),
             ],
-            child: SupportChatScreen(room: room),
+            child: SupportChatScreen(),
           ),
         );
       //endregion
 
-      case RouteName.supportRooms:
-        //region
-        return MaterialPageRoute(
-          builder: (_) => const SupportRoomsPage(),
-        );
-      //endregion
+      // case RouteName.supportRooms:
+      //   //region
+      //   return MaterialPageRoute(
+      //     builder: (_) => const SupportRoomsPage(),
+      //   );
+      // //endregion
 
       //endregion
     }
@@ -555,7 +541,8 @@ class RouteName {
   static const trackingOrder = '/27';
   static const map = '/28';
   static const chat = '/29';
-  static const supportRooms = '/30';
+
+  // static const supportRooms = '/30';
   static const supportRoom = '/31';
   static const faq = '/32';
 }

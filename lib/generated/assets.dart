@@ -22,12 +22,15 @@ class Assets {
   static const String iconsDoneIcon = 'assets/icons/done_icon.svg';
   static const String iconsEmail = 'assets/icons/email.svg';
   static const String iconsEmptyPoint = 'assets/icons/empty_point.svg';
+  static const String iconsEmptyStar = 'assets/icons/empty_star.svg';
   static const String iconsFaq = 'assets/icons/faq.svg';
   static const String iconsFav = 'assets/icons/fav.svg';
   static const String iconsFb = 'assets/icons/fb.svg';
+  static const String iconsFullStar = 'assets/icons/full_star.svg';
   static const String iconsHome = 'assets/icons/home.svg';
   static const String iconsKey = 'assets/icons/key.svg';
   static const String iconsKitchen = 'assets/icons/Kitchen.svg';
+  static const String iconsLang = 'assets/icons/lang.svg';
   static const String iconsLocation = 'assets/icons/location.svg';
   static const String iconsLocator = 'assets/icons/locator.svg';
   static const String iconsLock = 'assets/icons/lock.svg';

@@ -2,7 +2,6 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sadaf/core/widgets/my_button.dart';
 import 'package:sadaf/features/product/ui/widget/item_product.dart';
 
 import '../../../../generated/l10n.dart';

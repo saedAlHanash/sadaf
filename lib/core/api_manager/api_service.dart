@@ -53,13 +53,13 @@ class APIService {
 
   factory APIService() => _singleton;
 
-  final innerHeader = {
-    'Content-Type': 'application/json',
-    'Accept': 'Application/json',
-    'lang': AppSharedPreference.getLocal,
-    'currency': 'USD',
-    'Authorization': 'Bearer ${AppSharedPreference.getToken()}',
-  };
+  Map<String, String> get innerHeader => {
+        'Content-Type': 'application/json',
+        'Accept': 'Application/json',
+        'lang': AppSharedPreference.getLocal,
+        'currency': AppSharedPreference.currency.getName,
+        'Authorization': 'Bearer ${AppSharedPreference.getToken()}',
+      };
 
   APIService._internal();
 

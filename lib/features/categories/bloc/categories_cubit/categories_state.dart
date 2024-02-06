@@ -23,6 +23,25 @@ class CategoriesInitial extends AbstractCubit<List<Category>> {
   @override
   List<Object> get props => [statuses, result, error];
 
+  List<SpinnerItem> getSpinnerItem({int? selectedId}) {
+    if (result.isEmpty) return [SpinnerItem(name: '-')];
+
+    final list = result
+        .map(
+          (e) => SpinnerItem(
+              name: e.name, id: e.id, item: e, isSelected: e.id == selectedId),
+        )
+        .toList()
+      ..insert(
+        0,
+        SpinnerItem(
+          name: S().categories,
+          id: -1,
+        ),
+      );
+    return list;
+  }
+
   CategoriesInitial copyWith({
     CubitStatuses? statuses,
     List<Category>? result,

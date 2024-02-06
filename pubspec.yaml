@@ -26,7 +26,7 @@ dependencies:
 
 
   flutter_bloc: any
-
+  syncfusion_flutter_sliders: ^24.2.4
   #  map_package:
   #    path: ../../packages/map_package
 

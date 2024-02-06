@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../strings/app_color_manager.dart';
-import 'my_text_form_widget.dart';
 
 class SpinnerWidget<T> extends StatefulWidget {
   const SpinnerWidget({

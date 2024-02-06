@@ -1,16 +1,12 @@
-import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/circle_image_widget.dart';
-import 'package:sadaf/core/api_manager/api_service.dart';
-import 'package:sadaf/core/extensions/extensions.dart';
-import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:sadaf/core/strings/app_color_manager.dart';
 
 import '../../../../generated/assets.dart';
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
-
 import '../../features/cart/ui/widget/cart_icons.dart';
 import '../../features/profile/bloc/profile_cubit/profile_cubit.dart';
 import '../util/shared_preferences.dart';

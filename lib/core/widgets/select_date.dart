@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_holo_date_picker/flutter_holo_date_picker.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SelectSingeDateScrollWidget extends StatelessWidget {

@@ -1,23 +1,17 @@
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
-import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/helper/launcher_helper.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
 import 'package:sadaf/features/profile/ui/widget/top_profile_widget.dart';
+import 'package:sadaf/features/settings/ui/widget/drawer_widget.dart';
 import 'package:sadaf/router/app_router.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
-import '../../../../core/util/my_style.dart';
-import '../../../../core/util/snack_bar_message.dart';
-import '../../../../core/widgets/my_button.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
-import '../../../auth/bloc/delete_account_cubit/delete_account_cubit.dart';
-import '../../../auth/bloc/logout/logout_cubit.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -37,7 +31,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: Drawer(),
+      drawer: const DrawerWidget(),
       body: SingleChildScrollView(
         child: TopProfileWidget(
           updateImage: false,
@@ -50,7 +44,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               name: S.of(context).myOrder,
               icon: Assets.iconsMyOrder,
             ),
-
             ItemMenu(
               name: S.of(context).faq,
               icon: Assets.iconsFaq,
@@ -67,35 +60,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
               name: S.of(context).support,
               icon: Assets.iconsSupport,
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                TextButton(
-                  onPressed: () => logout(),
-                  child: DrawableText(
-                    text: S.of(context).logout,
-                    drawablePadding: 10.0.w,
-                    drawableEnd: ImageMultiType(
-                      url: Assets.iconsLogout,
-                      width: 20.0.r,
-                      height: 20.0.r,
-                    ),
-                  ),
-                ),
-                DrawableText(
-                  text: S.of(context).deleteAccount,
-                  drawablePadding: 10.0.w,
-                  color: AppColorManager.red,
-                  drawableEnd: ImageMultiType(
-                    url: Icons.delete_forever,
-                    color: AppColorManager.red,
-                    width: 20.0.r,
-                    height: 20.0.r,
-                  ),
-                ),
-              ],
-            ),
-            const Divider(),
             DrawableText(
               text: '',
               drawablePadding: 10.0.w,
@@ -108,143 +72,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 ),
               ),
             ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  void logout() {
-    NoteMessage.showBottomSheet1(
-      context,
-      BlocProvider.value(
-        value: context.read<LogoutCubit>(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            10.0.verticalSpace,
-            DrawableText(
-                text: 'تسجبل الخروج ?',
-                fontFamily: FontManager.cairoBold.name,
-                size: 20.0.sp),
-            const Divider(endIndent: 10.0, indent: 10.0),
-            DrawableText(
-              text: 'هل أنت متأكد من تسجيل الخروج؟ ',
-              color: AppColorManager.textColor,
-              size: 20.0.spMin,
-              padding: const EdgeInsets.symmetric(vertical: 30.0).h,
-            ),
-            Row(
-              children: [
-                10.0.horizontalSpace,
-                Flexible(
-                  flex: 1,
-                  child: BlocConsumer<LogoutCubit, LogoutInitial>(
-                    listenWhen: (p, c) => c.statuses.done,
-                    listener: (context, state) {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        RouteName.splash,
-                        (route) => false,
-                      );
-                    },
-                    builder: (context, state) {
-                      if (state.statuses.loading) {
-                        return MyStyle.loadingWidget();
-                      }
-                      return MyButton(
-                        width: 1.0.sw,
-                        text: 'نعم',
-                        onTap: () {
-                          context.read<LogoutCubit>().logout(context);
-                          AppSharedPreference.logout();
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            RouteName.splash,
-                            (route) => false,
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-                10.0.horizontalSpace,
-                Flexible(
-                  flex: 1,
-                  child: MyButton(
-                    text: 'لا',
-                    onTap: () => Navigator.pop(context),
-                  ),
-                ),
-                10.0.horizontalSpace,
-              ],
-            ),
-            20.0.verticalSpace,
-          ],
-        ),
-      ),
-    );
-  }
-
-  void deleteAccount() {
-    NoteMessage.showBottomSheet1(
-      context,
-      BlocProvider.value(
-        value: context.read<DeleteAccountCubit>(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            10.0.verticalSpace,
-            DrawableText(
-                text: 'تأكيد حذف الحساب',
-                fontFamily: FontManager.cairoBold.name,
-                size: 19.0.sp),
-            const Divider(endIndent: 10.0, indent: 10.0),
-            DrawableText(
-              text: 'هل أنت متأكد من حذف الحساب؟ ',
-              color: AppColorManager.textColor,
-              size: 18.0.spMin,
-              padding: const EdgeInsets.symmetric(vertical: 30.0).h,
-            ),
-            Row(
-              children: [
-                10.0.horizontalSpace,
-                Flexible(
-                  flex: 1,
-                  child: BlocConsumer<DeleteAccountCubit, DeleteAccountInitial>(
-                    listenWhen: (p, c) => c.statuses.done,
-                    listener: (context, state) {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        RouteName.splash,
-                        (route) => false,
-                      );
-                    },
-                    builder: (context, state) {
-                      if (state.statuses.loading) {
-                        return MyStyle.loadingWidget();
-                      }
-                      return MyButton(
-                        width: 1.0.sw,
-                        text: 'نعم',
-                        onTap: () =>
-                            context.read<DeleteAccountCubit>().deleteAccount(context),
-                      );
-                    },
-                  ),
-                ),
-                10.0.horizontalSpace,
-                Flexible(
-                  flex: 1,
-                  child: MyButton(
-                    text: 'لا',
-                    onTap: () => Navigator.pop(context),
-                  ),
-                ),
-                10.0.horizontalSpace,
-              ],
-            ),
-            20.0.verticalSpace,
+            15.0.verticalSpace,
           ],
         ),
       ),
@@ -355,7 +183,7 @@ class ItemMenu extends StatelessWidget {
       return;
     }
     if (name == S.of(context).support) {
-      Navigator.pushNamed(context, RouteName.supportRooms);
+      Navigator.pushNamed(context, RouteName.supportRoom);
       return;
     }
   }

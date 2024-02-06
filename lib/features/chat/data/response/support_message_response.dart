@@ -43,7 +43,7 @@ class Room {
     "id": id,
     "last_message": lastMessage,
     "open": open,
-    "user": user?.toJson(),
+    "user": user.toJson(),
   };
 
 }

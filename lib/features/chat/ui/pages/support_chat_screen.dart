@@ -14,12 +14,9 @@ import 'package:sadaf/features/chat/ui/widget/chat_item.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../generated/l10n.dart';
 import '../../bloc/chat_messages_cubit/chat_messages_cubit.dart';
-import '../../data/response/support_message_response.dart';
 
 class SupportChatScreen extends StatefulWidget {
-  const SupportChatScreen({super.key, required this.room});
-
-  final Room room;
+  const SupportChatScreen({super.key});
 
   @override
   State<SupportChatScreen> createState() => _SupportChatScreenState();
@@ -50,11 +47,11 @@ class _SupportChatScreenState extends State<SupportChatScreen> {
                 },
               ),
             );
-        context.read<MessagesCubit>().getRoomMessages(mId: widget.room.id);
+        context.read<MessagesCubit>().getRoomMessages();
       },
       child: Scaffold(
         resizeToAvoidBottomInset: true,
-        appBar: AppBarWidget(titleText: '${S.of(context).support} ${widget.room.id}'),
+        appBar: AppBarWidget(titleText: '${S.of(context).support}'),
         body: Column(
           children: [
             Expanded(
@@ -95,8 +92,7 @@ class _SupportChatScreenState extends State<SupportChatScreen> {
                                       fileBytes: await image.readAsBytes()),
                                 );
 
-                                addMessageCubit.addSupportMessage(
-                                    mId: widget.room.id, request: request);
+                                addMessageCubit.addSupportMessage(request: request);
                               }
                             },
                             child: const ImageMultiType(url: Icons.camera_alt));
@@ -112,8 +108,8 @@ class _SupportChatScreenState extends State<SupportChatScreen> {
                             if (value.isEmpty) return;
 
                             addMessageCubit.addSupportMessage(
-                                mId: widget.room.id,
-                                request: MessageRequest(message: value));
+                              request: MessageRequest(message: value),
+                            );
                           },
                           decoration: InputDecoration(
                             contentPadding:
@@ -140,7 +136,6 @@ class _SupportChatScreenState extends State<SupportChatScreen> {
                             if (value.isEmpty) return;
 
                             addMessageCubit.addSupportMessage(
-                              mId: widget.room.id,
                               request: MessageRequest(message: value),
                             );
                           },

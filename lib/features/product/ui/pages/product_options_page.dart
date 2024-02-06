@@ -3,19 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
-import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
-import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:sadaf/core/widgets/my_button.dart';
 import 'package:sadaf/features/product/ui/widget/options_widget.dart';
-import 'package:sadaf/generated/assets.dart';
 
 import '../../../../core/extensions/extensions.dart';
 import '../../../../generated/l10n.dart';
-
 import '../../bloc/select_option_cubit/select_option_cubit.dart';
 import '../../data/response/products_response.dart';
-import '../widget/amount_widget.dart';
 
 class ProductOptionsPage extends StatelessWidget {
   const ProductOptionsPage({super.key, required this.product});

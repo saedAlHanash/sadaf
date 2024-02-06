@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:sadaf/core/util/snack_bar_message.dart';
+import 'package:sadaf/features/home/ui/widget/filter_widget.dart';
+import 'package:sadaf/features/product/bloc/products_cubit/products_cubit.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/widgets/my_text_form_widget.dart';
@@ -62,79 +66,70 @@ class _SearchFieldWidgetState extends State<SearchFieldWidget> {
   }
 }
 
-class SearchOffersFieldWidget extends StatelessWidget {
-  const SearchOffersFieldWidget({super.key});
+class SearchProductsWidget extends StatefulWidget {
+  const SearchProductsWidget({super.key});
 
   @override
-  Widget build(BuildContext context) {
-    final searchC = TextEditingController();
-    return Container(
-      height: 45.0.h,
-      padding: const EdgeInsets.only(top: 10.0).r,
-      color: AppColorManager.lightGray,
-      child: MyEditTextWidget(
-        controller: searchC,
-        backgroundColor: Colors.transparent,
-        radios: 0.0,
-        icon: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-          child: const ImageMultiType(
-            url: Assets.iconsSearch,
-            color: AppColorManager.gray,
-          ),
-        ),
-        hint: S.of(context).search_In_All,
-        textInputAction: TextInputAction.search,
-        onFieldSubmitted: (val) {
-          searchC.text = '';
-        },
-      ),
-    );
-  }
+  State<SearchProductsWidget> createState() => _SearchProductsWidgetState();
 }
 
-class SearchProductsFieldWidget extends StatefulWidget {
-  const SearchProductsFieldWidget({super.key, required this.onApply, this.initialVal});
-
-  final Function(String val) onApply;
-  final String? initialVal;
-
-  @override
-  State<SearchProductsFieldWidget> createState() => _SearchProductsFieldWidgetState();
-}
-
-class _SearchProductsFieldWidgetState extends State<SearchProductsFieldWidget> {
+class _SearchProductsWidgetState extends State<SearchProductsWidget> {
   late final TextEditingController searchC;
+  late final ProductsCubit productCubit;
 
   @override
   void initState() {
-    searchC = TextEditingController()..text = widget.initialVal ?? '';
+    productCubit = context.read<ProductsCubit>();
+    searchC = TextEditingController()..text = productCubit.state.request.search ?? '';
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      height: 45.0.h,
-      padding: const EdgeInsets.only(top: 10.0).r,
-      color: AppColorManager.lightGray,
-      child: MyEditTextWidget(
-        controller: searchC,
-        backgroundColor: Colors.transparent,
-        radios: 0.0,
-        icon: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
-          child: const ImageMultiType(
-            url: Assets.iconsSearch,
-            color: AppColorManager.gray,
+    return Row(
+      children: [
+        Expanded(
+          child: Container(
+            height: 45.0.h,
+            padding: const EdgeInsets.only(top: 10.0).r,
+            color: AppColorManager.lightGray,
+            child: MyEditTextWidget(
+              controller: searchC,
+              backgroundColor: Colors.transparent,
+              radios: 0.0,
+              icon: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 20.0).w,
+                child: const ImageMultiType(
+                  url: Assets.iconsSearch,
+                  color: AppColorManager.gray,
+                ),
+              ),
+              hint: S.of(context).search_In_All,
+              textInputAction: TextInputAction.search,
+              onFieldSubmitted: (val) => productCubit
+                ..setSearchQ = val
+                ..getProducts(),
+            ),
           ),
         ),
-        hint: S.of(context).search_In_All,
-        textInputAction: TextInputAction.search,
-        onFieldSubmitted: (val) {
-          widget.onApply.call(val);
-        },
-      ),
+        20.0.horizontalSpace,
+        Container(
+          color: AppColorManager.lightGray,
+          child: IconButton(
+            onPressed: () {
+              NoteMessage.showBottomSheet1(
+                  context,
+                  MultiBlocProvider(
+                    providers: [
+                      BlocProvider.value(value: productCubit),
+                    ],
+                    child: FilterWidget(),
+                  ));
+            },
+            icon: const ImageMultiType(url: Icons.filter_alt_sharp),
+          ),
+        ),
+      ],
     );
   }
 }

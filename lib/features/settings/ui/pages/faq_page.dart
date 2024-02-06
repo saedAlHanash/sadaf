@@ -8,9 +8,7 @@ import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/util/my_style.dart';
 import 'package:sadaf/core/widgets/not_found_widget.dart';
-import 'package:sadaf/features/settings/services/setting_service.dart';
 
-import '../../../../core/injection/injection_container.dart';
 import '../../../../core/widgets/app_bar/app_bar_widget.dart';
 import '../../../../core/widgets/my_expansion/item_expansion.dart';
 import '../../../../core/widgets/my_expansion/my_expansion_widget.dart';

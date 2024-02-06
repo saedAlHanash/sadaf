@@ -1,6 +1,5 @@
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
@@ -8,11 +7,8 @@ import 'package:sadaf/features/product/ui/widget/add_to_cart_btn.dart';
 import 'package:sadaf/generated/assets.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
-import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/my_card_widget.dart';
-import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
-import '../../../cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../../favorite/ui/widget/fav_btn_widget.dart';
 import '../../../offers/data/models/offer.dart';
 import '../../data/response/products_response.dart';

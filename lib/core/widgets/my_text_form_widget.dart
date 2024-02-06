@@ -2,7 +2,6 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
-import 'package:sadaf/core/api_manager/api_service.dart';
 
 import '../strings/app_color_manager.dart';
 import '../util/my_style.dart';
@@ -140,7 +139,7 @@ class _MyTextFormOutLineWidgetState extends State<MyTextFormOutLineWidget> {
       counter: const SizedBox(),
       hintText: widget.hint,
       alignLabelWithHint: true,
-      labelStyle: TextStyle(color: widget.color ?? AppColorManager.mainColor),
+      labelStyle: TextStyle(color: widget.color),
       suffixIcon: widget.obscureText ? suffixIcon : widget.iconWidgetLift,
       prefixIcon: widget.obscureText ? null : suffixIcon,
     );

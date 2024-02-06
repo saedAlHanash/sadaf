@@ -1,19 +1,11 @@
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
-import 'package:sadaf/features/home/ui/widget/search_widget.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
-import '../../../../core/util/my_style.dart';
-import '../../../../core/widgets/list_product_widget.dart';
-import '../../../../core/widgets/not_found_widget.dart';
-import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../../flash_deal/ui/widget/flash_deal_list.dart';
-import '../../bloc/offers_cubit/offers_cubit.dart';
 import '../widget/offers_list_page.dart';
 
 class AllOffersPage extends StatefulWidget {
@@ -57,8 +49,6 @@ class _AllOffersPageState extends State<AllOffersPage>
         padding: const EdgeInsets.symmetric(horizontal: 20.0, vertical: 5.0).r,
         child: Column(
           children: [
-            const SearchOffersFieldWidget(),
-            20.0.verticalSpace,
             SizedBox(
               height: 42.h,
               child: TabBar(

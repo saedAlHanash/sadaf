@@ -2,8 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
-import 'package:sadaf/features/product/data/response/products_response.dart';
-import 'package:sadaf/features/product/ui/pages/price_screen.dart';
 
 import '../../../../core/widgets/not_found_widget.dart';
 import '../../../../generated/assets.dart';

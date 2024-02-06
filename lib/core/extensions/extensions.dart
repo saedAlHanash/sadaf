@@ -8,7 +8,6 @@ import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
 
 import '../../features/product/data/response/products_response.dart';
-import '../../features/product/data/response/products_response.dart';
 import '../../generated/l10n.dart';
 import '../error/error_manager.dart';
 import '../strings/enum_manager.dart';
@@ -73,7 +72,7 @@ extension SplitByLength on String {
     return '0$this';
   }
 
-  String get formatPrice => '$this ${AppSharedPreference.currency}';
+  String get formatPrice => '$this ${AppSharedPreference.currency.getName}';
 
   bool get isZero => (num.tryParse(this) ?? 0) == 0;
 
@@ -116,6 +115,16 @@ extension SplitByLength on String {
 
     return OrderStatus.pending;
   }
+
+
+  num get tryParseOrZero => num.tryParse(this) ?? 0;
+
+  int get tryParseOrZeroInt => int.tryParse(this) ?? 0;
+
+
+  num? get tryParseOrNull => num.tryParse(this);
+
+  int? get tryParseOrNullInt => int.tryParse(this);
 }
 
 extension StringHelper on String? {
@@ -152,8 +161,7 @@ extension ListEnumHelper on List<Enum> {
         ),
       ),
     );
-    for (var e in this) {}
-    return [];
+
   }
 }
 
@@ -190,6 +198,10 @@ extension EnumHelper on Enum {
         return S().paymentFailed;
       case OrderStatus.returned:
         return S().returned;
+      case CurrencyEnum.dollar:
+        return 'USD';
+      case CurrencyEnum.dinar:
+        return 'IQD';
     }
     return name;
   }

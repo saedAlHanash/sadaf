@@ -1,18 +1,10 @@
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
-import 'package:sadaf/features/home/ui/widget/search_widget.dart';
 
 import '../../../../core/strings/app_color_manager.dart';
-import '../../../../core/util/my_style.dart';
-import '../../../../core/widgets/list_product_widget.dart';
-import '../../../../core/widgets/not_found_widget.dart';
-import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
-import '../../bloc/flash_deal_cubit/flash_deal_cubit.dart';
 import '../widget/flash_deal_list.dart';
 
 class AllFlashDealsPage extends StatefulWidget {

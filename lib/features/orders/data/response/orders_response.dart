@@ -5,7 +5,6 @@ import 'package:sadaf/core/util/abstraction.dart';
 import '../../../../core/api_manager/request_models/command.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../product/data/response/products_response.dart';
-import '../../../profile/data/response/profile_response.dart';
 
 class OrdersResponse extends AbstractMeta {
   OrdersResponse({
@@ -189,7 +188,7 @@ class Driver {
         "phone": phone,
         "avatar": avatar,
         "track_number": trackNumber,
-        "map_address": mapAddress?.toJson(),
+        "map_address": mapAddress.toJson(),
       };
 }
 

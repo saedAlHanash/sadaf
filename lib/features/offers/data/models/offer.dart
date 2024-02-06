@@ -16,7 +16,7 @@ class OffersDealResponse {
   }
 
   Map<String, dynamic> toJson() => {
-        "data": data.map((x) => x?.toJson()).toList(),
+        "data": data.map((x) => x.toJson()).toList(),
       };
 }
 
@@ -68,7 +68,7 @@ class Offer {
         "name": name,
         "thumbnail": thumbnail,
         "in_stock": inStock,
-        "category": category?.toJson(),
+        "category": category.toJson(),
         "price": price,
         "discount_price": discountPrice,
         "discount_end_at": discountEndAt?.toIso8601String(),

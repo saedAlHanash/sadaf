@@ -8,7 +8,6 @@ import '../../../../core/error/error_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/abstraction.dart';
 import '../../../../core/util/pair_class.dart';
-import '../../data/request/product_filter_request.dart';
 
 part 'new_arrival_state.dart';
 

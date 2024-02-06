@@ -14,8 +14,10 @@ part 'get_favorite_state.dart';
 class FavoriteCubit extends Cubit<FavoriteInitial> {
   FavoriteCubit() : super(FavoriteInitial.initial());
 
-  Future<void> getFavorite() async {
-    emit(state.copyWith(statuses: CubitStatuses.loading));
+  Future<void> getFavorite({bool withLoading = true}) async {
+    if(withLoading) {
+      emit(state.copyWith(statuses: CubitStatuses.loading));
+    }
 
     final pair = await _getFavoriteApi();
 

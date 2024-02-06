@@ -10,7 +10,6 @@ import '../../../../core/util/shared_preferences.dart';
 import '../../../../core/widgets/not_found_widget.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
-
 import '../../bloc/notifications_cubit/notifications_cubit.dart';
 
 class NotificationsPage extends StatefulWidget {

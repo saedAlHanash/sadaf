@@ -1,4 +1,4 @@
-import 'package:sadaf/generated/assets.dart';
+
 
 class LoginResponse {
   LoginResponse({

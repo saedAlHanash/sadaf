@@ -10,11 +10,7 @@ import 'package:sadaf/main.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/api_manager/api_url.dart';
-import '../../../../core/error/error_manager.dart';
-import '../../../../core/injection/injection_container.dart';
-import '../../../../core/network/network_info.dart';
 import '../../../../core/util/pair_class.dart';
-import '../../../../generated/l10n.dart';
 
 part 'insert_firebase_token_state.dart';
 

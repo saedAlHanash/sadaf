@@ -13,7 +13,6 @@ import 'core/app/app_widget.dart';
 import 'core/app/bloc/loading_cubit.dart';
 import 'core/injection/injection_container.dart' as di;
 import 'core/util/shared_preferences.dart';
-
 import 'firebase_options.dart';
 
 //adb shell setprop debug.firebase.analytics.app com.slf.sadaf

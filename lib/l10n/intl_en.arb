@@ -186,6 +186,17 @@
   "estimatedFor": "Estimated For",
   "pleasSetYourAddress": "Pleas Set Your Address",
   "reviewOrder": "Review Order",
-
+  "en": "English",
+  "ar": "Arabic",
+  "ku": "Kurdish",
+  "dollar": "Dollar",
+  "dinar": "Dinar",
+  "setReview": "Please Send Your Rating For The Product",
+  "emptyReview": "No Reviews found",
+  "addReview": "Add Review",
+  "searchResult": "Search Result",
+  "categories": "Categories",
+  "subCategories": "Sub Categories",
+  "rated": "Rated",
   "yourLocation": "Your Location"
 }

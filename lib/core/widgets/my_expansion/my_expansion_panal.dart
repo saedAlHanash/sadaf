@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/widgets/my_card_widget.dart';
 
 const double _kPanelHeaderCollapsedHeight = kMinInteractiveDimension;

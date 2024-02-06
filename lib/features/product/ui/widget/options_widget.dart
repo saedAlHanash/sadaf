@@ -5,7 +5,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:group_button/group_button.dart';
 import 'package:image_multi_type/image_multi_type.dart';
-import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 
 import '../../bloc/select_option_cubit/select_option_cubit.dart';

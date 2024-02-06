@@ -1,19 +1,16 @@
-import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:image_multi_type/round_image_widget.dart';
+import 'package:model_viewer_plus/model_viewer_plus.dart';
 import 'package:pod_player/pod_player.dart';
-import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
-import 'package:sadaf/core/widgets/my_card_widget.dart';
 import 'package:sadaf/features/favorite/ui/widget/fav_btn_widget.dart';
 import 'package:sadaf/features/product/ui/widget/share_btn.dart';
 import 'package:sadaf/generated/assets.dart';
 
 import '../../data/response/products_response.dart';
-import 'package:model_viewer_plus/model_viewer_plus.dart';
 
 class CardAttachmentsSlider extends StatefulWidget {
   const CardAttachmentsSlider({Key? key, required this.product}) : super(key: key);

@@ -3,13 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 
-
 import '../../features/cart/bloc/get_cart_cubit/get_cart_cubit.dart';
 import '../../features/cart/ui/widget/item_cart.dart';
-import '../../features/product/data/response/products_response.dart';
-import '../../features/product/data/response/products_response.dart';
-import '../../features/product/ui/widget/item_product.dart';
-import '../injection/injection_container.dart';
 import '../util/my_style.dart';
 
 class ListProductCartWidget extends StatefulWidget {

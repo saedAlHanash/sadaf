@@ -16,6 +16,7 @@ import '../../features/auth/bloc/signup_cubit/signup_cubit.dart';
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../features/cart/bloc/clear_cart_cubit/clear_cart_cubit.dart';
 import '../../features/cart/bloc/coupon_cubit/coupon_cubit.dart';
+import '../../features/cart/bloc/create_order_cubit/create_order_cubit.dart';
 import '../../features/cart/bloc/decrease_cubit/decrease_cubit.dart';
 import '../../features/cart/bloc/get_cart_cubit/get_cart_cubit.dart';
 import '../../features/cart/bloc/increase_cubit/increase_cubit.dart';
@@ -39,13 +40,12 @@ import '../../features/home/bloc/slider_cubit/slider_cubit.dart';
 import '../../features/manufacturers/bloc/manufacturerss_cubit/manufacturers_cubit.dart';
 import '../../features/map/bloc/map_controller_cubit/map_controller_cubit.dart';
 import '../../features/map/bloc/my_location_cubit/my_location_cubit.dart';
-
 import '../../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
 import '../../features/offers/bloc/offers_cubit/offers_cubit.dart';
-import '../../features/cart/bloc/create_order_cubit/create_order_cubit.dart';
 import '../../features/orders/bloc/order_by_id_cubit/order_by_id_cubit.dart';
 import '../../features/orders/bloc/order_status_cubit/order_status_cubit.dart';
 import '../../features/orders/bloc/orders_cubit/orders_cubit.dart';
+import '../../features/product/bloc/add_review_cubit/add_review_cubit.dart';
 import '../../features/product/bloc/new_arrival_cubit/new_arrival_cubit.dart';
 import '../../features/product/bloc/product_by_id_cubit/product_by_id_cubit.dart';
 import '../../features/product/bloc/products_cubit/products_cubit.dart';
@@ -149,6 +149,7 @@ Future<void> init() async {
   //region product
   sl.registerFactory(() => ProductByIdCubit());
   sl.registerFactory(() => ProductsCubit());
+  sl.registerFactory(() => AddReviewCubit());
   sl.registerFactory(() => NewArrivalProductsCubit());
 
   //endregion

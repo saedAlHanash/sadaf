@@ -3,7 +3,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/features/flash_deal/bloc/flash_deal_cubit/flash_deal_cubit.dart';
-import 'package:sadaf/features/flash_deal/bloc/flash_deal_cubit/flash_deal_cubit.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/not_found_widget.dart';

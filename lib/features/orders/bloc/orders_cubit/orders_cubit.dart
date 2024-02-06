@@ -1,14 +1,12 @@
 import 'package:bloc/bloc.dart';
 import 'package:sadaf/core/api_manager/api_url.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
-import 'package:sadaf/features/product/data/response/products_response.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/error/error_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/abstraction.dart';
 import '../../../../core/util/pair_class.dart';
-
 import '../../data/response/orders_response.dart';
 
 part 'orders_state.dart';

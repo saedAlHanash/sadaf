@@ -3,13 +3,9 @@ import 'dart:async';
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
-import 'package:sadaf/features/flash_deal/data/models/flash_deal.dart';
-import 'package:sadaf/generated/assets.dart';
 
 import '../../../../core/api_manager/api_service.dart';
-import '../../../../core/strings/app_color_manager.dart';
 import '../../../../generated/l10n.dart';
 class DateTimeWidget extends StatefulWidget {
   const DateTimeWidget({super.key, required this.dateTime});

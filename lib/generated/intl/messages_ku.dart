@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "aboutUs": MessageLookupByLibrary.simpleMessage("دەربارەی ئامێرەکان"),
         "accountCreated":
             MessageLookupByLibrary.simpleMessage("هەژمار دروستکرا!"),
+        "addReview": MessageLookupByLibrary.simpleMessage("Add Review"),
         "add_to_cart":
             MessageLookupByLibrary.simpleMessage("زیاد بکە بۆ سەبەتە"),
         "additional_service":
@@ -34,6 +35,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("پێشتر هەژمارێکت هەیە؟"),
         "apply": MessageLookupByLibrary.simpleMessage("بکە"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("فیلتەرەکان بکە"),
+        "ar": MessageLookupByLibrary.simpleMessage("Arabic"),
         "at": MessageLookupByLibrary.simpleMessage("At"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "birthday": MessageLookupByLibrary.simpleMessage("ڕۆژی لەدایکبوون"),
@@ -43,6 +45,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "card_number": MessageLookupByLibrary.simpleMessage("ژمارەی کارت"),
         "cart": MessageLookupByLibrary.simpleMessage("Çarçove"),
         "cashPayment": MessageLookupByLibrary.simpleMessage("Cash Payment"),
+        "categories": MessageLookupByLibrary.simpleMessage("Categories"),
         "changeAddress":
             MessageLookupByLibrary.simpleMessage("گۆڕینی ناونیشان"),
         "changeEmail": MessageLookupByLibrary.simpleMessage("گۆڕینی ئیمەیل"),
@@ -93,8 +96,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "description": MessageLookupByLibrary.simpleMessage("شرۆڤە"),
         "didNotReceiveOTP":
             MessageLookupByLibrary.simpleMessage("OTP نەگرتووەت؟"),
+        "dinar": MessageLookupByLibrary.simpleMessage("Dinar"),
         "doNotHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t Have An Account?"),
+        "dollar": MessageLookupByLibrary.simpleMessage("Dollar"),
         "done": MessageLookupByLibrary.simpleMessage("Tê"),
         "doneCanceled": MessageLookupByLibrary.simpleMessage("Done Canceled"),
         "doneCompleted": MessageLookupByLibrary.simpleMessage("Done Completed"),
@@ -124,8 +129,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sorry, There Are \nNo Offers"),
         "emptyOrders": MessageLookupByLibrary.simpleMessage(
             "Sorry, There Are \nNo Orders"),
+        "emptyReview": MessageLookupByLibrary.simpleMessage("No Reviews found"),
         "emptySearch": MessageLookupByLibrary.simpleMessage(
             "Sorry, Your Search Is \nNot Available"),
+        "en": MessageLookupByLibrary.simpleMessage("English"),
         "enterOTP": MessageLookupByLibrary.simpleMessage("کۆدی OTP لێرە دانێ"),
         "enter_new_password_and_confirm": MessageLookupByLibrary.simpleMessage(
             "Enter New Password And Confirm."),
@@ -148,6 +155,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "homeAddress": MessageLookupByLibrary.simpleMessage("ناونیشانی خانە"),
         "hours": MessageLookupByLibrary.simpleMessage("کاتژمێر"),
         "is_required": MessageLookupByLibrary.simpleMessage("Required"),
+        "ku": MessageLookupByLibrary.simpleMessage("Kurdish"),
         "language": MessageLookupByLibrary.simpleMessage("زمان"),
         "lastName": MessageLookupByLibrary.simpleMessage("ناوی دووەم"),
         "location": MessageLookupByLibrary.simpleMessage("شوێن"),
@@ -212,6 +220,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "price": MessageLookupByLibrary.simpleMessage("نرخ"),
         "processing": MessageLookupByLibrary.simpleMessage("Processing"),
         "profile": MessageLookupByLibrary.simpleMessage("Profil"),
+        "rated": MessageLookupByLibrary.simpleMessage("Rated"),
         "rePassword":
             MessageLookupByLibrary.simpleMessage("Şîfreya xwedîderketinê"),
         "ready": MessageLookupByLibrary.simpleMessage("Ready"),
@@ -236,12 +245,15 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("پاشکەوتکردنی گۆڕانکاری"),
         "save_for_later": MessageLookupByLibrary.simpleMessage(
             "بۆ دوایکردنەوە پاشەکەوت بکە؟"),
+        "searchResult": MessageLookupByLibrary.simpleMessage("Search Result"),
         "search_In_All": MessageLookupByLibrary.simpleMessage("Search In All"),
         "seconds": MessageLookupByLibrary.simpleMessage("seconds"),
         "see_all": MessageLookupByLibrary.simpleMessage("هەموو ببینە"),
         "selectFromMap": MessageLookupByLibrary.simpleMessage("From Map"),
         "selectGovernor":
             MessageLookupByLibrary.simpleMessage("Select Governor"),
+        "setReview": MessageLookupByLibrary.simpleMessage(
+            "Please Send Your Rating For The Product"),
         "settings": MessageLookupByLibrary.simpleMessage("Mîhengên"),
         "sgnIn": MessageLookupByLibrary.simpleMessage("چوونە ژوورەوە"),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
@@ -252,6 +264,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "چوونە ژوورەوە بە گرووپی ئاگاداری:"),
         "signUp": MessageLookupByLibrary.simpleMessage("خۆتۆمارکردن"),
         "sizes": MessageLookupByLibrary.simpleMessage("قەبارەکان"),
+        "subCategories": MessageLookupByLibrary.simpleMessage("Sub Categories"),
         "subtotal": MessageLookupByLibrary.simpleMessage("کۆی ژمارەی خۆکار"),
         "successfully": MessageLookupByLibrary.simpleMessage("بە سەرکەوتووی."),
         "support": MessageLookupByLibrary.simpleMessage("پاڵپشتی"),

@@ -5,11 +5,11 @@ import 'package:sadaf/features/product/data/response/products_response.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/api_manager/api_url.dart';
+import '../../../../core/app/app_provider.dart';
 import '../../../../core/error/error_manager.dart';
-import '../../../../core/injection/injection_container.dart';
-import '../../../../core/network/network_info.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/pair_class.dart';
+import '../../../../core/util/shared_preferences.dart';
 
 part 'product_by_id_state.dart';
 
@@ -28,6 +28,22 @@ class ProductByIdCubit extends Cubit<ProductByIdInitial> {
     }
   }
 
+  void addReview(num rating) {
+    state.result.reviews.add(
+      Review(
+        id: 1,
+        user: User(
+          id: AppSharedPreference.getMyId,
+          name: AppProvider.profile.name,
+          avatar: AppProvider.profile.avatar,
+        ),
+        rating: rating,
+        comment: '',
+        createdAt: DateTime.now(),
+      ),
+    );
+    emit(state.copyWith(addReview: state.addReview + 1));
+  }
 
   Future<Pair<Product?, String?>> _getProductByIdApi() async {
     final response = await APIService().getApi(

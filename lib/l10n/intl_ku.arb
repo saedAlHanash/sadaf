@@ -185,5 +185,17 @@
   "deliveryDate": "Delivery Date",
   "yourLocation": "Your Location",
   "reviewOrder": "Review Order",
+  "en": "English",
+  "ar": "Arabic",
+  "ku": "Kurdish",
+  "dollar": "Dollar",
+  "dinar": "Dinar",
+  "emptyReview": "No Reviews found",
+  "addReview": "Add Review",
+  "searchResult": "Search Result",
+  "categories": "Categories",
+  "rated": "Rated",
+  "subCategories": "Sub Categories",
+  "setReview": "Please Send Your Rating For The Product",
   "pleasSetYourAddress": "Pleas Set Your Address"
 }

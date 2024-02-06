@@ -46,10 +46,9 @@ class AddMessageCubit extends Cubit<AddMessageInitial> {
   }
 
   Future<void> addSupportMessage(
-      {required int mId, required MessageRequest request}) async {
+      {required MessageRequest request}) async {
     emit(state.copyWith(
       statuses: CubitStatuses.loading,
-      mId: mId,
       request: request,
     ));
 
@@ -66,7 +65,7 @@ class AddMessageCubit extends Cubit<AddMessageInitial> {
   Future<Pair<bool?, String?>> _addSupportMessageApi() async {
     final response = await APIService().uploadMultiPart(
       url: PostUrl.addSupportMessage,
-      fields: state.request.toMap()..addAll({'conversation_id': state.mId}),
+      fields: state.request.toMap(),
       files: state.request.file,
     );
 

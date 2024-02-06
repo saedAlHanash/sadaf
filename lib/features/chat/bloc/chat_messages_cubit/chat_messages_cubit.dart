@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:sadaf/core/api_manager/api_url.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
-import 'package:sadaf/features/colors/data/response/color_response.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/error/error_manager.dart';
@@ -41,8 +40,8 @@ class MessagesCubit extends Cubit<MessagesInitial> {
     }
   }
 
-  Future<void> getRoomMessages({required int mId}) async {
-    emit(state.copyWith(statuses: CubitStatuses.loading, mId: mId));
+  Future<void> getRoomMessages() async {
+    emit(state.copyWith(statuses: CubitStatuses.loading));
 
     final pair = await _getRoomMessagesApi();
 
@@ -57,7 +56,7 @@ class MessagesCubit extends Cubit<MessagesInitial> {
   Future<Pair<List<MessageModel>?, String?>> _getRoomMessagesApi() async {
     final response = await APIService().getApi(
       url: GetUrl.getRoomMessages,
-      path: state.mId.toString(),
+      // path: state.mId.toString(),
     );
 
     if (response.statusCode == 200) {

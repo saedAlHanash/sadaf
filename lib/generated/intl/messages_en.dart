@@ -26,6 +26,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "aboutUs": MessageLookupByLibrary.simpleMessage("About Us"),
         "accountCreated":
             MessageLookupByLibrary.simpleMessage("Account Created!"),
+        "addReview": MessageLookupByLibrary.simpleMessage("Add Review"),
         "add_to_cart": MessageLookupByLibrary.simpleMessage("Add To Cart"),
         "additional_service":
             MessageLookupByLibrary.simpleMessage("Additional service"),
@@ -33,6 +34,7 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Already Have An Account?"),
         "apply": MessageLookupByLibrary.simpleMessage("Apply"),
         "apply_filters": MessageLookupByLibrary.simpleMessage("Apply filters"),
+        "ar": MessageLookupByLibrary.simpleMessage("Arabic"),
         "at": MessageLookupByLibrary.simpleMessage("At"),
         "back": MessageLookupByLibrary.simpleMessage("Back"),
         "birthday": MessageLookupByLibrary.simpleMessage("birthday"),
@@ -42,6 +44,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "card_number": MessageLookupByLibrary.simpleMessage("Card Number"),
         "cart": MessageLookupByLibrary.simpleMessage("Cart"),
         "cashPayment": MessageLookupByLibrary.simpleMessage("Cash Payment"),
+        "categories": MessageLookupByLibrary.simpleMessage("Categories"),
         "changeAddress": MessageLookupByLibrary.simpleMessage("Change Address"),
         "changeEmail": MessageLookupByLibrary.simpleMessage("Change Email"),
         "changeName": MessageLookupByLibrary.simpleMessage("Change Name"),
@@ -89,8 +92,10 @@ class MessageLookup extends MessageLookupByLibrary {
         "description": MessageLookupByLibrary.simpleMessage("Description"),
         "didNotReceiveOTP":
             MessageLookupByLibrary.simpleMessage("Didn\'t Receive The OTP?"),
+        "dinar": MessageLookupByLibrary.simpleMessage("Dinar"),
         "doNotHaveAnAccount":
             MessageLookupByLibrary.simpleMessage("Don\'t Have An Account?"),
+        "dollar": MessageLookupByLibrary.simpleMessage("Dollar"),
         "done": MessageLookupByLibrary.simpleMessage("Done"),
         "doneCanceled": MessageLookupByLibrary.simpleMessage("Order Canceled"),
         "doneCompleted":
@@ -120,8 +125,10 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sorry, There Are \nNo Offers"),
         "emptyOrders": MessageLookupByLibrary.simpleMessage(
             "Sorry, There Are \nNo Orders"),
+        "emptyReview": MessageLookupByLibrary.simpleMessage("No Reviews found"),
         "emptySearch": MessageLookupByLibrary.simpleMessage(
             "Sorry, Your Search Is \nNot Available"),
+        "en": MessageLookupByLibrary.simpleMessage("English"),
         "enterOTP":
             MessageLookupByLibrary.simpleMessage("Enter Your OTP Code Here."),
         "enter_new_password_and_confirm": MessageLookupByLibrary.simpleMessage(
@@ -145,6 +152,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "homeAddress": MessageLookupByLibrary.simpleMessage("Home Address"),
         "hours": MessageLookupByLibrary.simpleMessage("Hours"),
         "is_required": MessageLookupByLibrary.simpleMessage("Required"),
+        "ku": MessageLookupByLibrary.simpleMessage("Kurdish"),
         "language": MessageLookupByLibrary.simpleMessage("Language"),
         "lastName": MessageLookupByLibrary.simpleMessage("Last name"),
         "location": MessageLookupByLibrary.simpleMessage("Location"),
@@ -207,6 +215,7 @@ class MessageLookup extends MessageLookupByLibrary {
         "price": MessageLookupByLibrary.simpleMessage("Price"),
         "processing": MessageLookupByLibrary.simpleMessage("Processing"),
         "profile": MessageLookupByLibrary.simpleMessage("Profile"),
+        "rated": MessageLookupByLibrary.simpleMessage("Rated"),
         "rePassword": MessageLookupByLibrary.simpleMessage("Confirm Password"),
         "ready": MessageLookupByLibrary.simpleMessage("Ready"),
         "readyToDeliver":
@@ -229,12 +238,15 @@ class MessageLookup extends MessageLookupByLibrary {
         "saveChange": MessageLookupByLibrary.simpleMessage("save change"),
         "save_for_later":
             MessageLookupByLibrary.simpleMessage("Save For Later?"),
+        "searchResult": MessageLookupByLibrary.simpleMessage("Search Result"),
         "search_In_All": MessageLookupByLibrary.simpleMessage("Search In All"),
         "seconds": MessageLookupByLibrary.simpleMessage("seconds"),
         "see_all": MessageLookupByLibrary.simpleMessage("See All"),
         "selectFromMap": MessageLookupByLibrary.simpleMessage("From Map"),
         "selectGovernor":
             MessageLookupByLibrary.simpleMessage("Select Governor"),
+        "setReview": MessageLookupByLibrary.simpleMessage(
+            "Please Send Your Rating For The Product"),
         "settings": MessageLookupByLibrary.simpleMessage("Settings"),
         "sgnIn": MessageLookupByLibrary.simpleMessage("Sign In."),
         "share": MessageLookupByLibrary.simpleMessage("Share"),
@@ -245,6 +257,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "Sign In With Social Networks:"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "sizes": MessageLookupByLibrary.simpleMessage("Sizes"),
+        "subCategories": MessageLookupByLibrary.simpleMessage("Sub Categories"),
         "subtotal": MessageLookupByLibrary.simpleMessage("Subtotal"),
         "successfully": MessageLookupByLibrary.simpleMessage("Successfully."),
         "support": MessageLookupByLibrary.simpleMessage("Support"),

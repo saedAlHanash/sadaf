@@ -1,4 +1,4 @@
-import '../../../product/data/response/products_response.dart';
+
 
 class NotificationsResponse {
   NotificationsResponse({

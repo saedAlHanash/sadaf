@@ -77,7 +77,7 @@ class _SignupPageState extends State<SignupPage> {
                         initialEntryMode: DatePickerEntryMode.calendarOnly);
                     if (datePicked == null) return;
                     signupCubit.setBirthday = datePicked;
-                    bDateController.text = datePicked.formatDate ?? '';
+                    bDateController.text = datePicked.formatDate;
                   },
                   iconWidget: SelectSingeDateScrollWidget(
                     initial: signupState.request.birthday,

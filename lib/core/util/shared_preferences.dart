@@ -1,10 +1,11 @@
 import 'dart:convert';
 
-import 'package:sadaf/core/api_manager/api_service.dart';
+import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../features/auth/data/response/login_response.dart';
 import '../../features/profile/data/response/profile_response.dart';
+import '../../generated/l10n.dart';
 import '../strings/enum_manager.dart';
 
 class AppSharedPreference {
@@ -13,7 +14,7 @@ class AppSharedPreference {
   static const _toScreen = '4';
   static const _policy = '5';
   static const _user = '6';
-  static const _forgetEmail = '7';
+
   static const _fireToken = '8';
   static const _notificationCount = '9';
   static const _social = '10';
@@ -23,9 +24,9 @@ class AppSharedPreference {
   static const _lang = '14';
   static const _phoneNumberPassword = '15';
   static const _otpPassword = '16';
-  static const _currency = '17';
+  static const _currency = '-17';
   static const _profile = '19';
-  static const _readiedNotifications = '20';
+
 
   static late SharedPreferences _prefs;
 
@@ -154,21 +155,31 @@ class AppSharedPreference {
 
   static int get getMyId => _prefs.getInt(_myId) ?? 0;
 
-  static void cashLocal(String langCode) {
-    _prefs.setString(_lang, langCode);
+  static Future<void> cashLocal(String langCode) async {
+    await _prefs.setString(_lang, langCode);
   }
 
   static String get getLocal => _prefs.getString(_lang) ?? 'en';
 
-  static set setCurrency(String langCode) => _prefs.setString(_currency, langCode);
+  static set setCurrency(CurrencyEnum currency) =>
+      _prefs.setInt(_currency, currency.index);
 
-  static String get currency => _prefs.getString(_currency) ?? '\$';
+  static CurrencyEnum get currency => CurrencyEnum.values[_prefs.getInt(_currency) ?? 0];
 
-  static set setProfile(Profile profile) {
-    _prefs.setString(_profile, jsonEncode(profile.toJson()));
+  static setProfile(Profile profile) async {
+    await _prefs.setString(_profile, jsonEncode(profile.toJson()));
   }
 
   static Profile get getProfile {
     return Profile.fromJson(jsonDecode(_prefs.getString(_profile) ?? '{}'));
   }
+
+  static String getLangName(BuildContext context) {
+    final lang = getLocal;
+    if (lang == 'en') return S.of(context).en;
+    if (lang == 'ar') return S.of(context).ar;
+    if (lang == 'ku') return S.of(context).ku;
+    return '';
+  }
+
 }

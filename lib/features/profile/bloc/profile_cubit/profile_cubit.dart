@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:sadaf/core/app/app_provider.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/util/abstraction.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
@@ -23,7 +24,8 @@ class ProfileCubit extends Cubit<ProfileInitial> {
       emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
       showErrorFromApi(state);
     } else {
-      AppSharedPreference.setProfile = pair.first!;
+      await AppSharedPreference.setProfile(pair.first!);
+      AppProvider.reInitial();
       emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
     }
   }

@@ -1,4 +1,5 @@
 class GetUrl {
+  static const temp = '';
   static const getHome = 'home';
 
   //--------------
@@ -79,6 +80,8 @@ class GetUrl {
 }
 
 class PostUrl {
+
+  static var addReview = 'reviews';
   static const loginUrl = 'login';
   static const signup = 'register';
 

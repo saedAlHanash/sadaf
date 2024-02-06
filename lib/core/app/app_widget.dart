@@ -5,10 +5,11 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/generated/assets.dart';
-import 'package:sadaf/core/api_manager/api_service.dart';
+
 import '../../features/cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../features/cart/bloc/clear_cart_cubit/clear_cart_cubit.dart';
 import '../../features/cart/bloc/coupon_cubit/coupon_cubit.dart';
@@ -27,9 +28,9 @@ import '../../features/governors/bloc/governors_cubit/governors_cubit.dart';
 import '../../features/home/bloc/banner_cubit/banner_cubit.dart';
 import '../../features/home/bloc/slider_cubit/slider_cubit.dart';
 import '../../features/manufacturers/bloc/manufacturerss_cubit/manufacturers_cubit.dart';
-
 import '../../features/notifications/bloc/notifications_cubit/notifications_cubit.dart';
 import '../../features/offers/bloc/offers_cubit/offers_cubit.dart';
+import '../../features/product/bloc/add_review_cubit/add_review_cubit.dart';
 import '../../features/product/bloc/new_arrival_cubit/new_arrival_cubit.dart';
 import '../../features/profile/bloc/profile_cubit/profile_cubit.dart';
 import '../../features/settings/bloc/faq_cubit/faq_cubit.dart';
@@ -38,10 +39,8 @@ import '../../main.dart';
 import '../../router/app_router.dart';
 import '../app_theme.dart';
 import '../injection/injection_container.dart';
-import '../injection/injection_container.dart';
 import '../util/shared_preferences.dart';
 import 'bloc/loading_cubit.dart';
-import 'package:image_multi_type/image_multi_type.dart';
 
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
@@ -49,9 +48,13 @@ class MyApp extends StatefulWidget {
   @override
   State<MyApp> createState() => _MyAppState();
 
-  static Future<void> setLocale(BuildContext context, Locale newLocale) async {
-    final state = context.findAncestorStateOfType<_MyAppState>();
-    await state?.setLocale(newLocale);
+  static Future<void> setLocale(BuildContext context, String langCode) async {
+    await AppSharedPreference.cashLocal(langCode);
+    if (context.mounted) {
+      final state = context.findAncestorStateOfType<_MyAppState>();
+      await state
+          ?.setLocale(Locale.fromSubtags(languageCode: AppSharedPreference.getLocal));
+    }
   }
 }
 
@@ -132,7 +135,7 @@ class _MyAppState extends State<MyApp> {
 
         return MaterialApp(
           navigatorKey: sl<GlobalKey<NavigatorState>>(),
-          locale: Locale(AppSharedPreference.getLocal),
+          locale: Locale.fromSubtags(languageCode: AppSharedPreference.getLocal),
           localizationsDelegates: const [
             S.delegate,
             GlobalMaterialLocalizations.delegate,
@@ -149,6 +152,7 @@ class _MyAppState extends State<MyApp> {
                 BlocProvider(create: (_) => sl<DecreaseCubit>()),
                 BlocProvider(create: (_) => sl<AddToCartCubit>()),
                 BlocProvider(create: (_) => sl<ClearCartCubit>()),
+                BlocProvider(create: (_) => sl<AddReviewCubit>()),
                 BlocProvider(create: (_) => sl<AddFavoriteCubit>()),
                 BlocProvider(create: (_) => sl<FaqCubit>()..getFaq()),
                 BlocProvider(create: (_) => sl<SubCategoriesCubit>()),

@@ -8,7 +8,6 @@ import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/features/product/ui/widget/add_to_cart_btn.dart';
 
 import '../../../../core/util/my_style.dart';
-import '../../../cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../bloc/add_favorite/add_favorite_cubit.dart';
 import '../../data/response/fav_response.dart';
 
@@ -84,13 +83,13 @@ class ItemFavWidget extends StatelessWidget {
                           if (state.statuses.loading) {
                             return MyStyle.loadingWidget();
                           }
-                          return InkWell(
-                            onTap: () {
+                          return IconButton(
+                            onPressed: () {
                               context
                                   .read<AddFavoriteCubit>()
                                   .removeFav(productId: fav.productId);
                             },
-                            child: const Icon(Icons.favorite, color: Colors.black),
+                            icon: const Icon(Icons.favorite, color: Colors.black),
                           );
                         },
                       ),

@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:sadaf/core/util/shared_preferences.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
 
 import '../../../../../generated/assets.dart';

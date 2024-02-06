@@ -6,6 +6,8 @@ import 'package:sadaf/features/favorite/ui/widget/item_fav_widget.dart';
 
 import '../../../../core/util/my_style.dart';
 import '../../../../core/widgets/app_bar/app_bar_widget.dart';
+import '../../../../core/widgets/not_found_widget.dart';
+import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../bloc/add_favorite/add_favorite_cubit.dart';
 import '../../bloc/get_favorite/get_favorite_cubit.dart';
@@ -20,7 +22,7 @@ class FavScreen extends StatefulWidget {
 class _FavScreenState extends State<FavScreen> {
   @override
   void initState() {
-    context.read<FavoriteCubit>().getFavorite();
+    context.read<FavoriteCubit>().getFavorite(withLoading: false);
     super.initState();
   }
 
@@ -29,7 +31,7 @@ class _FavScreenState extends State<FavScreen> {
     return BlocListener<AddFavoriteCubit, AddFavoriteInitial>(
       listenWhen: (p, c) => c.statuses.done,
       listener: (context, state) {
-        context.read<FavoriteCubit>().remove(id: state.product.id);
+        context.read<FavoriteCubit>().getFavorite(withLoading: false);
       },
       child: Column(
         children: [
@@ -38,6 +40,14 @@ class _FavScreenState extends State<FavScreen> {
             builder: (context, state) {
               if (state.statuses.loading) {
                 return MyStyle.loadingWidget();
+              }
+              if (state.result.isEmpty) {
+                return Expanded(
+                  child: NotFoundWidget(
+                    text: S.of(context).emptyFav,
+                    icon: Assets.iconsNoFavResult,
+                  ),
+                );
               }
               return Expanded(
                 child: ListView.separated(

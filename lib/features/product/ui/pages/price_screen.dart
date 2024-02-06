@@ -3,18 +3,15 @@ import 'dart:async';
 import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/features/product/ui/widget/related_product_widget.dart';
-import 'package:sadaf/generated/assets.dart';
 
 import '../../../../core/api_manager/api_service.dart';
 import '../../../../core/extensions/extensions.dart';
 import '../../../../generated/l10n.dart';
 import '../../bloc/product_by_id_cubit/product_by_id_cubit.dart';
-import '../widget/amount_widget.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
 class PriceScreen extends StatelessWidget {
   const PriceScreen({super.key});

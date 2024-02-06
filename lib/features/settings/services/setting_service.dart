@@ -2,7 +2,6 @@ import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/api_manager/api_url.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 
-import '../../../core/util/pair_class.dart';
 import '../data/response/terms_response.dart';
 
 class SettingService {
