@@ -31,7 +31,10 @@ dependencies:
   #    path: ../../packages/map_package
 
   #  dartz: ^0.10.1
+  firebase_auth: ^4.6.3
+  google_sign_in: ^6.2.1
   model_viewer_plus: ^1.7.0
+  flutter_facebook_auth: ^6.0.4
   hive: any
   hive_flutter: any
   pod_player: ^0.2.1

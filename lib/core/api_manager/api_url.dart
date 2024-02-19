@@ -115,6 +115,8 @@ class PostUrl {
 
   static const addSupportMessage = 'messages/add';
 
+  static var loginSocial ='';
+
   static String addMessage(int id) {
     return 'drivers/messages/$id/add';
   }
@@ -142,5 +144,5 @@ class DeleteUrl {
   static const clearCart = 'carts';
 }
 
-const additionalConst = 'api/mobile/';
+const additionalConst = 'api/shared/v1/';
 const baseUrl = 'back.sadafiq.com';

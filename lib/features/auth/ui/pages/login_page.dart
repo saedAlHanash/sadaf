@@ -2,6 +2,7 @@ import 'package:drawable_text/drawable_text.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:sadaf/core/widgets/my_button.dart';
@@ -9,9 +10,11 @@ import 'package:sadaf/core/widgets/my_text_form_widget.dart';
 
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/my_style.dart';
+import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../bloc/login_cubit/login_cubit.dart';
+import '../../bloc/login_social_cubit/login_social_cubit.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -34,20 +37,28 @@ class _LoginPageState extends State<LoginPage> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocListener<LoginCubit, LoginInitial>(
-      listenWhen: (p, c) => c.statuses == CubitStatuses.done,
+    return MultiBlocListener(
+  listeners: [
+    BlocListener<LoginCubit, LoginInitial>(
+      listenWhen: (p, c) => c.statuses.done,
       listener: (context, state) {
         Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
       },
-      child: Scaffold(
+),
+    BlocListener<LoginSocialCubit, LoginSocialInitial>(
+      listener: (context, state) {
+        // TODO: implement listener
+      },
+    ),
+  ],
+  child: Scaffold(
         appBar: const AppBarWidget(),
-        body: SingleChildScrollView(
+        body: Padding(
           padding: MyStyle.authPagesPadding,
           child: Form(
             key: _formKey,
             child: Column(
               children: [
-                19.verticalSpace,
                 DrawableText(
                   text: S.of(context).welcomeBack,
                   size: 28.0.spMin,
@@ -60,7 +71,7 @@ class _LoginPageState extends State<LoginPage> {
                   size: 14.0.spMin,
                   matchParent: true,
                 ),
-                70.0.verticalSpace,
+                30.0.verticalSpace,
                 MyTextFormOutLineWidget(
                   validator: (p0) => loginCubit.validatePhoneOrEmail,
                   label: S.of(context).phoneNumber,
@@ -69,7 +80,7 @@ class _LoginPageState extends State<LoginPage> {
                   keyBordType: TextInputType.emailAddress,
                   onChanged: (val) => loginCubit.setPhoneOrEmail = val,
                 ),
-                20.0.verticalSpace,
+                15.0.verticalSpace,
                 MyTextFormOutLineWidget(
                   validator: (p0) => loginCubit.validatePassword,
                   label: S.of(context).password,
@@ -77,7 +88,7 @@ class _LoginPageState extends State<LoginPage> {
                   onChanged: (val) => loginCubit.setPassword = val,
                 ),
                 const _ForgetAndRememberWidget(),
-                30.0.verticalSpace,
+                20.0.verticalSpace,
                 BlocBuilder<LoginCubit, LoginInitial>(
                   builder: (_, state) {
                     if (state.statuses.loading) {
@@ -105,12 +116,46 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
+                const Spacer(),
+                DrawableText(
+                  matchParent: true,
+                  text: S.of(context).signInWithSocialNetworks,
+                ),
+                20.0.verticalSpace,
+                Row(
+                  children: [
+                    ImageMultiType(
+                      url: Assets.iconsFbLogin,
+                      width: 60.0.r,
+                      height: 30.0.r,
+                    ),
+                    30.0.horizontalSpace,
+                    InkWell(
+                      onTap: () {
+                        context.read<LoginSocialCubit>().loginGoogle();
+                      },
+                      child: BlocBuilder<LoginSocialCubit, LoginSocialInitial>(
+                        builder: (context, state) {
+                          if (state.statuses.loading) {
+                            return MyStyle.loadingWidget();
+                          }
+                          return ImageMultiType(
+                            url: Assets.iconsGLogin,
+                            width: 60.0.r,
+                            height: 30.0.r,
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+                const Spacer(),
               ],
             ),
           ),
         ),
       ),
-    );
+);
   }
 }
 

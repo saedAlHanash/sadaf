@@ -262,6 +262,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sign In To Continue"),
         "signInWithSocial": MessageLookupByLibrary.simpleMessage(
             "چوونە ژوورەوە بە گرووپی ئاگاداری:"),
+        "signInWithSocialNetworks": MessageLookupByLibrary.simpleMessage(
+            "Sign In With Social Networks"),
         "signUp": MessageLookupByLibrary.simpleMessage("خۆتۆمارکردن"),
         "sizes": MessageLookupByLibrary.simpleMessage("قەبارەکان"),
         "subCategories": MessageLookupByLibrary.simpleMessage("Sub Categories"),

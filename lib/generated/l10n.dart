@@ -1,7 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
 import 'intl/messages_all.dart';
 
 // **************************************************************************
@@ -2026,6 +2025,16 @@ class S {
     return Intl.message(
       'Rated',
       name: 'rated',
+      desc: '',
+      args: [],
+    );
+  }
+
+  /// `Sign In With Social Networks`
+  String get signInWithSocialNetworks {
+    return Intl.message(
+      'Sign In With Social Networks',
+      name: 'signInWithSocialNetworks',
       desc: '',
       args: [],
     );

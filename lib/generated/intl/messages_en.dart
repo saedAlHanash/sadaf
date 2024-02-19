@@ -255,6 +255,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("Sign In To Continue"),
         "signInWithSocial": MessageLookupByLibrary.simpleMessage(
             "Sign In With Social Networks:"),
+        "signInWithSocialNetworks": MessageLookupByLibrary.simpleMessage(
+            "Sign In With Social Networks"),
         "signUp": MessageLookupByLibrary.simpleMessage("Sign Up"),
         "sizes": MessageLookupByLibrary.simpleMessage("Sizes"),
         "subCategories": MessageLookupByLibrary.simpleMessage("Sub Categories"),

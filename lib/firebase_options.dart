@@ -50,20 +50,19 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBG42x2nxmWARM4Sq9XHBeqspc4K_7hRCI',
-    appId: '1:393138944498:android:d1e825573f1d67ec66536b',
-    messagingSenderId: '393138944498',
-    projectId: 'snail-store',
-    storageBucket: 'snail-store.appspot.com',
+    apiKey: 'AIzaSyCNEp18moU4fZgLxGjHDxLWvD3Pj41desg',
+    appId: '1:758020317658:android:b642ea25271a44c4ec20e3',
+    messagingSenderId: '758020317658',
+    projectId: 'sadaf-app',
+    storageBucket: 'sadaf-app.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyAqOpBv5MHerTmB_dAeZ7OMeEMv3NsClx4',
-    appId: '1:393138944498:ios:25b217f10a104c8666536b',
-    messagingSenderId: '393138944498',
-    projectId: 'snail-store',
-    storageBucket: 'snail-store.appspot.com',
-    iosClientId: '393138944498-qohtl6t21kc5s3luf7gifpetn24qe6gq.apps.googleusercontent.com',
-    iosBundleId: 'com.bandtech.snailStore',
+    apiKey: 'AIzaSyBmlDS7DsoMBZq6ueAtnO3evE07DdDSzg4',
+    appId: '1:758020317658:ios:d2b482fcb08dce8eec20e3',
+    messagingSenderId: '758020317658',
+    projectId: 'sadaf-app',
+    storageBucket: 'sadaf-app.appspot.com',
+    iosBundleId: 'bandtech.sadaf.sadaf',
   );
 }
