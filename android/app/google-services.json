@@ -1,0 +1,67 @@
+{
+  "project_info": {
+    "project_number": "758020317658",
+    "project_id": "sadaf-app",
+    "storage_bucket": "sadaf-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758020317658:android:b642ea25271a44c4ec20e3",
+        "android_client_info": {
+          "package_name": "bandtech.sadaf.sadaf"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNEp18moU4fZgLxGjHDxLWvD3Pj41desg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758020317658:android:b35b2c518eff6624ec20e3",
+        "android_client_info": {
+          "package_name": "com.sadaf.driver.sadaf"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNEp18moU4fZgLxGjHDxLWvD3Pj41desg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758020317658:android:db16f893eec903dbec20e3",
+        "android_client_info": {
+          "package_name": "com.sadaf.warehouse"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNEp18moU4fZgLxGjHDxLWvD3Pj41desg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
