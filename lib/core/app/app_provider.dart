@@ -7,7 +7,14 @@ class AppProvider {
 
   static Profile get profile => _profile;
 
- static  void reInitial() {
+  static Future<void> cashProfile(Profile profile) async {
+    await AppSharedPreference.setProfile(profile);
+    _profile = AppSharedPreference.getProfile;
+  }
+
+  static Future<void> logout() async {
+    await  AppSharedPreference.logout();
+
     _profile = AppSharedPreference.getProfile;
   }
 }

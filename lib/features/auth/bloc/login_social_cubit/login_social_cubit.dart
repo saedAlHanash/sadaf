@@ -24,7 +24,10 @@ class LoginSocialCubit extends Cubit<LoginSocialInitial> {
 
     final fireAuthUser = await _googleSignIn();
 
-    if (fireAuthUser == null) return;
+    if (fireAuthUser == null) {
+      emit(state.copyWith(statuses: CubitStatuses.init));
+      return;
+    }
 
     final pair = await _loginSocialApi(user: fireAuthUser);
 
@@ -66,7 +69,7 @@ class LoginSocialCubit extends Cubit<LoginSocialInitial> {
     }
   }
 
-  Future<Pair<LoginData?, String?>> _loginSocialApi(
+  Future<Pair<LoginResponse?, String?>> _loginSocialApi(
       {required UserCredential user}) async {
     final response = await APIService().postApi(
       url: PostUrl.loginSocial,
@@ -74,14 +77,17 @@ class LoginSocialCubit extends Cubit<LoginSocialInitial> {
         "email": user.user?.email,
         "provider_id": user.user?.uid,
         "name": user.user?.displayName,
+        "provider": 'google',
       },
     );
 
     if (response.statusCode.success) {
-      final pair = Pair(LoginData.fromJson(response.jsonBody), null);
+      final pair = Pair(LoginResponse.fromJson(response.jsonBody), null);
 
-
+      AppSharedPreference.cashToken(pair.first.token);
+      AppProvider.cashProfile(pair.first.data);
       AppSharedPreference.removePhoneOrEmail();
+      APIService.reInitial();
 
       return pair;
     } else {

@@ -1,6 +1,6 @@
 part of 'login_social_cubit.dart';
 
-class LoginSocialInitial extends AbstractCubit<LoginData> {
+class LoginSocialInitial extends AbstractCubit<LoginResponse> {
   final LoginRequest request;
  final  bool isTrainer;
   const LoginSocialInitial({
@@ -13,7 +13,7 @@ class LoginSocialInitial extends AbstractCubit<LoginData> {
 
   factory LoginSocialInitial.initial() {
     return LoginSocialInitial(
-      result: LoginData.fromJson({}),
+      result: LoginResponse.fromJson({}),
       error: '',
       isTrainer: false,
       request: LoginRequest(),
@@ -26,7 +26,7 @@ class LoginSocialInitial extends AbstractCubit<LoginData> {
 
   LoginSocialInitial copyWith({
     CubitStatuses? statuses,
-    LoginData? result,
+    LoginResponse? result,
     String? error,
     LoginRequest? request,
     bool? isTrainer,

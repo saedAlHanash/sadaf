@@ -6,6 +6,7 @@ import 'package:sadaf/core/strings/enum_manager.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
 
 import '../../../../core/api_manager/api_service.dart';
+import '../../../../core/app/app_provider.dart';
 import '../../../../core/util/pair_class.dart';
 import '../../../../core/util/snack_bar_message.dart';
 
@@ -24,7 +25,7 @@ class DeleteAccountCubit extends Cubit<DeleteAccountInitial> {
         NoteMessage.showSnakeBar(message: pair.second ?? '', context: context);
       }
       emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
-      AppSharedPreference.logout();
+    await  AppProvider.logout();
     } else {
       emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
     }

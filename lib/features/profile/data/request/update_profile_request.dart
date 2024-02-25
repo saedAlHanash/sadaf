@@ -1,6 +1,7 @@
 import 'package:sadaf/core/util/shared_preferences.dart';
 
 import '../../../../core/api_manager/api_service.dart';
+import '../../../../core/app/app_provider.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../response/profile_response.dart';
 
@@ -32,7 +33,7 @@ class UpdateProfileRequest {
   UpdateType? type;
 
   factory UpdateProfileRequest.initial() {
-    final user = AppSharedPreference.getProfile;
+    final user = AppProvider.profile;
     return UpdateProfileRequest(
       name: user.name,
       emailOrPhone: user.emailOrPhone,

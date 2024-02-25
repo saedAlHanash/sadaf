@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/circle_image_widget.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:sadaf/core/app/app_provider.dart';
 import 'package:sadaf/core/strings/app_color_manager.dart';
 
 import '../../../../generated/assets.dart';
@@ -106,7 +107,7 @@ class _NewNavState extends State<NewNav> {
                     const BoxDecoration(color: Colors.white, shape: BoxShape.circle),
                 alignment: Alignment.center,
                 child: CircleImageWidget(
-                  url: AppSharedPreference.getUserModel.avatar,
+                  url: AppProvider.profile.avatar,
                   color: Colors.white,
                   size: 30.0.spMin,
                 ),

@@ -5,6 +5,7 @@ import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:image_multi_type/circle_image_widget.dart';
 import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
+import 'package:sadaf/features/profile/bloc/profile_cubit/profile_cubit.dart';
 
 import '../../../../core/app/app_provider.dart';
 import '../../../../core/app/app_widget.dart';
@@ -116,18 +117,38 @@ class _DrawerWidgetState extends State<DrawerWidget> {
             40.0.verticalSpace,
             const _CurrencyWidget(),
             const Divider(indent: 0, endIndent: 0),
-            ListTile(
-              onTap: () => logout(),
-              title: DrawableText(
-                text: S.of(context).logout,
-                color: Colors.white,
-              ),
-              leading: ImageMultiType(
-                url: Assets.iconsLogout,
-                width: 20.0.r,
-                color: Colors.white,
-                height: 20.0.r,
-              ),
+            BlocConsumer<LogoutCubit, LogoutInitial>(
+              listenWhen: (p, c) => c.statuses.done,
+              listener: (context, state) {
+                AppProvider.logout().then((value) {
+                  context.read<ProfileCubit>().reInitial();
+                  Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteName.splash,
+                    (route) => false,
+                  );
+                });
+              },
+              builder: (context, state) {
+                if (state.statuses.loading) {
+                  return MyStyle.loadingWidget(color: Colors.white);
+                }
+                return ListTile(
+                  onTap: () {
+                    context.read<LogoutCubit>().logout();
+                  },
+                  title: DrawableText(
+                    text: S.of(context).logout,
+                    color: Colors.white,
+                  ),
+                  leading: ImageMultiType(
+                    url: Assets.iconsLogout,
+                    width: 20.0.r,
+                    color: Colors.white,
+                    height: 20.0.r,
+                  ),
+                );
+              },
             ),
             ListTile(
               onTap: () => deleteAccount(),
@@ -141,78 +162,6 @@ class _DrawerWidgetState extends State<DrawerWidget> {
               ),
             ),
             10.0.verticalSpace,
-          ],
-        ),
-      ),
-    );
-  }
-
-  void logout() {
-    NoteMessage.showBottomSheet1(
-      context,
-      BlocProvider.value(
-        value: context.read<LogoutCubit>(),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            10.0.verticalSpace,
-            DrawableText(
-                text: 'تسجبل الخروج ?',
-                fontFamily: FontManager.cairoBold.name,
-                size: 20.0.sp),
-            const Divider(endIndent: 10.0, indent: 10.0),
-            DrawableText(
-              text: 'هل أنت متأكد من تسجيل الخروج؟ ',
-              color: AppColorManager.textColor,
-              size: 20.0.spMin,
-              padding: const EdgeInsets.symmetric(vertical: 30.0).h,
-            ),
-            Row(
-              children: [
-                10.0.horizontalSpace,
-                Flexible(
-                  flex: 1,
-                  child: BlocConsumer<LogoutCubit, LogoutInitial>(
-                    listenWhen: (p, c) => c.statuses.done,
-                    listener: (context, state) {
-                      Navigator.pushNamedAndRemoveUntil(
-                        context,
-                        RouteName.splash,
-                        (route) => false,
-                      );
-                    },
-                    builder: (context, state) {
-                      if (state.statuses.loading) {
-                        return MyStyle.loadingWidget();
-                      }
-                      return MyButton(
-                        width: 1.0.sw,
-                        text: 'نعم',
-                        onTap: () {
-                          context.read<LogoutCubit>().logout(context);
-                          AppSharedPreference.logout();
-                          Navigator.pushNamedAndRemoveUntil(
-                            context,
-                            RouteName.splash,
-                            (route) => false,
-                          );
-                        },
-                      );
-                    },
-                  ),
-                ),
-                10.0.horizontalSpace,
-                Flexible(
-                  flex: 1,
-                  child: MyButton(
-                    text: 'لا',
-                    onTap: () => Navigator.pop(context),
-                  ),
-                ),
-                10.0.horizontalSpace,
-              ],
-            ),
-            20.0.verticalSpace,
           ],
         ),
       ),

@@ -8,6 +8,7 @@ import 'package:sadaf/core/util/shared_preferences.dart';
 import 'package:sadaf/features/profile/data/request/update_profile_request.dart';
 
 import '../../../../core/api_manager/api_service.dart';
+import '../../../../core/app/app_provider.dart';
 import '../../../../core/error/error_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/abstraction.dart';
@@ -47,10 +48,10 @@ class UpdateProfileCubit extends Cubit<UpdateProfileInitial> {
   }
 
   final addressController = TextEditingController(
-    text: AppSharedPreference.getProfile.address,
+    text: AppProvider.profile.address,
   );
   final locationController = TextEditingController(
-    text: AppSharedPreference.getProfile.mapAddress.toString(),
+    text: AppProvider.profile.mapAddress.toString(),
   );
 
   set setName(String? val) => state.request.name = val;

@@ -38,20 +38,23 @@ class _LoginPageState extends State<LoginPage> {
   @override
   Widget build(BuildContext context) {
     return MultiBlocListener(
-  listeners: [
-    BlocListener<LoginCubit, LoginInitial>(
-      listenWhen: (p, c) => c.statuses.done,
-      listener: (context, state) {
-        Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
-      },
-),
-    BlocListener<LoginSocialCubit, LoginSocialInitial>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
-    ),
-  ],
-  child: Scaffold(
+      listeners: [
+        BlocListener<LoginCubit, LoginInitial>(
+          listenWhen: (p, c) => c.statuses.done,
+          listener: (context, state) {
+
+            Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
+          },
+        ),
+        BlocListener<LoginSocialCubit, LoginSocialInitial>(
+          listenWhen: (p, c) => c.statuses.done,
+          listener: (context, state) {
+
+            Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
+          },
+        ),
+      ],
+      child: Scaffold(
         appBar: const AppBarWidget(),
         body: Padding(
           padding: MyStyle.authPagesPadding,
@@ -155,7 +158,7 @@ class _LoginPageState extends State<LoginPage> {
           ),
         ),
       ),
-);
+    );
   }
 }
 

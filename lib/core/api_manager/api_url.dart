@@ -115,7 +115,7 @@ class PostUrl {
 
   static const addSupportMessage = 'messages/add';
 
-  static var loginSocial ='';
+  static var loginSocial ='social/login';
 
   static String addMessage(int id) {
     return 'drivers/messages/$id/add';

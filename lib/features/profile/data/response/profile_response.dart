@@ -27,6 +27,9 @@ class Profile {
     required this.address,
     required this.receiverPhone,
     required this.avatar,
+    required this.provider,
+    required this.isFromSocial,
+    required this.confirmedAt,
   });
 
   final String name;
@@ -36,6 +39,9 @@ class Profile {
   final String address;
   final String receiverPhone;
   final String avatar;
+  final String provider;
+  final bool isFromSocial;
+  final DateTime? confirmedAt;
 
   factory Profile.fromJson(Map<String, dynamic> json) {
     return Profile(
@@ -48,6 +54,9 @@ class Profile {
       address: json["address"] ?? "",
       receiverPhone: json["receiver_phone"] ?? "",
       avatar: json["avatar"] ?? "",
+      provider: json["provider"] ?? "",
+      isFromSocial: json["is_from_social"] ?? false,
+      confirmedAt: DateTime.tryParse(json["email_verified_at"] ?? ""),
     );
   }
 
@@ -59,6 +68,9 @@ class Profile {
         "address": address,
         "receiver_phone": receiverPhone,
         "avatar": avatar,
+        "provider": provider,
+        "is_from_social": isFromSocial,
+        "email_verified_at": confirmedAt?.toIso8601String(),
       };
 }
 
@@ -73,7 +85,7 @@ class Governor {
 
   factory Governor.fromJson(Map<String, dynamic> json) {
     return Governor(
-            id: int.tryParse(json["id"].toString()) ?? 0,
+      id: int.tryParse(json["id"].toString()) ?? 0,
       name: json["name"] ?? "",
     );
   }

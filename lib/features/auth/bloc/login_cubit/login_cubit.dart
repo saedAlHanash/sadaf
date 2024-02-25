@@ -6,6 +6,7 @@ import 'package:sadaf/core/util/shared_preferences.dart';
 import 'package:sadaf/features/auth/data/request/login_request.dart';
 
 import '../../../../core/api_manager/api_service.dart';
+import '../../../../core/app/app_provider.dart';
 import '../../../../core/app/app_widget.dart';
 import '../../../../core/error/error_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
@@ -32,23 +33,23 @@ class LoginCubit extends Cubit<LoginInitial> {
     }
   }
 
-  Future<Pair<LoginData?, String?>> _loginApi() async {
+  Future<Pair<LoginResponse?, String?>> _loginApi() async {
     final response = await APIService().postApi(
       url: PostUrl.loginUrl,
       body: state.request.toJson(),
     );
 
     if (response.statusCode.success) {
-      final pair = Pair(LoginResponse.fromJson(response.jsonBody).data, null);
+      final pair = Pair(LoginResponse
+          .fromJson(response.jsonBody), null);
 
       AppSharedPreference.cashToken(pair.first.token);
-      // AppSharedPreference.cashMyId(pair.first.id);
-      AppSharedPreference.cashUser(pair.first);
+      AppProvider.cashProfile(pair.first.data);
       AppSharedPreference.removePhoneOrEmail();
       APIService.reInitial();
       return pair;
     } else {
-      final error = response.getPairError as Pair<LoginData?, String?>;
+      final error = response.getPairError as Pair<LoginResponse?, String?>;
       if (error.second?.contains('not verified') ?? false) {
         AppSharedPreference.cashPhoneOrEmail(state.request.phoneOrEmail);
         if (ctx != null) {

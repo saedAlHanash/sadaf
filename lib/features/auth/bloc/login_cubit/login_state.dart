@@ -1,6 +1,6 @@
 part of 'login_cubit.dart';
 
-class LoginInitial extends AbstractCubit<LoginData> {
+class LoginInitial extends AbstractCubit<LoginResponse> {
   final LoginRequest request;
 
   const LoginInitial({
@@ -12,7 +12,7 @@ class LoginInitial extends AbstractCubit<LoginData> {
 
   factory LoginInitial.initial() {
     return LoginInitial(
-      result: LoginData.fromJson({}),
+      result: LoginResponse.fromJson({}),
       error: '',
       request: LoginRequest(),
       statuses: CubitStatuses.init,
@@ -24,7 +24,7 @@ class LoginInitial extends AbstractCubit<LoginData> {
 
   LoginInitial copyWith({
     CubitStatuses? statuses,
-    LoginData? result,
+    LoginResponse? result,
     String? error,
     LoginRequest? request,
   }) {

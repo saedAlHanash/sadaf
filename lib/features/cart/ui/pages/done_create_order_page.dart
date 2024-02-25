@@ -5,6 +5,7 @@ import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/widgets/my_button.dart';
 
 import '../../../../generated/assets.dart';
+import '../../../../generated/l10n.dart';
 
 class DoneCreateOrderPage extends StatelessWidget {
   const DoneCreateOrderPage({super.key});
@@ -29,7 +30,7 @@ class DoneCreateOrderPage extends StatelessWidget {
                   ),
                   15.0.verticalSpace,
                   DrawableText(
-                    text: 'تم الشراء بنجاح',
+                    text: S.of(context).confirmPayment,
                     fontFamily: FontManager.cairoBold.name,
                     color: Colors.black,
                     size: 28.0.spMin,

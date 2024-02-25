@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_multi_type/image_multi_type.dart';
 import 'package:sadaf/core/widgets/my_button.dart';
 
+import '../../../../core/app/app_provider.dart';
+import '../../../../core/strings/enum_manager.dart';
+import '../../../../core/util/shared_preferences.dart';
 import '../../../../core/widgets/app_bar/app_bar_widget.dart';
 import '../../../../core/widgets/my_text_form_widget.dart';
 import '../../../../generated/assets.dart';
@@ -37,20 +41,18 @@ class _MyInfoPageState extends State<MyInfoPage> {
                       icon: Assets.iconsUserName,
                       initialValue: state.result.name,
                     ),
-                    if (!state.result.emailOrPhone.contains('@'))
-                      MyTextFormOutLineWidget(
-                        enable: false,
-                        label: S.of(context).phoneNumber,
-                        initialValue: state.result.emailOrPhone,
-                        icon: Assets.iconsYourPhone,
-                      ),
-                    if (state.result.emailOrPhone.contains('@'))
-                      MyTextFormOutLineWidget(
-                        enable: false,
-                        label: S.of(context).yourEmail,
-                        initialValue: state.result.emailOrPhone,
-                        icon: Assets.iconsEmail,
-                      ),
+                    MyTextFormOutLineWidget(
+                      enable: false,
+                      label: S.of(context).phoneNumber,
+                      initialValue: state.result.emailOrPhone,
+                      icon: Assets.iconsYourPhone,
+                      iconWidgetLift: state.result.emailOrPhone.isEmpty
+                          ? const ImageMultiType(
+                              url: Icons.warning_amber,
+                              color: Colors.amber,
+                            )
+                          : null,
+                    ),
                     MyTextFormOutLineWidget(
                       enable: false,
                       label: S.of(context).yourAddress,
@@ -64,6 +66,11 @@ class _MyInfoPageState extends State<MyInfoPage> {
             MyButton(
               text: S.of(context).update,
               onTap: () {
+                if (AppProvider.profile.emailOrPhone.isEmpty) {
+                  Navigator.pushNamed(context, RouteName.update,
+                      arguments: UpdateType.phone);
+                  return;
+                }
                 Navigator.pushNamed(context, RouteName.updateChoice);
               },
             ),

@@ -14,12 +14,12 @@ class LogoutCubit extends Cubit<LogoutInitial> {
   LogoutCubit() : super(LogoutInitial.initial());
   
 
-  Future<void> logout(BuildContext context) async {
+  Future<void> logout() async {
     emit(state.copyWith(statuses: CubitStatuses.loading));
     final pair = await _logoutApi();
 
     if (pair.first == null) {
-      emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
+      emit(state.copyWith(statuses: CubitStatuses.done, error: pair.second));
     } else {
       emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
     }

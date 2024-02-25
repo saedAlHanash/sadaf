@@ -9,6 +9,7 @@ import 'package:sadaf/features/profile/ui/widget/top_profile_widget.dart';
 import 'package:sadaf/features/settings/ui/widget/drawer_widget.dart';
 import 'package:sadaf/router/app_router.dart';
 
+import '../../../../core/app/app_provider.dart';
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../generated/assets.dart';
 import '../../../../generated/l10n.dart';
@@ -21,7 +22,7 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
-  var user = AppSharedPreference.getUserModel;
+  var user = AppProvider.profile;
 
   @override
   void initState() {
@@ -131,6 +132,7 @@ class ItemMenu extends StatelessWidget {
       Navigator.pushNamed(context, RouteName.updateChoice);
       return;
     }
+
     if (name == S.of(context).myOrder) {
       Navigator.pushNamed(context, RouteName.myOrders);
       return;
@@ -150,14 +152,21 @@ class ItemMenu extends StatelessWidget {
       Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.name);
       return;
     }
+
     if (name == S.of(context).changeEmail) {
       Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.email);
       return;
     }
+    if (name == S.of(context).changePhone) {
+      Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.phone);
+      return;
+    }
+
     if (name == S.of(context).changeAddress) {
       Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.address);
       return;
     }
+
     if (name == S.of(context).changePass) {
       Navigator.pushNamed(context, RouteName.update, arguments: UpdateType.pass);
       return;
@@ -167,21 +176,26 @@ class ItemMenu extends StatelessWidget {
       Navigator.pushNamed(context, RouteName.myInfo);
       return;
     }
+
     if (name == S.of(context).wishList) {
       return;
     }
+
     if (name == S.of(context).faq) {
       Navigator.pushNamed(context, RouteName.faq);
       return;
     }
+
     if (name == S.of(context).termsAndConditions) {
       Navigator.pushNamed(context, RouteName.privacy);
       return;
     }
+
     if (name == S.of(context).aboutUs) {
       Navigator.pushNamed(context, RouteName.about);
       return;
     }
+
     if (name == S.of(context).support) {
       Navigator.pushNamed(context, RouteName.supportRoom);
       return;

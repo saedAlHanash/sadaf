@@ -6,9 +6,11 @@ import 'package:flutter/material.dart';
 import 'package:sadaf/core/api_manager/api_service.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
+
 // #docregion platform_imports
 // Import for Android features.
 import 'package:webview_flutter_android/webview_flutter_android.dart';
+
 // Import for iOS features.
 import 'package:webview_flutter_wkwebview/webview_flutter_wkwebview.dart';
 
@@ -53,6 +55,9 @@ class _WebViewExampleState extends State<WebViewExample> {
           },
           onPageStarted: (String url) {
             loggerObject.w('Page started loading: $url');
+            if (url.contains('https://www.sadafiq.com/areeba/callback')) {
+              // Navigator.pop(context, true);
+            }
           },
           onPageFinished: (String url) {
             loggerObject.w('Page finished loading: $url');

@@ -12,6 +12,7 @@ import 'package:sadaf/features/cart/ui/pages/done_create_order_page.dart';
 import 'package:sadaf/features/cart/ui/widget/coupon_widget.dart';
 import 'package:sadaf/generated/assets.dart';
 
+import '../../../../core/app/app_provider.dart';
 import '../../../../core/strings/app_color_manager.dart';
 import '../../../../core/strings/enum_manager.dart';
 import '../../../../core/util/my_style.dart';
@@ -42,11 +43,22 @@ class _CartScreenState extends State<CartScreen> {
             switch (state.paymentMethod) {
               case PaymentMethod.cash:
                 Navigator.push(context,
-                    MaterialPageRoute(builder: (_) => const DoneCreateOrderPage()));
+                    MaterialPageRoute(builder: (_) => const DoneCreateOrderPage())).then(
+                  (value) {
+                    context.read<CartCubit>().getCart();
+                  },
+                );
                 break;
               case PaymentMethod.ePay:
                 Navigator.pushNamed(context, RouteName.webView,
-                    arguments: state.paymentUrl);
+                        arguments: state.paymentUrl)
+                    .then((value) {
+                  if (value == true) {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (_) => const DoneCreateOrderPage()));
+                  }
+                  context.read<CartCubit>().getCart();
+                });
                 break;
             }
           },
@@ -144,7 +156,7 @@ class _ConfirmAddress extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final user = AppSharedPreference.getProfile;
+    final user = AppProvider.profile;
     return Padding(
       padding: const EdgeInsets.all(30.0).r,
       child: Column(

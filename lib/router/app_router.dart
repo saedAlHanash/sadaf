@@ -2,14 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sadaf/core/strings/enum_manager.dart';
+import 'package:sadaf/core/util/shared_preferences.dart';
 import 'package:sadaf/features/notifications/ui/pages/notifications_page.dart';
 import 'package:sadaf/features/orders/bloc/order_by_id_cubit/order_by_id_cubit.dart';
 import 'package:sadaf/features/orders/ui/pages/tracking_order_page.dart';
 import 'package:sadaf/features/product/bloc/products_cubit/products_cubit.dart';
 import 'package:sadaf/features/product/data/response/products_response.dart';
 import 'package:sadaf/features/product/ui/pages/product_page.dart';
+import 'package:sadaf/features/profile/bloc/profile_cubit/profile_cubit.dart';
+import 'package:sadaf/features/profile/data/response/profile_response.dart';
 import 'package:sadaf/features/settings/ui/pages/faq_page.dart';
 
+import '../core/app/app_provider.dart';
+import '../core/app/app_widget.dart';
 import '../core/injection/injection_container.dart';
 import '../core/widgets/web_view.dart';
 import '../features/auth/bloc/confirm_code_cubit/confirm_code_cubit.dart';
@@ -192,6 +197,8 @@ class AppRoutes {
           BlocProvider(create: (_) => sl<DeleteAccountCubit>()),
           BlocProvider(create: (_) => sl<CreateOrderCubit>()),
         ];
+
+
         return MaterialPageRoute(
           builder: (_) {
             return MultiBlocProvider(
@@ -455,8 +462,6 @@ class AppRoutes {
         );
 
       //endregion
-
-
 
       //region webView
       case RouteName.webView:

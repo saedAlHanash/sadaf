@@ -74,6 +74,7 @@ class MessageLookup extends MessageLookupByLibrary {
             "دووبارەی وشەی تێپەڕەوشەی نوێ پەسەند بکە"),
         "confirmPassword": MessageLookupByLibrary.simpleMessage(
             "وشەی تێپەڕەوشەی دووبارەکردنەوە"),
+        "confirmPayment": MessageLookupByLibrary.simpleMessage("Done Payment"),
         "confirm_address":
             MessageLookupByLibrary.simpleMessage("پەسەندکردنی ناونیشان"),
         "confirmation": MessageLookupByLibrary.simpleMessage("پەسەندکردن"),

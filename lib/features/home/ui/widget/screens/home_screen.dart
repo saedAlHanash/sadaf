@@ -122,10 +122,19 @@ class _BannerWidget extends StatelessWidget {
                     },
                     child: Stack(
                       children: [
-                        ImageMultiType(
-                          url: Icons.notifications,
+                        Container(
                           height: 40.0.r,
-                          color: AppColorManager.mainColorDark,
+                          width: 40.0.r,
+                          alignment: Alignment.center,
+                          decoration: BoxDecoration(
+                            color: Colors.white24,
+                            shape: BoxShape.circle,
+                          ),
+                          child: ImageMultiType(
+                            url: Icons.notifications,
+                            height: 30.0.r,
+                            color: AppColorManager.mainColorDark,
+                          ),
                         ),
                         Positioned(
                           top: 0,

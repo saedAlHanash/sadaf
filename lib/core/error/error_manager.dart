@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
+import 'package:sadaf/core/app/app_provider.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/router/app_router.dart';
 
@@ -13,7 +14,8 @@ class ErrorManager {
   static String getApiError(Response response) {
     switch (response.statusCode) {
       case 401:
-        AppSharedPreference.logout();
+        AppProvider.logout();
+
         if (ctx != null) {
           Navigator.pushNamedAndRemoveUntil(ctx!, RouteName.login, (route) => false);
         }

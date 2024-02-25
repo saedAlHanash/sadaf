@@ -80,7 +80,7 @@ Future<void> init() async {
   sl.registerFactory(() => LoginCubit());
   sl.registerFactory(() => ForgetPasswordCubit());
   sl.registerFactory(() => ResetPasswordCubit());
-  sl.registerFactory(() => GetMeCubit());
+  // sl.registerFactory(() => GetMeCubit());
   sl.registerFactory(() => ConfirmCodeCubit());
   sl.registerFactory(() => ResendCodeCubit());
   sl.registerFactory(() => DeleteAccountCubit());

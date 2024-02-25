@@ -1,4 +1,5 @@
 import 'package:bloc/bloc.dart';
+import 'package:sadaf/core/app/app_provider.dart';
 import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/util/abstraction.dart';
 
@@ -30,22 +31,22 @@ class ConfirmCodeCubit extends Cubit<ConfirmCodeInitial> {
     }
   }
 
-  Future<Pair<LoginData?, String?>> _confirmCodeApi() async {
+  Future<Pair<LoginResponse?, String?>> _confirmCodeApi() async {
     final response = await APIService().postApi(
       url: PostUrl.confirmCode,
       body: state.request.toJson(),
     );
 
     if (response.statusCode == 200) {
-      final pair = Pair(LoginResponse.fromJson(response.jsonBody).data, null);
+      final pair = Pair(LoginResponse.fromJson(response.jsonBody), null);
       AppSharedPreference.cashToken(pair.first.token);
       // AppSharedPreference.cashMyId(pair.first.id);
-      AppSharedPreference.cashUser(pair.first);
+      AppProvider.cashProfile(pair.first.data);
       AppSharedPreference.removePhoneOrEmail();
       APIService.reInitial();
       return pair;
     } else {
-        return response.getPairError;
+      return response.getPairError;
     }
   }
 

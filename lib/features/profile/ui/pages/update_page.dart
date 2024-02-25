@@ -16,6 +16,7 @@ import 'package:sadaf/features/profile/bloc/profile_cubit/profile_cubit.dart';
 import 'package:sadaf/features/profile/data/response/profile_response.dart';
 import 'package:sadaf/features/profile/ui/widget/top_profile_widget.dart';
 
+import '../../../../core/app/app_provider.dart';
 import '../../../../core/util/my_style.dart';
 import '../../../../core/util/shared_preferences.dart';
 import '../../../../generated/l10n.dart';
@@ -35,7 +36,7 @@ class UpdatePage extends StatefulWidget {
 }
 
 class _UpdatePageState extends State<UpdatePage> {
-  final user = AppSharedPreference.getProfile;
+  final user = AppProvider.profile;
   late UpdateProfileRequest request;
   late final UpdateProfileCubit updateCubit;
 
@@ -122,7 +123,7 @@ class _UpdatePageState extends State<UpdatePage> {
                 MyTextFormOutLineWidget(
                   label: S.of(context).phoneNumber,
                   onChanged: (val) => updateCubit.setEmailOrPhone = val,
-                  initialValue: request.emailOrPhone,
+                  initialValue: request.emailOrPhone?.replaceAll('+964', ''),
                 ),
               if (widget.updateType == UpdateType.email)
                 MyTextFormOutLineWidget(
@@ -184,7 +185,6 @@ class _UpdatePageState extends State<UpdatePage> {
                                       arguments: user.mapAddress.getLatLng)
                                   .then((value) {
                                 if (value != null && value is LatLng) {
-                                  
                                   getLocationNameApi(latLng: value).then((locationName) {
                                     updateCubit.setHomeAddress = locationName;
                                     updateCubit.addressController.text = locationName;

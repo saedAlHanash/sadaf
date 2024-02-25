@@ -16,7 +16,7 @@ class UpdateProfileInitial extends AbstractCubit<Profile> {
   factory UpdateProfileInitial.initial() {
     return UpdateProfileInitial(
       request: UpdateProfileRequest.initial(),
-      result: AppSharedPreference.getProfile,
+      result: AppProvider.profile,
     );
   }
 

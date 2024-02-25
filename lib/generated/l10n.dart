@@ -2040,6 +2040,16 @@ class S {
     );
   }
 
+  /// `Done Payment`
+  String get confirmPayment {
+    return Intl.message(
+      'Done Payment',
+      name: 'confirmPayment',
+      desc: '',
+      args: [],
+    );
+  }
+
   /// `Your Location`
   String get yourLocation {
     return Intl.message(

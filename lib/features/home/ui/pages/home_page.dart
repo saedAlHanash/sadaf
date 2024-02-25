@@ -2,11 +2,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:sadaf/core/widgets/app_bar/app_bar_widget.dart';
 
+import '../../../../core/app/app_provider.dart';
 import '../../../../core/widgets/bottom_nav_widget.dart';
 import '../../../../generated/l10n.dart';
 import '../../../cart/bloc/add_to_cart_cubit/add_to_cart_cubit.dart';
 import '../../../cart/ui/pages/cart_screen.dart';
 import '../../../favorite/ui/pages/fav_screen.dart';
+import '../../../profile/bloc/profile_cubit/profile_cubit.dart';
 import '../../../settings/ui/pages/settings_screen.dart';
 import '../widget/screens/home_screen.dart';
 
@@ -23,6 +25,9 @@ class _HomepageState extends State<Homepage> {
   @override
   void initState() {
     super.initState();
+
+    context.read<ProfileCubit>().getProfile();
+
     _pageController = PageController();
   }
 

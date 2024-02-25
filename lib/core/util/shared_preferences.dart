@@ -44,16 +44,6 @@ class AppSharedPreference {
     return _prefs.getString(_token) ?? '';
   }
 
-  static cashUser(LoginData? model) {
-    if (model == null) return;
-
-    _prefs.setString(_user, jsonEncode(model.toJson()));
-  }
-
-  static LoginData get getUserModel {
-    var json = _prefs.getString(_user) ?? '{}';
-    return LoginData.fromJson(jsonDecode(json));
-  }
 
   static cashPhoneOrEmail(String? phone) async {
     if (phone == null) return;
@@ -111,8 +101,8 @@ class AppSharedPreference {
     _prefs.clear();
   }
 
-  static void logout() {
-    _prefs.clear();
+  static Future<void> logout() async {
+    await _prefs.clear();
   }
 
   static bool get isLogin => getToken().isNotEmpty;

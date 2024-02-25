@@ -24,8 +24,8 @@ class ProfileCubit extends Cubit<ProfileInitial> {
       emit(state.copyWith(statuses: CubitStatuses.error, error: pair.second));
       showErrorFromApi(state);
     } else {
-      await AppSharedPreference.setProfile(pair.first!);
-      AppProvider.reInitial();
+      await AppProvider.cashProfile(pair.first!);
+
       emit(state.copyWith(statuses: CubitStatuses.done, result: pair.first));
     }
   }
@@ -40,5 +40,9 @@ class ProfileCubit extends Cubit<ProfileInitial> {
     } else {
       return response.getPairError;
     }
+  }
+
+  void reInitial() {
+    emit(ProfileInitial.initial());
   }
 }

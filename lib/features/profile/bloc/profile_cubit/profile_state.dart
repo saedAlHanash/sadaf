@@ -12,7 +12,7 @@ class ProfileInitial extends AbstractCubit<Profile> {
 
   factory ProfileInitial.initial() {
     return ProfileInitial(
-      result: AppSharedPreference.getProfile,
+      result: AppProvider.profile,
       id: 0,
     );
   }
