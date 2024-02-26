@@ -74,14 +74,13 @@ class GetUrl {
 
   static const getRoomMessages = 'messages';
 
-  static const faq='questions';
+  static const faq = 'questions';
 
-  static var termsAndConditions ='pages';
+  static const termsAndConditions = 'pages';
 }
 
 class PostUrl {
-
-  static var addReview = 'reviews';
+  static const addReview = 'reviews';
   static const loginUrl = 'login';
   static const signup = 'register';
 
@@ -115,7 +114,10 @@ class PostUrl {
 
   static const addSupportMessage = 'messages/add';
 
-  static var loginSocial ='social/login';
+  static const loginSocial = 'social/login';
+  static const addPhone = 'social/add-phone';
+
+  static var socialVerifyPhone = 'social/verify-phone';
 
   static String addMessage(int id) {
     return 'drivers/messages/$id/add';

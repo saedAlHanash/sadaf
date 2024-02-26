@@ -34,7 +34,6 @@ dependencies:
   firebase_auth: ^4.6.3
   google_sign_in: ^6.2.1
   model_viewer_plus: ^1.7.0
-  flutter_facebook_auth: ^6.0.4
   hive: any
   hive_flutter: any
   pod_player: ^0.2.1
@@ -60,6 +59,7 @@ dependencies:
   firebase_messaging: ^14.7.10
   geolocator: any
   intl: any
+  flutter_facebook_auth: ^6.1.1
   flutter_local_notifications: ^16.3.1+1
   package_info_plus: ^4.1.0
   webview_flutter: ^4.4.4

@@ -258,6 +258,7 @@ class AppRoutes {
         final providers = [
           BlocProvider(create: (_) => sl<UpdateProfileCubit>()),
           BlocProvider(create: (_) => sl<MyLocationCubit>()),
+          BlocProvider(create: (_) => sl<ResendCodeCubit>()),
         ];
         return MaterialPageRoute(
           builder: (_) {

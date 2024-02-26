@@ -1,6 +1,6 @@
 part of 'resend_code_cubit.dart';
 
-class ResendCodeInitial extends AbstractCubit<bool> {
+class ResendCodeInitial extends AbstractCubit<String> {
 
 
   const ResendCodeInitial({
@@ -11,7 +11,7 @@ class ResendCodeInitial extends AbstractCubit<bool> {
 
   factory ResendCodeInitial.initial() {
     return const ResendCodeInitial(
-      result: false,
+      result: '',
       error: '',
       statuses: CubitStatuses.init,
     );
@@ -22,7 +22,7 @@ class ResendCodeInitial extends AbstractCubit<bool> {
 
   ResendCodeInitial copyWith({
     CubitStatuses? statuses,
-    bool? result,
+    String? result,
     String? error,
   }) {
     return ResendCodeInitial(

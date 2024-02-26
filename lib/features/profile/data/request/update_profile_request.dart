@@ -16,6 +16,7 @@ class UpdateProfileRequest {
     this.oldPass,
     this.newPass,
     this.rePass,
+    this.otpCode,
   });
 
   String? receiverPhone;
@@ -29,6 +30,7 @@ class UpdateProfileRequest {
   String? oldPass;
   String? newPass;
   String? rePass;
+  String? otpCode;
 
   UpdateType? type;
 
@@ -55,5 +57,15 @@ class UpdateProfileRequest {
         "receiver_phone": receiverPhone,
         "governor_id": governorId == 0 ? null : governorId,
         "new_password_confirmation": rePass,
+      }..removeWhere((key, value) => value == null);
+
+  Map<String, dynamic> toJsonPhone() => {
+        "phone": emailOrPhone,
+        "otp_code": otpCode,
+      }..removeWhere((key, value) => value == null);
+
+  Map<String, dynamic> toJsonPhoneConfirm() => {
+        "email_or_phone": emailOrPhone,
+        "otp_code": otpCode,
       }..removeWhere((key, value) => value == null);
 }

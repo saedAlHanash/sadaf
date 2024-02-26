@@ -12,7 +12,20 @@
           "package_name": "bandtech.sadaf.sadaf"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "758020317658-1d1b9f7tgd6gk92qjden2d8k3uscgkdb.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "bandtech.sadaf.sadaf",
+            "certificate_hash": "e37ad461ba2172464e66075d8d8d6b2e9cb17daa"
+          }
+        },
+        {
+          "client_id": "758020317658-738q9r2pmhg2p8u6in4k9qt8lb9potkr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCNEp18moU4fZgLxGjHDxLWvD3Pj41desg"
@@ -20,7 +33,55 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "758020317658-6lit1f0stok4f4amla49coi0iq8q72ik.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "758020317658-aih22kb7vjpnre8r2afb6hauvhhav5du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sadaf.warehouse"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:758020317658:android:2a23abe62b768720ec20e3",
+        "android_client_info": {
+          "package_name": "com.bandtech.sadaf"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "758020317658-738q9r2pmhg2p8u6in4k9qt8lb9potkr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCNEp18moU4fZgLxGjHDxLWvD3Pj41desg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "758020317658-6lit1f0stok4f4amla49coi0iq8q72ik.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "758020317658-aih22kb7vjpnre8r2afb6hauvhhav5du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sadaf.warehouse"
+              }
+            }
+          ]
         }
       }
     },
@@ -31,7 +92,12 @@
           "package_name": "com.sadaf.driver.sadaf"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "758020317658-738q9r2pmhg2p8u6in4k9qt8lb9potkr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCNEp18moU4fZgLxGjHDxLWvD3Pj41desg"
@@ -39,7 +105,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "758020317658-6lit1f0stok4f4amla49coi0iq8q72ik.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "758020317658-aih22kb7vjpnre8r2afb6hauvhhav5du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sadaf.warehouse"
+              }
+            }
+          ]
         }
       }
     },
@@ -50,7 +128,12 @@
           "package_name": "com.sadaf.warehouse"
         }
       },
-      "oauth_client": [],
+      "oauth_client": [
+        {
+          "client_id": "758020317658-738q9r2pmhg2p8u6in4k9qt8lb9potkr.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
       "api_key": [
         {
           "current_key": "AIzaSyCNEp18moU4fZgLxGjHDxLWvD3Pj41desg"
@@ -58,7 +141,19 @@
       ],
       "services": {
         "appinvite_service": {
-          "other_platform_oauth_client": []
+          "other_platform_oauth_client": [
+            {
+              "client_id": "758020317658-6lit1f0stok4f4amla49coi0iq8q72ik.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "758020317658-aih22kb7vjpnre8r2afb6hauvhhav5du.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.sadaf.warehouse"
+              }
+            }
+          ]
         }
       }
     }

@@ -63,7 +63,7 @@ class _ConfirmCodePageState extends State<ConfirmCodePage> {
           listenWhen: (p, current) => current.statuses == CubitStatuses.done,
           listener: (context, state) {
             NoteMessage.showAwesomeDoneDialog(context,
-                message: S.of(context).done_resend_code);
+                message: '${S.of(context).done_resend_code} ${state.result}');
           },
         ),
       ],

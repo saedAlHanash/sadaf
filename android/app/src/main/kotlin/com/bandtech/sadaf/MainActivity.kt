@@ -1,4 +1,4 @@
-package bandtech.sadaf.sadaf
+package com.bandtech.sadaf
 
 import io.flutter.embedding.android.FlutterActivity
 

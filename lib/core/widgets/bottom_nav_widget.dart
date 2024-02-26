@@ -94,7 +94,6 @@ class _NewNavState extends State<NewNav> {
                   builder: (context, state) {
                     return CircleImageWidget(
                       url: state.result.avatar,
-                      color: Colors.white,
                       size: 25.0.spMin,
                     );
                   },
@@ -108,7 +107,6 @@ class _NewNavState extends State<NewNav> {
                 alignment: Alignment.center,
                 child: CircleImageWidget(
                   url: AppProvider.profile.avatar,
-                  color: Colors.white,
                   size: 30.0.spMin,
                 ),
               ),

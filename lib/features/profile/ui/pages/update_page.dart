@@ -21,6 +21,7 @@ import '../../../../core/util/my_style.dart';
 import '../../../../core/util/shared_preferences.dart';
 import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
+import '../../../auth/bloc/resend_code_cubit/resend_code_cubit.dart';
 import '../../../governors/bloc/governors_cubit/governors_cubit.dart';
 import '../../../map/bloc/my_location_cubit/my_location_cubit.dart';
 import '../../bloc/update_profile_cubit/update_profile_cubit.dart';
@@ -56,7 +57,32 @@ class _UpdatePageState extends State<UpdatePage> {
         BlocListener<UpdateProfileCubit, UpdateProfileInitial>(
           listenWhen: (p, c) => c.statuses.done,
           listener: (context, state) {
-            context.read<ProfileCubit>().getProfile();
+            switch (state.type) {
+              case UpdateProfileType.normal:
+                NoteMessage.showAwesomeDoneDialog(
+                  context,
+                  message: AppProvider.profile.needConfirm
+                      ? '${S.of(context).done} ${S.of(context).editProfile} '
+                      : '',
+                  onCancel: () {
+                    if (AppProvider.profile.needConfirm) {
+                      setState(() {});
+                      return;
+                    }
+
+                    Navigator.pop(context);
+                  },
+                );
+                break;
+              case UpdateProfileType.confirmAddPhone:
+                NoteMessage.showAwesomeDoneDialog(
+                  context,
+                  message:
+                      '${S.of(context).done} ${S.of(context).confirm} ${S.of(context).phoneNumber}',
+                  onCancel: () => Navigator.pop(context),
+                );
+                break;
+            }
           },
         ),
         BlocListener<MyLocationCubit, MyLocationInitial>(
@@ -72,19 +98,16 @@ class _UpdatePageState extends State<UpdatePage> {
                 updateCubit.state.request.mapAddress.toString();
           },
         ),
+        BlocListener<ResendCodeCubit, ResendCodeInitial>(
+          listenWhen: (p, current) => current.statuses.done,
+          listener: (context, state) {
+            NoteMessage.showAwesomeDoneDialog(context,
+                message: '${S.of(context).done_resend_code} ${state.result}');
+          },
+        ),
       ],
       child: Scaffold(
-        bottomNavigationBar: BlocConsumer<UpdateProfileCubit, UpdateProfileInitial>(
-          listenWhen: (p, c) => c.statuses.done,
-          listener: (context, state) {
-            NoteMessage.showAwesomeDoneDialog(
-              context,
-              message: '',
-              onCancel: () {
-                Navigator.pop(context);
-              },
-            );
-          },
+        bottomNavigationBar: BlocBuilder<UpdateProfileCubit, UpdateProfileInitial>(
           builder: (context, state) {
             return Container(
               constraints: BoxConstraints(maxHeight: 120.0.h),
@@ -96,7 +119,11 @@ class _UpdatePageState extends State<UpdatePage> {
                     : null,
                 onTap: () {
                   if (state.statuses.loading) return;
-                  updateCubit.updateProfile();
+                  var type = AppProvider.profile.needConfirm
+                      ? UpdateProfileType.confirmAddPhone
+                      : UpdateProfileType.normal;
+
+                  updateCubit.updateProfile(type: type);
                 },
               ),
             );
@@ -119,12 +146,44 @@ class _UpdatePageState extends State<UpdatePage> {
                   onChanged: (val) => updateCubit.setName = val,
                   initialValue: request.name,
                 ),
-              if (widget.updateType == UpdateType.phone)
+              if (widget.updateType == UpdateType.phone) ...[
                 MyTextFormOutLineWidget(
                   label: S.of(context).phoneNumber,
                   onChanged: (val) => updateCubit.setEmailOrPhone = val,
                   initialValue: request.emailOrPhone?.replaceAll('+964', ''),
                 ),
+                if (AppProvider.profile.needConfirm) ...[
+                  MyTextFormOutLineWidget(
+                    label: S.of(context).enterOTP,
+                    onChanged: (val) => updateCubit.setOtpPhone = val,
+                    keyBordType: TextInputType.number,
+                    initialValue: request.otpCode,
+                  ),
+                  DrawableText(
+                    text: S.of(context).didNotReceiveOTP,
+                    drawablePadding: 10.0.w,
+                    drawableEnd: TextButton(
+                      onPressed: () {
+                        context
+                            .read<ResendCodeCubit>()
+                            .resendCode(phone: AppProvider.profile.emailOrPhone);
+                      },
+                      child: BlocBuilder<ResendCodeCubit, ResendCodeInitial>(
+                        builder: (context, state) {
+                          if (state.statuses == CubitStatuses.loading) {
+                            return MyStyle.loadingWidget();
+                          }
+                          return DrawableText(
+                            text: S.of(context).resend,
+                            underLine: true,
+                            fontFamily: FontManager.cairoBold.name,
+                          );
+                        },
+                      ),
+                    ),
+                  ),
+                ],
+              ],
               if (widget.updateType == UpdateType.email)
                 MyTextFormOutLineWidget(
                   label: S.of(context).email,

@@ -8,6 +8,7 @@ import 'package:sadaf/core/strings/app_color_manager.dart';
 import 'package:sadaf/core/util/shared_preferences.dart';
 
 import '../../features/product/data/response/products_response.dart';
+import '../../features/profile/data/response/profile_response.dart';
 import '../../generated/l10n.dart';
 import '../error/error_manager.dart';
 import '../strings/enum_manager.dart';
@@ -116,11 +117,9 @@ extension SplitByLength on String {
     return OrderStatus.pending;
   }
 
-
   num get tryParseOrZero => num.tryParse(this) ?? 0;
 
   int get tryParseOrZeroInt => int.tryParse(this) ?? 0;
-
 
   num? get tryParseOrNull => num.tryParse(this);
 
@@ -142,6 +141,14 @@ extension MaxInt on num {
   String get formatPrice => oCcy.format(this);
 }
 
+extension ProfileH on Profile {
+  bool get noPhone => emailOrPhone.isEmpty;
+
+  bool get needConfirm => emailOrPhone.isNotEmpty && confirmedAt == null;
+
+  bool get showWarning => noPhone || needConfirm;
+}
+
 extension HelperJson on Map<String, dynamic> {
   num getAsNum(String key) {
     if (this[key] == null) return -1;
@@ -161,7 +168,6 @@ extension ListEnumHelper on List<Enum> {
         ),
       ),
     );
-
   }
 }
 

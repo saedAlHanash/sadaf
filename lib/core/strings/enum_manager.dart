@@ -17,6 +17,7 @@ enum PaymentMethod { cash, ePay }
 enum StartPage { login, home, otp, passwordOtp, resetPassword }
 
 enum CurrencyEnum { dollar, dinar }
+enum UpdateProfileType { normal,confirmAddPhone }
 
 enum OrderStatus {
   pending,

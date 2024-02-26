@@ -35,8 +35,10 @@ class AddToCartCubit extends Cubit<AddToCartInitial> {
   }
 
   Future<Pair<bool?, String?>> _addToCartApi() async {
-    final response = await APIService()
-        .postApi(url: PostUrl.addToCart, body: {'product_id': state.id});
+    final response = await APIService().postApi(
+      url: PostUrl.addToCart,
+      body: {'product_id': state.id, "from": 'mobile'},
+    );
 
     if (response.statusCode == 200) {
       return Pair(true, null);
@@ -46,12 +48,10 @@ class AddToCartCubit extends Cubit<AddToCartInitial> {
   }
 
   void doneAdd({int? id}) {
-
     emit(state.copyWith(showDone: true));
     Future.delayed(
       const Duration(seconds: 2),
       () {
-
         emit(state.copyWith(showDone: false));
       },
     );

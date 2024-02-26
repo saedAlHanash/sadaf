@@ -1,4 +1,5 @@
 import 'package:drawable_text/drawable_text.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -15,6 +16,7 @@ import '../../../../generated/l10n.dart';
 import '../../../../router/app_router.dart';
 import '../../bloc/login_cubit/login_cubit.dart';
 import '../../bloc/login_social_cubit/login_social_cubit.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class LoginPage extends StatefulWidget {
   const LoginPage({Key? key}) : super(key: key);
@@ -42,14 +44,12 @@ class _LoginPageState extends State<LoginPage> {
         BlocListener<LoginCubit, LoginInitial>(
           listenWhen: (p, c) => c.statuses.done,
           listener: (context, state) {
-
             Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
           },
         ),
         BlocListener<LoginSocialCubit, LoginSocialInitial>(
           listenWhen: (p, c) => c.statuses.done,
           listener: (context, state) {
-
             Navigator.pushNamedAndRemoveUntil(context, RouteName.home, (route) => false);
           },
         ),
@@ -127,10 +127,25 @@ class _LoginPageState extends State<LoginPage> {
                 20.0.verticalSpace,
                 Row(
                   children: [
-                    ImageMultiType(
-                      url: Assets.iconsFbLogin,
-                      width: 60.0.r,
-                      height: 30.0.r,
+                    InkWell(
+                      onTap: () async {
+                        await FacebookAuth.instance.logOut();
+                        final result = await FacebookAuth.instance.login();
+
+                        if (result.status == LoginStatus.success) {
+                          // you are logged
+                          final accessToken = result.accessToken!;
+
+                        } else {
+                          print(result.status);
+                          print(result.message);
+                        }
+                      },
+                      child: ImageMultiType(
+                        url: Assets.iconsFbLogin,
+                        width: 60.0.r,
+                        height: 30.0.r,
+                      ),
                     ),
                     30.0.horizontalSpace,
                     InkWell(

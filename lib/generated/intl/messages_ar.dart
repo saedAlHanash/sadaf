@@ -246,6 +246,8 @@ class MessageLookup extends MessageLookupByLibrary {
             MessageLookupByLibrary.simpleMessage("تسجيل الدخول للمتابعة"),
         "signInWithSocial": MessageLookupByLibrary.simpleMessage(
             "تسجيل الدخول باستخدام الشبكات الاجتماعية:"),
+        "signInWithSocialNetworks": MessageLookupByLibrary.simpleMessage(
+            "تسجيل الدخول ببرامج التواصل "),
         "signUp": MessageLookupByLibrary.simpleMessage("الاشتراك"),
         "sizes": MessageLookupByLibrary.simpleMessage("الأحجام"),
         "subCategories": MessageLookupByLibrary.simpleMessage("تصنيفات فرعية"),

@@ -5,16 +5,16 @@ class ProfileResponse {
     required this.data,
   });
 
-  final Profile? data;
+  final Profile data;
 
   factory ProfileResponse.fromJson(Map<String, dynamic> json) {
     return ProfileResponse(
-      data: json["data"] == null ? null : Profile.fromJson(json["data"]),
+      data:  Profile.fromJson(json["data"]??{}),
     );
   }
 
   Map<String, dynamic> toJson() => {
-        "data": data?.toJson(),
+        "data": data.toJson(),
       };
 }
 
@@ -56,7 +56,7 @@ class Profile {
       avatar: json["avatar"] ?? "",
       provider: json["provider"] ?? "",
       isFromSocial: json["is_from_social"] ?? false,
-      confirmedAt: DateTime.tryParse(json["email_verified_at"] ?? ""),
+      confirmedAt: DateTime.tryParse(json["otp_verified_at"] ?? ""),
     );
   }
 
@@ -70,7 +70,7 @@ class Profile {
         "avatar": avatar,
         "provider": provider,
         "is_from_social": isFromSocial,
-        "email_verified_at": confirmedAt?.toIso8601String(),
+        "otp_verified_at": confirmedAt?.toIso8601String(),
       };
 }
 

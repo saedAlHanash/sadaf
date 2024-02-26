@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_multi_type/image_multi_type.dart';
+import 'package:sadaf/core/extensions/extensions.dart';
 import 'package:sadaf/core/widgets/my_button.dart';
 
 import '../../../../core/app/app_provider.dart';
@@ -46,7 +47,7 @@ class _MyInfoPageState extends State<MyInfoPage> {
                       label: S.of(context).phoneNumber,
                       initialValue: state.result.emailOrPhone,
                       icon: Assets.iconsYourPhone,
-                      iconWidgetLift: state.result.emailOrPhone.isEmpty
+                      iconWidgetLift: state.result.showWarning
                           ? const ImageMultiType(
                               url: Icons.warning_amber,
                               color: Colors.amber,
@@ -66,9 +67,12 @@ class _MyInfoPageState extends State<MyInfoPage> {
             MyButton(
               text: S.of(context).update,
               onTap: () {
-                if (AppProvider.profile.emailOrPhone.isEmpty) {
-                  Navigator.pushNamed(context, RouteName.update,
-                      arguments: UpdateType.phone);
+                if (AppProvider.profile.showWarning) {
+                  Navigator.pushNamed(
+                    context,
+                    RouteName.update,
+                    arguments: UpdateType.phone,
+                  );
                   return;
                 }
                 Navigator.pushNamed(context, RouteName.updateChoice);

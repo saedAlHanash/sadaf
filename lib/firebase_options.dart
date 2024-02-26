@@ -51,7 +51,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyCNEp18moU4fZgLxGjHDxLWvD3Pj41desg',
-    appId: '1:758020317658:android:b642ea25271a44c4ec20e3',
+    appId: '1:758020317658:android:2a23abe62b768720ec20e3',
     messagingSenderId: '758020317658',
     projectId: 'sadaf-app',
     storageBucket: 'sadaf-app.appspot.com',
@@ -59,10 +59,12 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyBmlDS7DsoMBZq6ueAtnO3evE07DdDSzg4',
-    appId: '1:758020317658:ios:d2b482fcb08dce8eec20e3',
+    appId: '1:758020317658:ios:cddae1cccbc05f51ec20e3',
     messagingSenderId: '758020317658',
     projectId: 'sadaf-app',
     storageBucket: 'sadaf-app.appspot.com',
-    iosBundleId: 'bandtech.sadaf.sadaf',
+    androidClientId: '758020317658-1d1b9f7tgd6gk92qjden2d8k3uscgkdb.apps.googleusercontent.com',
+    iosClientId: '758020317658-m65ukpmoeq45clsohfv7aufdf35eqs7o.apps.googleusercontent.com',
+    iosBundleId: 'com.bandtech.sadaf',
   );
 }
