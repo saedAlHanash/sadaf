@@ -68,3 +68,13 @@ class DefaultFirebaseOptions {
     iosBundleId: 'com.bandtech.sadaf',
   );
 }
+//imei=123456789012345
+// dt=2016-01-01 00:00:00
+// lat=54.000000
+// lng=25.000000
+// altitude=100
+// angle=45
+// speed=60
+// loc_valid=1
+// params=batp=100|acc=1|
+// event=sos

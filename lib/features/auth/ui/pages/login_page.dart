@@ -56,7 +56,7 @@ class _LoginPageState extends State<LoginPage> {
       ],
       child: Scaffold(
         appBar: const AppBarWidget(),
-        body: Padding(
+        body: SingleChildScrollView(
           padding: MyStyle.authPagesPadding,
           child: Form(
             key: _formKey,
@@ -119,7 +119,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ),
                 ),
-                const Spacer(),
+                40.0.verticalSpace,
                 DrawableText(
                   matchParent: true,
                   text: S.of(context).signInWithSocialNetworks,
@@ -167,7 +167,7 @@ class _LoginPageState extends State<LoginPage> {
                     ),
                   ],
                 ),
-                const Spacer(),
+               40.0.verticalSpace,
               ],
             ),
           ),

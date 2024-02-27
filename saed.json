@@ -1,21 +1,38 @@
 {
-  "data": {
-    "name": "\u0633\u0639\u064a\u062f",
-    "email_or_phone": "saed@gmail.com",
-    "map_address": {
-      "latitude": "33.30869036523286",
-      "longitude": "44.3608658015728"
+  "imei": "354778343135979",
+  "records": [
+    {
+      "dt": "2024-02-28 00:00:00",
+      "lat": 54.000000,
+      "lng": 25.000000,
+      "altitude": 100,
+      "angle": 0,
+      "speed": 0,
+      "loc_valid": 1,
+      "params": {},
+      "event": ""
     },
-    "governor": {
-      "id": 3,
-      "name": "Sulaymaniyah"
+    {
+      "dt": "2024-02-28 00:01:00",
+      "lat": 54.000000,
+      "lng": 25.000000,
+      "altitude": 100,
+      "angle": 0,
+      "speed": 0,
+      "loc_valid": 1,
+      "params": {},
+      "event": ""
     },
-    "address": "\u0634\u0627\u0631\u0639 \u062f\u0645\u0634\u0642, \u0645\u062d\u0644\u0629 205, \u062d\u064a \u0627\u0644\u062c\u0646\u064a\u062f, \u0646\u0627\u062d\u064a\u0629 \u0645\u0631\u06a9\u0632 \u0642\u0636\u0627\u0621 \u0627\u0644\u06a9\u0631\u062e, \u0642\u0636\u0627\u0621 \u0627\u0644\u06a9\u0631\u062e, \u0628\u063a\u062f\u0627\u062f, \u0628\u0644\u062f\u064a\u0629 \u0627\u0644\u0643\u0631\u062e, \u0645\u062d\u0627\u0641\u0638\u0629 \u0628\u063a\u062f\u0627\u062f, 10092, \u0627\u0644\u0639\u0631\u0627\u0642",
-    "receiver_phone": "07565432467",
-    "avatar": "https:\/\/sadaf-group.s3.me-south-1.amazonaws.com\/avatars\/o1S0UekL4h6gibUtd5R2WMeo6QLTtik6D5GLLQx3.jpg",
-    "provider": null,
-    "is_from_social": false,
-    "email_verified_at": null
-  },
-  "token": "227|0dIxwq4EbhOInBATmIBsLNe1QrR1PNZvznWZxcRlf71d069b"
+    {
+      "dt": "2024-02-28 00:02:00",
+      "lat": 54.000000,
+      "lng": 25.000000,
+      "altitude": 100,
+      "angle": 0,
+      "speed": 0,
+      "loc_valid": 1,
+      "params": {},
+      "event": ""
+    }
+  ]
 }
